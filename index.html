@@ -427,6 +427,67 @@
                 display: none;
             }
         }
+
+        /* ── Interactive Event Animations ── */
+        @keyframes thunderStrike {
+            0%   { opacity: 1; transform: scale(1); }
+            40%  { opacity: 0.8; transform: scale(1.03); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+        @keyframes boltPop {
+            0%   { transform: translate(-50%,-50%) scale(0) rotate(-15deg); opacity: 1; }
+            55%  { transform: translate(-50%,-50%) scale(1.3) rotate(8deg);  opacity: 1; }
+            100% { transform: translate(-50%,-50%) scale(0.7) rotate(0deg);  opacity: 0; }
+        }
+        @keyframes particleFly {
+            0%   { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--dx),var(--dy)) scale(0); opacity: 0; }
+        }
+        @keyframes achieveSlide {
+            0%   { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            12%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+            78%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+        @keyframes zapFly {
+            0%   { transform: translate(0,0) scale(1.2); opacity: 1; }
+            100% { transform: translate(var(--dx),var(--dy)) scale(0.4); opacity: 0; }
+        }
+        @keyframes dangerShake {
+            0%,100% { transform: translateX(0); box-shadow: none; }
+            15%  { transform: translateX(-6px); box-shadow: 0 0 0 3px rgba(239,68,68,0.5); }
+            30%  { transform: translateX(6px);  box-shadow: 0 0 0 6px rgba(239,68,68,0.3); }
+            45%  { transform: translateX(-4px); }
+            60%  { transform: translateX(4px);  }
+            75%  { transform: translateX(-2px); }
+        }
+        @keyframes konamiFly {
+            0%   { left: -400px; opacity: 0; }
+            8%   { opacity: 1; }
+            92%  { opacity: 1; }
+            100% { left: calc(100vw + 400px); opacity: 0; }
+        }
+        @keyframes screenFlash {
+            0%,100% { opacity: 0; }
+            30%     { opacity: 1; }
+        }
+        @keyframes cardPulseGlow {
+            0%,100% { box-shadow: none; }
+            50%     { box-shadow: 0 0 24px rgba(161,208,108,0.25); }
+        }
+        @keyframes countdownPing {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.12); color: #fff; }
+            100% { transform: scale(1); }
+        }
+        @keyframes tooltipFade {
+            0%   { opacity: 0; transform: translateY(6px) translateX(-50%); }
+            100% { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+        .interactive-card-hover:hover {
+            animation: cardPulseGlow 1.2s ease infinite;
+        }
+        .countdown-ping { animation: countdownPing 0.4s ease; }
     </style>
 </head>
 <body>
@@ -435,7 +496,7 @@
     <header class="global-header">
         <div class="logo-container">
             <!-- 1. 썬더버드 로고 SVG 직접 삽입 -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2519.8401 1312.7573" style="height: 34px; width: auto; filter: drop-shadow(0 0 10px rgba(161, 208, 108, 0.3));">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="370 345 250 95" style="height: 46px; width: auto; filter: drop-shadow(0 0 10px rgba(161, 208, 108, 0.3));">
                 <defs>
                     <clipPath id="clipPath18" clipPathUnits="userSpaceOnUse">
                         <path id="path16" d="M 0,984.568 H 1889.88 V 0 H 0 Z" />
@@ -471,25 +532,28 @@
                 </g>
             </svg>
         </div>
-        <!-- 2. 파트너십 배지 대신 CAYL, ON, yohemite 3개 브랜드 벡터 로고 삽입 -->
-        <!-- (업로드된 SVG 파일 내용에 직접 접근할 수 없는 환경적 제약으로 인해, 비율과 폰트를 고품질로 일치시킨 커스텀 벡터(SVG) 객체로 대신 삽입해 구현했습니다.) -->
-        <div class="hidden sm:flex items-center gap-7 opacity-80 hover:opacity-100 transition-opacity">
+        <!-- 파트너 브랜드 로고: CAYL / ON / yohemite -->
+        <div class="hidden sm:flex items-center opacity-75 hover:opacity-100 transition-opacity" style="gap: 10px; transition: opacity 0.3s ease;">
             <!-- CAYL -->
-            <svg height="22" viewBox="0 0 80 30" xmlns="http://www.w3.org/2000/svg" class="fill-white hover:fill-[#A1D06C] transition-colors cursor-pointer">
-                <path d="M10,25 L20,10 L30,20 L45,5 L60,15 L70,10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <text x="8" y="28" fill="currentColor" font-family="sans-serif" font-weight="900" font-size="18" letter-spacing="2">CAYL</text>
+            <svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;">
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M74.2263 55.2933C74.2263 56.0502 74.0723 56.7977 73.1862 56.7977C72.4803 56.7977 72.1599 55.6461 71.8923 55.1221C69.7776 50.8604 67.0497 48.7833 62.7633 48.7833C54.2326 48.7833 50.1753 56.3199 50.1753 63.3201C50.1753 72.9821 56.0117 77.7693 62.5066 77.7693C66.3985 77.7693 69.0948 76.2217 71.8366 73.4713C72.2808 73.0269 72.7621 72.2725 73.515 72.2725C73.6489 72.276 73.7808 72.3066 73.9028 72.3624C74.0249 72.4182 74.1345 72.4981 74.2254 72.5974C74.3162 72.6967 74.3864 72.8133 74.4318 72.9404C74.4771 73.0676 74.4967 73.2025 74.4894 73.3374C74.4894 74.8019 71.1726 77.3279 70.0673 77.9948C67.681 79.4976 65.4715 80.2978 61.8032 80.2978C52.9669 80.2978 45.6752 73.7405 45.6752 64.6518C45.6752 55.9626 50.8032 46.5186 62.9529 46.5186C65.8831 46.4201 68.7832 47.1411 71.332 48.6017C73.8003 49.8871 74.2224 50.8156 74.2224 52.104L74.2263 55.2933Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M83.6861 68.3611C83.2008 69.8779 81.6498 73.7355 81.6498 75.2881C81.6498 78.0351 83.9912 77.2737 83.9912 78.6053C83.9912 79.5802 82.7131 79.4847 81.3373 79.4847H77.7574C76.702 79.4847 75.9027 79.5603 75.9027 78.5392C75.9027 78.0122 76.2157 77.7808 76.6146 77.5125C76.9441 77.3451 77.2357 77.1106 77.471 76.824C77.7062 76.5373 77.8801 76.2047 77.9815 75.847C81.2075 65.7884 85.5402 55.7322 89.0742 49.3028C89.6484 48.2419 90.6169 46.2976 91.2813 46.2976C92.1245 46.2976 93.447 48.7813 93.7555 49.3098C97.5117 55.7397 101.004 64.2955 104.984 76.0913C105.291 76.9731 105.69 77.2423 106.527 77.6837C106.971 77.9052 107.281 78.054 107.281 78.5859C107.281 79.6091 106.268 79.4856 105.513 79.4856H100.034C99.3327 79.4856 98.4422 79.4752 98.4422 78.5402C98.4422 77.1677 100.698 77.7315 100.698 76.3138C100.698 75.424 98.886 70.386 98.0448 68.3631L83.6861 68.3611Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M97.3404 65.8336C95.3485 60.7777 93.137 55.3276 90.7556 51.5516C88.3109 56.141 86.2263 60.9163 84.5208 65.8336H97.3404Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M115.553 66.5139C111.367 61.5565 107.742 56.145 104.743 50.3792C104.168 49.268 101.966 49.5333 101.966 48.2533C101.966 47.4984 102.64 47.6338 103.305 47.6338H109.849C110.549 47.6338 111.302 47.4527 111.302 48.2961C111.302 49.4477 109.183 49.1157 109.183 50.2707C109.183 51.5964 112.099 57.3028 118.198 64.087C122.924 59.0793 127.123 51.9602 127.123 50.7594C127.123 48.7659 124.696 49.6402 124.696 48.1792C124.696 47.3785 125.621 47.6318 126.107 47.6318H131.06C131.675 47.6318 132.823 47.4507 132.823 48.2081C132.823 49.269 131.244 49.378 130.628 50.6201C128.064 55.8039 123.618 61.9049 119.587 66.604V74.9358C119.587 76.8856 119.572 77.1508 120.327 77.3742C121.572 77.6813 122.09 77.7395 122.09 78.5372C122.09 79.5145 121.201 79.4827 120.493 79.4827H114.44C113.688 79.4827 112.853 79.5145 112.853 78.5372C112.853 77.8251 113.406 77.6887 114.246 77.423C115.35 77.0702 115.554 76.7089 115.554 74.9348L115.553 66.5139Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M137.226 50.8176C137.226 49.6233 136.821 49.5343 135.931 49.3113C135.275 49.1386 134.74 49.2282 134.74 48.3847C134.74 47.4094 135.662 47.6338 136.418 47.6338H142.425C143.173 47.6338 144.011 47.4552 144.011 48.3847C144.011 49.1396 143.388 49.1167 142.811 49.3377C141.177 49.9592 141.259 50.0702 141.259 51.8413V74.4944C141.259 76.9726 141.527 77.3767 145.73 77.3767C154.479 77.3767 155.392 76.8895 157.557 75.2867C157.908 75.0209 158.7 74.3133 159.229 74.3133C159.758 74.3133 160 74.7114 160 75.2061C159.835 76.3787 159.586 77.5378 159.255 78.674C158.81 79.6479 157.895 79.4832 157.009 79.4832H136.588C135.88 79.4832 135.046 79.5165 135.046 78.5377C135.046 77.8261 135.321 77.733 135.892 77.5086C137.396 76.9328 137.225 76.7099 137.225 74.9373L137.226 50.8176Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M152.85 47.6357H155.873V48.1408H154.362V50.6688H153.858V48.1408H152.85V47.6357Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M159.401 50.6668V48.7305C159.433 48.5306 159.476 48.3327 159.53 48.1378H159.523L158.467 50.6658H157.956L156.906 48.1378H156.893C156.893 48.1378 156.882 48.6211 156.882 48.7305V50.6658H156.378V47.6357H157.144L158.212 50.1637H158.222L159.289 47.6357H159.906V50.6713L159.401 50.6668Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M99.6748 12.4637L83.6703 26.7298L73.9568 21.4166L58.2504 0L44.2032 26.7422L28.7115 54.5981L20.786 52.206L0 100L20.7865 63.1255L23.6437 59.2316L30.4181 59.775L50.4671 26.8139L59.0269 10.8897L67.0916 23.7524L84.505 33.5145L99.5519 20.2038L146.36 35.8608L99.6748 12.4637Z"/>
             </svg>
 
             <!-- ON Running -->
-            <svg height="24" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" class="stroke-white hover:stroke-[#A1D06C] transition-colors cursor-pointer">
-                <circle cx="20" cy="15" r="9" fill="none" stroke-width="3.5"/>
-                <line x1="20" y1="2" x2="20" y2="6" stroke-width="3.5"/>
-                <path d="M11,38 L11,28 A9,9 0 0,1 29,28 L29,38" fill="none" stroke-width="3.5"/>
+            <svg width="54" height="54" viewBox="0 0 54 54" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;">
+              <path d="M36.281 11.384c-.056.058-.114.13-.17.188l-2.364 2.41-.057.058c-.057.072-.057.145.014.247a8.331 8.331 0 0 1 1.096 3.309c.257 2.409-.342 4.571-1.822 6.473-1.268 1.625-2.92 2.64-4.899 3.09-.911.204-1.837.218-2.762.117-1.524-.16-2.891-.726-4.116-1.655-1.766-1.335-2.862-3.105-3.318-5.311-.17-.813-.199-1.64-.128-2.453.171-1.901.883-3.585 2.15-5.022 1.21-1.379 2.692-2.278 4.443-2.685a8.03 8.03 0 0 1 2.635-.189 8.5 8.5 0 0 1 3.588 1.147c.142.087.2.029.285-.058l2.35-2.395c.056-.058.113-.13.185-.217l2.889 2.945.001.001Zm-5.342 7.4c.071-2.8-2.093-4.832-4.529-4.905-2.748-.073-4.798 2.25-4.798 4.76 0 2.57 2.122 4.79 4.67 4.746 2.507.03 4.6-2.076 4.656-4.6Zm3.605 19.391c.014 2.351 0 4.717 0 7.068v.32h-4.13v-.29c0-2.468.015-4.935 0-7.403 0-1.291-.44-2.423-1.366-3.323a3.827 3.827 0 0 0-2.208-1.06c-1.11-.16-2.121.117-3.018.799-.898.696-1.424 1.64-1.595 2.757-.086.537-.1 1.089-.1 1.64-.014 2.192 0 4.369 0 6.56v.305h-4.101v-.276c0-2.656-.029-5.326.014-7.982.029-1.408.47-2.743 1.196-3.962 1.21-2.032 2.934-3.338 5.198-3.875a8.414 8.414 0 0 1 2.178-.203c2.265.101 4.201 1.015 5.74 2.742 1.096 1.248 1.794 2.7 2.036 4.369.098.608.155 1.217.155 1.812"/>
             </svg>
 
             <!-- yohemite -->
-            <svg height="22" viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg" class="fill-white hover:fill-[#A1D06C] transition-colors cursor-pointer">
-                <text x="0" y="24" fill="currentColor" font-family="sans-serif" font-weight="800" font-size="22" letter-spacing="-0.5">yohemite</text>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 274" style="height: 20px; width: auto;">
+              <path fill="white" fill-rule="evenodd" d="M 640,98 L 638,99 L 639,191 L 667,191 L 667,99 Z M 127,98 L 102,98 L 98,99 L 90,118 L 78,150 L 76,153 L 74,151 L 73,147 L 69,139 L 57,107 L 53,99 L 21,98 L 22,103 L 32,122 L 56,175 L 58,177 L 61,184 L 59,187 L 58,191 L 45,221 L 38,235 L 40,236 L 64,235 L 68,236 L 74,223 L 77,214 L 82,205 L 85,196 L 90,187 L 104,153 L 109,144 L 119,119 L 127,103 Z M 778,99 L 765,105 L 760,109 L 752,119 L 749,126 L 747,134 L 746,147 L 749,163 L 755,174 L 765,184 L 768,186 L 785,192 L 792,193 L 806,193 L 821,190 L 830,186 L 836,182 L 843,175 L 846,171 L 848,166 L 846,166 L 845,165 L 825,160 L 822,160 L 816,167 L 811,170 L 804,172 L 794,172 L 788,170 L 785,168 L 780,162 L 777,155 L 778,151 L 848,151 L 848,133 L 845,122 L 840,113 L 833,106 L 819,99 L 811,97 L 801,96 L 786,97 Z M 778,130 L 781,124 L 787,118 L 792,116 L 803,116 L 806,117 L 813,123 L 816,129 L 815,135 L 778,134 Z M 475,99 L 475,191 L 504,191 L 504,129 L 507,122 L 510,119 L 514,117 L 523,117 L 528,121 L 530,125 L 531,132 L 531,191 L 560,191 L 561,189 L 560,176 L 560,133 L 561,127 L 563,123 L 568,118 L 575,116 L 581,118 L 585,122 L 587,127 L 588,191 L 617,191 L 617,122 L 615,113 L 612,107 L 607,101 L 601,98 L 592,96 L 584,96 L 573,99 L 565,104 L 559,111 L 556,108 L 554,104 L 552,102 L 545,98 L 536,96 L 528,96 L 520,98 L 514,101 L 505,111 L 504,99 Z M 383,101 L 377,104 L 373,107 L 366,114 L 361,122 L 358,131 L 357,136 L 357,153 L 359,162 L 364,172 L 367,176 L 373,182 L 383,188 L 395,192 L 403,193 L 416,193 L 428,191 L 434,189 L 442,185 L 450,179 L 455,173 L 459,166 L 457,166 L 456,165 L 452,165 L 435,160 L 432,160 L 426,167 L 421,170 L 415,172 L 404,172 L 397,169 L 391,163 L 388,157 L 388,151 L 459,150 L 459,136 L 457,126 L 452,115 L 447,109 L 442,105 L 435,101 L 421,97 L 411,96 L 397,97 Z M 388,131 L 392,123 L 396,119 L 403,116 L 414,116 L 418,118 L 422,121 L 427,131 L 426,135 L 388,134 Z M 156,101 L 146,107 L 137,116 L 130,130 L 128,146 L 129,155 L 131,162 L 137,173 L 147,183 L 150,185 L 161,190 L 168,192 L 176,193 L 188,193 L 195,192 L 207,188 L 217,182 L 226,173 L 232,162 L 234,154 L 234,135 L 232,127 L 228,119 L 225,115 L 217,107 L 207,101 L 194,97 L 187,96 L 176,96 L 169,97 Z M 181,120 L 187,121 L 194,124 L 200,130 L 203,136 L 204,141 L 204,148 L 203,153 L 200,159 L 194,165 L 188,168 L 180,169 L 172,167 L 163,159 L 159,151 L 159,139 L 163,130 L 169,124 L 172,122 Z M 695,66 L 695,97 L 693,99 L 678,99 L 679,123 L 695,124 L 695,191 L 723,191 L 724,123 L 740,122 L 740,99 L 738,98 L 725,99 L 723,97 L 723,66 Z M 863,59 L 864,60 L 864,78 L 867,78 L 868,71 L 870,71 L 873,74 L 874,77 L 879,78 L 876,72 L 876,70 L 879,66 L 879,62 L 877,59 L 875,58 Z M 857,50 L 852,55 L 850,59 L 850,76 L 853,82 L 859,87 L 865,89 L 876,89 L 880,88 L 885,85 L 888,82 L 891,76 L 891,60 L 889,55 L 884,50 L 878,47 L 863,47 Z M 861,53 L 866,51 L 875,51 L 880,53 L 886,59 L 887,62 L 887,74 L 885,78 L 880,83 L 877,84 L 863,84 L 861,83 L 856,78 L 854,74 L 854,62 L 855,59 Z M 643,49 L 639,52 L 639,53 L 636,57 L 635,65 L 637,71 L 642,76 L 649,79 L 656,79 L 660,78 L 665,75 L 667,73 L 670,66 L 670,59 L 668,54 L 664,50 L 657,47 L 648,47 Z M 250,47 L 250,191 L 280,191 L 280,130 L 281,126 L 283,123 L 286,120 L 291,117 L 302,117 L 304,118 L 309,123 L 311,130 L 311,191 L 340,191 L 340,119 L 336,107 L 332,102 L 324,97 L 316,95 L 303,95 L 298,96 L 290,100 L 281,110 L 280,47 Z"/>
             </svg>
         </div>
     </header>
@@ -501,11 +565,10 @@
         <div class="slide-nav-dot" data-slide="2"><span class="slide-nav-tooltip">3. 전체 루트 개요</span></div>
         <div class="slide-nav-dot" data-slide="3"><span class="slide-nav-tooltip">4. 타임테이블 Part 1</span></div>
         <div class="slide-nav-dot" data-slide="4"><span class="slide-nav-tooltip">5. 타임테이블 Part 2</span></div>
-        <div class="slide-nav-dot" data-slide="5"><span class="slide-nav-tooltip">6. GPX 고도 정보</span></div>
-        <div class="slide-nav-dot" data-slide="6"><span class="slide-nav-tooltip">7. 뉴트리션 가이드</span></div>
-        <div class="slide-nav-dot" data-slide="7"><span class="slide-nav-tooltip">8. 뉴트리션 타임라인</span></div>
-        <div class="slide-nav-dot" data-slide="8"><span class="slide-nav-tooltip">9. 준비물 & 체크리스트</span></div>
-        <div class="slide-nav-dot" data-slide="9"><span class="slide-nav-tooltip">10. 대장정의 마무리</span></div>
+        <div class="slide-nav-dot" data-slide="5"><span class="slide-nav-tooltip">6. 뉴트리션 가이드</span></div>
+        <div class="slide-nav-dot" data-slide="6"><span class="slide-nav-tooltip">7. 뉴트리션 타임라인</span></div>
+        <div class="slide-nav-dot" data-slide="7"><span class="slide-nav-tooltip">8. 준비물 &amp; 체크리스트</span></div>
+        <div class="slide-nav-dot" data-slide="8"><span class="slide-nav-tooltip">9. 대장정의 마무리</span></div>
     </nav>
 
     <!-- Scroll Container -->
@@ -518,7 +581,7 @@
                 <div class="slide-header">
                     <span class="badge mb-4"><i class="fas fa-calendar-alt"></i> 2026.05.29 (금) 21:00 집합</span>
                     <h1 class="slide-title mt-2">
-                        The Thunderbird Way, <span class="title-highlight">Ridges</span><br/>
+                        The Thunderbird Way 2, <span class="title-highlight">Ridges</span><br/>
                         FJTS Vol.1 <span class="title-highlight">Kick-off Meeting</span>
                     </h1>
                     <p class="slide-subtitle">지리산 중산리 → 여원재 | 총 거리 57.0km | 예상 소요 시간 20시간 45분</p>
@@ -527,20 +590,28 @@
                 <!-- 2-Column Grid for merged content -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 my-auto">
                     <!-- Course Card -->
-                    <div class="info-card">
+                    <div class="info-card flex flex-col">
                         <div class="card-header">
                             <div class="card-icon"><i class="fas fa-route"></i></div>
                             <h3 class="card-title">1회차 핵심 운행 정보</h3>
                         </div>
-                        <!-- 3. 그리드 및 CSS 교정으로 info-row 높이 완벽하게 맞춤 -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 h-full">
+                        <!-- content at top with moderate gap -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6" style="align-content: start; row-gap: 12px;">
                             <div class="info-row">
                                 <span class="info-label">집합지</span>
+                                <span class="info-value">사당역</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">집합 시각</span>
+                                <span class="info-value">21:00</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">출발지</span>
                                 <span class="info-value">중산리 주차장</span>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">출발 시각</span>
-                                <span class="info-value">03:00 출발</span>
+                                <span class="info-value">03:00</span>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">최고 고도</span>
@@ -548,7 +619,6 @@
                             </div>
                             <div class="info-row">
                                 <span class="info-label">참가 인원</span>
-                                <!-- 4. 참가 인원 13명으로 수정 -->
                                 <span class="info-value">13명</span>
                             </div>
                         </div>
@@ -586,7 +656,7 @@
                     <div class="footer-item"><i class="fas fa-users footer-icon"></i><span>팀 전원 완주</span></div>
                     <div class="footer-item"><i class="fas fa-shield-alt footer-icon"></i><span>안전 제일</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Thunderbird Way 2 : Ridges</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
@@ -613,7 +683,7 @@
                             </li>
                             <li class="checklist-item">
                                 <i class="fas fa-check-circle check-icon"></i>
-                                <span class="check-text"><strong>페이스 시스템 검증:</strong> 성중종주(성삼재~중산리) 12시간 페이싱 관리</span>
+                                <span class="check-text"><strong>트레일 러닝화 검증:</strong> On Cloud Ultra Pro 국내 산맥 테스트</span>
                             </li>
                             <li class="checklist-item">
                                 <i class="fas fa-check-circle check-icon"></i>
@@ -686,7 +756,7 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-info-circle footer-icon"></i><span>매월 셋째 주 운행 추진 표준화 예정</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 02</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
@@ -736,19 +806,36 @@
                         </div>
                     </div>
 
-                    <!-- Visual Route Chart -->
-                    <div class="info-card lg:col-span-2 flex flex-col justify-between gap-3" style="max-height: 440px;">
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fas fa-route"></i></div>
-                            <h3 class="card-title">루트 요약 고도표</h3>
-                        </div>
-                        
-                        <div class="flex-grow relative h-40">
-                            <canvas id="overviewElevationChart"></canvas>
+                    <!-- GPX Elevation Chart (moved from slide 6) -->
+                    <div class="info-card lg:col-span-2 flex flex-col gap-3" style="max-height: 440px;">
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-mountain text-emerald-400"></i>
+                                <span class="text-sm font-bold text-gray-200">GPX 고도 프로파일</span>
+                            </div>
+                            <div class="flex gap-4 text-xs text-gray-400">
+                                <span>획득: <strong style="color:var(--brand-neon)">+2,465m</strong></span>
+                                <span>하강: <strong style="color:var(--brand-neon)">-2,183m</strong></span>
+                            </div>
                         </div>
 
-                        <!-- Danger notice inside -->
-                        <div class="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg flex gap-3 items-center">
+                        <div class="relative w-full flex-grow" style="height: 180px;">
+                            <canvas id="gpxElevationChart"></canvas>
+                        </div>
+
+                        <!-- Checkpoint legend pills -->
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">중산리 450m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">천왕봉 1,915m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">촛대봉 1,703m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">성삼재 1,102m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">만복대 1,433m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">큰고리봉 1,420m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">여원재 732m</span>
+                        </div>
+
+                        <!-- Danger notice -->
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg flex gap-3 items-center">
                             <i class="fas fa-exclamation-triangle text-rose-400 text-lg"></i>
                             <div class="text-xs">
                                 <strong class="text-rose-400">위험 지점 알림:</strong> 큰고리봉 → 고기리 구간은 약 800m의 급격한 내리막 하강입니다. 야간 시간대 무릎 피로와 미끄러짐 방지에 절대 주의를 필요로 합니다.
@@ -762,7 +849,7 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-bell footer-icon text-amber-400"></i><span>일몰 시간 19:30 전후 야간 장비 교체 필수</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 03</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
@@ -848,7 +935,7 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-exclamation-triangle footer-icon text-amber-400"></i><span>성삼재 대피소 휴식 시간 최대 30분 엄수</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 04</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
@@ -934,62 +1021,12 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-battery-three-quarters footer-icon text-amber-400"></i><span>램프 보조 배터리 필수 지참</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 05</div>
-            </div>
-        </section>
-
-        <!-- Slide 6: GPX Elevation Profile Detailed -->
-        <section class="slide-section" id="slide-5">
-            <div class="background-pattern"></div>
-            <div class="section-body">
-                <div class="slide-header">
-                    <h2 class="slide-title"><span class="title-highlight">GPX 기반 고도 프로파일</span> 정밀 분석</h2>
-                    <p class="slide-subtitle">지리산 중산리 진입점부터 천왕봉 정점, 능선 하강 및 여원재 피니시까지의 고밀도 트레이싱</p>
-                </div>
-
-                <div class="grid grid-cols-1 gap-6">
-                    <!-- Expanded Chart Box -->
-                    <div class="info-card flex flex-col gap-3">
-                        <div class="chart-header flex flex-wrap justify-between items-center gap-4 mb-4">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-mountain text-emerald-400"></i>
-                                <span class="text-sm font-bold text-gray-200">고밀도 종단 프로파일링 (누적 거리 대비 고도 변화량)</span>
-                            </div>
-                            <div class="flex gap-4 text-xs text-gray-400">
-                                <div>총 획득고도: <strong style="color: var(--brand-neon);">+2,465m</strong></div>
-                                <div>누적 하강: <strong style="color: var(--brand-neon);">-2,183m</strong></div>
-                            </div>
-                        </div>
-                        
-                        <div class="relative w-full" style="height: 260px;">
-                            <canvas id="gpxElevationChart"></canvas>
-                        </div>
-                        
-                        <!-- Checkpoint interactive mapping legends -->
-                        <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">중산리 (450m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">천왕봉 (1,915m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">제석봉 (1,806m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">촛대봉 (1,703m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">토끼봉 (1,534m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">성삼재 (1,102m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">만복대 (1,433m)</span>
-                            <span class="text-[10px] bg-white/5 px-2.5 py-1.5 rounded-full border border-white/10 text-gray-300">여원재 (732m)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-compress-alt footer-icon"></i><span>경로 데이터 소스: GPX 가민 커넥트 익스포트 기반</span></div>
-                </div>
-                <div class="text-xs text-gray-500">Slide 06</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
         <!-- Slide 7: Nutrition Overview -->
-        <section class="slide-section" id="slide-6">
+        <section class="slide-section" id="slide-5">
             <div class="background-pattern"></div>
             <div class="section-body">
                 <div class="slide-header">
@@ -1054,12 +1091,12 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-heartbeat footer-icon text-rose-400"></i><span>전해질 음료는 최소 500ml 단위 항시 보유</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 07</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
         <!-- Slide 8: Nutrition Timeline Applied -->
-        <section class="slide-section" id="slide-7">
+        <section class="slide-section" id="slide-6">
             <div class="background-pattern"></div>
             <div class="section-body">
                 <div class="slide-header">
@@ -1068,69 +1105,146 @@
                 </div>
 
                 <div class="grid grid-cols-1 gap-6">
-                    <!-- Large 2-Column Grid of Nutrition intake timeline to avoid scrolling clipping -->
-                    <div class="info-card flex flex-col gap-3">
-                        <div class="card-header flex justify-between items-center mb-4">
+                    <div class="info-card flex flex-col gap-4">
+                        <!-- Header -->
+                        <div class="card-header flex justify-between items-center mb-0">
                             <div class="flex items-center gap-2">
                                 <div class="card-icon"><i class="fas fa-pills"></i></div>
                                 <h3 class="card-title">섭취 시간 가이드</h3>
                             </div>
-                            <div class="flex gap-4 text-xs">
-                                <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#A1D06C] rounded-full inline-block"></span>일반 젤</span>
-                                <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#FFD700] rounded-full inline-block"></span>카페인 ⚡</span>
+                            <div class="flex gap-5 text-xs text-gray-400">
+                                <span class="flex items-center gap-1.5">
+                                    <span style="width:10px;height:10px;border-radius:50%;background:#A1D06C;display:inline-block;flex-shrink:0;"></span>일반 젤
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span style="width:10px;height:10px;border-radius:50%;background:#FFD700;display:inline-block;flex-shrink:0;"></span>카페인 ⚡
+                                </span>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-                            <div class="bg-white/5 p-3 rounded border-l-4 border-[#A1D06C]">
-                                <span class="text-[#A1D06C] font-bold block">04:30</span>
-                                <span class="text-white block mt-1 font-semibold">초반 에너지 공급</span>
-                                <span class="text-gray-400 block mt-1">일반 젤 1포</span>
+                        <!-- ── AM Session ── -->
+                        <div>
+                            <div style="font-size:10px;color:#555;letter-spacing:0.08em;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+                                <span style="color:#A1D06C;">◆</span> 주간 세션 &nbsp;03:00 → 15:30
                             </div>
-                            <div class="bg-white/5 p-3 rounded border-l-4 border-[#A1D06C]">
-                                <span class="text-[#A1D06C] font-bold block">06:00</span>
-                                <span class="text-white block mt-1 font-semibold">천왕봉 접근 페이스</span>
-                                <span class="text-gray-400 block mt-1">일반 젤 2포</span>
+                            <!-- 5-point horizontal timeline -->
+                            <div style="position:relative;height:108px;padding:0 6%;">
+                                <!-- Track line -->
+                                <div style="position:absolute;left:6%;right:6%;top:50%;height:1.5px;background:rgba(255,255,255,0.1);transform:translateY(-50%);"></div>
+                                <!-- Items: 04:30 06:00 08:00⚡ 11:30⚡ 14:30 -->
+                                <!-- Item 1 – above (odd) -->
+                                <div style="position:absolute;left:0%;transform:translateX(0);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center;">
+                                        <span style="color:#A1D06C;font-weight:700;font-size:11px;line-height:1;">04:30</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">초반 에너지</span>
+                                        <span style="color:#666;font-size:9px;">일반 젤 1포</span>
+                                    </div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#A1D06C;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;"></div>
+                                </div>
+                                <!-- Item 2 – below (even) -->
+                                <div style="position:absolute;left:22%;transform:translateX(-50%);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;"></div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#A1D06C;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:7px;text-align:center;">
+                                        <span style="color:#A1D06C;font-weight:700;font-size:11px;line-height:1;">06:00</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">천왕봉 접근</span>
+                                        <span style="color:#666;font-size:9px;">일반 젤 2포</span>
+                                    </div>
+                                </div>
+                                <!-- Item 3 – above ⚡ -->
+                                <div style="position:absolute;left:44%;transform:translateX(-50%);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center;">
+                                        <span style="color:#FFD700;font-weight:700;font-size:11px;line-height:1;">08:00 ⚡</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">천왕봉 돌파</span>
+                                        <span style="color:#888;font-size:9px;">카페인 110mg</span>
+                                    </div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#FFD700;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;"></div>
+                                </div>
+                                <!-- Item 4 – below ⚡ -->
+                                <div style="position:absolute;left:66%;transform:translateX(-50%);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;"></div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#FFD700;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:7px;text-align:center;">
+                                        <span style="color:#FFD700;font-weight:700;font-size:11px;line-height:1;">11:30 ⚡</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">주능선 집중</span>
+                                        <span style="color:#888;font-size:9px;">카페인 110mg</span>
+                                    </div>
+                                </div>
+                                <!-- Item 5 – above -->
+                                <div style="position:absolute;right:0%;top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center;">
+                                        <span style="color:#A1D06C;font-weight:700;font-size:11px;line-height:1;">14:30</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">성삼재 임박</span>
+                                        <span style="color:#666;font-size:9px;">일반 젤 3포</span>
+                                    </div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#A1D06C;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;"></div>
+                                </div>
                             </div>
-                            <div class="bg-amber-400/5 p-3 rounded border-l-4 border-[#FFD700]">
-                                <span class="text-[#FFD700] font-bold block">08:00 ⚡</span>
-                                <span class="text-white block mt-1 font-semibold">천왕봉 정상 돌파</span>
-                                <span class="text-gray-400 block mt-1">카페인 110mg 보충</span>
+                        </div>
+
+                        <!-- Divider -->
+                        <div style="height:1px;background:rgba(255,255,255,0.06);margin:0 -4px;"></div>
+
+                        <!-- ── PM / Night Session ── -->
+                        <div>
+                            <div style="font-size:10px;color:#555;letter-spacing:0.08em;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+                                <span style="color:#FFD700;">◆</span> 야간 세션 &nbsp;15:45 → 23:00
                             </div>
-                            <div class="bg-amber-400/5 p-3 rounded border-l-4 border-[#FFD700]">
-                                <span class="text-[#FFD700] font-bold block">11:30 ⚡</span>
-                                <span class="text-white block mt-1 font-semibold">주능선 집중 구간</span>
-                                <span class="text-gray-400 block mt-1">카페인 110mg 보충</span>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded border-l-4 border-[#A1D06C]">
-                                <span class="text-[#A1D06C] font-bold block">14:30</span>
-                                <span class="text-white block mt-1 font-semibold">성삼재 임박 안정기</span>
-                                <span class="text-gray-400 block mt-1">일반 젤 3포</span>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded border-l-4 border-[#A1D06C]">
-                                <span class="text-[#A1D06C] font-bold block">15:45</span>
-                                <span class="text-white block mt-1 font-semibold">성삼재 재스타트</span>
-                                <span class="text-gray-400 block mt-1">일반 젤 4포</span>
-                            </div>
-                            <div class="bg-amber-400/5 p-3 rounded border-l-4 border-[#FFD700]">
-                                <span class="text-[#FFD700] font-bold block">17:30 ⚡</span>
-                                <span class="text-white block mt-1 font-semibold">만복대 긴 업힐</span>
-                                <span class="text-gray-400 block mt-1">카페인 110mg 보충</span>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded border-l-4 border-[#A1D06C]">
-                                <span class="text-[#A1D06C] font-bold block">20:00</span>
-                                <span class="text-white block mt-1 font-semibold">고기리 급하강 구간</span>
-                                <span class="text-gray-400 block mt-1">일반 젤 5포</span>
-                            </div>
-                            <div class="bg-amber-400/5 p-3 rounded border-l-4 border-[#FFD700]">
-                                <span class="text-[#FFD700] font-bold block">21:30 ⚡</span>
-                                <span class="text-white block mt-1 font-semibold">야간 하체 극단 극복</span>
-                                <span class="text-gray-400 block mt-1">카페인 110mg 최종</span>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded border-l-4 border-[#A1D06C]">
-                                <span class="text-[#A1D06C] font-bold block">23:00</span>
-                                <span class="text-white block mt-1 font-semibold">수정봉 마지막 업힐</span>
-                                <span class="text-gray-400 block mt-1">일반 젤 피니시용</span>
+                            <div style="position:relative;height:108px;padding:0 6%;">
+                                <div style="position:absolute;left:6%;right:6%;top:50%;height:1.5px;background:rgba(255,255,255,0.1);transform:translateY(-50%);"></div>
+                                <!-- Item 6 – above -->
+                                <div style="position:absolute;left:0%;top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center;">
+                                        <span style="color:#A1D06C;font-weight:700;font-size:11px;line-height:1;">15:45</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">성삼재 재출발</span>
+                                        <span style="color:#666;font-size:9px;">일반 젤 4포</span>
+                                    </div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#A1D06C;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;"></div>
+                                </div>
+                                <!-- Item 7 – below ⚡ -->
+                                <div style="position:absolute;left:22%;transform:translateX(-50%);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;"></div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#FFD700;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:7px;text-align:center;">
+                                        <span style="color:#FFD700;font-weight:700;font-size:11px;line-height:1;">17:30 ⚡</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">만복대 업힐</span>
+                                        <span style="color:#888;font-size:9px;">카페인 110mg</span>
+                                    </div>
+                                </div>
+                                <!-- Item 8 – above -->
+                                <div style="position:absolute;left:44%;transform:translateX(-50%);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center;">
+                                        <span style="color:#A1D06C;font-weight:700;font-size:11px;line-height:1;">20:00</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">고기리 하강</span>
+                                        <span style="color:#666;font-size:9px;">일반 젤 5포</span>
+                                    </div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#A1D06C;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;"></div>
+                                </div>
+                                <!-- Item 9 – below ⚡ -->
+                                <div style="position:absolute;left:66%;transform:translateX(-50%);top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;"></div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#FFD700;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:7px;text-align:center;">
+                                        <span style="color:#FFD700;font-weight:700;font-size:11px;line-height:1;">21:30 ⚡</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">야간 극복</span>
+                                        <span style="color:#888;font-size:9px;">카페인 110mg</span>
+                                    </div>
+                                </div>
+                                <!-- Item 10 – above -->
+                                <div style="position:absolute;right:0%;top:0;height:100%;width:19%;display:flex;flex-direction:column;align-items:center;">
+                                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center;">
+                                        <span style="color:#A1D06C;font-weight:700;font-size:11px;line-height:1;">23:00</span>
+                                        <span style="color:#eee;font-size:9.5px;margin-top:3px;line-height:1.3;">수정봉 업힐</span>
+                                        <span style="color:#666;font-size:9px;">피니시 젤</span>
+                                    </div>
+                                    <div style="width:13px;height:13px;border-radius:50%;background:#A1D06C;border:2.5px solid #050505;flex-shrink:0;position:relative;z-index:2;"></div>
+                                    <div style="flex:1;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1141,12 +1255,12 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-pills footer-icon text-amber-500"></i><span>위 타임라인은 개인 체중 및 당일 신진대사 피로도에 따라 유동적으로 조절</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 08</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
         <!-- Slide 9: Checklist & Prep -->
-        <section class="slide-section" id="slide-8">
+        <section class="slide-section" id="slide-7">
             <div class="background-pattern"></div>
             <div class="section-body">
                 <div class="slide-header">
@@ -1168,11 +1282,11 @@
                             </li>
                             <li class="checklist-item" onclick="toggleCheckItem(this)">
                                 <i class="fas fa-check-circle check-icon"></i>
-                                <span class="check-text"><strong>리플렉티브웨어:</strong> 후방 야간식별 전폭 조끼</span>
+                                <span class="check-text"><strong>레인자켓/팬츠:</strong> 천왕봉 및 주능선 돌풍 대응</span>
                             </li>
                             <li class="checklist-item" onclick="toggleCheckItem(this)">
                                 <i class="fas fa-check-circle check-icon"></i>
-                                <span class="check-text"><strong>휴대용 무전기:</strong> 개별 주파수 채널 잠금 세팅</span>
+                                <span class="check-text"><strong>서바이벌 블랭킷:</strong> 긴급 체온 유지 및 비박 대비</span>
                             </li>
                             <li class="checklist-item" onclick="toggleCheckItem(this)">
                                 <i class="fas fa-check-circle check-icon"></i>
@@ -1198,11 +1312,11 @@
                             </li>
                             <li class="checklist-item" onclick="toggleCheckItem(this)">
                                 <i class="fas fa-check-circle check-icon"></i>
-                                <span class="check-text"><strong>경량 우의/방풍림:</strong> 천왕봉 및 주능선 돌풍 대응</span>
+                                <span class="check-text"><strong>500ml 플라스크 3개 이상:</strong> 구간별 충분한 수분 보급 확보</span>
                             </li>
                             <li class="checklist-item" onclick="toggleCheckItem(this)">
                                 <i class="fas fa-check-circle check-icon"></i>
-                                <span class="check-text"><strong>상비 약통:</strong> 타이레놀, 테이핑 테이프, 대역 밴드</span>
+                                <span class="check-text"><strong>상비 약통:</strong> 상비약, 테이핑 테이프, 대역 밴드</span>
                             </li>
                         </ul>
                     </div>
@@ -1229,12 +1343,12 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-info-circle footer-icon"></i><span>출발 전 중산리 주차장에서 02:20분 전원 최종 장비 장착 현장 대조 진행</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Slide 09</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
         <!-- Slide 10: Outro -->
-        <section class="slide-section" id="slide-9">
+        <section class="slide-section" id="slide-8">
             <div class="background-pattern"></div>
             <div class="section-body text-center lg:text-left max-w-5xl mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -1306,7 +1420,7 @@
                 <div class="footer-left">
                     <div class="footer-item"><i class="fas fa-handshake footer-icon text-amber-400"></i><span>yohemite 공식 보급 연계 지원 프로젝트</span></div>
                 </div>
-                <div class="text-xs text-gray-500">Thunderbird Run Club × yohemite © 2026</div>
+                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
             </div>
         </section>
 
@@ -1388,60 +1502,11 @@
                 });
             });
 
-            // Initialize slide charts sequentially with unique data to prevent visual glitching
-            initOverviewChart();
+            // Initialize GPX elevation chart
             initGpxChart();
         });
 
-        // Overview Elevation Chart
-        function initOverviewChart() {
-            const ctx = document.getElementById('overviewElevationChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['0km', '10km', '20km', '30km', '40km', '50km', '57km'],
-                    datasets: [{
-                        data: [450, 1200, 1800, 1500, 1400, 800, 732],
-                        borderColor: '#A1D06C',
-                        backgroundColor: 'rgba(161, 208, 108, 0.1)',
-                        borderWidth: 2.5,
-                        fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: '#A1D06C',
-                        pointBorderColor: '#fff',
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
-                    },
-                    scales: {
-                        x: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#888', font: { size: 10 } }
-                        },
-                        y: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: {
-                                color: '#888',
-                                font: { size: 10 },
-                                callback: function(value) { return value + 'm'; }
-                            },
-                            beginAtZero: false,
-                            min: 0,
-                            max: 2000
-                        }
-                    }
-                }
-            });
-        }
-
-        // Detailed GPX Elevation Chart
+        // Detailed GPX Elevation Chart (used in slide 3)
         function initGpxChart() {
             const ctx = document.getElementById('gpxElevationChart').getContext('2d');
             
@@ -1517,7 +1582,437 @@
                 }
             });
         }
+
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    // ── Inline SVG Icon System ────────────────────────────────────────────
+    // Replaces all <i class="fas fa-*"> with self-contained inline SVG icons
+    // so the file works without any CDN dependency.
+    (function () {
+      var P = {
+        'fa-calendar-alt': 'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5C3.9 4 3 4.9 3 6v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z',
+        'fa-route': 'M17 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-8 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM13.17 7H14a1 1 0 0 1 1 1v1.17A4 4 0 0 1 17 13v1h2v2h-2.17A4 4 0 0 1 13 19H6a4 4 0 0 1-3.83-3H0v-2h2v-1a4 4 0 0 1 4-4h1.17A4 4 0 0 1 13.17 7z',
+        'fa-mountain': 'M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z',
+        'fa-bullseye': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-12c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z',
+        'fa-users-cog': 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4zm6-3h1.5c.28 0 .5-.22.5-.5V9c0-.28-.22-.5-.5-.5H18l-2-2V14l2-1z',
+        'fa-heart': 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
+        'fa-wifi': 'M1 9l2 2c5.25-5.25 13.75-5.25 19 0l2-2C17.5 2.5 6.5 2.5 1 9zm4 4 2 2c1.75-1.75 4.58-1.75 6.33 0l2-2C12.5 10 7.5 10 5 13zm4 4 3 3 3-3c-1.65-1.66-4.34-1.66-6 0z',
+        'fa-shield-alt': 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z',
+        'fa-trophy': 'M19 5h-2V3H7v2H5C3.9 5 3 5.9 3 7v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V18H9v2h6v-2h-2v-2.1a5.01 5.01 0 0 0 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zm-2 3c0 1.65-1.35 3-3 3H10C8.35 11 7 9.65 7 8V7h2V5h6v2h2v1z',
+        'fa-map-marked-alt': 'M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z',
+        'fa-clock': 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z',
+        'fa-stream': 'M4 18h17v-2H4v2zm0-5h17v-2H4v2zm0-7v2h17V6H4z',
+        'fa-exclamation-triangle': 'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+        'fa-sun': 'M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7 1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91 1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z',
+        'fa-moon': 'M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z',
+        'fa-flask': 'M9 2v8L5.5 16c-.83 1.39-.1 3 1.5 3h10c1.6 0 2.33-1.61 1.5-3L15 10V2H9zm4 8.18L14.59 13H9.41L11 10.18V4h2v6.18z',
+        'fa-shuttle-van': 'M20 8h-3V4H3C1.9 4 1 4.9 1 6v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9 1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z',
+        'fa-van-shuttle': 'M20 8h-3V4H3C1.9 4 1 4.9 1 6v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9 1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z',
+        'fa-pills': 'M4.22 11.29 10.29 5.22a5.5 5.5 0 0 1 7.78 7.78l-6.07 6.07a5.5 5.5 0 0 1-7.78-7.78zm1.42 6.36a3.5 3.5 0 0 0 4.95 0L12 16.24l-4.95-4.95-1.41 1.41a3.5 3.5 0 0 0 0 4.95zm10.9-11.31a3.5 3.5 0 0 0-4.95 0l-1.42 1.42 4.95 4.95 1.42-1.42a3.5 3.5 0 0 0 0-4.95z',
+        'fa-check-circle': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+        'fa-battery-three-quarters': 'M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zm-1.67 11H9V9h5v6z',
+        'fa-compress-alt': 'M22 3.41 16.71 8.7 19 11h-8V3l2.29 2.29L18.59 0 22 3.41zM3.41 22 8.7 16.71 11 19v-8H3l2.29 2.29L0 18.59 3.41 22z',
+        'fa-heartbeat': 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
+        'fa-backpack': 'M20 8h-2.81c.45-.78.81-1.65.81-2.5C18 3.01 15.99 1 13.5 1h-3C8.01 1 6 3.01 6 5.5c0 .85.36 1.72.81 2.5H4C2.9 10 2 10.9 2 12v9c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2zm-7.5-5h3C14.88 3 16 4.12 16 5.5S14.88 8 13.5 8h-3C9.12 8 8 6.88 8 5.5S9.12 3 10.5 3zM20 21H4V10h16v11z',
+        'fa-box-open': 'M19 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3 3 2H9l3-2zm7 13H5V9l5 3 2-1.5L14 12l5-3v11z',
+        'fa-flag': 'M14.4 6 14 4H5v17h2v-7h5.6l.4 2h7V6z',
+        'fa-user-circle': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z',
+        'fa-handshake': 'M13.5 5.5C13.5 4.67 12.83 4 12 4s-1.5.67-1.5 1.5S11.17 7 12 7s1.5-.67 1.5-1.5zM21 9h-4.23C16.76 9 17 8.28 17 7.5 17 6.12 15.88 5 14.5 5h-5C8.12 5 7 6.12 7 7.5c0 .78.24 1.5.73 2H3c-1.1 0-2 .9-2 2v3.67c-.59.2-1 .7-1 1.33 0 .76.46 1.42 1.13 1.73L0 22h2l1.12-4H7v4h2v-4h6v4h2v-4h3.88L22 22h2l-1.13-7.27c.67-.31 1.13-.97 1.13-1.73 0-.63-.41-1.13-1-1.33V11c0-1.1-.9-2-2-2z',
+        'fa-users': 'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z',
+        'fa-info-circle': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z',
+        'fa-bell': 'M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z',
+        'fa-copy': 'M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z',
+        'fa-users-cog': 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z',
+      };
+
+      function applyIcons() {
+        document.querySelectorAll('i.fas, i.far, i.fab').forEach(function (el) {
+          var classes = Array.from(el.classList);
+          var key = classes.find(function (c) { return c.startsWith('fa-'); });
+          if (!key || !P[key]) return;
+
+          var ns = 'http://www.w3.org/2000/svg';
+          var svg = document.createElementNS(ns, 'svg');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('fill', 'currentColor');
+          svg.setAttribute('aria-hidden', 'true');
+          svg.style.cssText = 'width:1em;height:1em;display:inline-block;vertical-align:-0.125em;flex-shrink:0;';
+
+          classes.forEach(function (c) {
+            if (c !== 'fas' && c !== 'far' && c !== 'fab' && c !== key) {
+              svg.classList.add(c);
+            }
+          });
+
+          var path = document.createElementNS(ns, 'path');
+          path.setAttribute('d', P[key]);
+          svg.appendChild(path);
+          el.parentNode.replaceChild(svg, el);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyIcons);
+      } else {
+        applyIcons();
+      }
+    })();
+    </script>
+
+    <!-- ══════════════════════════════════════════════════
+         🎮 PRESENTATION INTERACTIVE EVENTS
+         썬더버드 발표용 인터랙티브 이벤트 시스템
+    ══════════════════════════════════════════════════ -->
+    <script>
+    (function () {
+      'use strict';
+
+      /* ── 1. LIVE COUNTDOWN TIMER ── */
+      function initCountdown() {
+        const eventDate = new Date('2026-05-29T21:00:00+09:00');
+        const footer = document.querySelector('#slide-0 .footer-left');
+        if (!footer) return;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'footer-item';
+        wrap.style.cssText = 'cursor:pointer;user-select:none;';
+        wrap.title = '클릭하면 펄스!';
+
+        const icon = document.createElement('span');
+        icon.textContent = '⏱';
+        icon.style.marginRight = '6px';
+
+        const timer = document.createElement('span');
+        timer.style.cssText = 'color:var(--brand-neon);font-weight:700;font-variant-numeric:tabular-nums;';
+        wrap.appendChild(icon);
+        wrap.appendChild(timer);
+        footer.appendChild(wrap);
+
+        wrap.addEventListener('click', () => {
+          timer.classList.remove('countdown-ping');
+          void timer.offsetWidth;
+          timer.classList.add('countdown-ping');
+        });
+
+        function update() {
+          const diff = eventDate - new Date();
+          if (diff <= 0) { timer.textContent = '🏔️ 출정!'; return; }
+          const d = Math.floor(diff / 86400000);
+          const h = Math.floor((diff % 86400000) / 3600000);
+          const m = Math.floor((diff % 3600000) / 60000);
+          const s = Math.floor((diff % 60000) / 1000);
+          timer.textContent = `D-${d}  ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+        update();
+        setInterval(update, 1000);
+      }
+
+      /* ── 2. THUNDERBIRD LOGO CLICK → LIGHTNING STRIKE ── */
+      function initThunderClick() {
+        const logo = document.querySelector('.logo-container');
+        if (!logo) return;
+        logo.style.cursor = 'pointer';
+        let clickCount = 0;
+
+        logo.addEventListener('click', () => {
+          clickCount++;
+
+          // Full-screen neon flash
+          const flash = document.createElement('div');
+          flash.style.cssText = `
+            position:fixed;inset:0;z-index:99998;pointer-events:none;
+            background:radial-gradient(ellipse at 50% 50%,rgba(161,208,108,0.18) 0%,transparent 70%);
+            animation:thunderStrike 0.55s ease-out forwards;
+          `;
+          document.body.appendChild(flash);
+
+          // Bolt SVG
+          const boltWrap = document.createElement('div');
+          boltWrap.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;pointer-events:none;display:flex;align-items:center;justify-content:center;';
+          boltWrap.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="#A1D06C" style="width:110px;height:110px;
+              animation:boltPop 0.6s cubic-bezier(.17,.67,.38,1.27) forwards;
+              filter:drop-shadow(0 0 18px #A1D06C) drop-shadow(0 0 40px rgba(161,208,108,0.5));">
+              <path d="M13 0L3 14h8l-2 10 12-14h-8z"/>
+            </svg>`;
+          document.body.appendChild(boltWrap);
+
+          // Fun click counter tooltip
+          if (clickCount > 1) {
+            showToast(`⚡ ${clickCount}번째 번개!`, 'var(--brand-neon)');
+          }
+
+          setTimeout(() => { flash.remove(); boltWrap.remove(); }, 700);
+        });
+      }
+
+      /* ── 3. STAT NUMBER COUNT-UP ANIMATION ── */
+      function animateNum(el, target, suffix) {
+        const dur = 1400;
+        const t0 = performance.now();
+        const fn = (now) => {
+          const p = Math.min((now - t0) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(ease * target).toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(fn);
+        };
+        requestAnimationFrame(fn);
+      }
+
+      function initCounterAnimations() {
+        const targets = [
+          { selector: '#slide-0', items: [
+            { text: '700', suffix: 'km' },
+            { text: '14', suffix: '개월' },
+          ]},
+          { selector: '#slide-8', items: [
+            { text: '14', suffix: '' },
+            { text: '700', suffix: '' },
+            { text: '50', suffix: '' },
+          ]},
+        ];
+
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(en => {
+            if (!en.isIntersecting) return;
+            const numEls = en.target.querySelectorAll('.text-xl.font-bold, .text-2xl.font-bold');
+            numEls.forEach(el => {
+              const m = el.textContent.match(/^(\d+)(.*)/);
+              if (m) animateNum(el, parseInt(m[1]), m[2]);
+            });
+            obs.unobserve(en.target);
+          });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.slide-section').forEach(s => obs.observe(s));
+      }
+
+      /* ── 4. CHECKLIST CONFETTI + ACHIEVEMENT ── */
+      function spawnParticles(x, y, color) {
+        for (let i = 0; i < 14; i++) {
+          const p = document.createElement('div');
+          const angle = (i / 14) * 360;
+          const dist = 35 + Math.random() * 55;
+          const size = 4 + Math.random() * 5;
+          p.style.cssText = `
+            position:fixed;left:${x}px;top:${y}px;
+            width:${size}px;height:${size}px;
+            background:${color};border-radius:${Math.random()>.5?'50%':'2px'};
+            pointer-events:none;z-index:9999;
+            animation:particleFly 0.75s ease-out forwards;
+            --dx:${Math.cos(angle*Math.PI/180)*dist}px;
+            --dy:${Math.sin(angle*Math.PI/180)*dist}px;
+          `;
+          document.body.appendChild(p);
+          setTimeout(() => p.remove(), 900);
+        }
+      }
+
+      function checkAchievement(list) {
+        const items = list.querySelectorAll('.checklist-item');
+        const done  = list.querySelectorAll('.checklist-item.checked');
+        if (items.length && items.length === done.length) {
+          setTimeout(() => showToast('🎯 All Clear! 완벽한 준비 완료', '#A1D06C'), 200);
+        }
+      }
+
+      function initChecklist() {
+        document.querySelectorAll('.checklist-item').forEach(item => {
+          const original = item.onclick;
+          item.addEventListener('click', (e) => {
+            const rect = item.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const isChecking = !item.classList.contains('checked');
+            if (isChecking) {
+              spawnParticles(cx, cy, '#A1D06C');
+              spawnParticles(cx, cy, '#fff');
+            }
+            const list = item.closest('ul');
+            if (list) setTimeout(() => checkAchievement(list), 50);
+          });
+        });
+      }
+
+      /* ── 5. CAFFEINE ⚡ DOT ZAP ON CLICK ── */
+      function initCaffeineZap() {
+        document.querySelectorAll('[style*="background:#FFD700"]').forEach(dot => {
+          dot.style.cursor = 'pointer';
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const rect = dot.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            for (let i = 0; i < 9; i++) {
+              const zap = document.createElement('span');
+              const angle = (i / 9) * 360;
+              zap.textContent = '⚡';
+              zap.style.cssText = `
+                position:fixed;left:${cx}px;top:${cy}px;
+                font-size:${14+Math.random()*10}px;pointer-events:none;z-index:9999;
+                animation:zapFly 0.65s ease-out forwards;
+                --dx:${Math.cos(angle*Math.PI/180)*55}px;
+                --dy:${Math.sin(angle*Math.PI/180)*55}px;
+              `;
+              document.body.appendChild(zap);
+              setTimeout(() => zap.remove(), 750);
+            }
+            showToast('⚡ 카페인 110mg 투입!', '#FFD700');
+          });
+        });
+      }
+
+      /* ── 6. DANGER NOTICE → SHAKE + RED FLASH ── */
+      function initDangerClick() {
+        document.querySelectorAll('.bg-rose-500\\/10').forEach(el => {
+          el.style.cursor = 'pointer';
+          el.title = '클릭해보세요';
+          el.addEventListener('click', () => {
+            el.style.animation = 'none';
+            void el.offsetWidth;
+            el.style.animation = 'dangerShake 0.7s ease';
+            el.addEventListener('animationend', () => { el.style.animation = ''; }, { once: true });
+
+            // Brief red overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+              position:fixed;inset:0;background:rgba(239,68,68,0.07);
+              z-index:9990;pointer-events:none;animation:screenFlash 0.4s ease forwards;
+            `;
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 450);
+            showToast('⚠️ 위험 구간 주의!', '#ef4444');
+          });
+        });
+      }
+
+      /* ── 7. CHECKPOINT ROW CLICK → HIGHLIGHT ── */
+      function initCheckpointHighlight() {
+        document.querySelectorAll('#slide-2 .flex.items-center.justify-between').forEach(row => {
+          row.style.cursor = 'pointer';
+          row.style.transition = 'all 0.2s ease';
+          row.addEventListener('click', () => {
+            row.style.background = 'rgba(161,208,108,0.12)';
+            row.style.transform = 'scaleX(1.02)';
+            row.style.borderRadius = '6px';
+            setTimeout(() => {
+              row.style.background = '';
+              row.style.transform = '';
+            }, 800);
+          });
+        });
+      }
+
+      /* ── 8. HOVER GLOW ON INFO CARDS ── */
+      function initCardGlow() {
+        document.querySelectorAll('.info-card').forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            card.style.boxShadow = '0 0 20px rgba(161,208,108,0.1)';
+          });
+          card.addEventListener('mouseleave', () => {
+            card.style.boxShadow = '';
+          });
+        });
+      }
+
+      /* ── 9. TIMELINE STEPS CLICK → POP ── */
+      function initTimelineStepClick() {
+        document.querySelectorAll('.timeline-step').forEach(step => {
+          step.style.cursor = 'pointer';
+          step.addEventListener('click', () => {
+            step.style.transform = 'scale(1.02)';
+            step.style.background = 'rgba(161,208,108,0.07)';
+            step.style.transition = 'all 0.2s ease';
+            setTimeout(() => {
+              step.style.transform = '';
+              step.style.background = '';
+            }, 500);
+            const title = step.querySelector('.timeline-title');
+            if (title) {
+              const rect = step.getBoundingClientRect();
+              spawnParticles(rect.left + 20, rect.top + rect.height / 2, 'var(--brand-neon)');
+            }
+          });
+        });
+      }
+
+      /* ── 10. KONAMI CODE → THUNDERBIRD FLY-ACROSS ── */
+      const KONAMI = [38,38,40,40,37,39,37,39,66,65];
+      let ki = 0;
+      document.addEventListener('keydown', (e) => {
+        ki = (e.keyCode === KONAMI[ki]) ? ki + 1 : 0;
+        if (ki === KONAMI.length) {
+          ki = 0;
+          triggerKonami();
+        }
+      });
+
+      function triggerKonami() {
+        const el = document.createElement('div');
+        el.style.cssText = `
+          position:fixed;top:50%;left:-450px;transform:translateY(-50%);
+          z-index:99999;pointer-events:none;
+          animation:konamiFly 2.4s cubic-bezier(.25,.46,.45,.94) forwards;
+          text-align:center;
+        `;
+        el.innerHTML = `
+          <div style="font-size:26px;font-family:'Noto Sans KR',sans-serif;font-weight:900;
+            color:#A1D06C;letter-spacing:-0.5px;
+            text-shadow:0 0 20px #A1D06C,0 0 40px rgba(161,208,108,0.5);">
+            🦅 THE THUNDERBIRD WAY 2
+          </div>
+          <div style="font-size:13px;color:#888;margin-top:4px;letter-spacing:2px;">
+            RIDGES · 700KM · 14 STAGES
+          </div>`;
+        document.body.appendChild(el);
+
+        const flash = document.createElement('div');
+        flash.style.cssText = `position:fixed;inset:0;z-index:99998;pointer-events:none;
+          background:rgba(161,208,108,0.06);animation:screenFlash 0.35s ease;`;
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 400);
+        setTimeout(() => el.remove(), 2500);
+        showToast('🔓 코나미 코드 해제! 썬더버드 출격!', 'var(--brand-neon)');
+      }
+
+      /* ── SHARED TOAST UTILITY ── */
+      function showToast(msg, color) {
+        const el = document.createElement('div');
+        el.style.cssText = `
+          position:fixed;bottom:72px;left:50%;
+          background:rgba(10,10,10,0.92);border:1px solid ${color || 'rgba(161,208,108,0.4)'};
+          padding:12px 22px;border-radius:10px;z-index:99997;
+          color:${color || '#A1D06C'};font-weight:700;font-size:13px;
+          backdrop-filter:blur(12px);
+          animation:achieveSlide 2.8s ease forwards;white-space:nowrap;
+          font-family:'Noto Sans KR',sans-serif;
+          box-shadow:0 4px 24px rgba(0,0,0,0.4);
+        `;
+        el.textContent = msg;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+
+      /* ── INIT ALL ── */
+      function init() {
+        initCountdown();
+        initThunderClick();
+        initCounterAnimations();
+        initChecklist();
+        initCaffeineZap();
+        initDangerClick();
+        initCheckpointHighlight();
+        initCardGlow();
+        initTimelineStepClick();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
 </body>
 </html>
