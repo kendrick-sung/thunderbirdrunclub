@@ -766,7 +766,7 @@
             <div class="section-body">
                 <div class="slide-header">
                     <h2 class="slide-title">1회차 <span class="title-highlight">전체 루트 개요</span></h2>
-                    <p class="slide-subtitle">중산리 야간 스타트 → 지리산 주능선 → 정령치 → 여원재 종주 (57.0km)</p>
+                    <p class="slide-subtitle">중산리 야간 스타트 → 지리산 주능선 → 정령치 → 여원재 종주 (52.8km)</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -814,8 +814,8 @@
                                 <span class="text-sm font-bold text-gray-200">GPX 고도 프로파일</span>
                             </div>
                             <div class="flex gap-4 text-xs text-gray-400">
-                                <span>획득: <strong style="color:var(--brand-neon)">+2,465m</strong></span>
-                                <span>하강: <strong style="color:var(--brand-neon)">-2,183m</strong></span>
+                                <span>획득: <strong style="color:var(--brand-neon)">+3,154m</strong></span>
+                                <span>하강: <strong style="color:var(--brand-neon)">-3,145m</strong></span>
                             </div>
                         </div>
 
@@ -825,13 +825,14 @@
 
                         <!-- Checkpoint legend pills -->
                         <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">중산리 450m</span>
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">천왕봉 1,915m</span>
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">촛대봉 1,703m</span>
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">성삼재 1,102m</span>
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">만복대 1,433m</span>
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">큰고리봉 1,420m</span>
-                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">여원재 732m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">중산리 643m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">천왕봉 1,945m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">장터목 1,686m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">벽소령 1,480m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">성삼재 1,117m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">만복대 1,393m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">정령치 1,097m</span>
+                            <span class="text-[9px] bg-white/5 px-2 py-1 rounded-full border border-white/10 text-gray-400">여원재 507m</span>
                         </div>
 
                         <!-- Danger notice -->
@@ -1506,24 +1507,27 @@
             initGpxChart();
         });
 
-        // Detailed GPX Elevation Chart (used in slide 3)
+        // Detailed GPX Elevation Chart (used in slide 3) — GPX 실측 데이터 기반
         function initGpxChart() {
             const ctx = document.getElementById('gpxElevationChart').getContext('2d');
             
+            // ✅ GPX 실측 기반 체크포인트 (중산리-여원재_천둥새_.gpx)
+            // 총 거리 52.84km / 최고점 1,945m (5.1km) / 획득고도 +3,154m
             const checkpoints = [
-                { name: '중산리', distance: 0, elevation: 450 },
-                { name: '천왕봉', distance: 8.5, elevation: 1915 },
-                { name: '제석봉', distance: 15.2, elevation: 1806 },
-                { name: '촛대봉', distance: 22.8, elevation: 1703 },
-                { name: '토끼봉', distance: 30.5, elevation: 1534 },
-                { name: '성삼재', distance: 36.4, elevation: 1102 },
-                { name: '만복대', distance: 42.0, elevation: 1433 },
-                { name: '정령치', distance: 47.5, elevation: 1172 },
-                { name: '큰고리봉', distance: 49.8, elevation: 1420 },
-                { name: '고기리', distance: 52.5, elevation: 650 },
-                { name: '주촌마을', distance: 54.2, elevation: 380 },
-                { name: '수정봉', distance: 56.0, elevation: 805 },
-                { name: '여원재', distance: 57.0, elevation: 732 }
+                { name: '중산리',       distance: 0,    elevation: 643  },
+                { name: '법계사',       distance: 2.0,  elevation: 1037 },
+                { name: '천왕봉',       distance: 5.1,  elevation: 1945 },
+                { name: '제석봉',       distance: 6.5,  elevation: 1761 },
+                { name: '장터목대피소', distance: 8.5,  elevation: 1686 },
+                { name: '세석대피소',   distance: 15.0, elevation: 1392 },
+                { name: '벽소령',       distance: 22.0, elevation: 1480 },
+                { name: '삼도봉',       distance: 29.5, elevation: 1442 },
+                { name: '성삼재',       distance: 33.0, elevation: 1117 },
+                { name: '만복대',       distance: 38.0, elevation: 1393 },
+                { name: '정령치',       distance: 42.0, elevation: 1097 },
+                { name: '큰고리봉',     distance: 44.0, elevation: 738  },
+                { name: '고기리',       distance: 47.0, elevation: 691  },
+                { name: '여원재',       distance: 52.8, elevation: 507  }
             ];
 
             const labels = checkpoints.map(cp => cp.distance + 'km');
