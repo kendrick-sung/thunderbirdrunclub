@@ -203,9 +203,22 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            margin: auto 0;
+            justify-content: flex-start;
             z-index: 2;
+        }
+
+        /* grid가 남은 높이를 차지하되, 행은 중앙 정렬 (카드 stretch 없음) */
+        .section-body > .grid,
+        .section-body > div.grid {
+            flex: 1;
+            align-content: center; /* stretch → center: 카드는 자연 높이 유지 */
+            min-height: 0;
+        }
+
+        /* info-card는 콘텐츠 높이만큼만 (height: 100% 제거) */
+        .info-card {
+            max-height: clamp(300px, 48vh, 560px); /* 너무 길어지지 않도록 상한 */
+            overflow: hidden;
         }
 
         .slide-header {
@@ -428,6 +441,61 @@
             }
         }
 
+        /* ── 큰 화면 스케일업 (높이 기준) ── */
+        @media screen and (min-width: 1280px) and (min-height: 800px) {
+            .slide-section   { padding: 86px 52px 44px 52px; }
+            .info-card       { padding: 28px 28px; }
+            .card-title      { font-size: 18px; }
+            .slide-title     { font-size: 42px; }
+            .slide-header    { margin-bottom: 28px; }
+            .info-label      { font-size: 14px; }
+            .info-value      { font-size: 17px; }
+            .timeline-step   { padding: 14px 18px; }
+            .timeline-title  { font-size: 15px; }
+            .timeline-desc   { font-size: 13px; }
+            .checklist-item  { padding: 14px 16px; }
+            .check-text      { font-size: 15px; }
+        }
+
+        @media screen and (min-width: 1440px) and (min-height: 900px) {
+            .slide-section   { padding: 92px 64px 48px 64px; }
+            .info-card       { padding: 32px 32px; }
+            .card-icon       { width: 40px; height: 40px; font-size: 18px; }
+            .card-title      { font-size: 19px; }
+            .card-header     { margin-bottom: 20px; gap: 14px; }
+            .slide-title     { font-size: 46px; letter-spacing: -1.5px; }
+            .slide-subtitle  { font-size: 17px; margin-top: 10px; }
+            .slide-header    { margin-bottom: 32px; }
+            .info-label      { font-size: 15px; }
+            .info-value      { font-size: 18px; }
+            .badge           { padding: 7px 18px; font-size: 14px; }
+            .timeline-step   { padding: 16px 20px; gap: 18px; }
+            .timeline-title  { font-size: 16px; }
+            .timeline-desc   { font-size: 13px; margin-top: 3px; }
+            .time-badge      { font-size: 14px; padding: 7px 14px; }
+            .checklist-item  { padding: 14px 18px; gap: 14px; }
+            .check-text      { font-size: 15px; line-height: 1.5; }
+            .check-icon      { font-size: 18px; }
+            .slide-footer    { padding-top: 18px; }
+            .footer-item     { font-size: 13px; }
+        }
+
+        @media screen and (min-width: 1920px) and (min-height: 1000px) {
+            .slide-section   { padding: 100px 80px 52px 80px; }
+            .info-card       { padding: 36px 36px; }
+            .card-title      { font-size: 21px; }
+            .slide-title     { font-size: 52px; }
+            .slide-subtitle  { font-size: 18px; }
+            .info-label      { font-size: 16px; }
+            .info-value      { font-size: 20px; }
+            .card-icon       { width: 44px; height: 44px; font-size: 20px; }
+            .card-header     { gap: 16px; margin-bottom: 22px; }
+            .timeline-step   { padding: 18px 22px; }
+            .time-badge      { font-size: 15px; padding: 8px 16px; min-width: 72px; }
+            .timeline-title  { font-size: 17px; }
+            .slide-footer    { padding-top: 20px; }
+        }
+
         /* ── Interactive Event Animations ── */
         @keyframes thunderStrike {
             0%   { opacity: 1; transform: scale(1); }
@@ -588,7 +656,7 @@
                 </div>
 
                 <!-- 2-Column Grid for merged content -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 my-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <!-- Course Card -->
                     <div class="info-card flex flex-col">
                         <div class="card-header">
@@ -771,7 +839,7 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Key Checkpoints -->
-                    <div class="info-card flex flex-col justify-between gap-3" style="max-height: 440px;">
+                    <div class="info-card flex flex-col justify-between gap-3">
                         <div class="card-header">
                             <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
                             <h3 class="card-title">주요 도달 체크포인트</h3>
@@ -807,7 +875,7 @@
                     </div>
 
                     <!-- GPX Elevation Chart (moved from slide 6) -->
-                    <div class="info-card lg:col-span-2 flex flex-col gap-3" style="max-height: 440px;">
+                    <div class="info-card lg:col-span-2 flex flex-col gap-3">
                         <div class="flex flex-wrap justify-between items-center gap-3">
                             <div class="flex items-center gap-2">
                                 <i class="fas fa-mountain text-emerald-400"></i>
@@ -1352,7 +1420,7 @@
         <section class="slide-section" id="slide-8">
             <div class="background-pattern"></div>
             <div class="section-body text-center lg:text-left max-w-5xl mx-auto">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                     <!-- Text Info Column -->
                     <div class="lg:col-span-7 flex flex-col justify-center">
                         <span class="badge self-center lg:self-start mb-4"><i class="fas fa-flag"></i> 2026.05.29 출정식</span>
@@ -1381,14 +1449,14 @@
                         </div>
                     </div>
 
-                    <!-- Contact Details Column -->
-                    <div class="lg:col-span-5">
-                        <div class="info-card border-emerald-400/20 bg-emerald-400/5 flex flex-col gap-3">
+                    <!-- Contact Details Column — 좌측 높이에 맞춰 stretch -->
+                    <div class="lg:col-span-5 flex">
+                        <div class="info-card border-emerald-400/20 bg-emerald-400/5 flex flex-col justify-between gap-3 w-full" style="max-height: none;">
                             <div class="card-header">
                                 <div class="card-icon bg-emerald-400/10 text-emerald-400"><i class="fas fa-user-circle"></i></div>
                                 <h3 class="card-title">프로젝트 총괄 매니저</h3>
                             </div>
-                            <div class="flex flex-col gap-4 text-sm">
+                            <div class="flex flex-col gap-4 text-sm flex-grow justify-around">
                                 <div>
                                     <span class="text-gray-400 text-xs block">PM 이름</span>
                                     <span class="font-bold text-lg text-white">김형돈</span>
