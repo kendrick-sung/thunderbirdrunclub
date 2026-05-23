@@ -34,27 +34,12 @@
             scroll-behavior: smooth;
         }
 
-        /* Desktop Scroll Snapping */
-        @media (min-width: 1024px) {
-            .scroll-container {
-                scroll-snap-type: y mandatory;
-                height: 100vh;
-                overflow-y: scroll;
-            }
-            .slide-section {
-                scroll-snap-align: start;
-                height: 100vh;
-                min-height: 720px;
-            }
-        }
-
         .slide-section {
             position: relative;
             width: 100%;
-            padding: 80px 40px 40px 40px;
+            padding: 64px 24px 52px 24px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             background: linear-gradient(135deg, #080808 0%, #121212 100%);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
@@ -75,7 +60,7 @@
         
         /* Global Header */
         .global-header {
-            position: fixed;
+            position: sticky;
             top: 0;
             left: 0;
             width: 100%;
@@ -93,63 +78,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-        
-        /* Floating Indicator Dots */
-        .slide-nav {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 99;
-        }
-
-        .slide-nav-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid transparent;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .slide-nav-dot:hover {
-            background: var(--brand-neon);
-            transform: scale(1.3);
-        }
-
-        .slide-nav-dot.active {
-            background: var(--brand-neon);
-            border-color: #000;
-            box-shadow: 0 0 8px var(--brand-neon);
-            transform: scale(1.4);
-        }
-
-        .slide-nav-tooltip {
-            position: absolute;
-            right: 22px;
-            top: 50%;
-            transform: translateY(-50%) translateX(10px);
-            background: rgba(10, 10, 10, 0.9);
-            border: 1px solid var(--brand-card-border);
-            padding: 5px 12px;
-            border-radius: 6px;
-            color: #fff;
-            font-size: 11px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-        }
-
-        .slide-nav-dot:hover .slide-nav-tooltip {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0);
         }
 
         /* Grid & Card System */
@@ -200,11 +128,11 @@
         }
 
         .section-body {
-            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            margin: auto 0;
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
             z-index: 2;
         }
 
@@ -387,46 +315,15 @@
             margin-top: 2px;
         }
 
-        .slide-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            z-index: 2;
-        }
+        
 
-        .footer-left {
-            display: flex;
-            gap: 20px;
-        }
+        
 
-        .footer-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #777;
-            font-size: 12px;
-        }
+        
 
-        .footer-icon {
-            color: var(--brand-neon);
-        }
+        
 
-        @media (max-width: 1023px) {
-            .slide-section {
-                min-height: auto;
-                height: auto;
-                padding: 100px 20px 40px 20px;
-            }
-            .slide-title {
-                font-size: 28px;
-            }
-            .slide-nav {
-                display: none;
-            }
-        }
+        
 
         /* ── Interactive Event Animations ── */
         @keyframes thunderStrike {
@@ -488,6 +385,72 @@
             animation: cardPulseGlow 1.2s ease infinite;
         }
         .countdown-ping { animation: countdownPing 0.4s ease; }
+
+
+        /* Timetable desktop/mobile toggle */
+        .tt-desktop { display: block !important; }
+        .tt-mobile  { display: none  !important; }
+        @media (max-width: 767px) {
+            .tt-desktop { display: none        !important; }
+            .tt-mobile  { display: flex        !important; flex-direction: column; gap: 5px; }
+            .tt-legend  { font-size: 11px; gap: 10px; }
+        }
+
+        /* ── 반응형 모바일/태블릿 CSS ── */
+        .info-card {
+            max-height: none !important;  /* scroll page: no height cap */
+        }
+
+        /* background-pattern stays full-width */
+        .background-pattern { z-index: 0; }
+
+        @media (max-width: 1023px) {
+            .slide-section { padding: 56px 20px 40px 20px; }
+            .slide-title   { font-size: 28px; letter-spacing: -0.5px; }
+            .slide-subtitle { font-size: 14px; }
+        }
+
+        @media (max-width: 767px) {
+            .slide-section   { padding: 48px 16px 36px 16px; }
+            .slide-title     { font-size: 24px; }
+            .slide-subtitle  { font-size: 13px; }
+            .info-card       { padding: 18px 16px; }
+            .card-title      { font-size: 15px; }
+            .card-icon       { width: 32px; height: 32px; font-size: 14px; }
+            .timeline-step   { padding: 10px 12px; gap: 10px; }
+            .time-badge      { font-size: 12px; padding: 5px 10px; min-width: 54px; }
+            .timeline-title  { font-size: 13px; }
+            .timeline-desc   { font-size: 11px; }
+            .badge           { font-size: 11px; padding: 5px 12px; }
+            .slide-header    { margin-bottom: 20px; }
+            .info-label      { font-size: 13px; }
+            .info-value      { font-size: 15px; }
+            .slide-footer    { flex-wrap: wrap; gap: 8px; }
+            .footer-left     { gap: 12px; flex-wrap: wrap; }
+            .footer-item     { font-size: 11px; }
+            
+        }
+
+        /* Tables: horizontal scroll on small screens */
+        .table-scroll-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 10px;
+        }
+        .table-scroll-wrap table { min-width: 640px; }
+
+        @media (max-width: 767px) {
+            /* Stack 2-col grids to 1 col */
+            .grid-cols-3-to-1 { grid-template-columns: 1fr !important; }
+            /* Nutrition timeline scroll */
+            .nutrition-row-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        }
+
+        /* Smooth scroll for anchor links */
+        html { scroll-behavior: smooth; }
+
+        /* Section top spacing for sticky header offset */
+        .slide-section { scroll-margin-top: 110px; }
     </style>
 </head>
 <body>
@@ -558,21 +521,29 @@
         </div>
     </header>
 
-    <!-- Floating Navigation Dots (총 10개 슬라이드로 재배열) -->
-    <nav class="slide-nav">
-        <div class="slide-nav-dot active" data-slide="0"><span class="slide-nav-tooltip">1. 킥오프 홈</span></div>
-        <div class="slide-nav-dot" data-slide="1"><span class="slide-nav-tooltip">2. 목적 및 원칙</span></div>
-        <div class="slide-nav-dot" data-slide="2"><span class="slide-nav-tooltip">3. 전체 루트 개요</span></div>
-        <div class="slide-nav-dot" data-slide="3"><span class="slide-nav-tooltip">4. 타임테이블 Part 1</span></div>
-        <div class="slide-nav-dot" data-slide="4"><span class="slide-nav-tooltip">5. 타임테이블 Part 2</span></div>
-        <div class="slide-nav-dot" data-slide="5"><span class="slide-nav-tooltip">6. 뉴트리션 가이드</span></div>
-        <div class="slide-nav-dot" data-slide="6"><span class="slide-nav-tooltip">7. 뉴트리션 타임라인</span></div>
-        <div class="slide-nav-dot" data-slide="7"><span class="slide-nav-tooltip">8. 준비물 &amp; 체크리스트</span></div>
-        <div class="slide-nav-dot" data-slide="8"><span class="slide-nav-tooltip">9. 대장정의 마무리</span></div>
+    <!-- Section navigation bar -->
+    <nav id="section-nav" style="
+        position: sticky; top: 64px; z-index: 90; width: 100%;
+        background: rgba(5,5,5,0.9); backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    ">
+        <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;gap:2px;min-width:max-content;">
+            <a href="#slide-0" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">커버</a>
+            <a href="#slide-1" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">목적 & 원칙</a>
+            <a href="#slide-2" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">루트 개요</a>
+            <a href="#slide-3" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">타임테이블 Part 1</a>
+            <a href="#slide-4" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">타임테이블 Part 2</a>
+            <a href="#slide-5" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">뉴트리션 가이드</a>
+            <a href="#slide-6" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">뉴트리션 타임라인</a>
+            <a href="#slide-7" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">준비물 & 체크리스트</a>
+            <a href="#slide-8" style="padding:10px 14px;font-size:12px;color:#888;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;" onmouseover="this.style.color='#A1D06C'" onmouseout="this.style.color='#888'">마무리</a>
+        </div>
     </nav>
 
     <!-- Scroll Container -->
-    <main class="scroll-container">
+    <main id="main-content">
 
         <!-- Slide 1: Cover (Merged with Project Overview) -->
         <section class="slide-section" id="slide-0">
@@ -650,15 +621,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-users footer-icon"></i><span>팀 전원 완주</span></div>
-                    <div class="footer-item"><i class="fas fa-shield-alt footer-icon"></i><span>안전 제일</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 2: Purpose & Principles -->
         <section class="slide-section" id="slide-1">
@@ -751,14 +714,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-info-circle footer-icon"></i><span>매월 셋째 주 운행 추진 표준화 예정</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 3: Route Overview -->
         <section class="slide-section" id="slide-2">
@@ -845,14 +801,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-bell footer-icon text-amber-400"></i><span>일몰 시간 19:30 전후 야간 장비 교체 필수</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 4: Timetable Part 1 -->
         <section class="slide-section" id="slide-3">
@@ -864,181 +813,58 @@
                     <p class="slide-subtitle">03:00 ~ 15:30 (12시간 30분) | 중산리 주차장 → 성삼재 휴게소 (36.4km)</p>
                 </div>
 
-                <!-- Full timetable table: 18 key checkpoints in 2 side-by-side columns -->
-                <div style="display:flex;flex-direction:column;gap:12px;">
-                  <div style="display:flex;align-items:center;gap:16px;font-size:10px;color:#555;flex-shrink:0;">
-    <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(161,208,108,0.12);display:inline-block;border:1px solid rgba(161,208,108,0.3);"></span>대휴식/점심</span>
-    <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(56,189,248,0.06);display:inline-block;border:1px solid rgba(56,189,248,0.2);"></span>급수/매점</span>
-    <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(251,191,36,0.06);display:inline-block;border:1px solid rgba(251,191,36,0.2);"></span>휴식</span>
-    <span style="margin-left:auto;color:#444;">★ 주요 피크 &nbsp;·&nbsp; 주요 18 체크포인트</span>
-  </div>
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-  <div style="overflow:hidden;border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
-    <table style="width:100%;border-collapse:collapse;">
-      <thead style="background:rgba(0,0,0,0.4);"><tr><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:56px">시간</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:140px">지점</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:56px">누적</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:62px">D+</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:105px">휴식/보급</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">구간 특징 및 유의사항</th></tr></thead>
-      <tbody><tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">03:00</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">중산리 출발</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">0km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">-</td>
-  <td style="padding:7px 10px;"></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">출발. 장비 및 헤드랜턴 최종 점검</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">04:00</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">망바위</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">2.4km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">600m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">경사도가 급해지는 구간, 파워 하이킹 전환</td>
-</tr>
-<tr style="background:rgba(56,189,248,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">04:25</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">로터리 대피소</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">3.3km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">800m</td>
-  <td style="padding:7px 10px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">5분 급수</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">끝없는 돌계단. 땀 배출을 최소화하며 오르기</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">05:10</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">개선문</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">4.6km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,100m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">고도 1,700m 돌파, 새벽 능선 강풍 주의</td>
-</tr>
-<tr style="background:rgba(251,191,36,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;">05:35</td>
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:600;">천왕봉 ★</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">5.4km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,350m</td>
-  <td style="padding:7px 10px;"><span style="color:#fbbf24;background:rgba(251,191,36,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">10분 휴식</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">수직 상승 완료. 방풍 자켓으로 체온 유지</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">06:05</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">제석봉</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">6.5km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,380m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">고사목 지대. 시야 트이며 조깅 전환</td>
-</tr>
-<tr style="background:rgba(56,189,248,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">06:15</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">장터목 대피소</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">7.1km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,400m</td>
-  <td style="padding:7px 10px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">5분 급수</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">주능선 진입. 러닝 리듬 시작</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">07:20</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">촛대봉</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">10.0km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,650m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">암릉 구간 포함. 발목 롤링 주의</td>
-</tr>
-<tr style="background:rgba(56,189,248,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">07:30</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">세석 대피소</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">10.5km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,700m</td>
-  <td style="padding:7px 10px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">10분 급수/행동식</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">확실한 탄수화물 보충 필수</td>
-</tr></tbody>
-    </table>
-  </div>
-  <div style="overflow:hidden;border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
-    <table style="width:100%;border-collapse:collapse;">
-      <thead style="background:rgba(0,0,0,0.4);"><tr><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:56px">시간</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:140px">지점</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:56px">누적</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:62px">D+</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:105px">휴식/보급</th><th style="padding:6px 10px;font-size:9px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">구간 특징 및 유의사항</th></tr></thead>
-      <tbody><tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">08:25</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">칠선봉</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">12.4km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,850m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">달리기 좋은 능선. 조깅 페이스 살리기</td>
-</tr>
-<tr style="background:rgba(56,189,248,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">09:50</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">벽소령 대피소</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">16.8km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,050m</td>
-  <td style="padding:7px 10px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">15분 급수/매점</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">식수·행동식 적극 재보충</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">10:35</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">형제봉</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">18.3km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,200m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">잦은 업다운 시작. 다리 피로 쌓이는 시점</td>
-</tr>
-<tr style="background:rgba(161,208,108,0.12);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">11:15</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">연하천 대피소</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">20.8km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,400m</td>
-  <td style="padding:7px 10px;"><span style="color:#A1D06C;background:rgba(161,208,108,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">20분 점심/휴식</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">대휴식. 신발 끈 점검 및 확실한 점심</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">12:50</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">토끼봉</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">24.6km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,750m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">지루한 오르막. 일정한 호흡 조절 필수</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">13:30</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">삼도봉</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">26.4km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,900m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">본격 다운힐. 무릎 데미지 최소화</td>
-</tr>
-<tr style="background:rgba(56,189,248,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">14:05</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">임걸령 샘터</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">28.1km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,000m</td>
-  <td style="padding:7px 10px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">5분 급수</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">지리산 최상급 수질. 물통 가득 채우기</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">15:10</td>
-  <td style="padding:7px 10px;font-size:11px;color:#e5e7eb;font-weight:400;">노고단 대피소</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">33.6km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,220m</td>
-  <td style="padding:7px 10px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">성삼재 향해 기분 좋게 하강 시작</td>
-</tr>
-<tr style="background:rgba(161,208,108,0.12);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;">15:30</td>
-  <td style="padding:7px 10px;font-size:11px;color:#A1D06C;font-weight:600;">성삼재 주차장 ✓</td>
-  <td style="padding:7px 10px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">36.4km</td>
-  <td style="padding:7px 10px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,250m</td>
-  <td style="padding:7px 10px;"><span style="color:#A1D06C;background:rgba(161,208,108,0.15);padding:1px 6px;border-radius:4px;font-size:9px;white-space:nowrap;">30분 대휴식</span></td>
-  <td style="padding:7px 10px;font-size:10px;color:#6b7280;line-height:1.4;">전반전 종료. 야간 장비 세팅 및 열량 보충</td>
-</tr></tbody>
-    </table>
-  </div>
+                                                <!-- Timetable Part 1 — 전체 30 포인트 -->
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                  <div class="tt-legend" style="display:flex;align-items:center;gap:14px;font-size:10px;color:#555;flex-wrap:wrap;">
+  <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(161,208,108,0.15);display:inline-block;border:1px solid rgba(161,208,108,0.4);"></span>대휴식/점심</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(56,189,248,0.1);display:inline-block;border:1px solid rgba(56,189,248,0.3);"></span>급수/매점</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(251,191,36,0.1);display:inline-block;border:1px solid rgba(251,191,36,0.3);"></span>휴식/이벤트</span>
+  <span style="margin-left:auto;color:#444;">★ 주요 피크</span>
 </div>
+                  <div class="tt-desktop"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow-x:auto;">
+  <div style="overflow:hidden;border:1px solid rgba(255,255,255,0.07);border-radius:10px;min-width:420px;">
+    <table style="width:100%;border-collapse:collapse;"><thead style="background:rgba(0,0,0,0.4);"><tr><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:52px">시간</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:130px">지점</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:52px">누적</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:58px">D+</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:110px">보급/휴식</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">구간 특징 및 유의사항</th></tr></thead><tbody><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">03:00</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">중산리 출발</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">0km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">-</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">출발. 장비 및 헤드랜턴 최종 점검</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">03:25</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">삼거리</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">1.3km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">300m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">본격적인 오르막 시작 전 웜업 및 호흡 조절</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">04:00</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">망바위</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">2.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">600m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">경사도가 급해지는 구간, 파워 하이킹 전환</td></tr><tr style="background:rgba(56,189,248,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">04:25</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">로터리 대피소</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">3.3km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">800m</td><td style="padding:5px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">5분 급수</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">끝없는 돌계단. 땀 배출을 최소화하며 오르기</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">05:10</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">개선문</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">4.6km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,100m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">고도 1,700m 돌파, 새벽 능선 강풍 주의</td></tr><tr style="background:rgba(251,191,36,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:700;white-space:nowrap;">05:35</td><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:700;">천왕봉 ★</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">5.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,350m</td><td style="padding:5px 8px;"><span style="color:#fbbf24;background:rgba(251,191,36,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">10분 휴식</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">수직 상승 완료. 방풍 자켓으로 체온 유지</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">06:05</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">제석봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">6.5km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,380m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">고사목 지대. 시야 트이며 가벼운 조깅 전환</td></tr><tr style="background:rgba(56,189,248,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">06:15</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">장터목 대피소</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">7.1km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,400m</td><td style="padding:5px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">5분 급수</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">주능선 진입. 본격적인 러닝 리듬 타기 시작</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">06:40</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">연하봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">7.9km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,480m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">기복이 심하지 않은 평이한 능선길, 속도 유지</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">06:50</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">화장봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">8.2km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,500m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">조망이 훌륭하여 심리적 피로도를 낮추기 좋은 곳</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">07:20</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">촛대봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">10.0km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,650m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">일부 암릉 구간 포함, 발목 롤링 주의</td></tr><tr style="background:rgba(56,189,248,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">07:30</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">세석 대피소</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">10.5km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,700m</td><td style="padding:5px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">10분 급수/행동식</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">아침 식사 대용으로 확실한 탄수화물 보충</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">07:55</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">영신봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">11.1km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,750m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">세석 출발 직후 맞이하는 짧고 굵은 오르막</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">08:25</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">칠선봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">12.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,850m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">달리기 좋은 능선 구간, 조깅 페이스 살리기</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">08:35</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">칠선봉 전망대</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">12.6km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,870m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">멈추지 않고 리듬을 유지하며 통과</td></tr></tbody></table>
+  </div>
+  <div style="overflow:hidden;border:1px solid rgba(255,255,255,0.07);border-radius:10px;min-width:420px;">
+    <table style="width:100%;border-collapse:collapse;"><thead style="background:rgba(0,0,0,0.4);"><tr><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:52px">시간</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:130px">지점</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:52px">누적</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:58px">D+</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:110px">보급/휴식</th><th style="padding:6px 8px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">구간 특징 및 유의사항</th></tr></thead><tbody><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">09:05</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">덕평봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">14.1km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">1,950m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">고도 변화가 적어 시간을 확실히 단축할 수 있는 포인트</td></tr><tr style="background:rgba(56,189,248,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">09:50</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">벽소령 대피소</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">16.8km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,050m</td><td style="padding:5px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">15분 급수/매점</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">부족한 식수와 행동식을 매점에서 적극 재보충</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">10:35</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">형제봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">18.3km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,200m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">잦은 업다운이 시작되며 다리에 피로가 쌓이는 시점</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">11:00</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">삼각고지봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">19.5km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,300m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">연하천 직전의 완만한 능선</td></tr><tr style="background:rgba(161,208,108,0.09);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">11:15</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">연하천 대피소</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">20.8km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,400m</td><td style="padding:5px 8px;"><span style="color:#A1D06C;background:rgba(161,208,108,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">20분 점심/휴식</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">대휴식. 신발 끈을 고쳐 매고 확실한 점심 식사</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">12:25</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">명선봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">23.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,600m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">식후 구간이므로 무리하게 뛰지 않고 소화하며 진행</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">12:50</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">토끼봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">24.6km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,750m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">악명 높은 지루한 오르막, 일정한 호흡 조절 필수</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">13:05</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">화개재</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">25.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,800m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">고도를 낮췄다가 삼도봉을 향해 다시 치고 오름</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">13:30</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">삼도봉</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">26.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,900m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">본격적인 다운힐. 무릎 데미지가 쌓이지 않게 충격 흡수</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">13:55</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">노루목</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">27.6km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">2,950m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">임걸령 직전 완만한 구간, 가벼운 조깅 페이스 회복</td></tr><tr style="background:rgba(56,189,248,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">14:05</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">임걸령 샘터</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">28.1km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,000m</td><td style="padding:5px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">5분 급수</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">지리산 최상급 수질. 남은 구간을 위해 물통 가득 채우기</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">14:50</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">피아골 갈림길</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">30.9km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,150m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">노고단으로 향하는 넓고 편안한 길, 속도 유지</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">15:00</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">노고단 고개</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">31.3km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,200m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">사실상 1부 주능선 오르막 마무리 단계</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:400;white-space:nowrap;">15:10</td><td style="padding:5px 8px;font-size:11px;color:#e5e7eb;font-weight:400;">노고단 대피소</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">33.6km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,220m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">성삼재를 향해 기분 좋게 내려가는 구간</td></tr><tr style="background:rgba(161,208,108,0.09);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:700;white-space:nowrap;">15:30</td><td style="padding:5px 8px;font-size:11px;color:#A1D06C;font-weight:700;">성삼재 주차장 ✓</td><td style="padding:5px 8px;font-size:11px;color:#9ca3af;text-align:right;white-space:nowrap;">36.4km</td><td style="padding:5px 8px;font-size:11px;color:#6b7280;text-align:right;white-space:nowrap;">3,250m</td><td style="padding:5px 8px;"><span style="color:#A1D06C;background:rgba(161,208,108,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">30분 대휴식</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">전반전 종료. 야간 장비 세팅, 굳은 근육 풀기 및 열량 보충</td></tr></tbody></table>
+  </div>
+</div></div>
+                  <div class="tt-mobile" style="flex-direction:column;gap:5px;">
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">03:00</div><div style="color:#555;font-size:11px;margin-top:2px;">0km</div><div style="color:#444;font-size:10px;">-</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">중산리 출발</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">출발. 장비 및 헤드랜턴 최종 점검</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">03:25</div><div style="color:#555;font-size:11px;margin-top:2px;">1.3km</div><div style="color:#444;font-size:10px;">300m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">삼거리</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">본격적인 오르막 시작 전 웜업 및 호흡 조절</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">04:00</div><div style="color:#555;font-size:11px;margin-top:2px;">2.4km</div><div style="color:#444;font-size:10px;">600m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">망바위</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">경사도가 급해지는 구간, 파워 하이킹 전환</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #38bdf8;background:rgba(56,189,248,0.05);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">04:25</div><div style="color:#555;font-size:11px;margin-top:2px;">3.3km</div><div style="color:#444;font-size:10px;">800m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">로터리 대피소</div><span style="display:inline-block;color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">5분 급수</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">끝없는 돌계단. 땀 배출을 최소화하며 오르기</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">05:10</div><div style="color:#555;font-size:11px;margin-top:2px;">4.6km</div><div style="color:#444;font-size:10px;">1,100m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">개선문</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">고도 1,700m 돌파, 새벽 능선 강풍 주의</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #fbbf24;background:rgba(251,191,36,0.04);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">05:35</div><div style="color:#555;font-size:11px;margin-top:2px;">5.4km</div><div style="color:#444;font-size:10px;">1,350m</div></div><div style="flex:1;min-width:0;"><div style="color:#A1D06C;font-weight:700;font-size:14px;line-height:1.3;">천왕봉 ★</div><span style="display:inline-block;color:#fbbf24;background:rgba(251,191,36,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">10분 휴식</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">수직 상승 완료. 방풍 자켓으로 체온 유지</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">06:05</div><div style="color:#555;font-size:11px;margin-top:2px;">6.5km</div><div style="color:#444;font-size:10px;">1,380m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">제석봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">고사목 지대. 시야 트이며 가벼운 조깅 전환</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #38bdf8;background:rgba(56,189,248,0.05);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">06:15</div><div style="color:#555;font-size:11px;margin-top:2px;">7.1km</div><div style="color:#444;font-size:10px;">1,400m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">장터목 대피소</div><span style="display:inline-block;color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">5분 급수</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">주능선 진입. 본격적인 러닝 리듬 타기 시작</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">06:40</div><div style="color:#555;font-size:11px;margin-top:2px;">7.9km</div><div style="color:#444;font-size:10px;">1,480m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">연하봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">기복이 심하지 않은 평이한 능선길, 속도 유지</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">06:50</div><div style="color:#555;font-size:11px;margin-top:2px;">8.2km</div><div style="color:#444;font-size:10px;">1,500m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">화장봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">조망이 훌륭하여 심리적 피로도를 낮추기 좋은 곳</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">07:20</div><div style="color:#555;font-size:11px;margin-top:2px;">10.0km</div><div style="color:#444;font-size:10px;">1,650m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">촛대봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">일부 암릉 구간 포함, 발목 롤링 주의</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #38bdf8;background:rgba(56,189,248,0.05);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">07:30</div><div style="color:#555;font-size:11px;margin-top:2px;">10.5km</div><div style="color:#444;font-size:10px;">1,700m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">세석 대피소</div><span style="display:inline-block;color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">10분 급수/행동식</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">아침 식사 대용으로 확실한 탄수화물 보충</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">07:55</div><div style="color:#555;font-size:11px;margin-top:2px;">11.1km</div><div style="color:#444;font-size:10px;">1,750m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">영신봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">세석 출발 직후 맞이하는 짧고 굵은 오르막</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">08:25</div><div style="color:#555;font-size:11px;margin-top:2px;">12.4km</div><div style="color:#444;font-size:10px;">1,850m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">칠선봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">달리기 좋은 능선 구간, 조깅 페이스 살리기</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">08:35</div><div style="color:#555;font-size:11px;margin-top:2px;">12.6km</div><div style="color:#444;font-size:10px;">1,870m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">칠선봉 전망대</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">멈추지 않고 리듬을 유지하며 통과</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">09:05</div><div style="color:#555;font-size:11px;margin-top:2px;">14.1km</div><div style="color:#444;font-size:10px;">1,950m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">덕평봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">고도 변화가 적어 시간을 확실히 단축할 수 있는 포인트</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #38bdf8;background:rgba(56,189,248,0.05);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">09:50</div><div style="color:#555;font-size:11px;margin-top:2px;">16.8km</div><div style="color:#444;font-size:10px;">2,050m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">벽소령 대피소</div><span style="display:inline-block;color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">15분 급수/매점</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">부족한 식수와 행동식을 매점에서 적극 재보충</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">10:35</div><div style="color:#555;font-size:11px;margin-top:2px;">18.3km</div><div style="color:#444;font-size:10px;">2,200m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">형제봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">잦은 업다운이 시작되며 다리에 피로가 쌓이는 시점</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">11:00</div><div style="color:#555;font-size:11px;margin-top:2px;">19.5km</div><div style="color:#444;font-size:10px;">2,300m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">삼각고지봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">연하천 직전의 완만한 능선</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #A1D06C;background:rgba(161,208,108,0.07);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">11:15</div><div style="color:#555;font-size:11px;margin-top:2px;">20.8km</div><div style="color:#444;font-size:10px;">2,400m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">연하천 대피소</div><span style="display:inline-block;color:#A1D06C;background:rgba(161,208,108,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">20분 점심/휴식</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">대휴식. 신발 끈을 고쳐 매고 확실한 점심 식사</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">12:25</div><div style="color:#555;font-size:11px;margin-top:2px;">23.4km</div><div style="color:#444;font-size:10px;">2,600m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">명선봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">식후 구간이므로 무리하게 뛰지 않고 소화하며 진행</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">12:50</div><div style="color:#555;font-size:11px;margin-top:2px;">24.6km</div><div style="color:#444;font-size:10px;">2,750m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">토끼봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">악명 높은 지루한 오르막, 일정한 호흡 조절 필수</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">13:05</div><div style="color:#555;font-size:11px;margin-top:2px;">25.4km</div><div style="color:#444;font-size:10px;">2,800m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">화개재</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">고도를 낮췄다가 삼도봉을 향해 다시 치고 오름</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">13:30</div><div style="color:#555;font-size:11px;margin-top:2px;">26.4km</div><div style="color:#444;font-size:10px;">2,900m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">삼도봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">본격적인 다운힐. 무릎 데미지가 쌓이지 않게 충격 흡수</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">13:55</div><div style="color:#555;font-size:11px;margin-top:2px;">27.6km</div><div style="color:#444;font-size:10px;">2,950m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">노루목</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">임걸령 직전 완만한 구간, 가벼운 조깅 페이스 회복</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #38bdf8;background:rgba(56,189,248,0.05);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">14:05</div><div style="color:#555;font-size:11px;margin-top:2px;">28.1km</div><div style="color:#444;font-size:10px;">3,000m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">임걸령 샘터</div><span style="display:inline-block;color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">5분 급수</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">지리산 최상급 수질. 남은 구간을 위해 물통 가득 채우기</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">14:50</div><div style="color:#555;font-size:11px;margin-top:2px;">30.9km</div><div style="color:#444;font-size:10px;">3,150m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">피아골 갈림길</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">노고단으로 향하는 넓고 편안한 길, 속도 유지</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">15:00</div><div style="color:#555;font-size:11px;margin-top:2px;">31.3km</div><div style="color:#444;font-size:10px;">3,200m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">노고단 고개</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">사실상 1부 주능선 오르막 마무리 단계</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">15:10</div><div style="color:#555;font-size:11px;margin-top:2px;">33.6km</div><div style="color:#444;font-size:10px;">3,220m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">노고단 대피소</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">성삼재를 향해 기분 좋게 내려가는 구간</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #A1D06C;background:rgba(161,208,108,0.07);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">15:30</div><div style="color:#555;font-size:11px;margin-top:2px;">36.4km</div><div style="color:#444;font-size:10px;">3,250m</div></div><div style="flex:1;min-width:0;"><div style="color:#A1D06C;font-weight:700;font-size:14px;line-height:1.3;">성삼재 주차장 ✓</div><span style="display:inline-block;color:#A1D06C;background:rgba(161,208,108,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">30분 대휴식</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">전반전 종료. 야간 장비 세팅, 굳은 근육 풀기 및 열량 보충</div></div></div>
+                  </div>
                 </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-exclamation-triangle footer-icon text-amber-400"></i><span>성삼재 휴식 시간 30분 엄수 후 16:00 재출발</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 5: Timetable Part 2 -->
         <section class="slide-section" id="slide-4">
@@ -1050,171 +876,35 @@
                     <p class="slide-subtitle">16:00 ~ 23:00 (7시간) | 성삼재 주차장 → 여원재 (20.4km)</p>
                 </div>
 
-                <!-- Full timetable table: 9 checkpoints, detailed -->
-                <div style="display:flex;flex-direction:column;gap:12px;">
-                  <div style="display:flex;align-items:center;gap:16px;font-size:10px;color:#555;flex-shrink:0;">
-                    <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(161,208,108,0.12);display:inline-block;border:1px solid rgba(161,208,108,0.3);"></span>휴식</span>
-                    <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(56,189,248,0.06);display:inline-block;border:1px solid rgba(56,189,248,0.2);"></span>급수/보급</span>
-                    <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(251,191,36,0.06);display:inline-block;border:1px solid rgba(251,191,36,0.2);"></span>주요 이벤트</span>
-                    <span style="margin-left:auto;color:#444;">★ 주요 피크 &nbsp;·&nbsp; 구간 거리 20.4km / 누적 D+ 4,200m</span>
-                  </div>
-                  <div style="overflow:hidden;border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
-  <table style="width:100%;border-collapse:collapse;">
-    <thead style="background:rgba(0,0,0,0.4);"><tr><th style="padding:6px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:60px">시간</th><th style="padding:6px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:160px">지점</th><th style="padding:6px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:60px">누적</th><th style="padding:6px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:65px">D+</th><th style="padding:6px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:140px">휴식/보급</th><th style="padding:6px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">구간 특징 및 유의사항</th></tr></thead>
-    <tbody><tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">16:00</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">성삼재 출발</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">36.4km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,250m</td>
-  <td style="padding:7px 8px;"></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">후반전 출발. 굳어있는 다리를 천천히 예열하며 고리봉 진입</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">16:25</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">고리봉</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">37.6km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,350m</td>
-  <td style="padding:7px 8px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">서북능선 진입 직후 맞이하는 첫 번째 가파른 오르막</td>
-</tr>
-<tr style="background:rgba(251,191,36,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;">17:35</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:600;">만복대 ★</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">41.6km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,650m</td>
-  <td style="padding:7px 8px;"><span style="color:#fbbf24;background:rgba(251,191,36,0.15);padding:1px 5px;border-radius:4px;font-size:9px;white-space:nowrap;">10분 산신제</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">체력 저하가 극심해지는 오르막. 파워 하이킹 적극 활용</td>
-</tr>
-<tr style="background:rgba(56,189,248,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">18:25</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">정령치</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">43.8km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,700m</td>
-  <td style="padding:7px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.15);padding:1px 5px;border-radius:4px;font-size:9px;white-space:nowrap;">15분 급수/자판기</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">마지막 보급처. 야간 대비 헤드랜턴 장착 필수. 자판기 있음</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">19:00</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">큰고리봉</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">44.7km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,750m</td>
-  <td style="padding:7px 8px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">일몰 후 본격적인 야간 트레일러닝 진입 구간</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">20:00</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">고기리</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">48.1km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,850m</td>
-  <td style="padding:7px 8px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">고도 800m 낮추는 악명 높은 급경사. 숏피치로 무릎 보호</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">20:35</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">주촌마을</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">50.3km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,900m</td>
-  <td style="padding:7px 8px;"><span style="color:#444;font-size:9px;">패스</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">평탄한 마을길 및 임도. 가벼운 조깅으로 하체 근육 풀기</td>
-</tr>
-<tr style="background:rgba(251,191,36,0.06);border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums;">21:30</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">수정봉</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">52.8km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">4,150m</td>
-  <td style="padding:7px 8px;"><span style="color:#fbbf24;background:rgba(251,191,36,0.15);padding:1px 5px;border-radius:4px;font-size:9px;white-space:nowrap;">5분 호흡</span></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">50km 이상 소화 후 야간 업힐(805m). 철저한 멘탈 싸움</td>
-</tr>
-<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;">23:00</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#A1D06C;font-weight:600;">여원재 🏁</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">56.8km</td>
-  <td style="padding:7px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">4,200m</td>
-  <td style="padding:7px 8px;"></td>
-  <td style="padding:7px 8px;font-size:10px;color:#6b7280;line-height:1.35;">최종 목적지 도착. 대장정 마무리 및 완주 아카이브 수집</td>
-</tr></tbody>
-  </table>
+                                                <!-- Timetable Part 2 — 전체 9 포인트 -->
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                  <div class="tt-legend" style="display:flex;align-items:center;gap:14px;font-size:10px;color:#555;flex-wrap:wrap;">
+  <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(161,208,108,0.15);display:inline-block;border:1px solid rgba(161,208,108,0.4);"></span>대휴식/점심</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(56,189,248,0.1);display:inline-block;border:1px solid rgba(56,189,248,0.3);"></span>급수/매점</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(251,191,36,0.1);display:inline-block;border:1px solid rgba(251,191,36,0.3);"></span>휴식/이벤트</span>
+  <span style="margin-left:auto;color:#444;">★ 주요 피크</span>
 </div>
+                  <div class="tt-desktop"><div style="overflow-x:auto;border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
+  <table style="width:100%;border-collapse:collapse;min-width:680px;">
+    <thead style="background:rgba(0,0,0,0.4);"><tr><th style="padding:7px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:60px">시간</th><th style="padding:7px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:155px">지점</th><th style="padding:7px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:60px">누적</th><th style="padding:7px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;width:65px">D+</th><th style="padding:7px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;width:140px">보급/휴식</th><th style="padding:7px 10px;font-size:10px;color:#555;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">구간 특징 및 유의사항</th></tr></thead>
+    <tbody><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">16:00</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">성삼재 출발</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">36.4km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,250m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">후반전 출발. 휴식 후 굳어있는 다리를 천천히 예열</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">16:25</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">고리봉</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">37.6km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,350m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">서북능선 진입 후 맞이하는 첫 번째 가파른 오르막</td></tr><tr style="background:rgba(251,191,36,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:700;white-space:nowrap;">17:35</td><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:700;">만복대 ★</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">41.6km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,650m</td><td style="padding:5px 8px;"><span style="color:#fbbf24;background:rgba(251,191,36,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">10분 산신제</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">체력 저하가 극심해지는 오르막. 파워 하이킹 적극 활용</td></tr><tr style="background:rgba(56,189,248,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">18:25</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">정령치</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">43.8km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,700m</td><td style="padding:5px 8px;"><span style="color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">15분 급수/자판기</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">마지막 보급처. 야간 대비 헤드랜턴 장착 필수. 자판기 있음</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">19:00</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">큰고리봉</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">44.7km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,750m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">일몰 후 본격적인 야간 트레일러닝 진입</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">20:00</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">고기리</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">48.1km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,850m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">고도 800m 낮추는 악명 높은 급경사. 숏피치로 무릎 보호</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">20:35</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">주촌마을</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">50.3km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">3,900m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">평탄한 마을길 및 임도. 가벼운 조깅으로 하체 근육 풀기</td></tr><tr style="background:rgba(251,191,36,0.05);border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:400;white-space:nowrap;">21:30</td><td style="padding:5px 8px;font-size:11.5px;color:#e5e7eb;font-weight:400;">수정봉</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">52.8km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">4,150m</td><td style="padding:5px 8px;"><span style="color:#fbbf24;background:rgba(251,191,36,0.18);padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;white-space:nowrap;">5분 호흡</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">50km 이상 뛴 후의 야간 업힐(805m). 철저한 멘탈 싸움 구간</td></tr><tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:700;white-space:nowrap;">23:00</td><td style="padding:5px 8px;font-size:11.5px;color:#A1D06C;font-weight:700;">여원재 🏁</td><td style="padding:5px 8px;font-size:11.5px;color:#9ca3af;text-align:right;white-space:nowrap;">56.8km</td><td style="padding:5px 8px;font-size:11.5px;color:#6b7280;text-align:right;white-space:nowrap;">4,200m</td><td style="padding:5px 8px;"><span style="color:#2a2a2a;font-size:9px;">-</span></td><td style="padding:5px 8px;font-size:9.5px;color:#6b7280;line-height:1.4;">최종 목적지 도착 및 대장정 마무리</td></tr></tbody>
+  </table>
+</div></div>
+                  <div class="tt-mobile" style="flex-direction:column;gap:5px;">
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">16:00</div><div style="color:#555;font-size:11px;margin-top:2px;">36.4km</div><div style="color:#444;font-size:10px;">3,250m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">성삼재 출발</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">후반전 출발. 휴식 후 굳어있는 다리를 천천히 예열</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">16:25</div><div style="color:#555;font-size:11px;margin-top:2px;">37.6km</div><div style="color:#444;font-size:10px;">3,350m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">고리봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">서북능선 진입 후 맞이하는 첫 번째 가파른 오르막</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #fbbf24;background:rgba(251,191,36,0.04);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">17:35</div><div style="color:#555;font-size:11px;margin-top:2px;">41.6km</div><div style="color:#444;font-size:10px;">3,650m</div></div><div style="flex:1;min-width:0;"><div style="color:#A1D06C;font-weight:700;font-size:14px;line-height:1.3;">만복대 ★</div><span style="display:inline-block;color:#fbbf24;background:rgba(251,191,36,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">10분 산신제</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">체력 저하가 극심해지는 오르막. 파워 하이킹 적극 활용</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #38bdf8;background:rgba(56,189,248,0.05);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">18:25</div><div style="color:#555;font-size:11px;margin-top:2px;">43.8km</div><div style="color:#444;font-size:10px;">3,700m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">정령치</div><span style="display:inline-block;color:#38bdf8;background:rgba(56,189,248,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">15분 급수/자판기</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">마지막 보급처. 야간 대비 헤드랜턴 장착 필수. 자판기 있음</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">19:00</div><div style="color:#555;font-size:11px;margin-top:2px;">44.7km</div><div style="color:#444;font-size:10px;">3,750m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">큰고리봉</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">일몰 후 본격적인 야간 트레일러닝 진입</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">20:00</div><div style="color:#555;font-size:11px;margin-top:2px;">48.1km</div><div style="color:#444;font-size:10px;">3,850m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">고기리</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">고도 800m 낮추는 악명 높은 급경사. 숏피치로 무릎 보호</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">20:35</div><div style="color:#555;font-size:11px;margin-top:2px;">50.3km</div><div style="color:#444;font-size:10px;">3,900m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">주촌마을</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">평탄한 마을길 및 임도. 가벼운 조깅으로 하체 근육 풀기</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid #fbbf24;background:rgba(251,191,36,0.04);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">21:30</div><div style="color:#555;font-size:11px;margin-top:2px;">52.8km</div><div style="color:#444;font-size:10px;">4,150m</div></div><div style="flex:1;min-width:0;"><div style="color:#f3f4f6;font-weight:500;font-size:14px;line-height:1.3;">수정봉</div><span style="display:inline-block;color:#fbbf24;background:rgba(251,191,36,0.18);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-top:4px;">5분 호흡</span><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">50km 이상 뛴 후의 야간 업힐(805m). 철저한 멘탈 싸움 구간</div></div></div>
+<div style="display:flex;gap:12px;padding:12px 14px;border-left:3px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.02);border-radius:0 8px 8px 0;"><div style="flex-shrink:0;min-width:48px;text-align:center;"><div style="color:#A1D06C;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;">23:00</div><div style="color:#555;font-size:11px;margin-top:2px;">56.8km</div><div style="color:#444;font-size:10px;">4,200m</div></div><div style="flex:1;min-width:0;"><div style="color:#A1D06C;font-weight:700;font-size:14px;line-height:1.3;">여원재 🏁</div><div style="color:#6b7280;font-size:12px;margin-top:4px;line-height:1.5;">최종 목적지 도착 및 대장정 마무리</div></div></div>
+                  </div>
+                </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-battery-three-quarters footer-icon text-amber-400"></i><span>램프 보조 배터리 필수 지참</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
-
-        <!-- Slide 7: Nutrition Overview -->
-        <section class="slide-section" id="slide-5">
-            <div class="background-pattern"></div>
-            <div class="section-body">
-                <div class="slide-header">
-                    <span class="badge mb-2"><i class="fas fa-handshake"></i> yohemite Partnership</span>
-                    <h2 class="slide-title">yohemite <span class="title-highlight">뉴트리션 에너지 가이드</span></h2>
-                    <p class="slide-subtitle">20시간의 한계를 지배하는 스마트 카페인 및 고탄수화물 보급 전략</p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Nutritional Breakdown -->
-                    <div class="info-card flex flex-col gap-3">
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fas fa-flask"></i></div>
-                            <h3 class="card-title">1인 보급량 패키징</h3>
-                        </div>
-                        <p class="text-xs text-gray-400 mb-4">썬더버드 대원들의 완주를 위해 요헤미티에서 특별 지원하는 패키지 가이드라인입니다.</p>
-                        <div class="flex flex-col gap-3 text-sm">
-                            <div class="flex justify-between py-1.5 border-b border-white/5">
-                                <span class="text-gray-400">총 에너지 젤</span>
-                                <span class="font-bold text-white">11개 지원</span>
-                            </div>
-                            <div class="flex justify-between py-1.5 border-b border-white/5">
-                                <span class="text-gray-400">카페인 함량 젤</span>
-                                <span class="font-bold text-amber-400">4 ~ 6개 배치 (총 440mg~660mg)</span>
-                            </div>
-                            <div class="flex justify-between py-1.5">
-                                <span class="text-gray-400">무카페인 에너지 젤</span>
-                                <span class="font-bold text-emerald-400">5 ~ 7개 배치</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Supply point cards -->
-                    <div class="info-card lg:col-span-2 flex flex-col gap-3">
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fas fa-shuttle-van"></i></div>
-                            <h3 class="card-title">스테이지 핵심 보급 지점</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-2">
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
-                                <strong class="text-emerald-400 block mb-2 font-bold text-sm">1. 성삼재 (15:30)</strong>
-                                • 주간 주행 완료 후 따뜻한 고탄수 수프 공급<br/>
-                                • 식수 물통 리필<br/>
-                                • 후반 야간 젤 보충
-                            </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
-                                <strong class="text-emerald-400 block mb-2 font-bold text-sm">2. 정령치 (18:25)</strong>
-                                • 야간 본격 대비 고도 1,172m 최후 화장실 이용 및 음료 밴딩머신 이용<br/>
-                                • 전해질 재조합
-                            </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
-                                <strong class="text-emerald-400 block mb-2 font-bold text-sm">3. 주촌마을 (20:35)</strong>
-                                • 급하강 이후 고통 리셋 구역<br/>
-                                • 피로 방지 카페인 스퍼트 젤 섭취
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-heartbeat footer-icon text-rose-400"></i><span>전해질 음료는 최소 500ml 단위 항시 보유</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 8: Nutrition Timeline Applied -->
         <section class="slide-section" id="slide-6">
@@ -1371,14 +1061,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-pills footer-icon text-amber-500"></i><span>위 타임라인은 개인 체중 및 당일 신진대사 피로도에 따라 유동적으로 조절</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 9: Checklist & Prep -->
         <section class="slide-section" id="slide-7">
@@ -1459,14 +1142,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-info-circle footer-icon"></i><span>출발 전 중산리 주차장에서 02:20분 전원 최종 장비 장착 현장 대조 진행</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
         <!-- Slide 10: Outro -->
         <section class="slide-section" id="slide-8">
@@ -1536,14 +1212,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide-footer">
-                <div class="footer-left">
-                    <div class="footer-item"><i class="fas fa-handshake footer-icon text-amber-400"></i><span>yohemite 공식 보급 연계 지원 프로젝트</span></div>
-                </div>
-                <div class="text-xs text-gray-500">The Thunderbird Way 2 : Ridges</div>
-            </div>
-        </section>
+</section>
 
     </main>
 
@@ -1585,45 +1254,6 @@
 
         // Active Dot Tracker using Intersection Observer
         document.addEventListener("DOMContentLoaded", () => {
-            const sections = document.querySelectorAll(".slide-section");
-            const navDots = document.querySelectorAll(".slide-nav-dot");
-
-            const observerOptions = {
-                root: null,
-                threshold: 0.4 // Trigger transition when 40% of slide target is centered
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const activeId = entry.target.id;
-                        const activeIndex = activeId.replace("slide-", "");
-                        
-                        // Sync visual dots
-                        navDots.forEach((dot) => {
-                            dot.classList.remove("active");
-                            if (dot.getAttribute("data-slide") === activeIndex) {
-                                dot.classList.add("active");
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach((section) => observer.observe(section));
-
-            // Dot click event to jump smoothly to sections
-            navDots.forEach((dot) => {
-                dot.addEventListener("click", () => {
-                    const slideIndex = dot.getAttribute("data-slide");
-                    const targetSection = document.getElementById(`slide-${slideIndex}`);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: "smooth" });
-                    }
-                });
-            });
-
-            // Initialize GPX elevation chart
             initGpxChart();
         });
 
@@ -2136,6 +1766,25 @@
       } else {
         init();
       }
+    })();
+    </script>
+
+    <script>
+    // Highlight active section nav link on scroll
+    (function(){
+        const links = document.querySelectorAll('#section-nav a');
+        const sections = document.querySelectorAll('.slide-section');
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    links.forEach(l => {
+                        l.style.color = l.getAttribute('href') === '#' + e.target.id ? '#A1D06C' : '#888';
+                        l.style.borderBottomColor = l.getAttribute('href') === '#' + e.target.id ? '#A1D06C' : 'transparent';
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        sections.forEach(s => obs.observe(s));
     })();
     </script>
 </body>
