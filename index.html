@@ -425,6 +425,10 @@
         }
 
         @media (max-width: 767px) {
+            .global-header   { padding: 7px 16px; }
+            /* sponsor logos smaller on mobile */
+            .global-header svg[style*="height: 28px"] { height: 18px !important; }
+            .global-header svg[style*="height: 20px"] { height: 14px !important; }
             .slide-section   { padding: 48px 16px 36px 16px; }
             .slide-title     { font-size: 24px; }
             .slide-subtitle  { font-size: 13px; }
@@ -510,7 +514,7 @@
             </svg>
         </div>
         <!-- 파트너 브랜드 로고: CAYL / ON / yohemite -->
-        <div class="hidden sm:flex items-center opacity-75 hover:opacity-100 transition-opacity" style="gap: 10px; transition: opacity 0.3s ease;">
+        <div class="flex items-center opacity-75 hover:opacity-100 transition-opacity" style="gap: 10px; transition: opacity 0.3s ease;">
             <!-- CAYL -->
             <svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;">
               <path fill="#FFFFFF" fill-rule="evenodd" d="M74.2263 55.2933C74.2263 56.0502 74.0723 56.7977 73.1862 56.7977C72.4803 56.7977 72.1599 55.6461 71.8923 55.1221C69.7776 50.8604 67.0497 48.7833 62.7633 48.7833C54.2326 48.7833 50.1753 56.3199 50.1753 63.3201C50.1753 72.9821 56.0117 77.7693 62.5066 77.7693C66.3985 77.7693 69.0948 76.2217 71.8366 73.4713C72.2808 73.0269 72.7621 72.2725 73.515 72.2725C73.6489 72.276 73.7808 72.3066 73.9028 72.3624C74.0249 72.4182 74.1345 72.4981 74.2254 72.5974C74.3162 72.6967 74.3864 72.8133 74.4318 72.9404C74.4771 73.0676 74.4967 73.2025 74.4894 73.3374C74.4894 74.8019 71.1726 77.3279 70.0673 77.9948C67.681 79.4976 65.4715 80.2978 61.8032 80.2978C52.9669 80.2978 45.6752 73.7405 45.6752 64.6518C45.6752 55.9626 50.8032 46.5186 62.9529 46.5186C65.8831 46.4201 68.7832 47.1411 71.332 48.6017C73.8003 49.8871 74.2224 50.8156 74.2224 52.104L74.2263 55.2933Z"/>
@@ -1014,8 +1018,8 @@
                                     <span class="text-white font-medium">1끼분 (12:00 연하천용)</span>
                                 </div>
                                 <div class="flex justify-between py-1.5 border-b border-white/5">
-                                    <span class="text-gray-400">포크락</span>
-                                    <span class="text-white font-medium">개인 지참</span>
+                                    <span class="text-gray-400">그 외 중간 간식</span>
+                                    <span class="text-white font-medium">개인 자율</span>
                                 </div>
                                 <div style="background:rgba(161,208,108,0.07);border-radius:8px;padding:10px 12px;border-left:3px solid var(--brand-neon);margin-top:4px;">
                                     <div style="color:var(--brand-neon);font-weight:700;font-size:12px;margin-bottom:6px;">yohemite 뉴트리션 패키지</div>
@@ -1023,7 +1027,6 @@
                                         <div class="flex justify-between"><span>일반 젤</span><span class="text-white">8개</span></div>
                                         <div class="flex justify-between"><span>카페인 젤</span><span style="color:#fbbf24;">4개</span></div>
                                         <div class="flex justify-between"><span>전해질 타블렛</span><span class="text-white">개수 확인</span></div>
-                                        <div class="flex justify-between"><span>그 외 중간 간식</span><span class="text-white">개인 자율</span></div>
                                     </div>
                                 </div>
                             </div>
