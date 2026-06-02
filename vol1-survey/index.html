@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FJTS Vol.1 설문 결과</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--neon:#A1D06C;--dark:#0a0a0a;--card:#141414;--border:#222;--text:#f0f0f0;--muted:#666;--dim:#2a2a2a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:var(--text);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.page{max-width:960px;margin:0 auto;padding:48px 24px 80px;}
+
+.hero{border-bottom:1px solid var(--border);padding-bottom:40px;margin-bottom:48px;}
+.hero-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--neon);text-transform:uppercase;margin-bottom:16px;}
+.hero-title{font-size:clamp(26px,5vw,44px);font-weight:700;line-height:1.1;letter-spacing:-1px;}
+.hero-title span{color:var(--neon);}
+.hero-meta{font-size:13px;color:var(--muted);margin-top:10px;}
+.stats-row{display:flex;gap:0;margin-top:28px;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.stat{flex:1;padding:18px 20px;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'DM Mono',monospace;font-size:26px;font-weight:500;color:var(--neon);}
+.stat-l{font-size:11px;color:var(--muted);margin-top:2px;}
+
+.section{margin-bottom:52px;}
+.section-title{font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;}
+.card-label{font-size:11px;color:var(--muted);letter-spacing:.04em;margin-bottom:14px;line-height:1.4;}
+.score-display{display:flex;align-items:baseline;gap:5px;margin-bottom:14px;}
+.score-big{font-family:'DM Mono',monospace;font-size:38px;font-weight:500;}
+.score-denom{font-size:15px;color:var(--muted);}
+
+.freq{display:flex;flex-direction:column;gap:7px;}
+.freq-row{display:flex;align-items:center;gap:10px;}
+.freq-label{font-size:11.5px;color:var(--muted);min-width:130px;flex-shrink:0;line-height:1.3;}
+.freq-bar-wrap{flex:1;background:var(--dim);border-radius:2px;height:5px;overflow:hidden;}
+.freq-bar{height:100%;border-radius:2px;background:var(--neon);}
+.freq-bar.am{background:#f59e0b;} .freq-bar.rd{background:#ef4444;} .freq-bar.bl{background:#60a5fa;}
+.freq-n{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);min-width:20px;text-align:right;}
+
+.chart-wrap{position:relative;height:200px;margin-top:8px;}
+.chart-sm{position:relative;height:170px;}
+
+.perfect{border-color:#1c3010;}
+.highlight-box{background:#0d1f06;border-radius:8px;padding:16px;display:flex;align-items:center;gap:16px;}
+.hb-n{font-family:'DM Mono',monospace;font-size:36px;font-weight:500;color:var(--neon);}
+.hb-sub{font-size:13px;color:#7ab84e;margin-top:2px;}
+
+.s5{color:#A1D06C;} .s4{color:#7cc459;} .s3{color:#f59e0b;} .s2{color:#ef4444;}
+
+/* ── 자유 의견 테마 카드 ── */
+.theme-overview{margin-bottom:20px;}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+@media(max-width:620px){.theme-grid{grid-template-columns:1fr;}}
+
+.theme-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.theme-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);}
+.theme-icon{font-size:16px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0;}
+.theme-title-wrap{flex:1;}
+.theme-name{font-size:13px;font-weight:500;color:var(--text);}
+.theme-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--neon);background:rgba(161,208,108,.1);border:1px solid rgba(161,208,108,.2);border-radius:4px;padding:2px 7px;margin-left:6px;}
+.theme-body{padding:12px 16px;display:flex;flex-direction:column;gap:6px;}
+.opinion-item{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,255,255,.02);border-radius:6px;border-left:2px solid var(--dim);}
+.opinion-item.hot{border-left-color:rgba(161,208,108,.4);}
+.opinion-item.warn{border-left-color:rgba(245,158,11,.35);}
+.opinion-bullet{width:5px;height:5px;border-radius:50%;background:var(--muted);margin-top:7px;flex-shrink:0;}
+.opinion-text{font-size:12px;color:#ccc;line-height:1.6;}
+.opinion-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;margin-top:1px;flex-shrink:0;}
+
+/* insight top */
+.insight-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;}
+.insight-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--neon);min-width:28px;}
+.insight-title{font-size:13px;font-weight:500;margin-bottom:4px;}
+.insight-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.tag{font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);color:var(--muted);}
+.tag.hot{border-color:rgba(161,208,108,.35);color:#8cb85a;background:rgba(161,208,108,.05);}
+.tag.warn{border-color:rgba(245,158,11,.3);color:#d4a017;background:rgba(245,158,11,.05);}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">FJTS Vol.1 · Post-Run Survey</div>
+  <h1 class="hero-title">1회차 운행 후<br/><span>팀 설문 결과</span></h1>
+  <div class="hero-meta">2026.06.01 수집 · 불참자 답변 생략 · 자유 의견 익명 처리</div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-n">11</div><div class="stat-l">총 응답자</div></div>
+    <div class="stat"><div class="stat-n">11</div><div class="stat-l">실제 참석자</div></div>
+    <div class="stat"><div class="stat-n">18</div><div class="stat-l">설문 항목</div></div>
+    <div class="stat"><div class="stat-n">4.7</div><div class="stat-l">준비/소통 평균</div></div>
+  </div>
+</div>
+
+<!-- 01 준비 & 소통 -->
+<div class="section">
+  <div class="section-title">01 — 준비 및 소통</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">리더와의 소통 및 계획 공유</div>
+      <div class="score-display"><span class="score-big s5">4.8</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">매우 원활하고 신속했다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:82%"></div></div><span class="freq-n">9</span></div>
+        <div class="freq-row"><span class="freq-label">대체로 원활하게 소통되었다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:18%"></div></div><span class="freq-n">2</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">네이버 카페 정보 공유 편의성</div>
+      <div class="score-display"><span class="score-big s5">4.5</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">매우 편리했다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:55%"></div></div><span class="freq-n">6</span></div>
+        <div class="freq-row"><span class="freq-label">대체로 이용할 만했다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:45%"></div></div><span class="freq-n">5</span></div>
+      </div>
+    </div>
+    <div class="card perfect" style="grid-column:1/-1;">
+      <div class="highlight-box">
+        <div class="hb-n">11/11</div>
+        <div><div style="font-size:14px;font-weight:500;color:#8cb85a;margin-bottom:3px;">GitHub 계획 웹페이지 — 전원 최고 평가</div>
+        <div class="hb-sub">"정보가 충분하고 아주 유용했다. 운행 중에도 참고하기 좋았음"</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">향후 회차 최종 리뷰 미팅 필요성</div>
+      <div class="chart-sm"><canvas id="c5" role="img" aria-label="미팅 필요성 도넛차트">꼭 필요 5명, 온라인 충분 3명, 불필요 3명</canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-label">전체 시간 계획 적절성</div>
+      <div class="score-display"><span class="score-big s4">4.0</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">약간 타이트했으나 적절했다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:91%"></div></div><span class="freq-n">10</span></div>
+        <div class="freq-row"><span class="freq-label">더 타이트하게 조정 필요</span><div class="freq-bar-wrap"><div class="freq-bar am" style="width:9%"></div></div><span class="freq-n">1</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 코스 & 운행 -->
+<div class="section">
+  <div class="section-title">02 — 코스 &amp; 운행</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">코스 거리 · 난이도 적절성</div>
+      <div class="freq" style="margin-top:10px;">
+        <div class="freq-row"><span class="freq-label">힘들었지만 도전할 만했다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:91%"></div></div><span class="freq-n">10</span></div>
+        <div class="freq-row"><span class="freq-label">너무 길고 힘들었다</span><div class="freq-bar-wrap"><div class="freq-bar rd" style="width:9%"></div></div><span class="freq-n">1</span></div>
+      </div>
+      <div class="tags" style="margin-top:12px;">
+        <span class="tag hot">적절한 도전</span><span class="tag warn">여름철 40km 조정 의견</span><span class="tag">날씨 보정 필요</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">급수 및 식사 포인트 정확도</div>
+      <div class="score-display"><span class="score-big s5">4.8</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">매우 정확하고 적절한 타이밍</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:82%"></div></div><span class="freq-n">9</span></div>
+        <div class="freq-row"><span class="freq-label">약간의 조정이 필요해 보인다</span><div class="freq-bar-wrap"><div class="freq-bar am" style="width:18%"></div></div><span class="freq-n">2</span></div>
+      </div>
+    </div>
+    <div class="card" style="grid-column:1/-1;">
+      <div class="card-label">그룹 분리(선두/후미) 및 페이스 운영 적절성</div>
+      <div class="chart-wrap"><canvas id="c17" role="img" aria-label="그룹 분리 페이스 평가">매우 적절 3명, 간격·무전 보완 필요 3명, 기준 명확화 필요 5명</canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 장비 & 뉴트리션 -->
+<div class="section">
+  <div class="section-title">03 — 장비 &amp; 뉴트리션</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">On Cloud Ultra Pro — 백두대간 퍼포먼스</div>
+      <div class="score-display"><span class="score-big s3">3.9</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">매우 만족 (접지·쿠션·내구성)</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:36%"></div></div><span class="freq-n">4</span></div>
+        <div class="freq-row"><span class="freq-label">대체로 만족 (무난했음)</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:18%"></div></div><span class="freq-n">2</span></div>
+        <div class="freq-row"><span class="freq-label">보통 (장단점 반반)</span><div class="freq-bar-wrap"><div class="freq-bar am" style="width:45%"></div></div><span class="freq-n">5</span></div>
+      </div>
+      <div class="tags" style="margin-top:10px;">
+        <span class="tag warn">발목 꺾임</span><span class="tag warn">인솔 밀림</span><span class="tag warn">바위 신뢰도</span><span class="tag">족형 상이</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Yohemite 에너지젤 효과</div>
+      <div class="score-display"><span class="score-big s5">4.5</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">효과가 매우 뛰어났다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:64%"></div></div><span class="freq-n">7</span></div>
+        <div class="freq-row"><span class="freq-label">대체로 만족스러웠다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:27%"></div></div><span class="freq-n">3</span></div>
+        <div class="freq-row"><span class="freq-label">실전 데이터 추가 필요</span><div class="freq-bar-wrap"><div class="freq-bar am" style="width:9%"></div></div><span class="freq-n">1</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Yohemite 가이드 섭취 준수 여부</div>
+      <div class="chart-sm"><canvas id="c10" role="img" aria-label="젤 섭취 방식">가이드 철저히 5명, 상황맞춤 6명</canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-label">섭취 방식과 효과의 상관</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted);line-height:1.8;">
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:7px;margin-bottom:7px;"><span>가이드 철저 준수</span><span style="color:var(--neon);font-family:'DM Mono',monospace;">5명 · 45%</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>상황에 맞춰 일부 참고</span><span style="color:#f59e0b;font-family:'DM Mono',monospace;">6명 · 55%</span></div>
+        <div style="margin-top:14px;padding:10px 12px;background:#0d1800;border-radius:6px;color:#8cb85a;font-size:12px;line-height:1.6;">⚡ 섭취 방식과 무관하게<br/>11명 중 10명이 효과 긍정 평가</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 이동 & 식사 -->
+<div class="section">
+  <div class="section-title">04 — 이동 수단 &amp; 식사</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">미니버스 차량 만족도</div>
+      <div class="score-display"><span class="score-big s3">3.5</span><span class="score-denom">/ 5</span></div>
+      <div class="freq">
+        <div class="freq-row"><span class="freq-label">매우 만족스러웠다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:18%"></div></div><span class="freq-n">2</span></div>
+        <div class="freq-row"><span class="freq-label">대체로 만족했다</span><div class="freq-bar-wrap"><div class="freq-bar" style="width:36%"></div></div><span class="freq-n">4</span></div>
+        <div class="freq-row"><span class="freq-label">보통이었다</span><div class="freq-bar-wrap"><div class="freq-bar am" style="width:18%"></div></div><span class="freq-n">2</span></div>
+        <div class="freq-row"><span class="freq-label">불편하거나 아쉬운 점이 있었다</span><div class="freq-bar-wrap"><div class="freq-bar rd" style="width:27%"></div></div><span class="freq-n">3</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">향후 희망 차량 형태</div>
+      <div class="chart-sm"><canvas id="c13" role="img" aria-label="희망 차량 형태">미니버스 유지 6명, 대형버스 2명, 하이브리드·기타 3명</canvas></div>
+    </div>
+    <div class="card perfect">
+      <div class="highlight-box">
+        <div class="hb-n">11/11</div>
+        <div><div style="font-size:14px;font-weight:500;color:#8cb85a;margin-bottom:3px;">공동 식사 및 보급 — 전원 최고 만족</div>
+        <div class="hb-sub">"매우 만족스러웠다" 전원 동일 응답</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">향후 행동식 · 식사 준비 방식</div>
+      <div class="chart-sm"><canvas id="c15" role="img" aria-label="식사 방식 선호">현재 방식 유지 5명, 행동식 개인+식사 공동 6명</canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 자유 의견 -->
+<div class="section">
+  <div class="section-title">05 — 자유 의견 (익명 · 주제별 분류)</div>
+
+  <!-- 주제별 언급 빈도 차트 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-label" style="margin-bottom:16px;">주제별 언급 빈도 (11명 중)</div>
+    <div class="chart-wrap"><canvas id="cTheme" role="img" aria-label="자유 의견 주제별 언급 빈도 차트"></canvas></div>
+  </div>
+
+  <!-- 테마 카드 그리드 -->
+  <div class="theme-grid">
+
+    <!-- 그룹 운영 -->
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-icon" style="background:rgba(161,208,108,.1);">🏃</div>
+        <div class="theme-title-wrap">
+          <div class="theme-name">그룹 운영 방식<span class="theme-badge">8명</span></div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">성삼재 같은 대휴식을 기점으로 전반/후반 나눠 레벨별 운행 — 이른 분리보다 <strong style="color:#eee;">전반전 함께, 후반부터 그룹화</strong></div>
+        </div>
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">그룹 분리 기준과 컷오프 시간 <strong style="color:#eee;">출발 전 명확히 확정 필요</strong> → 리딩·참가자 모두 운영 편의 향상</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">처음부터 끝까지 전원 동행은 현실적으로 불가능 — 분리를 <strong style="color:#eee;">전제하고 계획</strong>해야 함</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">선두가 후미를 배려하는 동안 후미도 역량을 끌어올리면 <strong style="color:#eee;">회차 거듭할수록 완주율 향상</strong> 가능</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">완주 의지 있는 인원이 끝까지 이어갈 수 있는 <strong style="color:#eee;">구체적인 방법 마련</strong> 필요</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 타임테이블 & 코스 -->
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-icon" style="background:rgba(96,165,250,.1);">📏</div>
+        <div class="theme-title-wrap">
+          <div class="theme-name">타임테이블 · 코스 계획<span class="theme-badge">7명</span></div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">타임테이블은 <strong style="color:#eee;">가장 뒤처지는 인원 기준</strong>으로 계산 — 최대 40km · 누적고도 +4,000m 이하 현실적</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">6~9월 여름철 한정 <strong style="color:#eee;">거리 축소 적절</strong> (폭염·강수·급수 복합 고려)</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">비탐길·험한 날씨 구간에서 속도 더 못 낼 가능성 충분히 고려 — <strong style="color:#eee;">1회차보다 보수적으로 계획</strong></div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">1회차를 기준 삼아 <strong style="color:#eee;">회차별 난이도 비교 체계</strong> 마련 필요</div>
+        </div>
+        <div class="opinion-item warn">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">부상·컨디션 이슈 대비 <strong style="color:#eee;">탈출 경로 사전 공유</strong> 필수 (택시 없는 지역 포함)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 교통수단 -->
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-icon" style="background:rgba(167,139,250,.1);">🚌</div>
+        <div class="theme-title-wrap">
+          <div class="theme-name">교통수단 운영<span class="theme-badge">5명</span></div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">이전 회차 끝나자마자 바로 코스·인원 확정 → 경유지·보급지 선확정 → <strong style="color:#eee;">즉시 일괄 예약</strong> (추후 변경 시 추가비용·거절 위험)</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">인원 수에 맞게 차량 형태 탄력적 결정 — <strong style="color:#eee;">인원 6~7명인데 대형버스는 비현실적</strong></div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">대중교통·전용 서포터 <strong style="color:#eee;">하이브리드 운영</strong>이 가능한 회차는 적극 검토</div>
+        </div>
+        <div class="opinion-item warn">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">기사 태도·소통은 복불복 — 다음부터 <strong style="color:#eee;">충분한 사전 소통 창구 확보</strong> 필요</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 무전·통신 -->
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-icon" style="background:rgba(245,158,11,.1);">📡</div>
+        <div class="theme-title-wrap">
+          <div class="theme-name">무전 · 통신 장비<span class="theme-badge">4명</span></div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">인적 드문 대간길에서 <strong style="color:#eee;">휴대폰 불통 빈번 예상</strong> — 무전기 도입 적극 검토 필요</div>
+        </div>
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">선두/후미 각각 <strong style="color:#eee;">무전기 1대씩 배분</strong>으로 실시간 소통 + 촬영 병행 가능</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">GPX 파일은 각자 시계에 탑재·배터리 상시 확인 — <strong style="color:#eee;">코스 파일 없을 시 전체 운영 불안</strong></div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">체계적인 <strong style="color:#eee;">채널·주파수 관리 기준</strong> 사전 정립 필요</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 역할 분업화 -->
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-icon" style="background:rgba(52,211,153,.1);">🎭</div>
+        <div class="theme-title-wrap">
+          <div class="theme-name">역할 분업화<span class="theme-badge">3명</span></div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">간식·보급 / 사진 / 영상 / GPX 관리 / 버스 운영 담당 <strong style="color:#eee;">세분화 제안</strong> → 운영진 부담 감소 + 회원 주인의식 향상</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">예상 선두·후미 그룹에 <strong style="color:#eee;">고프로 1대씩 분배</strong>로 촬영 커버리지 확대</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">충분한 논의 후 <strong style="color:#eee;">리더·부리더 구간 사전답사</strong> 제도화 (정보 부족 구간, 비국공 구간 우선)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 슈즈 정책 -->
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-icon" style="background:rgba(239,68,68,.1);">👟</div>
+        <div class="theme-title-wrap">
+          <div class="theme-name">슈즈 정책<span class="theme-badge">3명</span></div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="opinion-item warn">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">발목 꺾임, 인솔 밀림, 바위 지형 신뢰도 등 <strong style="color:#eee;">개선점 복수 존재</strong></div>
+        </div>
+        <div class="opinion-item hot">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text"><strong style="color:#eee;">전원 동일 슈즈 vs 개인 선택 허용</strong> — 논의 및 방향 결정 필요</div>
+        </div>
+        <div class="opinion-item">
+          <div class="opinion-bullet"></div>
+          <div class="opinion-text">족형 상이·착용 감 차이가 큰 만큼 <strong style="color:#eee;">개인 최적화 슈즈 허용 여부</strong> 공론화 요망</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 06 핵심 인사이트 -->
+<div class="section">
+  <div class="section-title">06 — 핵심 개선 요청 순위</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div class="insight-card"><div class="insight-num">8</div><div><div class="insight-title">그룹 운영 기준 명확화</div><div class="insight-desc">선두/후미 분리 기준, 컷오프 시간, 레벨 그룹화 방향을 출발 전 확정 요망</div></div></div>
+    <div class="insight-card"><div class="insight-num">7</div><div><div class="insight-title">후미 기준 보수적 타임테이블</div><div class="insight-desc">최대 40km · +4,000m 이하, 여름철 거리 조정, 탈출 경로 사전 공유</div></div></div>
+    <div class="insight-card"><div class="insight-num">5</div><div><div class="insight-title">버스 조기 예약 프로세스 구축</div><div class="insight-desc">이전 회차 직후 코스·인원 확정 → 경유지 선확정 → 일괄 예약</div></div></div>
+    <div class="insight-card"><div class="insight-num">4</div><div><div class="insight-title">무전기 도입 및 통신 체계 수립</div><div class="insight-desc">대간길 불통 구간 대비, 선두/후미 1대씩 배분, GPX 각자 탑재 의무화</div></div></div>
+    <div class="insight-card"><div class="insight-num">3</div><div><div class="insight-title">역할 분업화</div><div class="insight-desc">보급·촬영·GPX·버스 담당 세분화, 사전답사 제도화</div></div></div>
+    <div class="insight-card"><div class="insight-num">3</div><div><div class="insight-title">슈즈 정책 재논의</div><div class="insight-desc">전원 동일 착용 강제 여부 재검토, 개인 최적화 슈즈 허용 방향 공론화</div></div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const NEON='#A1D06C',AM='#f59e0b',RD='#ef4444',BL='#60a5fa',PU='#a78bfa',GR='#444';
+const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},animation:{duration:700}};
+
+function donut(id,labels,data,colors){
+  new Chart(document.getElementById(id),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:0,borderRadius:2,spacing:2}]},
+    options:{...base,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#777',font:{size:11,family:"'Noto Sans KR',sans-serif"},boxWidth:9,boxHeight:9,padding:8}}}}});
+}
+function hbar(id,labels,data,colors){
+  const h=Math.max(180,labels.length*46+60);
+  document.getElementById(id).parentElement.style.height=h+'px';
+  new Chart(document.getElementById(id),{type:'bar',data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:3,borderSkipped:false}]},
+    options:{...base,indexAxis:'y',scales:{x:{display:false,grid:{display:false}},y:{grid:{display:false},ticks:{color:'#777',font:{size:11,family:"'Noto Sans KR',sans-serif"}}}}}});
+}
+
+donut('c5',['꼭 필요 (오프라인/온라인)','온라인 화상으로 충분','불필요'],[5,3,3],[NEON,BL,GR]);
+hbar('c17',['매우 적절, 최선의 운영이었다','간격·무전 소통 보완 필요','그룹 기준 명확화 필요'],[3,3,5],[NEON,AM,RD]);
+donut('c10',['가이드대로 철저히 섭취','상황에 맞춰 일부 참고'],[5,6],[NEON,AM]);
+donut('c13',['현재 미니버스 유지','대형 버스 대여','하이브리드·기타'],[6,2,3],[NEON,BL,GR]);
+donut('c15',['현재 방식 유지 (공동 보급)','행동식 개인 + 식사만 공동'],[5,6],[NEON,AM]);
+
+// 테마 빈도 차트
+new Chart(document.getElementById('cTheme'),{type:'bar',
+  data:{labels:['그룹 운영 방식','타임테이블·코스','교통수단 운영','무전·통신 장비','역할 분업화','슈즈 정책'],
+    datasets:[{data:[8,7,5,4,3,3],backgroundColor:[NEON,'#7cc459','#5aab49',AM,BL,RD],borderRadius:4,borderSkipped:false}]},
+  options:{...base,scales:{
+    x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#666',font:{size:11,family:"'Noto Sans KR',sans-serif"}}},
+    y:{display:false,max:11}},
+    plugins:{...base.plugins,
+      tooltip:{callbacks:{label:c=>`${c.raw}명 언급`}}}}});
+</script>
+</body>
+</html>
