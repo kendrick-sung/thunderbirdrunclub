@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <!-- OG Meta Tags -->
+    <meta property="og:type"        content="website"/>
+    <meta property="og:title"       content="The Thunderbird Way 2, Ridges — FJTS Vol.2"/>
+    <meta property="og:description" content="From Jiri To Seorak · Blueprint and Time Table · 여원재 → 무룡고개 43.7km"/>
+    <meta property="og:image"       content="og.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height"content="630"/>
+    <meta property="og:image:alt"   content="The Thunderbird Way 2 Ridges — FJTS Route Map"/>
+    <meta name="twitter:card"       content="summary_large_image"/>
+    <meta name="twitter:image"      content="og.png"/>
+    <title>Thunderbird Vol.2 — 타임테이블</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --neon:#A1D06C; --heat:#FF6B6B; --orange:#FFA94D; --teal:#4ECDC4;
+            --bg:#080808; --card:rgba(255,255,255,.03); --border:rgba(255,255,255,.08);
+            --up:#FFA07A; --dn:#87CEEB;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--bg);color:#fff;font-family:'Noto Sans KR',sans-serif;min-height:100vh;padding:80px 16px 56px;}
+
+        /* ── 헤더 ── */
+        .header{max-width:1100px;margin:0 auto 32px;}
+        .vol-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--neon);border:1px solid rgba(161,208,108,.4);background:rgba(161,208,108,.08);padding:5px 14px;border-radius:20px;margin-bottom:12px;}
+        h1{font-size:clamp(22px,5vw,40px);font-weight:800;letter-spacing:-1.5px;line-height:1.15;}
+        h1 span{color:var(--neon);}
+        .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+        .meta-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#aaa;}
+        .meta-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+        /* ── 탭 ── */
+        .tabs{max-width:1100px;margin:0 auto;display:flex;gap:4px;}
+        .tab{padding:9px 18px;border-radius:10px 10px 0 0;font-size:13px;font-weight:700;cursor:pointer;border:1px solid transparent;border-bottom:none;transition:all .2s;user-select:none;white-space:nowrap;}
+        .tab-a{background:rgba(161,208,108,.08);color:rgba(161,208,108,.45);border-color:rgba(161,208,108,.12);}
+        .tab-a.active{background:rgba(161,208,108,.15);color:var(--neon);border-color:rgba(161,208,108,.4);}
+        .tab-b{background:rgba(255,165,0,.06);color:rgba(255,165,0,.38);border-color:rgba(255,165,0,.1);}
+        .tab-b.active{background:rgba(255,165,0,.13);color:var(--orange);border-color:rgba(255,165,0,.4);}
+
+        /* ── 패널 ── */
+        .panel{max-width:1100px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:0 12px 12px 12px;overflow:hidden;display:none;}
+        .panel.active{display:block;}
+
+        /* ── 요약 바 ── */
+        .summary-bar{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:20px;}
+        .sum-item{display:flex;flex-direction:column;gap:3px;}
+        .sum-label{font-size:10px;color:#888;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+        .sum-val{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;}
+        .v-neon{color:var(--neon);}.v-heat{color:var(--heat);}.v-orange{color:var(--orange);}.v-blue{color:#60A5FA;}
+
+        /* ══════════════════════════════
+           테이블 — 공통
+        ══════════════════════════════ */
+        table{width:100%;border-collapse:collapse;table-layout:auto;}
+        thead tr{background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);}
+        thead th{padding:9px 10px;text-align:left;font-size:9px;font-weight:700;letter-spacing:1.5px;color:#666;text-transform:uppercase;white-space:nowrap;}
+        tbody tr{border-bottom:1px solid rgba(255,255,255,.045);}
+        tbody tr:last-child{border-bottom:none;}
+        tbody td{padding:0;vertical-align:top;}
+        tbody tr:hover{filter:brightness(1.06);}
+
+        /* 행 타입 */
+        .t-start  {border-left:3px solid rgba(161,208,108,.5);}
+        .t-supply {border-left:3px solid var(--teal);  background:rgba(78,205,196,.05);}
+        .t-caution{border-left:3px solid var(--orange);background:rgba(255,165,0,.05);}
+        .t-danger {border-left:3px solid var(--heat);  background:rgba(255,107,107,.06);}
+        .t-finish {border-left:3px solid var(--neon);  background:rgba(161,208,108,.06);}
+        .t-branch {border-left:3px dashed var(--orange);background:rgba(255,165,0,.06);}
+
+        /* 섹션 구분 */
+        .sec-row td{padding:0;}
+        .sec-label{padding:6px 14px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:rgba(255,255,255,.025);border-left:3px solid rgba(255,255,255,.07);}
+
+        /* td 패딩 래퍼 */
+        .cell{padding:12px 10px;}
+
+        /* ── 시각 컬럼 ── */
+        .col-time{width:88px;}
+        .time-main{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;line-height:1.1;}
+        .time-sub{font-size:10px;color:#aaa;margin-top:3px;font-weight:600;white-space:nowrap;}
+
+        /* ── 거리+고도 통합 컬럼 ──
+           구간거리(크게) / 누적거리(작게)
+           구간고도(▲▼) / 누적고도(▲▼ 연하게)
+           두 덩어리를 세로로 구분선으로 나눔 */
+        .col-stats{width:80px;}
+        /* 단일 컬럼 — 누적거리 위 / 누적상승 아래 */
+        .stats-inner{
+            display:flex; flex-direction:column;
+            justify-content:center;
+            padding:10px 10px;
+            height:100%;
+            gap:6px;
+        }
+        .d-cum{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#fff;}
+        .e-cum{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--up);display:flex;align-items:center;gap:3px;}
+        .e-flat{font-size:12px;color:#333;}
+
+        /* ── 지점명 컬럼 ── */
+        .col-name{min-width:0;}
+        .name-main{font-size:14px;font-weight:700;color:#fff;line-height:1.3;}
+        .name-sub{font-size:11px;color:#bbb;margin-top:4px;line-height:1.6;}
+        /* 모바일 전용 축약 설명 */
+        .name-sub-m{display:none;font-size:11px;color:#bbb;margin-top:4px;line-height:1.5;}
+
+        .tag{display:inline-flex;align-items:center;font-size:9px;font-weight:800;letter-spacing:.8px;padding:2px 7px;border-radius:10px;margin-left:7px;vertical-align:middle;position:relative;top:-1px;}
+        .tag-cp    {background:rgba(78,205,196,.18); color:var(--teal);  border:1px solid rgba(78,205,196,.4);}
+        .tag-warn  {background:rgba(255,107,107,.18);color:var(--heat);  border:1px solid rgba(255,107,107,.4);}
+        .tag-branch{background:rgba(255,165,0,.18);  color:var(--orange);border:1px solid rgba(255,165,0,.4);}
+        .tag-fin   {background:rgba(161,208,108,.18);color:var(--neon);  border:1px solid rgba(161,208,108,.4);}
+
+        /* ── 지점고도 컬럼 ── */
+        .c-def{color:#ccc;}.c-high{color:var(--heat);}.c-cp{color:var(--teal);}.c-mid{color:#e0e0e0;}.c-neon{color:var(--neon);}.c-orange{color:var(--orange);}
+
+        /* 각주 */
+        .footnote{max-width:1100px;margin:14px auto 0;display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+        .fn-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#999;}
+        .fn-bar{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+
+        
+        /* ══════════════════════════════
+           모바일 (≤ 640px)
+        ══════════════════════════════ */
+        @media(max-width:640px){
+            body{padding:20px 10px 40px;}
+            .tabs{gap:3px;}
+            .tab{padding:8px 12px;font-size:12px;}
+            .summary-bar{padding:12px 14px;gap:14px;}
+            .sum-label{font-size:10px;}
+            .sum-val{font-size:16px;}
+            table{table-layout:auto;width:100%;}
+            .sec-label{font-size:9px;padding:6px 10px;}
+            .col-time{width:72px;}
+            .time-main{font-size:15px;}
+            .time-sub{font-size:10px;}
+            .cell{padding:10px 8px;}
+            .col-stats{width:76px;}
+            .stats-inner{padding:8px 8px;gap:4px;}
+            .d-cum{font-size:12px;}
+            .e-cum{font-size:11px;}
+            .col-name{min-width:0;}
+            .name-main{font-size:13px;}
+            .name-sub{display:none;}
+            .name-sub-m{display:block;}
+            .tag{font-size:8px;padding:2px 6px;margin-left:4px;}
+        }
+
+    /* ── 고정 헤더 (Vol.1 기준) ── */
+    .global-header {
+        position: fixed;
+        top: 0; left: 0; width: 100%;
+        height: 64px;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgb(5,5,5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+    .partner-logos {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        opacity: .75;
+        transition: opacity .2s;
+    }
+    .partner-logos:hover { opacity: 1; }
+
+    /* ── Section Nav Bar (헤더 아래 고정) ── */
+    #section-nav {
+        position: fixed;
+        top: 64px;
+        z-index: 90;
+        width: 100%;
+        background: rgb(5,5,5);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    #section-nav::-webkit-scrollbar { display: none; }
+    .sec-nav-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        gap: 2px;
+        min-width: max-content;
+    }
+    .sec-nav-link {
+        padding: 10px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #888;
+        text-decoration: none;
+        white-space: nowrap;
+        border-bottom: 2px solid transparent;
+        transition: all .2s;
+        letter-spacing: .3px;
+    }
+    .sec-nav-link:hover { color: var(--neon); }
+    .sec-nav-link.active {
+        color: var(--neon);
+        border-bottom-color: var(--neon);
+    }
+
+    /* 구 클래스 숨김 */
+    .top-nav, .nav-toggle, .mobile-nav, .g-header, .g-nav, .g-partners, .slide-nav {
+        display: none !important;
+    }
+    body { padding-top: 104px !important; }
+
+    @media (max-width: 640px) {
+        .global-header { padding: 0 16px; }
+        .partner-logos { gap: 10px; }
+    }
+    @media (max-width: 640px) {
+        .content-pad, .section-title-block { padding-left: 20px !important; padding-right: 20px !important; }
+    }
+    @media (max-width: 400px) {
+        .partner-logos { display: none; }
+    }
+
+    /* ── 섹션 타이틀 (Vol.1 스타일) ── */
+    .section-title-block {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 56px 40px 8px;
+    }
+    .section-title-block h2 {
+        font-size: clamp(24px,3.5vw,36px);
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+        margin-bottom: 8px;
+    }
+    .section-title-block h2 .hl { color: var(--neon); }
+    .section-title-block .sec-sub {
+        font-size: 14px;
+        color: #888;
+        font-weight: 400;
+    }
+
+
+
+    /* ── 개요 섹션 레이아웃 ── */
+    .slide-section {
+        position: relative;
+        width: 100%;
+        min-height: calc(100vh - 104px);
+        padding: 60px 40px 52px;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #080808 0%, #121212 100%);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .background-pattern {
+        position: absolute; top:0; left:0; width:100%; height:100%;
+        background-image:
+            radial-gradient(circle at 15% 30%, rgba(161,208,108,0.04) 0%, transparent 60%),
+            radial-gradient(circle at 85% 70%, rgba(161,208,108,0.03) 0%, transparent 60%);
+        pointer-events: none; z-index: 1;
+    }
+    .section-body {
+        display: flex; flex-direction: column;
+        max-width: 1100px; width: 100%; margin: 0 auto; z-index: 2;
+    }
+    .slide-header { margin-bottom: 28px; }
+    .slide-title {
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 800; color: #fff;
+        line-height: 1.2; letter-spacing: -1px;
+    }
+    .title-highlight { color: var(--neon); }
+    .info-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px; padding: 24px;
+        transition: border-color .3s;
+    }
+    .info-card:hover { border-color: rgba(161,208,108,0.3); background: rgba(255,255,255,.05); }
+    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .card-icon {
+        width: 36px; height: 36px;
+        background: rgba(161,208,108,0.1); border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--neon); font-size: 16px; flex-shrink: 0;
+    }
+    .card-title { color: #fff; font-size: 17px; font-weight: 700; }
+    .info-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-label { color: #aaa; font-size: 14px; }
+    .info-value { color: #fff; font-size: 15px; font-weight: 600; }
+    .info-value.highlight { color: var(--neon); }
+    @media (max-width: 640px) {
+        .slide-section { padding: 40px 20px 40px; }
+        .slide-title { font-size: 26px; }
+        .section-title-block { padding: 40px 20px 8px; }
+    }
+
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- ════════ 고정 헤더 ════════ -->
+<header class="global-header">
+    <div class="logo-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="370 345 250 95" style="height:44px;width:auto;filter:drop-shadow(0 0 10px rgba(161,208,108,0.3));">
+                <defs>
+                    <clipPath id="clipPath18" clipPathUnits="userSpaceOnUse">
+                        <path id="path16" d="M 0,984.568 H 1889.88 V 0 H 0 Z" />
+                    </clipPath>
+                </defs>
+                <g transform="matrix(1.3333333,0,0,-1.3333333,0,1312.7573)" id="g10">
+                    <g id="g12">
+                        <g clip-path="url(#clipPath18)" id="g14">
+                            <g transform="translate(292.7144,711.2108)" id="g20"><path id="path22" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c 1.999,-7.841 4.519,-11.728 0.873,-19.549 -1.097,-0.296 -1.671,-0.424 -2.793,-0.588 3.803,7.562 1.161,11.168 -0.943,18.748 -1.797,-0.992 -2.605,-1.55 -3.807,-2.735 -0.224,1.433 -0.159,2.316 0.583,4.011 2.965,3.51 7.361,5.662 11.821,6.52 C 5.077,4.42 4.99,3.379 5.154,1.637 3.04,1.197 1.977,0.84 0,0" /></g>
+                            <g transform="translate(309.2834,694.2448)" id="g24"><path id="path26" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c 1.938,2.947 2.83,5.565 2.362,8.955 -2.367,0.923 -3.331,1.25 -6.398,1.159 0.522,-3.243 -0.668,-7.431 -2.614,-10.047 -1.161,-0.188 -1.636,-0.344 -2.703,-0.658 4.277,9.065 -0.412,15.108 0.793,24.257 1.301,0.09 1.802,0.106 3.229,-0.081 -1.521,-4.287 -0.698,-6.027 0.341,-9.471 3.228,-0.084 4.193,-0.558 6.464,-1.67 C 0.51,15.438 -0.222,16.976 1.11,20.785 1.919,20.16 2.286,19.823 3.069,19.191 2.411,11.464 5.855,6.852 2.53,-0.74 1.582,-0.383 1.117,-0.213 0,0" /></g>
+                            <g transform="translate(324.0085,692.1643)" id="g28"><path id="path30" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -1.666,-1.688 -3.302,-2.197 -4.805,-1.838 -1.491,0.356 -2.55,1.485 -2.906,3.401 -0.36,1.934 -0.166,4.661 -0.436,6.852 -1.21,4.618 -2.068,6.707 -1.708,11.545 0.875,-0.548 1.344,-0.796 2.464,-1.156 -0.339,-4.735 0.486,-6.887 1.606,-11.423 0.137,-1.205 0.319,-2.582 0.746,-3.779 0.425,-1.19 1.057,-1.827 1.893,-1.978 0.836,-0.15 1.711,0.225 2.504,1.256 0.801,1.041 1.22,2.384 1.165,3.666 -0.696,4.668 -1.324,7.49 -0.869,12.249 0.975,0.325 1.429,0.545 2.322,1.033 C 1.555,14.991 2.084,11.692 2.755,6.923 2.829,4.507 1.681,1.704 0,0" /></g>
+                            <g transform="translate(336.2949,692.4794)" id="g32"><path id="path34" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 0,0 C -0.679,5.378 -2.391,9.87 -6.035,13.939 -4.724,8.325 -5.403,3.75 -7.112,-1.675 c -1.082,-0.204 -1.58,-0.287 -2.541,-0.408 2.875,8.152 0.535,14.544 1.282,22.768 0.79,0.51 1.182,0.78 2,1.301 C -5.208,17.15 -1.126,13.255 1.413,9.106 1.002,14.457 0.11,19.497 0.26,24.883 1.508,25.129 2.278,25.196 3.636,25.167 3.327,16.461 4.885,9.144 2.582,0.498 1.581,0.338 1.018,0.233 0,0" /></g>
+                            <g transform="translate(350.2238,707.7744)" id="g36"><path id="path38" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.806,1.481 -1.655,2.62 -2.659,3.139 -0.938,0.484 -1.41,0.719 -2.445,1.102 0.216,-4.956 0.466,-9.27 -0.348,-14.201 0.93,-0.056 1.365,-0.11 2.255,-0.235 0.953,-0.133 2.048,0.536 3.039,1.754 0.987,1.214 1.512,2.539 1.494,4.07 C 1.317,-2.84 0.802,-1.473 0,0 m 0.73,-11.608 c -1.91,-1.925 -3.666,-2.801 -5.209,-2.747 -1.726,0.06 -2.511,0.065 -4.482,-0.13 2.369,8.363 1.16,15.537 1.565,24.003 C -5.059,8.973 -4.193,8.411 -2.447,7.295 -0.875,6.29 0.28,4.086 1.507,1.657 2.724,-0.752 3.756,-2.695 3.791,-4.997 3.826,-7.285 2.64,-9.683 0.73,-11.608" /></g>
+                            <g transform="translate(354.9379,692.9562)" id="g40"><path id="path42" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c 1.707,6.42 1.328,11.445 1.162,17.997 4.07,-0.096 7.682,-0.125 11.108,2.469 0.22,-1.482 0.265,-2.39 0.355,-3.77 -2.598,-1.438 -3.88,-2.184 -7.994,-2.335 0.112,-1.548 0.209,-2.211 0.301,-3.608 3.16,0.099 4.299,0.46 6.432,1.277 0.021,-1.219 0.013,-1.817 -0.102,-3.137 C 9.176,8.235 8.061,7.945 4.966,7.86 4.885,6.329 4.749,5.38 4.297,3.529 8.198,3.627 9.424,3.964 11.901,4.63 11.54,2.991 11.318,2.224 11.069,0.655 7.392,-0.018 3.724,0.002 0,0" /></g>
+                            <g transform="translate(376.6209,713.0137)" id="g44"><path id="path46" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.482,0.383 -1.012,0.526 -1.561,0.373 -1.457,-0.405 -2.087,-0.699 -3.305,-1.33 0.124,-1.908 0.16,-2.761 0.125,-4.53 1.202,0.509 1.823,0.747 3.258,1.078 0.54,0.125 1.054,0.443 1.522,0.946 0.458,0.493 0.724,1.084 0.718,1.802 C 0.751,-0.942 0.472,-0.375 0,0 m 0.164,-17.998 c -1.252,3.472 -1.283,5.373 -2.078,8.289 -0.252,0.947 -0.878,1.276 -1.741,1.023 -0.545,-0.16 -0.805,-0.246 -1.316,-0.426 -0.367,-3.411 -1.128,-5.661 -1.59,-9.566 -0.857,-0.145 -1.262,-0.222 -2.084,-0.374 1.401,7.246 1.927,13.461 1.209,20.825 1.952,1.375 2.853,2.129 5.328,2.926 C -0.878,5.096 0.526,4.677 1.881,3.318 3.356,1.839 4.109,0.205 4.102,-1.59 4.096,-3.027 3.581,-4.241 2.626,-5.377 1.976,-6.116 1.287,-6.718 0.594,-7.181 0.703,-7.364 0.81,-7.574 0.911,-7.811 1.014,-8.048 1.12,-8.304 1.232,-8.578 1.223,-8.579 1.218,-8.579 1.209,-8.579 c 1.185,-3.34 1.362,-5.543 2.826,-9.369 -1.526,-0.011 -2.359,0.001 -3.871,-0.05" /></g>
+                            <g transform="translate(389.9549,702.7292)" id="g48"><path id="path50" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 0,0 C -0.235,0.458 -0.592,0.758 -1.021,0.878 -2.239,1.221 -2.815,1.419 -4.192,1.739 -4.48,-0.114 -4.69,-1.134 -5.08,-3.308 c 1.397,-0.151 1.976,-0.25 3.182,-0.407 0.426,-0.056 0.841,0.141 1.25,0.548 0.41,0.407 0.689,0.929 0.823,1.557 C 0.301,-1.016 0.246,-0.481 0,0 M 0.265,7.127 C -0.115,7.663 -0.526,8.07 -0.953,8.3 -2.087,8.912 -2.621,9.243 -3.857,9.798 -3.657,7.915 -3.66,7.066 -3.775,5.314 -2.516,4.904 -1.974,4.658 -0.84,4.21 -0.414,4.042 -0.017,4.091 0.335,4.316 0.681,4.537 0.882,4.919 0.871,5.491 0.858,6.062 0.637,6.602 0.265,7.127 M 0.327,-6.026 c -0.913,-1.125 -1.727,-1.753 -2.685,-1.737 -2.051,0.034 -2.981,0.101 -5.944,0.103 1.107,7.879 2.598,14.686 1.239,22.598 2.444,-0.827 3.216,-1.601 5.095,-2.891 C -1.034,11.405 0.104,10.395 1.273,8.925 2.544,7.326 3.237,6.065 3.247,4.733 3.256,3.388 2.593,2.486 1.648,1.945 2.533,0.964 2.844,-0.149 2.419,-1.871 2.038,-3.418 1.258,-4.879 0.327,-6.026" /></g>
+                            <g transform="translate(393.7101,695.1826)" id="g52"><path id="path54" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c 0.856,5.488 3.755,11.426 1.168,16.815 1.32,-0.131 2.105,-0.117 3.307,0.03 C 6.178,10.595 4.102,6.576 2.875,0.333 1.749,0.178 1.124,0.101 0,0" /></g>
+                            <g transform="translate(408.9315,711.8154)" id="g56"><path id="path58" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.409,0.23 -0.871,0.243 -1.337,0.022 -1.238,-0.586 -1.815,-0.907 -3.093,-1.46 0.259,-1.498 0.179,-2.173 -0.115,-3.567 1.293,0.436 1.869,0.68 3.092,1.118 0.46,0.166 0.911,0.492 1.34,0.983 0.42,0.481 0.688,1.028 0.717,1.639 C 0.632,-0.655 0.402,-0.225 0,0 m -1.219,-15.374 c -1.29,3.414 -1.171,4.858 -1.43,7.163 -0.079,0.748 -0.526,0.964 -1.361,0.728 -0.527,-0.149 -0.795,-0.225 -1.354,-0.374 -0.882,-2.675 -1.742,-4.275 -1.641,-7.786 -0.963,-0.095 -1.475,-0.153 -2.653,-0.29 0.874,5.376 4.319,11.49 1.533,16.746 2.381,0.812 3.239,1.541 5.316,2.756 1.032,0.604 2.408,0.652 3.802,-0.212 C 2.512,2.415 3.315,1.079 3.218,-0.54 3.14,-1.836 2.5,-3.034 1.579,-4.157 c -0.621,-0.735 -1.25,-1.329 -1.86,-1.787 0.051,-0.142 0.094,-0.308 0.13,-0.497 0.036,-0.19 0.072,-0.396 0.111,-0.618 -0.007,-10e-4 -0.011,-0.002 -0.018,-0.003 0.338,-2.718 0.187,-4.414 1.919,-8.429 -1.39,0.078 -1.974,0.101 -3.08,0.117" /></g>
+                            <g transform="translate(426.3283,710.7467)" id="g60"><path id="path62" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -1.031,1.527 -2.583,2.545 -4.183,2.813 -1.495,0.251 -2.246,0.326 -3.669,0.405 0.464,-4.652 -1.895,-8.959 -3.066,-13.329 1.447,-0.083 2.13,-0.116 3.573,-0.222 1.544,-0.113 3.017,0.506 4.528,1.64 1.501,1.127 2.661,2.418 3.314,4.029 C 1.15,-3.054 1.023,-1.516 0,0 m -1.574,-11.826 c -1.905,-1.897 -3.748,-3.16 -6.207,-3.049 -2.75,0.124 -4.118,0.225 -6.775,0.393 0.827,7.998 4.839,13.916 1.794,21.733 2.935,0.29 4.043,0.151 6.813,-0.404 2.494,-0.501 5.715,-2.614 7.776,-5.246 2.049,-2.618 2.326,-4.986 1.257,-7.345 -1.063,-2.345 -2.753,-4.184 -4.658,-6.082" /></g>
+                            <g transform="translate(289.9529,686.6152)" id="g64"><path id="path66" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.138,0.256 -0.483,0.345 -1.069,0.263 -1.557,-0.217 -2.464,-0.21 -3.961,-0.06 -1.411,-1.333 -2.114,-1.97 -3.025,-3.612 1.589,-0.356 2.548,-0.445 4.149,-0.324 0.603,0.045 1.213,0.343 1.873,0.829 0.647,0.476 1.169,1.038 1.594,1.64 C -0.014,-0.663 0.135,-0.251 0,0 m 2.044,-18.057 c -2.669,2.156 -5.25,5.334 -6.768,8.417 -0.596,1.19 -1.37,1.748 -2.561,1.945 -0.752,0.125 -1.121,0.214 -1.832,0.434 -0.135,-3.43 1.726,-7.553 4.038,-10.008 -1.161,0.63 -1.718,1.038 -2.72,1.96 -5.815,8.044 -4.473,12.893 3.275,18.319 C -2.541,2.821 -0.997,2.799 1.627,3.336 2.931,3.603 3.67,3.422 3.804,2.781 3.953,2.073 3.343,1.048 2.283,-0.461 1.434,-1.668 0.502,-2.969 -0.525,-4.36 c -0.692,-0.913 -1.313,-1.716 -1.956,-2.318 0.096,-0.196 0.193,-0.425 0.298,-0.691 0.105,-0.267 0.225,-0.551 0.364,-0.851 -0.007,-0.003 -0.011,-0.004 -0.019,-0.007 1.282,-3.125 3.844,-6.414 6.508,-8.477 -1.041,-0.656 -1.543,-0.958 -2.626,-1.353" /></g>
+                            <g transform="translate(305.1989,676.7342)" id="g68"><path id="path70" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.718,-1.713 -2.365,-2.864 -4.169,-3.645 -1.789,-0.775 -3.621,-0.897 -5.502,0.402 -1.903,1.314 -3.299,3.768 -3.245,6.681 0.119,4.969 3.554,8.416 6.571,11.946 1.065,0.324 1.545,0.489 2.702,0.699 -2.971,-3.38 -6.401,-6.651 -6.621,-11.464 -0.061,-1.563 0.487,-2.855 1.393,-3.677 0.898,-0.816 1.908,-0.962 2.931,-0.605 1.024,0.356 1.833,1.109 2.447,2.263 0.617,1.159 0.86,2.447 0.895,3.82 0.014,3.806 3.22,7.285 5.724,9.764 C 4.284,15.995 4.763,15.834 5.738,15.49 3.443,13.122 0.525,9.806 0.632,6.237 0.633,3.877 0.723,1.726 0,0" /></g>
+                            <g transform="translate(318.7811,670.503)" id="g72"><path id="path74" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -2.853,4.893 -5.603,9.784 -6.685,15.415 -2.353,-3.971 -0.442,-8.467 0.979,-12.283 -0.926,0.405 -1.402,0.583 -2.432,0.839 -2.939,7.171 -2.78,11.054 2.404,16.918 0.859,-0.362 1.285,-0.553 2.195,-0.906 -0.356,-4.519 0.617,-7.981 1.924,-12.297 0.673,4.531 1.594,6.955 4.386,10.648 C 3.689,18.22 4.137,18.191 5.067,18.184 0.879,11.351 0.59,6.674 2.213,-1.112 1.281,-0.697 0.847,-0.467 0,0" /></g>
+                            <g transform="translate(334.647,668.4033)" id="g76"><path id="path78" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 0,0 C -2.972,4.7 -5.89,9.445 -8.366,14.431 -9.832,9.44 -8.834,4.372 -7.915,-0.606 c -1.38,0.166 -2.003,0.305 -3.167,0.645 -1.512,8.156 -1.103,12.919 2.54,20.338 0.903,0.077 1.372,0.135 2.382,0.287 0.649,-4.249 3.006,-8.13 4.967,-11.849 -0.317,4.655 0.861,9.001 2.264,13.384 1.116,0.252 1.733,0.368 2.811,0.547 C 1.372,15.243 1.483,8.7 2.172,0.84 1.348,0.46 0.919,0.287 0,0" /></g>
+                            <g transform="translate(338.8651,670.3132)" id="g80"><path id="path82" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.37,7.681 -0.22,13.789 2.019,21.172 0.926,0.107 1.353,0.143 2.196,0.192 C 2.105,14.41 1.962,8.493 2.081,1.255 1.244,0.74 0.838,0.482 0,0" /></g>
+                            <g transform="translate(353.5084,676.1709)" id="g84"><path id="path86" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 0,0 C -2.705,3.299 -5.369,6.594 -7.695,10.178 -8.316,6.177 -8.023,1.88 -8.137,-2.149 c -1.013,-0.463 -1.476,-0.714 -2.369,-1.223 0.056,6.655 -0.044,12.553 2.062,18.942 0.755,0.005 1.133,0 1.931,-0.02 0.327,-3.946 3.733,-6.676 6.284,-9.225 -0.297,4.63 -0.468,4.448 0.484,9.013 C 1.582,15.31 2.316,15.295 3.7,15.289 2.775,10.373 3.778,5.151 3.516,0.175 2.212,0.185 1.47,0.153 0,0" /></g>
+                            <g transform="translate(373.7261,677.429)" id="g88"><path id="path90" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.407,-0.826 -0.912,-1.529 -1.469,-2.099 -0.558,-0.57 -1.149,-0.991 -1.748,-1.273 -0.6,-0.282 -1.194,-0.42 -1.78,-0.439 -0.585,-0.018 -1.147,0.086 -1.695,0.288 -1.826,0.671 -3.173,2.027 -4.575,4.233 -1.39,2.186 -2.568,4.798 -2.768,6.739 -0.198,1.928 0.675,3.079 2.222,4.573 1.575,1.519 3.254,2.869 4.914,3.108 0.953,0.137 1.804,-0.208 2.725,-1.001 0.921,-0.792 1.832,-1.926 2.819,-3.262 -0.708,-0.753 -1.036,-1.094 -1.685,-1.733 -0.653,0.829 -1.306,1.473 -1.983,1.925 -0.676,0.453 -1.307,0.665 -1.949,0.646 -1.135,-0.033 -2.128,-0.599 -2.959,-1.448 -0.848,-0.865 -1.269,-1.736 -1.111,-3.021 0.158,-1.299 0.872,-2.75 1.858,-4.304 0.989,-1.559 1.972,-2.553 3.198,-2.887 1.4,-0.382 2.696,0.283 3.547,1.883 -0.033,1.152 -0.09,1.708 -0.213,2.7 C -4.233,4.845 -4.964,4.984 -6.523,5.246 -6.667,6.514 -6.765,7.034 -6.936,8.069 -4.486,7.835 -3.427,7.705 -0.699,7.59 -0.176,5.174 0.247,3.87 0.1,0.407 0.062,0.243 0.042,0.162 0,0" /></g>
+                            <g transform="translate(391.2892,678.5629)" id="g92"><path id="path94" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -1.893,-2.663 -4.182,-4.557 -6.833,-5.433 -2.652,-0.877 -4.926,-0.268 -6.302,2.086 -1.364,2.333 -2.279,5.53 -2.795,8.155 -0.513,2.607 -0.342,4.521 1.168,6.639 1.536,2.156 4.101,3.652 6.283,3.668 2.168,0.015 3.628,-1.641 5.756,-3.469 -0.324,-0.916 -0.466,-1.34 -0.81,-2.206 -1.619,1.052 -2.959,1.755 -4.438,1.671 -1.508,-0.087 -2.984,-0.833 -3.939,-2.053 -0.974,-1.244 -1.237,-2.569 -0.883,-4.252 0.358,-1.698 1.202,-3.363 2.502,-4.868 1.303,-1.51 2.966,-2 4.69,-1.536 1.69,0.454 3.322,2.01 4.418,4.036 C -0.523,1.852 -0.251,1.491 0.184,0.922 0.128,0.548 0.091,0.363 0,0" /></g>
+                            <g transform="translate(392.4585,677.3798)" id="g96"><path id="path98" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c 2.012,6.995 -0.609,9.329 -2.885,15.836 0.851,0.041 1.283,0.067 2.246,0.143 C 1.184,11.42 3.004,9.064 3.657,4.22 5.924,5.042 7.158,5.405 10.187,5.449 9.817,4.191 9.44,3.58 8.478,2.533 4.198,2.549 2.967,1.686 0,0" /></g>
+                            <g transform="translate(414.2285,677.5507)" id="g100"><path id="path102" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -1.969,-1.152 -3.896,-1.07 -5.282,-0.291 -1.375,0.775 -2.012,1.976 -2.55,3.625 -0.54,1.656 -1.015,3.559 -1.521,5.015 -1.129,3.256 -3.813,3.134 -4.742,8.374 1.136,0.1 1.631,0.135 2.572,0.181 0.753,-3.653 3.492,-5.834 5.186,-8.964 0.312,-0.857 0.721,-1.801 1.237,-2.835 0.515,-1.03 1.06,-1.738 1.859,-2.097 0.799,-0.358 1.683,-0.258 2.378,0.413 0.704,0.678 0.94,1.577 0.603,2.59 -1.945,3.953 -4.15,6.663 -5.803,10.846 0.949,-0.058 1.45,-0.095 2.599,-0.185 C -1.784,12.298 0.505,9.366 2.467,5.212 3.072,3.306 1.984,1.161 0,0" /></g>
+                            <g transform="translate(430.3396,682.3901)" id="g104"><path id="path106" style="fill:#A1D06C;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 0,0 c -0.635,0.263 -1.355,0.344 -2.079,0.268 -2.054,-0.215 -3.153,-0.28 -5.269,-0.243 0.639,-1.543 0.824,-2.457 0.232,-4.483 2.132,0.015 3.233,0.129 5.3,0.487 0.728,0.127 1.436,0.485 2.05,1.048 0.614,0.563 0.919,1.15 0.863,1.719 C 1.044,-0.666 0.654,-0.271 0,0 m -5.249,6.331 c -0.769,0.382 -1.479,0.605 -2.151,0.606 -1.788,0.003 -2.74,0.01 -4.561,0.092 1.044,-1.861 1.719,-2.581 2.811,-4.049 1.892,-0.064 2.875,-0.042 4.729,0.049 0.698,0.034 1.162,0.248 1.385,0.594 0.22,0.342 0.095,0.768 -0.374,1.317 -0.471,0.55 -1.086,1.016 -1.839,1.391 M 1.173,-4.93 c -1.862,-1.416 -3.771,-2.364 -5.349,-2.726 -3.379,-0.775 -5.384,-0.976 -8.77,-0.439 4.723,8.348 -1.061,11.847 -3.857,19.7 2.84,-0.26 4.64,-0.265 7.662,-0.375 1.502,-0.054 2.863,-0.91 4.355,-2.168 1.623,-1.37 3.043,-2.701 4.271,-3.964 C 0.726,3.823 1.177,2.97 0.605,2.188 2.476,1.752 3.927,1.076 4.109,-0.428 4.274,-1.78 3.074,-3.485 1.173,-4.93" /></g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+    </div>
+    <div class="partner-logos" style="display:flex;align-items:center;gap:14px;opacity:.75;">
+            <!-- 파트너 브랜드 로고: CAYL / ON / yohemite -->
+        <div class="flex items-center opacity-75 hover:opacity-100 transition-opacity" style="gap: 10px; transition: opacity 0.3s ease;">
+            <!-- CAYL -->
+            <svg width="160" height="100" viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;">
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M74.2263 55.2933C74.2263 56.0502 74.0723 56.7977 73.1862 56.7977C72.4803 56.7977 72.1599 55.6461 71.8923 55.1221C69.7776 50.8604 67.0497 48.7833 62.7633 48.7833C54.2326 48.7833 50.1753 56.3199 50.1753 63.3201C50.1753 72.9821 56.0117 77.7693 62.5066 77.7693C66.3985 77.7693 69.0948 76.2217 71.8366 73.4713C72.2808 73.0269 72.7621 72.2725 73.515 72.2725C73.6489 72.276 73.7808 72.3066 73.9028 72.3624C74.0249 72.4182 74.1345 72.4981 74.2254 72.5974C74.3162 72.6967 74.3864 72.8133 74.4318 72.9404C74.4771 73.0676 74.4967 73.2025 74.4894 73.3374C74.4894 74.8019 71.1726 77.3279 70.0673 77.9948C67.681 79.4976 65.4715 80.2978 61.8032 80.2978C52.9669 80.2978 45.6752 73.7405 45.6752 64.6518C45.6752 55.9626 50.8032 46.5186 62.9529 46.5186C65.8831 46.4201 68.7832 47.1411 71.332 48.6017C73.8003 49.8871 74.2224 50.8156 74.2224 52.104L74.2263 55.2933Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M83.6861 68.3611C83.2008 69.8779 81.6498 73.7355 81.6498 75.2881C81.6498 78.0351 83.9912 77.2737 83.9912 78.6053C83.9912 79.5802 82.7131 79.4847 81.3373 79.4847H77.7574C76.702 79.4847 75.9027 79.5603 75.9027 78.5392C75.9027 78.0122 76.2157 77.7808 76.6146 77.5125C76.9441 77.3451 77.2357 77.1106 77.471 76.824C77.7062 76.5373 77.8801 76.2047 77.9815 75.847C81.2075 65.7884 85.5402 55.7322 89.0742 49.3028C89.6484 48.2419 90.6169 46.2976 91.2813 46.2976C92.1245 46.2976 93.447 48.7813 93.7555 49.3098C97.5117 55.7397 101.004 64.2955 104.984 76.0913C105.291 76.9731 105.69 77.2423 106.527 77.6837C106.971 77.9052 107.281 78.054 107.281 78.5859C107.281 79.6091 106.268 79.4856 105.513 79.4856H100.034C99.3327 79.4856 98.4422 79.4752 98.4422 78.5402C98.4422 77.1677 100.698 77.7315 100.698 76.3138C100.698 75.424 98.886 70.386 98.0448 68.3631L83.6861 68.3611Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M97.3404 65.8336C95.3485 60.7777 93.137 55.3276 90.7556 51.5516C88.3109 56.141 86.2263 60.9163 84.5208 65.8336H97.3404Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M115.553 66.5139C111.367 61.5565 107.742 56.145 104.743 50.3792C104.168 49.268 101.966 49.5333 101.966 48.2533C101.966 47.4984 102.64 47.6338 103.305 47.6338H109.849C110.549 47.6338 111.302 47.4527 111.302 48.2961C111.302 49.4477 109.183 49.1157 109.183 50.2707C109.183 51.5964 112.099 57.3028 118.198 64.087C122.924 59.0793 127.123 51.9602 127.123 50.7594C127.123 48.7659 124.696 49.6402 124.696 48.1792C124.696 47.3785 125.621 47.6318 126.107 47.6318H131.06C131.675 47.6318 132.823 47.4507 132.823 48.2081C132.823 49.269 131.244 49.378 130.628 50.6201C128.064 55.8039 123.618 61.9049 119.587 66.604V74.9358C119.587 76.8856 119.572 77.1508 120.327 77.3742C121.572 77.6813 122.09 77.7395 122.09 78.5372C122.09 79.5145 121.201 79.4827 120.493 79.4827H114.44C113.688 79.4827 112.853 79.5145 112.853 78.5372C112.853 77.8251 113.406 77.6887 114.246 77.423C115.35 77.0702 115.554 76.7089 115.554 74.9348L115.553 66.5139Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M137.226 50.8176C137.226 49.6233 136.821 49.5343 135.931 49.3113C135.275 49.1386 134.74 49.2282 134.74 48.3847C134.74 47.4094 135.662 47.6338 136.418 47.6338H142.425C143.173 47.6338 144.011 47.4552 144.011 48.3847C144.011 49.1396 143.388 49.1167 142.811 49.3377C141.177 49.9592 141.259 50.0702 141.259 51.8413V74.4944C141.259 76.9726 141.527 77.3767 145.73 77.3767C154.479 77.3767 155.392 76.8895 157.557 75.2867C157.908 75.0209 158.7 74.3133 159.229 74.3133C159.758 74.3133 160 74.7114 160 75.2061C159.835 76.3787 159.586 77.5378 159.255 78.674C158.81 79.6479 157.895 79.4832 157.009 79.4832H136.588C135.88 79.4832 135.046 79.5165 135.046 78.5377C135.046 77.8261 135.321 77.733 135.892 77.5086C137.396 76.9328 137.225 76.7099 137.225 74.9373L137.226 50.8176Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M152.85 47.6357H155.873V48.1408H154.362V50.6688H153.858V48.1408H152.85V47.6357Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M159.401 50.6668V48.7305C159.433 48.5306 159.476 48.3327 159.53 48.1378H159.523L158.467 50.6658H157.956L156.906 48.1378H156.893C156.893 48.1378 156.882 48.6211 156.882 48.7305V50.6658H156.378V47.6357H157.144L158.212 50.1637H158.222L159.289 47.6357H159.906V50.6713L159.401 50.6668Z"/>
+              <path fill="#FFFFFF" fill-rule="evenodd" d="M99.6748 12.4637L83.6703 26.7298L73.9568 21.4166L58.2504 0L44.2032 26.7422L28.7115 54.5981L20.786 52.206L0 100L20.7865 63.1255L23.6437 59.2316L30.4181 59.775L50.4671 26.8139L59.0269 10.8897L67.0916 23.7524L84.505 33.5145L99.5519 20.2038L146.36 35.8608L99.6748 12.4637Z"/>
+            </svg>
+
+            <!-- ON Running -->
+            <svg width="54" height="54" viewBox="0 0 54 54" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;">
+              <path d="M36.281 11.384c-.056.058-.114.13-.17.188l-2.364 2.41-.057.058c-.057.072-.057.145.014.247a8.331 8.331 0 0 1 1.096 3.309c.257 2.409-.342 4.571-1.822 6.473-1.268 1.625-2.92 2.64-4.899 3.09-.911.204-1.837.218-2.762.117-1.524-.16-2.891-.726-4.116-1.655-1.766-1.335-2.862-3.105-3.318-5.311-.17-.813-.199-1.64-.128-2.453.171-1.901.883-3.585 2.15-5.022 1.21-1.379 2.692-2.278 4.443-2.685a8.03 8.03 0 0 1 2.635-.189 8.5 8.5 0 0 1 3.588 1.147c.142.087.2.029.285-.058l2.35-2.395c.056-.058.113-.13.185-.217l2.889 2.945.001.001Zm-5.342 7.4c.071-2.8-2.093-4.832-4.529-4.905-2.748-.073-4.798 2.25-4.798 4.76 0 2.57 2.122 4.79 4.67 4.746 2.507.03 4.6-2.076 4.656-4.6Zm3.605 19.391c.014 2.351 0 4.717 0 7.068v.32h-4.13v-.29c0-2.468.015-4.935 0-7.403 0-1.291-.44-2.423-1.366-3.323a3.827 3.827 0 0 0-2.208-1.06c-1.11-.16-2.121.117-3.018.799-.898.696-1.424 1.64-1.595 2.757-.086.537-.1 1.089-.1 1.64-.014 2.192 0 4.369 0 6.56v.305h-4.101v-.276c0-2.656-.029-5.326.014-7.982.029-1.408.47-2.743 1.196-3.962 1.21-2.032 2.934-3.338 5.198-3.875a8.414 8.414 0 0 1 2.178-.203c2.265.101 4.201 1.015 5.74 2.742 1.096 1.248 1.794 2.7 2.036 4.369.098.608.155 1.217.155 1.812"/>
+            </svg>
+
+            <!-- yohemite -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 274" style="height: 20px; width: auto;">
+              <path fill="white" fill-rule="evenodd" d="M 640,98 L 638,99 L 639,191 L 667,191 L 667,99 Z M 127,98 L 102,98 L 98,99 L 90,118 L 78,150 L 76,153 L 74,151 L 73,147 L 69,139 L 57,107 L 53,99 L 21,98 L 22,103 L 32,122 L 56,175 L 58,177 L 61,184 L 59,187 L 58,191 L 45,221 L 38,235 L 40,236 L 64,235 L 68,236 L 74,223 L 77,214 L 82,205 L 85,196 L 90,187 L 104,153 L 109,144 L 119,119 L 127,103 Z M 778,99 L 765,105 L 760,109 L 752,119 L 749,126 L 747,134 L 746,147 L 749,163 L 755,174 L 765,184 L 768,186 L 785,192 L 792,193 L 806,193 L 821,190 L 830,186 L 836,182 L 843,175 L 846,171 L 848,166 L 846,166 L 845,165 L 825,160 L 822,160 L 816,167 L 811,170 L 804,172 L 794,172 L 788,170 L 785,168 L 780,162 L 777,155 L 778,151 L 848,151 L 848,133 L 845,122 L 840,113 L 833,106 L 819,99 L 811,97 L 801,96 L 786,97 Z M 778,130 L 781,124 L 787,118 L 792,116 L 803,116 L 806,117 L 813,123 L 816,129 L 815,135 L 778,134 Z M 475,99 L 475,191 L 504,191 L 504,129 L 507,122 L 510,119 L 514,117 L 523,117 L 528,121 L 530,125 L 531,132 L 531,191 L 560,191 L 561,189 L 560,176 L 560,133 L 561,127 L 563,123 L 568,118 L 575,116 L 581,118 L 585,122 L 587,127 L 588,191 L 617,191 L 617,122 L 615,113 L 612,107 L 607,101 L 601,98 L 592,96 L 584,96 L 573,99 L 565,104 L 559,111 L 556,108 L 554,104 L 552,102 L 545,98 L 536,96 L 528,96 L 520,98 L 514,101 L 505,1<!-- ════════ 타이틀 섹션 ════════ -->
+M 250,47 L 250,191 L 280,191 L 280,130 L 281,126 L 283,123 L 286,120 L 291,117 L 302,117 L 304,118 L 309,123 L 311,130 L 311,191 L 340,191 L 340,119 L 336,107 L 332,102 L 324,97 L 316,95 L 303,95 L 298,96 L 290,100 L 281,110 L 280,47 Z"/>
+            </svg>
+        </div>
+</header>
+
+
+
+<!-- Section navigation bar -->
+<nav id="section-nav">
+    <div class="sec-nav-inner">
+        <a href="#sec-title"      class="sec-nav-link active">개요</a>
+        <a href="#sec-map"        class="sec-nav-link">지도</a>
+        <a href="#sec-chart"      class="sec-nav-link">GPX</a>
+        <a href="#sec-timetable"  class="sec-nav-link">타임테이블</a>
+    </div>
+</nav>
+
+<section class="slide-section" id="sec-title">
+    <div class="background-pattern"></div>
+    <div class="section-body">
+        <div class="slide-header">
+            <h1 class="slide-title">
+                The Thunderbird Way 2, <span class="title-highlight">Ridges</span><br/>
+                FJTS <span class="title-highlight">Vol.2</span>
+            </h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 운행 정보 카드 -->
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></div>
+                    <h3 class="card-title">2회차 핵심 운행 정보</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6" style="align-content:start;row-gap:12px;">
+                    <div class="info-row">
+                        <span class="info-label">출발지</span>
+                        <span class="info-value">여원재</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">출발 시각</span>
+                        <span class="info-value">03:00</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">총 거리</span>
+                        <span class="info-value highlight">43.7km</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">누적 상승</span>
+                        <span class="info-value highlight">4,015m</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">1안 피니시</span>
+                        <span class="info-value">무룡고개 21:00</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">2안 하산</span>
+                        <span class="info-value">중기마을 17:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 개요 카드 -->
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg></div>
+                    <h3 class="card-title">운행 개요</h3>
+                </div>
+                <p style="font-size:14px;color:#ccc;line-height:1.8;margin-bottom:20px;">
+                    백두대간 2회차 — 여원재에서 무룡고개까지.<br/>
+                    폭염 기준 재설계된 10~12분/km 생존 페이스로 진행하며,<br/>
+                    1안(풀코스)과 2안(안전 하산) 두 가지 시나리오로 운영됩니다.
+                </p>
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div style="background:rgba(0,0,0,.4);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);">
+                        <span style="display:block;font-size:18px;font-weight:800;color:var(--neon);">43.7km</span>
+                        <span style="display:block;font-size:11px;color:#666;margin-top:4px;">총 거리</span>
+                    </div>
+                    <div style="background:rgba(0,0,0,.4);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);">
+                        <span style="display:block;font-size:18px;font-weight:800;color:var(--neon);">4,015m</span>
+                        <span style="display:block;font-size:11px;color:#666;margin-top:4px;">누적 상승</span>
+                    </div>
+                    <div style="background:rgba(0,0,0,.4);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);">
+                        <span style="display:block;font-size:18px;font-weight:800;color:var(--neon);">18h</span>
+                        <span style="display:block;font-size:11px;color:#666;margin-top:4px;">예상 소요</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- ════════ 타이틀 섹션 ════════ -->
+<section 
+
+
+
+
+
+
+
+<div id="sec-map"></div>
+<div class="section-title-block content-pad">
+    <h2>GPX <span class="hl">경로 지도</span></h2>
+    <p class="sec-sub">여원재 → 무룡고개 · 43.7km · 드래그 및 핀치로 탐색</p>
+</div>
+<!-- ════════════ 경로 지도 ════════════ -->
+<div class="content-pad" style="max-width:1100px;margin:0 auto;padding:0 40px 40px;">
+
+    <div style="position:relative;width:100%;height:420px;border-radius:12px;border:1px solid rgba(255,255,255,.09);background:#1a1a1a;cursor:grab;">
+        <canvas id="mapCanvas" style="position:absolute;top:0;left:0;border-radius:12px;"></canvas>
+        <div style="position:absolute;top:12px;right:12px;z-index:10;display:flex;flex-direction:column;gap:4px;">
+            <button id="zoomIn"  style="width:32px;height:32px;background:rgba(10,10,10,.9);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#fff;font-size:18px;cursor:pointer;line-height:1;">+</button>
+            <button id="zoomOut" style="width:32px;height:32px;background:rgba(10,10,10,.9);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#fff;font-size:18px;cursor:pointer;line-height:1;">−</button>
+        </div>
+        <div id="mapLoading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#555;font-size:12px;pointer-events:none;border-radius:12px;">지도 로딩 중...</div>
+        <div id="mapTooltip" style="position:absolute;display:none;background:rgba(8,8,8,.92);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:6px 10px;font-size:11px;color:#fff;pointer-events:none;z-index:20;"></div>
+    </div>
+</div>
+
+<script>
+(function(){
+
+const TRACK = [[35.44702,127.50126],[35.44839,127.49872],[35.44934,127.49573],[35.45179,127.49384],[35.45126,127.49023],[35.45312,127.48988],[35.45581,127.49126],[35.45824,127.49083],[35.46075,127.49062],[35.46239,127.49322],[35.46317,127.49633],[35.46556,127.49727],[35.46854,127.497],[35.47123,127.49707],[35.47384,127.49734],[35.47424,127.50074],[35.47489,127.50357],[35.47651,127.50566],[35.47775,127.50718],[35.47869,127.51038],[35.47919,127.51307],[35.47895,127.5164],[35.47831,127.51939],[35.47703,127.52222],[35.47459,127.52376],[35.47317,127.52647],[35.47272,127.53036],[35.47161,127.53368],[35.47027,127.53721],[35.46811,127.54235],[35.46969,127.5487],[35.47114,127.55515],[35.4712,127.55865],[35.47306,127.56106],[35.47685,127.5613],[35.48031,127.55965],[35.48279,127.56141],[35.48539,127.56212],[35.48803,127.56332],[35.49078,127.56327],[35.49294,127.56469],[35.49361,127.56783],[35.49534,127.57058],[35.49709,127.5733],[35.49868,127.57641],[35.50069,127.5782],[35.50287,127.57987],[35.50555,127.57899],[35.50811,127.58067],[35.51079,127.58059],[35.51381,127.58002],[35.5164,127.57783],[35.51837,127.5723],[35.52643,127.57719],[35.51951,127.57102],[35.52446,127.56887],[35.52752,127.56809],[35.53401,127.56882],[35.53856,127.57195],[35.54573,127.57301],[35.54659,127.5763],[35.54808,127.57919],[35.55025,127.58171],[35.55244,127.58413],[35.55531,127.58563],[35.55831,127.58605],[35.56111,127.5867],[35.56407,127.58713],[35.56615,127.5894],[35.56866,127.59138],[35.57093,127.59353],[35.57365,127.59468],[35.57526,127.59736],[35.57709,127.60008],[35.57864,127.60313],[35.58027,127.60557],[35.58284,127.60625],[35.58403,127.60917],[35.58631,127.61095],[35.58913,127.60979],[35.59124,127.60811],[35.59426,127.60776],[35.59709,127.60886],[35.59939,127.60962],[35.60071,127.60668],[35.60308,127.6065],[35.60094,127.60645],[35.59961,127.60921],[35.59865,127.61163],[35.60093,127.61249],[35.60407,127.61304],[35.60698,127.6123],[35.60938,127.61432],[35.6099,127.61758],[35.61233,127.61954],[35.61504,127.62097],[35.61546,127.62447],[35.61689,127.62726],[35.61846,127.6295],[35.61779,127.63295],[35.61962,127.63455],[35.62559,127.62816],[35.63225,127.62408],[35.63975,127.62242],[35.6427,127.61785],[35.64324,127.61616]];
+
+const CPS = [
+  {name:'여원재',   lat:35.44702,lon:127.50126,ele:468, color:'#A1D06C',r:7},
+  {name:'고남산',   lat:35.47418,lon:127.50060,ele:831, color:'#999',   r:4},
+  {name:'매요마을', lat:35.46898,lon:127.54071,ele:466, color:'#4ECDC4',r:6},
+  {name:'사치재',   lat:35.47771,lon:127.56097,ele:527, color:'#999',   r:4},
+  {name:'복성이재', lat:35.51878,lon:127.57186,ele:550, color:'#4ECDC4',r:6},
+  {name:'봉화산',   lat:35.54729,lon:127.57884,ele:908, color:'#FFA94D',r:5},
+  {name:'월경산',   lat:35.58497,lon:127.61031,ele:938, color:'#FFA94D',r:5},
+  {name:'중재',     lat:35.59855,lon:127.61011,ele:653, color:'#FFA94D',r:5},
+  {name:'중고개재', lat:35.60949,lon:127.61504,ele:746, color:'#FFA94D',r:5},
+  {name:'백운산',   lat:35.61833,lon:127.63533,ele:1267,color:'#FF6B6B',r:7},
+  {name:'영취산',   lat:35.64267,lon:127.62016,ele:1062,color:'#999',   r:4},
+  {name:'무룡고개', lat:35.64306,lon:127.61624,ele:927, color:'#A1D06C',r:7},
+];
+
+const TILE   = 256;
+let curTileUrl  = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+let curTileSubs = [''];
+let zoom = 12;
+let centerLat = 35.545, centerLon = 127.565;
+
+function lonToX(lon,z){ return ((lon+180)/360)*(1<<z); }
+function latToY(lat,z){
+    const s=Math.sin(lat*Math.PI/180);
+    return (0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*(1<<z);
+}
+
+const canvas = document.getElementById('mapCanvas');
+const ctx = canvas.getContext('2d');
+const loading = document.getElementById('mapLoading');
+const tooltip = document.getElementById('mapTooltip');
+
+function resize(){
+    const p = canvas.parentElement;
+    canvas.width  = (p && p.clientWidth)  || 360;
+    canvas.height = (p && p.clientHeight) || 420;
+}
+resize();
+window.addEventListener('resize', ()=>{ resize(); render(); });
+
+const tileCache = {};
+function makeTileUrl(z,tx,ty){
+    const sub = curTileSubs[(tx+ty)%curTileSubs.length]||'';
+    return curTileUrl.replace('{s}',sub).replace('{z}',z).replace('{x}',tx).replace('{y}',ty);
+}
+function getTile(z,tx,ty){
+    const key=`${z}/${tx}/${ty}`;
+    if(tileCache[key]) return tileCache[key];
+    const img=new Image();
+    img.src=makeTileUrl(z,tx,ty);
+    img.onload =()=>{ tileCache[key]=img; render(); };
+    img.onerror=()=>{ tileCache[key]='err'; };
+    tileCache[key]=null;
+    return null;
+}
+
+// 디바운스 렌더 (드래그 중 과도한 호출 방지)
+let _rafId = null;
+function debouncedRender(){
+    if(_rafId) cancelAnimationFrame(_rafId);
+    _rafId = requestAnimationFrame(()=>{ _rafId=null; render(); });
+}
+
+// 줌 변경 시 타일 캐시에서 상위 레벨 이미지 임시 표시
+function zoomAndRender(delta){
+    zoom = Math.max(9, Math.min(18, zoom + delta));
+    render();
+}
+
+function render(){
+    const W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#1a1a1a'; ctx.fillRect(0,0,W,H);
+
+    const cx=lonToX(centerLon,zoom)*TILE;
+    const cy=latToY(centerLat,zoom)*TILE;
+    const ox=W/2-cx, oy=H/2-cy;
+
+    const txMin=Math.floor((cx-W/2)/TILE);
+    const txMax=Math.ceil ((cx+W/2)/TILE);
+    const tyMin=Math.floor((cy-H/2)/TILE);
+    const tyMax=Math.ceil ((cy+H/2)/TILE);
+
+    let loading_n=0;
+    for(let ty=tyMin;ty<=tyMax;ty++){
+        for(let tx=txMin;tx<=txMax;tx++){
+            if(ty<0||ty>=(1<<zoom)) continue;
+            const img=getTile(zoom,tx,ty);
+            if(img&&img!=='err'){
+                try{ ctx.drawImage(img,tx*TILE+ox,ty*TILE+oy,TILE,TILE); }catch(e){}
+            } else if(!img) loading_n++;
+        }
+    }
+    if(loading_n===0) loading.style.display='none';
+
+    const toP=(lat,lon)=>({
+        x: lonToX(lon,zoom)*TILE+ox,
+        y: latToY(lat,zoom)*TILE+oy,
+    });
+
+    // 경로 글로우
+    ctx.save();
+    ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=6;
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.beginPath();
+    TRACK.forEach((pt,i)=>{ const p=toP(pt[0],pt[1]); i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y); });
+    ctx.stroke();
+    // 경로 메인
+    ctx.strokeStyle='#000000'; ctx.lineWidth=3;
+    ctx.beginPath();
+    TRACK.forEach((pt,i)=>{ const p=toP(pt[0],pt[1]); i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y); });
+    ctx.stroke();
+    ctx.restore();
+
+    // 체크포인트
+    CPS.forEach(cp=>{
+        const p=toP(cp.lat,cp.lon);
+        ctx.save();
+        ctx.shadowColor=cp.color; ctx.shadowBlur=8;
+        ctx.beginPath(); ctx.arc(p.x,p.y,cp.r,0,Math.PI*2);
+        ctx.fillStyle=cp.color; ctx.fill();
+        ctx.restore();
+        ctx.beginPath(); ctx.arc(p.x,p.y,cp.r,0,Math.PI*2);
+        ctx.strokeStyle='#111'; ctx.lineWidth=1.5; ctx.stroke();
+        if(cp.r>=6){
+            ctx.font='bold 10px "Noto Sans KR",sans-serif';
+            ctx.textAlign='center'; ctx.textBaseline='bottom';
+            const tw=ctx.measureText(cp.name).width+8;
+            ctx.fillStyle='rgba(8,8,8,0.85)';
+            ctx.fillRect(p.x-tw/2, p.y-cp.r-15, tw, 13);
+            ctx.fillStyle=cp.color;
+            ctx.fillText(cp.name, p.x, p.y-cp.r-3);
+        }
+    });
+}
+
+// 드래그
+let dragging=false, dragX=0, dragY=0;
+canvas.addEventListener('mousedown',e=>{ dragging=true; dragX=e.clientX; dragY=e.clientY; canvas.style.cursor='grabbing'; });
+window.addEventListener('mousemove',e=>{
+    if(!dragging) return;
+    const dx=e.clientX-dragX, dy=e.clientY-dragY;
+    dragX=e.clientX; dragY=e.clientY;
+    centerLon-=dx/(TILE*(1<<zoom))*360;
+    centerLat+=dy/(TILE*(1<<zoom))*360*Math.cos(centerLat*Math.PI/180);
+    render();
+});
+window.addEventListener('mouseup',()=>{ dragging=false; canvas.style.cursor='grab'; });
+
+// 터치
+let lTX=0,lTY=0,lDist=0;
+canvas.addEventListener('touchstart',e=>{ e.preventDefault();
+    if(e.touches.length===1){
+        lTX=e.touches[0].clientX; lTY=e.touches[0].clientY;
+        lDist=0;
+    } else if(e.touches.length===2){
+        lTX=(e.touches[0].clientX+e.touches[1].clientX)/2;
+        lTY=(e.touches[0].clientY+e.touches[1].clientY)/2;
+        lDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    }
+},{passive:false});
+canvas.addEventListener('touchmove',e=>{ e.preventDefault();
+    if(e.touches.length===1&&lDist===0){
+        const dx=e.touches[0].clientX-lTX, dy=e.touches[0].clientY-lTY;
+        lTX=e.touches[0].clientX; lTY=e.touches[0].clientY;
+        centerLon-=dx/(TILE*(1<<zoom))*360;
+        centerLat+=dy/(TILE*(1<<zoom))*360*Math.cos(centerLat*Math.PI/180);
+        debouncedRender();
+    } else if(e.touches.length===2){
+        const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+        const mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
+        const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
+        if(lDist>0&&d>0){
+            // 연속 비율 기반 줌 (부드럽게)
+            const ratio=d/lDist;
+            if(ratio>1.04){ zoomAndRender(1); lDist=d; }
+            else if(ratio<0.96){ zoomAndRender(-1); lDist=d; }
+        } else {
+            lDist=d;
+        }
+        // 핀치 중심 이동
+        const ddx=mx-lTX, ddy=my-lTY;
+        if(Math.abs(ddx)>1||Math.abs(ddy)>1){
+            centerLon-=ddx/(TILE*(1<<zoom))*360;
+            centerLat+=ddy/(TILE*(1<<zoom))*360*Math.cos(centerLat*Math.PI/180);
+            render();
+        }
+        lTX=mx; lTY=my;
+    }
+},{passive:false});
+
+// 휠
+canvas.addEventListener('wheel',e=>{ e.preventDefault();
+    if(e.deltaY<0){zoomAndRender(1);} else if(e.deltaY>0){zoomAndRender(-1);}
+},{passive:false});
+
+// 줌 버튼
+document.getElementById('zoomIn') .addEventListener('click',()=>{ zoomAndRender(1); });
+document.getElementById('zoomOut').addEventListener('click',()=>{ zoomAndRender(-1); });
+
+// 툴팁
+canvas.addEventListener('mousemove',e=>{
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    const cx2=lonToX(centerLon,zoom)*TILE, cy2=latToY(centerLat,zoom)*TILE;
+    const ox2=canvas.width/2-cx2, oy2=canvas.height/2-cy2;
+    let found=null;
+    CPS.forEach(cp=>{
+        const px=lonToX(cp.lon,zoom)*TILE+ox2, py=latToY(cp.lat,zoom)*TILE+oy2;
+        if(Math.hypot(mx-px,my-py)<cp.r+6) found=cp;
+    });
+    const times={'여원재':'03:00 출발','고남산':'04:45','매요마을':'06:00 (CP1)','사치재':'07:15','복성이재':'09:40 (CP2)','봉화산':'12:15','월경산':'15:00','중재':'16:15 ⚡','중고개재':'17:00','백운산':'19:00 ⚠','영취산':'20:20','무룡고개':'21:00 🏁'};
+    if(found){
+        tooltip.style.display='block';
+        tooltip.style.left=(mx+14)+'px'; tooltip.style.top=(my-10)+'px';
+        tooltip.innerHTML=`<span style="color:${found.color};font-weight:700">${found.name}</span> <span style="color:#aaa">${found.ele}m</span><br><span style="color:#888;font-size:10px">${times[found.name]||''}</span>`;
+        canvas.style.cursor='pointer';
+    } else {
+        tooltip.style.display='none';
+        canvas.style.cursor=dragging?'grabbing':'grab';
+    }
+});
+canvas.addEventListener('mouseleave',()=>{ tooltip.style.display='none'; });
+
+// fitBounds
+(function(){
+    const lats=TRACK.map(p=>p[0]), lons=TRACK.map(p=>p[1]);
+    centerLat=(Math.min(...lats)+Math.max(...lats))/2;
+    centerLon=(Math.min(...lons)+Math.max(...lons))/2;
+    for(let z=16;z>=9;z--){
+        const pw=(lonToX(Math.max(...lons),z)-lonToX(Math.min(...lons),z))*TILE;
+        const ph=(latToY(Math.min(...lats),z)-latToY(Math.max(...lats),z))*TILE;
+        if(pw<canvas.width*0.85&&ph<canvas.height*0.85){ zoom=z; break; }
+    }
+    render();
+})();
+
+})();
+</script>
+
+<div id="sec-chart"></div>
+<div class="section-title-block content-pad">
+    <h2>고도 <span class="hl">프로파일</span></h2>
+    <p class="sec-sub">GPX 실측 200m 간격 · 누적상승 4,015m · 누적하강 3,549m</p>
+</div>
+<!-- ════════════ GPX 고도표 ════════════ -->
+<div class="content-pad" style="max-width:1100px;margin:0 auto;padding:0 40px 40px;">
+
+
+
+    <!--
+        sticky Y축 구조:
+        [ sticky y축 캔버스(48px) ] [ 스크롤 데이터 캔버스(1600px) ]
+        두 캔버스를 같은 높이로 나란히 배치.
+        Y축 캔버스는 position:sticky; left:0 으로 고정.
+    -->
+    <div style="border:1px solid rgba(255,255,255,.09);border-radius:12px;background:#0d0d0d;overflow:hidden;">
+        <div style="display:flex;align-items:stretch;">
+
+            <!-- Y축 전용 캔버스 (sticky) -->
+            <div style="position:sticky;left:0;z-index:10;background:#0d0d0d;flex-shrink:0;">
+                <canvas id="gpxYAxis" width="48" height="260" style="display:block;"></canvas>
+            </div>
+
+            <!-- 데이터 캔버스 (가로 스크롤) -->
+            <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;flex:1;">
+                <canvas id="gpxChart" width="1600" height="260" style="display:block;"></canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin=""></script>
+<script>
+(function(){
+    function initChart() {
+        if (typeof Chart === 'undefined') {
+            setTimeout(initChart, 100);
+            return;
+        }
+        try {
+const SAMPLES = [[0.0,468.0],[0.205,477.0],[0.407,475.0],[0.619,477.0],[0.82,482.0],[1.023,496.0],[1.225,514.0],[1.435,529.0],[1.643,520.0],[1.85,490.0],[2.058,503.0],[2.26,554.0],[2.465,570.0],[2.679,605.0],[2.89,578.0],[3.104,578.0],[3.305,581.0],[3.506,590.0],[3.708,591.0],[3.921,598.0],[4.131,624.0],[4.331,639.0],[4.541,667.0],[4.75,741.0],[4.959,795.0],[5.16,833.0],[5.364,822.0],[5.568,804.0],[5.776,784.0],[5.977,722.0],[6.177,676.0],[6.389,668.0],[6.591,679.0],[6.793,687.0],[6.999,636.0],[7.209,599.0],[7.418,537.0],[7.623,544.0],[7.834,548.0],[8.044,549.0],[8.249,533.0],[8.449,550.0],[8.652,561.0],[8.863,537.0],[9.076,536.0],[9.285,540.0],[9.496,527.0],[9.699,476.0],[9.9,483.2],[10.121,478.5],[10.33,465.8],[10.562,478.1],[10.79,475.3],[10.998,475.0],[11.207,508.4],[11.424,544.1],[11.636,567.6],[11.839,560.0],[12.047,570.0],[12.248,595.0],[12.45,563.0],[12.654,526.0],[12.856,540.0],[13.064,529.9],[13.276,522.3],[13.478,511.6],[13.694,576.9],[13.9,635.0],[14.104,638.0],[14.307,639.0],[14.514,649.0],[14.724,696.0],[14.926,693.0],[15.134,664.0],[15.342,665.0],[15.549,601.0],[15.751,589.0],[15.954,592.0],[16.161,608.0],[16.362,640.0],[16.565,687.0],[16.773,747.0],[16.983,784.0],[17.193,784.0],[17.404,748.0],[17.611,780.0],[17.816,771.0],[18.024,795.0],[18.227,805.0],[18.427,748.0],[18.629,699.0],[18.836,680.0],[19.069,676.1],[19.275,668.6],[19.484,625.0],[19.693,584.6],[19.898,574.7],[20.103,552.3],[20.311,544.4],[20.545,534.1],[20.842,515.2],[21.058,515.5],[21.284,510.8],[21.491,518.0],[21.712,516.3],[21.94,538.4],[22.163,547.2],[22.365,560.0],[22.585,595.2],[22.786,632.9],[22.993,682.2],[23.207,659.2],[23.425,664.3],[23.652,673.0],[23.863,661.9],[24.069,679.6],[24.273,676.8],[24.485,664.8],[24.695,674.6],[24.92,736.8],[25.148,731.8],[25.371,758.7],[25.578,799.5],[25.788,852.0],[25.995,871.0],[26.205,911.0],[26.415,908.0],[26.622,886.0],[26.825,893.0],[27.031,913.0],[27.233,944.0],[27.437,955.0],[27.637,940.0],[27.845,931.0],[28.048,940.0],[28.255,937.0],[28.457,946.0],[28.664,938.0],[28.871,885.0],[29.078,913.0],[29.286,878.0],[29.487,904.0],[29.69,934.0],[29.895,940.0],[30.095,868.0],[30.301,859.0],[30.51,849.0],[30.717,839.0],[30.928,846.0],[31.128,879.0],[31.341,913.0],[31.543,958.0],[31.751,945.0],[31.952,937.0],[32.155,959.0],[32.357,936.0],[32.562,895.0],[32.762,865.0],[32.969,836.0],[33.175,805.0],[33.384,754.0],[33.59,743.0],[33.794,699.0],[34.0,641.0],[34.205,618.0],[34.413,582.0],[34.621,535.0],[34.829,520.0],[35.036,538.0],[35.242,583.0],[35.452,623.0],[35.659,649.0],[35.866,678.0],[36.074,698.0],[36.278,703.0],[36.483,698.0],[36.695,698.0],[36.905,710.0],[37.109,732.0],[37.31,767.0],[37.515,774.0],[37.724,813.0],[37.929,839.0],[38.133,863.0],[38.334,887.0],[38.545,954.0],[38.752,1034.0],[38.96,1107.0],[39.167,1151.0],[39.37,1190.0],[39.573,1229.0],[39.779,1280.0],[39.994,1231.1],[40.199,1173.2],[40.419,1133.0],[40.66,1113.1],[40.865,1113.9],[41.078,1107.7],[41.295,1075.7],[41.511,1052.3],[41.732,1052.4],[41.943,1054.3],[42.157,1057.2],[42.375,1048.5],[42.58,1056.0],[42.795,1020.7],[43.006,1033.3],[43.221,1045.6],[43.425,972.9],[43.625,929.9]];
+
+const WPTS = [
+  {name:'여원재',   km:0.0,   ele:468,  color:'#A1D06C'},
+  {name:'고남산',   km:5.27,  ele:852,  color:'#cccccc'},
+  {name:'매요마을', km:10.29, ele:466,  color:'#4ECDC4'},
+  {name:'사치재',   km:13.29, ele:519,  color:'#cccccc'},
+  {name:'복성이재', km:20.16, ele:553,  color:'#4ECDC4'},
+  {name:'봉화산',   km:26.27, ele:933,  color:'#FFA94D'},
+  {name:'월경산',   km:32.14, ele:960,  color:'#FFA94D'},
+  {name:'중재',     km:33.93, ele:654,  color:'#FFA94D'},
+  {name:'중고개재', km:37.37, ele:749,  color:'#FFA94D'},
+  {name:'백운산',   km:39.89, ele:1267, color:'#FF6B6B'},
+  {name:'영취산',   km:43.24, ele:1046, color:'#cccccc'},
+  {name:'무룡고개', km:43.68, ele:927,  color:'#A1D06C'},
+];
+
+const Y_MIN = 300, Y_MAX = 1400;
+const PAD_TOP = 44, PAD_BOTTOM = 28, PAD_RIGHT = 16;
+
+/* ── 웨이포인트 오버레이 플러그인 ── */
+const wptPlugin = {
+    id: 'wptLines',
+    afterDatasetsDraw(chart) {
+        const {ctx, chartArea, scales: {x, y}} = chart;
+        if (!chartArea) return;
+        ctx.save();
+        WPTS.forEach((w, idx) => {
+            const px = x.getPixelForValue(w.km);
+            if (px < chartArea.left || px > chartArea.right) return;
+            const py = y.getPixelForValue(w.ele);
+
+            // 수직 점선
+            ctx.setLineDash([3, 5]);
+            ctx.strokeStyle = w.color + '99';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(px, chartArea.top);
+            ctx.lineTo(px, chartArea.bottom);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 마커
+            ctx.beginPath();
+            ctx.arc(px, py, 5, 0, Math.PI * 2);
+            ctx.fillStyle = w.color;
+            ctx.fill();
+            ctx.strokeStyle = '#0d0d0d';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // 라벨 (홀짝 교차)
+            const above = (idx % 2 === 0);
+            const lY = above ? py - 22 : py + 32;
+            ctx.font = 'bold 10px "Noto Sans KR", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const nameW = ctx.measureText(w.name).width + 12;
+            const bxRaw = px - nameW / 2;
+            const bx = Math.max(chartArea.left, Math.min(bxRaw, chartArea.right - nameW)), by = lY - 13, bh = 26;
+            ctx.fillStyle = 'rgba(8,8,8,0.9)';
+            if (ctx.roundRect) ctx.roundRect(bx, by, nameW, bh, 4);
+            else ctx.rect(bx, by, nameW, bh);
+            ctx.fill();
+            ctx.strokeStyle = w.color + '77';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.fillStyle = w.color;
+            ctx.fillText(w.name, px, lY - 5);
+            ctx.font = '9px "JetBrains Mono",monospace';
+            ctx.fillStyle = w.color + 'cc';
+            ctx.fillText(w.ele + 'm', px, lY + 7);
+            // 연결선
+            ctx.setLineDash([2, 3]);
+            ctx.strokeStyle = w.color + '55';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(px, above ? by + bh : by);
+            ctx.lineTo(px, above ? py - 6 : py + 6);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        });
+        ctx.restore();
+    }
+};
+
+/* ── 데이터 차트 ── */
+const dataCanvas = document.getElementById('gpxChart');
+const dCtx = dataCanvas.getContext('2d');
+
+const gradient = dCtx.createLinearGradient(0, 0, 0, dataCanvas.height);
+gradient.addColorStop(0,   'rgba(161,208,108,0.55)');
+gradient.addColorStop(0.5, 'rgba(161,208,108,0.18)');
+gradient.addColorStop(1,   'rgba(161,208,108,0.03)');
+
+const dataChart = new Chart(dataCanvas, {
+    type: 'line',
+    data: {
+        datasets: [{
+            data: SAMPLES.map(s => ({x: s[0], y: s[1]})),
+            borderColor: '#A1D06C',
+            borderWidth: 2.5,
+            fill: 'start',
+            backgroundColor: gradient,
+            tension: 0.3,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#A1D06C',
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 2,
+        }]
+    },
+    plugins: [wptPlugin],
+    options: {
+        responsive: false,
+        animation: false,
+        interaction: {mode: 'index', intersect: false},
+        layout: {padding: {top: PAD_TOP, right: PAD_RIGHT, bottom: PAD_BOTTOM, left: 0}},
+        plugins: {
+            legend: {display: false},
+            tooltip: {
+                backgroundColor: 'rgba(8,8,8,0.93)',
+                titleColor: '#A1D06C',
+                bodyColor: '#ccc',
+                borderColor: 'rgba(255,255,255,.12)',
+                borderWidth: 1,
+                padding: 10,
+                callbacks: {
+                    title: items => items[0].parsed.x.toFixed(2) + 'km',
+                    label: item  => '고도: ' + item.parsed.y.toFixed(0) + 'm',
+                }
+            }
+        },
+        scales: {
+            x: {
+                type: 'linear', min: 0, max: 44,
+                grid: {color: 'rgba(255,255,255,.07)', tickLength: 0},
+                ticks: {color: '#777', font: {size: 10, family: 'JetBrains Mono'}, stepSize: 2, callback: v => v + 'km'},
+                border: {color: 'rgba(255,255,255,.15)'}
+            },
+            y: {
+                min: Y_MIN, max: Y_MAX,
+                display: false   /* Y축은 별도 캔버스에 그림 */
+            }
+        }
+    }
+});
+
+/* ── Y축 전용 캔버스 — Chart.js로 y축만 그리기 ── */
+const yCanvas = document.getElementById('gpxYAxis');
+new Chart(yCanvas, {
+    type: 'line',
+    data: {datasets: [{data: [{x:0,y:Y_MIN},{x:0,y:Y_MAX}], borderWidth:0, pointRadius:0}]},
+    options: {
+        responsive: false,
+        animation: false,
+        layout: {padding: {top: PAD_TOP, right: 0, bottom: PAD_BOTTOM, left: 0}},
+        plugins: {legend:{display:false}, tooltip:{enabled:false}},
+        scales: {
+            x: {display: false, type: 'linear', min: 0, max: 1},
+            y: {
+                min: Y_MIN, max: Y_MAX,
+                position: 'left',
+                grid: {display: false},
+                ticks: {
+                    color: '#777',
+                    font: {size: 9, family: 'JetBrains Mono'},
+                    stepSize: 200,
+                    callback: v => v + 'm',
+                    maxTicksLimit: 8,
+                    padding: 2,
+                },
+                border: {color: 'rgba(255,255,255,.15)'},
+                afterFit(scale) { scale.width = 46; }
+            }
+        }
+    }
+});
+
+
+        } catch(e) {
+            console.error('Chart init error:', e);
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initChart);
+    } else {
+        initChart();
+    }
+})();
+</script>
+
+<div id="sec-timetable"></div>
+<div class="section-title-block content-pad">
+    <h2>운행 <span class="hl">타임테이블</span></h2>
+    <p class="sec-sub">1안 풀코스 43.7km · 21:00 피니시 &nbsp;|&nbsp; 2안 35.9km · 17:30 안전 하산</p>
+</div>
+<div class="content-pad" style="padding:0 40px;">
+<div class="tabs">
+    <div class="tab tab-a active" onclick="switchPlan('a')">🏁 1안 — 풀코스 (43.7km)</div>
+    <div class="tab tab-b" onclick="switchPlan('b')">🛡️ 2안 — 안전 하산 (35.9km)</div>
+</div>
+
+<!-- ════════════ 1안 ════════════ -->
+<div class="panel active" id="plan-a">
+    <div class="summary-bar">
+        <div class="sum-item"><div class="sum-label">총 거리</div><div class="sum-val v-neon">43.7 km</div></div>
+        <div class="sum-item"><div class="sum-label">출발</div><div class="sum-val">03:00</div></div>
+        <div class="sum-item"><div class="sum-label">예상 피니시</div><div class="sum-val v-neon">21:00</div></div>
+        <div class="sum-item"><div class="sum-label">예상 소요</div><div class="sum-val">18h 00m</div></div>
+        <div class="sum-item"><div class="sum-label">누적 상승</div><div class="sum-val v-heat">4,015 m</div></div>
+        <div class="sum-item"><div class="sum-label">누적 하강</div><div class="sum-val v-blue">3,549 m</div></div>
+    </div>
+    <table>
+        <thead><tr>
+            <th class="col-time">시각</th>
+            <th class="col-stats">누적거리 / 상승</th>
+            <th class="col-name">지점 / 액션</th>
+        </tr></thead>
+        <tbody>
+
+        <!-- 야간 출발 -->
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌙 야간 출발</div></td></tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">03:00</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">0.0km</div><div class="e-flat">—</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">여원재 <span class="tag tag-fin">START</span></div>
+                <div class="name-sub">물 2L 적재 · 헤드램프 점등 · 장비 최종 확인</div>
+                <div class="name-sub-m">물 2L · 헤드램프</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">04:45</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">5.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>651m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">고남산</div>
+                <div class="name-sub">첫 업힐 정점 통과 — 야간 선선함 최대 활용, 땀 아끼며 부드럽게</div>
+                <div class="name-sub-m">야간 활용 · 페이스 억제</div>
+            </div></td>
+        </tr>
+
+        <!-- 오전 -->
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌅 오전 — 매요마을 ~ 복성이재</div></td></tr>
+
+        <tr class="t-supply">
+            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">06:00</div><div class="time-sub">20분 휴식</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">10.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>651m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">매요마을 <span class="tag tag-cp">CP 1</span></div>
+                <div class="name-sub">아침 식사 · 식수 완전 보충 · <strong style="color:#fff">06:20 재출발</strong> — 복성이재까지 10km 무보급</div>
+                <div class="name-sub-m">아침 식사 · 식수 보충<br/><strong style="color:#fff">06:20 재출발</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">07:15</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">13.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>883m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">사치재</div>
+                <div class="name-sub">88고속도로 지하통로 — 해 뜨며 기온 상승 시작, 수분 섭취 의식적으로 늘리기</div>
+                <div class="name-sub-m">기온 상승 · 수분 증가</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-supply">
+            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">09:40</div><div class="time-sub">40분 휴식</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">20.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,109m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">복성이재 <span class="tag tag-cp">CP 2 ★★</span></div>
+                <div class="name-sub">점심 식사 · <strong style="color:var(--neon)">얼음물 2L 꽉 채우기</strong> · 식염포도당 캡슐 · <strong style="color:#fff">10:20 재출발</strong> — 이후 23km 생명선</div>
+                <div class="name-sub-m"><strong style="color:var(--neon)">얼음물 2L 꽉 채우기</strong><br/>식염 캡슐 · <strong style="color:#fff">10:20 재출발</strong></div>
+            </div></td>
+        </tr>
+
+        <!-- 폭염 -->
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">☀️ 폭염 본격 — 빨래판 능선</div></td></tr>
+
+        <tr class="t-caution">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">12:15</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">26.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,809m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">봉화산</div>
+                <div class="name-sub">한낮 폭염 돌입 · 누적 상승 1,600m 돌파 — <strong style="color:#fff">식염 캡슐 30분마다 강제 섭취</strong></div>
+                <div class="name-sub-m">폭염 돌입<br/><strong style="color:#fff">식염 캡슐 30분마다</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-caution">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">14:30</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">28.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,376m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">광대치</div>
+                <div class="name-sub">한낮 빨래판 최고조 — <strong style="color:#fff">걷기만으로 버티기, 페이스 욕심 절대 금지</strong></div>
+                <div class="name-sub-m"><strong style="color:#fff">걷기만으로 버티기</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-caution">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">15:00</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">32.1km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">월경산</div>
+                <div class="name-sub">빨래판 능선 최후 정점 · 중재까지 하강 시작 — 무릎 보호, 스틱 활용</div>
+                <div class="name-sub-m">빨래판 마지막 정점<br/>하강 시작</div>
+            </div></td>
+        </tr>
+
+        <!-- 분기 -->
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">⚡ 중재 — 1안 / 2안 분기점</div></td></tr>
+
+        <tr class="t-branch">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">16:15</div><div class="time-sub">10분 정비</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">33.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">중재 <span class="tag tag-branch">1안 / 2안 분기</span></div>
+                <div class="name-sub">컨디션 자가 진단 · 2안: 중고개재 방향 하산 / 1안: 지지리계곡 쿨링 후 백운산</div>
+                <div class="name-sub-m">2안: 중고개재 하산<br/>1안: 지지리 쿨링 후 백운산</div>
+            </div></td>
+        </tr>
+
+        <!-- 백운산 -->
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🔥 백운산 — 최대 고비</div></td></tr>
+
+        <tr class="t-supply">
+            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">16:45</div><div class="time-sub">15분 쿨링</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">37.4km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,979m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">지지리계곡 <span class="tag tag-cp">강제 쿨링</span></div>
+                <div class="name-sub"><strong style="color:var(--neon)">머리·목·팔토시 계곡물 흠뻑</strong> — 체온 강제 하강 · <strong style="color:var(--heat)">절대 생략 금지</strong> · 17:00 재출발</div>
+                <div class="name-sub-m"><strong style="color:var(--neon)">머리·목 계곡물 흠뻑</strong><br/><strong style="color:var(--heat)">생략 절대 금지</strong> · 17:00 출발</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-danger">
+            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--heat)">19:00</div><div class="time-sub">10분 정비</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">39.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,986m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">백운산 <span class="tag tag-warn">최대 고비</span></div>
+                <div class="name-sub">524m → 1,267m · 2.5km에 743m 급업힐 · 누적 3,050m 상승 후 진입<br/><strong style="color:#fff">가장 느리게 · 멈추지만 않으면 됨</strong> · 카페인 젤 1포</div>
+                <div class="name-sub-m">2.5km에 <strong style="color:#FF4500">▲743m</strong><br/><strong style="color:#fff">절대 멈추지 말 것</strong></div>
+            </div></td>
+        </tr>
+
+        <!-- 피니시 -->
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌙 야간 — 피니시 구간</div></td></tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">20:20</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">43.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>3,890m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">영취산</div>
+                <div class="name-sub">더위 꺾임 · 야간 모드 전환 · 헤드램프 점등 · 무룡고개까지 0.5km</div>
+                <div class="name-sub-m">야간 모드 · 헤드램프 점등</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-finish">
+            <td class="col-time"><div class="cell"><div class="time-main c-neon">21:00</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">43.7km</div><div class="e-cum"><span style="font-size:10px">▲</span>4,015m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">무룡고개 <span class="tag tag-fin">FINISH 🏁</span></div>
+                <div class="name-sub">대절 버스 탑승 · 대장정 완료 · 총 소요 18시간</div>
+                <div class="name-sub-m">버스 탑승 · 총 18시간</div>
+            </div></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- ════════════ 2안 ════════════ -->
+<div class="panel" id="plan-b">
+    <div class="summary-bar">
+        <div class="sum-item"><div class="sum-label">총 거리</div><div class="sum-val v-orange">35.9 km</div></div>
+        <div class="sum-item"><div class="sum-label">출발</div><div class="sum-val">03:00</div></div>
+        <div class="sum-item"><div class="sum-label">예상 하산</div><div class="sum-val v-orange">17:30</div></div>
+        <div class="sum-item"><div class="sum-label">예상 소요</div><div class="sum-val">14h 30m</div></div>
+        <div class="sum-item"><div class="sum-label">누적 상승</div><div class="sum-val v-heat">2,535 m</div></div>
+        <div class="sum-item"><div class="sum-label">핵심 장점</div><div class="sum-val v-orange">백운산 전 탈출</div></div>
+    </div>
+    <table>
+        <thead><tr>
+            <th class="col-time">시각</th>
+            <th class="col-stats">누적거리 / 상승</th>
+            <th class="col-name">지점 / 액션</th>
+        </tr></thead>
+        <tbody>
+
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌙 야간 출발 (1안 동일)</div></td></tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">03:00</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">0.0km</div><div class="e-flat">—</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">여원재 <span class="tag tag-fin">START</span></div>
+                <div class="name-sub">물 2L 적재 · 헤드램프 점등 · 장비 최종 확인</div>
+                <div class="name-sub-m">물 2L · 헤드램프</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">04:45</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">5.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>651m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">고남산</div>
+                <div class="name-sub">1안 동일 — 선선한 야간 활용, 페이스 억제</div>
+                <div class="name-sub-m">야간 활용 · 페이스 억제</div>
+            </div></td>
+        </tr>
+
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌅 오전 — 매요마을 ~ 복성이재 (1안 동일)</div></td></tr>
+
+        <tr class="t-supply">
+            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">06:00</div><div class="time-sub">20분 휴식</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">10.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>651m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">매요마을 <span class="tag tag-cp">CP 1</span></div>
+                <div class="name-sub">아침 식사 · 식수 완전 보충 · <strong style="color:#fff">06:20 재출발</strong></div>
+                <div class="name-sub-m">아침 식사 · 식수 보충<br/><strong style="color:#fff">06:20 재출발</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">07:15</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">13.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>883m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">사치재</div>
+                <div class="name-sub">기온 상승 인지 · 수분 섭취 증가</div>
+                <div class="name-sub-m">기온 상승 · 수분 증가</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-supply">
+            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">09:40</div><div class="time-sub">40분 휴식</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">20.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,109m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">복성이재 <span class="tag tag-cp">마지막 CP ★★</span></div>
+                <div class="name-sub">2안의 최후 보급 거점 — <strong style="color:var(--neon)">얼음물 2L</strong> + 식염 캡슐 · <strong style="color:#fff">10:20 재출발</strong> — 중기마을까지 15km 무보급</div>
+                <div class="name-sub-m"><strong style="color:var(--neon)">얼음물 2L</strong> · 식염 캡슐<br/><strong style="color:#fff">10:20 재출발</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">☀️ 폭염 — 빨래판 능선 (중재까지)</div></td></tr>
+
+        <tr class="t-caution">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">12:15</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">26.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,809m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">봉화산</div>
+                <div class="name-sub">폭염 돌입 · <strong style="color:#fff">식염 캡슐 30분마다 강제 섭취</strong></div>
+                <div class="name-sub-m">폭염 돌입<br/><strong style="color:#fff">식염 캡슐 30분마다</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-caution">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">14:30</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">28.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,376m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">광대치</div>
+                <div class="name-sub">한낮 빨래판 최고조 — <strong style="color:#fff">걷기만으로 버티기</strong></div>
+                <div class="name-sub-m"><strong style="color:#fff">걷기만으로 버티기</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-caution">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">15:00</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">32.1km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">월경산</div>
+                <div class="name-sub">빨래판 마지막 정점 · 중재까지 하강 시작</div>
+                <div class="name-sub-m">빨래판 마지막 정점<br/>하강 시작</div>
+            </div></td>
+        </tr>
+
+        <tr class="sec-row"><td colspan="3"><div class="sec-label">🛡️ 2안 전용 — 안전 하산</div></td></tr>
+
+        <tr class="t-branch">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">16:15</div><div class="time-sub">10분 정비</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">33.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">중재 <span class="tag tag-branch">2안 하산 결정</span></div>
+                <div class="name-sub">백운산 포기 · 중고개재 방향 하산 — <strong style="color:#fff">이 선택이 진정한 트레일러너의 실력</strong></div>
+                <div class="name-sub-m">중고개재 방향 하산<br/><strong style="color:#fff">이 선택이 진짜 실력</strong></div>
+            </div></td>
+        </tr>
+
+        <tr class="t-start">
+            <td class="col-time"><div class="cell"><div class="time-main">17:00</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">~35.0km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,979m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">중고개재 경유</div>
+                <div class="name-sub">746m 안부 통과 · 중기마을 방향 하산 진입</div>
+                <div class="name-sub-m">중기마을 방향 하산</div>
+            </div></td>
+        </tr>
+
+        <tr class="t-finish">
+            <td class="col-time"><div class="cell"><div class="time-main c-orange">17:30</div></div></td>
+            <td class="col-stats"><div class="stats-inner"><div class="d-cum">35.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>3,050m</div></div></div></td>
+            <td class="col-name"><div class="cell">
+                <div class="name-main">중기마을 <span class="tag tag-fin">안전 하산 🛡️</span></div>
+                <div class="name-sub">차량 탑승 · 해 지기 전 완전 회복 · 총 소요 14시간 30분 · 열사병 리스크 완전 회피</div>
+                <div class="name-sub-m">버스 탑승 · 총 14h 30m<br/>열사병 리스크 회피</div>
+            </div></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- 범례 -->
+<div class="footnote">
+    <div class="fn-item"><div class="fn-bar" style="background:var(--teal)"></div>보급·휴식</div>
+    <div class="fn-item"><div class="fn-bar" style="background:var(--orange)"></div>주의 구간</div>
+    <div class="fn-item"><div class="fn-bar" style="background:var(--heat)"></div>위험 구간</div>
+    <div class="fn-item"><div class="fn-bar" style="background:var(--orange);border:1px dashed var(--orange)"></div>분기점</div>
+    <div class="fn-item">
+        <span style="color:var(--up);font-family:'JetBrains Mono',monospace;font-weight:700">▲ 누적 상승고도</span>
+    </div>
+    <div class="fn-item" style="margin-left:auto;font-size:11px;color:#555">폭염 기준 · GPX 실측</div>
+</div>
+
+<script>
+function switchPlan(p){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    document.querySelector('.tab-'+p).classList.add('active');
+    document.getElementById('plan-'+p).classList.add('active');
+}
+</script>
+
+
+
+<script>
+(function(){
+    var secIds  = ['sec-title','sec-map','sec-chart','sec-timetable'];
+    var navLinks = document.querySelectorAll('.sec-nav-link');
+
+    function setActive(cur) {
+        navLinks.forEach(function(a){
+            var sec = a.getAttribute('href').replace('#','');
+            a.classList.toggle('active', sec === cur);
+        });
+        // 활성 링크 수평 스크롤로 보이게
+        var activeLink = document.querySelector('.sec-nav-link.active');
+        if(activeLink) activeLink.scrollIntoView({block:'nearest', inline:'nearest'});
+    }
+
+    function onScroll(){
+        var sy = window.scrollY || window.pageYOffset;
+        var cur = secIds[0];
+        secIds.forEach(function(id){
+            var el = document.getElementById(id);
+            if(!el || typeof el.getBoundingClientRect !== 'function') return;
+            if(el.getBoundingClientRect().top + sy <= sy + 120) cur = id;
+        });
+        setActive(cur);
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    navLinks.forEach(function(a){
+        a.addEventListener('click', function(e){
+            e.preventDefault();
+            var el = document.getElementById(a.getAttribute('href').replace('#',''));
+            if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+    });
+})();
+</script>
+
+
+</div>
+</body>
