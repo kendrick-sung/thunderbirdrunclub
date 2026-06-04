@@ -71,10 +71,6 @@
         .t-finish {border-left:3px solid var(--neon);  background:rgba(161,208,108,.06);}
         .t-branch {border-left:3px dashed var(--orange);background:rgba(255,165,0,.06);}
 
-        /* 섹션 구분 */
-        .sec-row td{padding:0;}
-        .sec-label{padding:6px 14px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;background:rgba(255,255,255,.025);border-left:3px solid rgba(255,255,255,.07);}
-
         /* td 패딩 래퍼 */
         .cell{padding:12px 10px;}
 
@@ -133,7 +129,6 @@
             .sum-label{font-size:10px;}
             .sum-val{font-size:16px;}
             table{table-layout:auto;width:100%;}
-            .sec-label{font-size:9px;padding:6px 10px;}
             .col-time{width:72px;}
             .time-main{font-size:15px;}
             .time-sub{font-size:10px;}
@@ -174,7 +169,7 @@
         display: flex;
         align-items: center;
         gap: 14px;
-        opacity: .75;
+        opacity: .8;
         transition: opacity .2s;
     }
     .partner-logos:hover { opacity: 1; }
@@ -361,7 +356,7 @@
                 </g>
             </svg>
     </div>
-    <div class="partner-logos" style="display:flex;align-items:center;gap:14px;opacity:.75;">
+    <div class="partner-logos" style="display:flex;align-items:center;gap:14px;opacity:1;">
             <!-- 파트너 브랜드 로고: CAYL / ON / yohemite -->
         <div class="flex items-center opacity-75 hover:opacity-100 transition-opacity" style="gap: 10px; transition: opacity 0.3s ease;">
             <!-- CAYL -->
@@ -382,10 +377,9 @@
             </svg>
 
             <!-- yohemite -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 274" style="height: 20px; width: auto;">
-              <path fill="white" fill-rule="evenodd" d="M 640,98 L 638,99 L 639,191 L 667,191 L 667,99 Z M 127,98 L 102,98 L 98,99 L 90,118 L 78,150 L 76,153 L 74,151 L 73,147 L 69,139 L 57,107 L 53,99 L 21,98 L 22,103 L 32,122 L 56,175 L 58,177 L 61,184 L 59,187 L 58,191 L 45,221 L 38,235 L 40,236 L 64,235 L 68,236 L 74,223 L 77,214 L 82,205 L 85,196 L 90,187 L 104,153 L 109,144 L 119,119 L 127,103 Z M 778,99 L 765,105 L 760,109 L 752,119 L 749,126 L 747,134 L 746,147 L 749,163 L 755,174 L 765,184 L 768,186 L 785,192 L 792,193 L 806,193 L 821,190 L 830,186 L 836,182 L 843,175 L 846,171 L 848,166 L 846,166 L 845,165 L 825,160 L 822,160 L 816,167 L 811,170 L 804,172 L 794,172 L 788,170 L 785,168 L 780,162 L 777,155 L 778,151 L 848,151 L 848,133 L 845,122 L 840,113 L 833,106 L 819,99 L 811,97 L 801,96 L 786,97 Z M 778,130 L 781,124 L 787,118 L 792,116 L 803,116 L 806,117 L 813,123 L 816,129 L 815,135 L 778,134 Z M 475,99 L 475,191 L 504,191 L 504,129 L 507,122 L 510,119 L 514,117 L 523,117 L 528,121 L 530,125 L 531,132 L 531,191 L 560,191 L 561,189 L 560,176 L 560,133 L 561,127 L 563,123 L 568,118 L 575,116 L 581,118 L 585,122 L 587,127 L 588,191 L 617,191 L 617,122 L 615,113 L 612,107 L 607,101 L 601,98 L 592,96 L 584,96 L 573,99 L 565,104 L 559,111 L 556,108 L 554,104 L 552,102 L 545,98 L 536,96 L 528,96 L 520,98 L 514,101 L 505,1<!-- ════════ 타이틀 섹션 ════════ -->
-M 250,47 L 250,191 L 280,191 L 280,130 L 281,126 L 283,123 L 286,120 L 291,117 L 302,117 L 304,118 L 309,123 L 311,130 L 311,191 L 340,191 L 340,119 L 336,107 L 332,102 L 324,97 L 316,95 L 303,95 L 298,96 L 290,100 L 281,110 L 280,47 Z"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 274" style="height:22px;width:auto;display:block;">
+  <path fill="white" fill-rule="evenodd" d="M 640,98 L 638,99 L 639,191 L 667,191 L 667,99 Z M 127,98 L 102,98 L 98,99 L 90,118 L 78,150 L 76,153 L 74,151 L 73,147 L 69,139 L 57,107 L 53,99 L 21,98 L 22,103 L 32,122 L 56,175 L 58,177 L 61,184 L 59,187 L 58,191 L 45,221 L 38,235 L 40,236 L 64,235 L 68,236 L 74,223 L 77,214 L 82,205 L 85,196 L 90,187 L 104,153 L 109,144 L 119,119 L 127,103 Z M 778,99 L 765,105 L 760,109 L 752,119 L 749,126 L 747,134 L 746,147 L 749,163 L 755,174 L 765,184 L 768,186 L 785,192 L 792,193 L 806,193 L 821,190 L 830,186 L 836,182 L 843,175 L 846,171 L 848,166 L 846,166 L 845,165 L 825,160 L 822,160 L 816,167 L 811,170 L 804,172 L 794,172 L 788,170 L 785,168 L 780,162 L 777,155 L 778,151 L 848,151 L 848,133 L 845,122 L 840,113 L 833,106 L 819,99 L 811,97 L 801,96 L 786,97 Z M 778,130 L 781,124 L 787,118 L 792,116 L 803,116 L 806,117 L 813,123 L 816,129 L 815,135 L 778,134 Z M 475,99 L 475,191 L 504,191 L 504,129 L 507,122 L 510,119 L 514,117 L 523,117 L 528,121 L 530,125 L 531,132 L 531,191 L 560,191 L 561,189 L 560,176 L 560,133 L 561,127 L 563,123 L 568,118 L 575,116 L 581,118 L 585,122 L 587,127 L 588,191 L 617,191 L 617,122 L 615,113 L 612,107 L 607,101 L 601,98 L 592,96 L 584,96 L 573,99 L 565,104 L 559,111 L 556,108 L 554,104 L 552,102 L 545,98 L 536,96 L 528,96 L 520,98 L 514,101 L 505,111 L 504,99 Z M 383,101 L 377,104 L 373,107 L 366,114 L 361,122 L 358,131 L 357,136 L 357,153 L 359,162 L 364,172 L 367,176 L 373,182 L 383,188 L 395,192 L 403,193 L 416,193 L 428,191 L 434,189 L 442,185 L 450,179 L 455,173 L 459,166 L 457,166 L 456,165 L 452,165 L 435,160 L 432,160 L 426,167 L 421,170 L 415,172 L 404,172 L 397,169 L 391,163 L 388,157 L 388,151 L 459,150 L 459,136 L 457,126 L 452,115 L 447,109 L 442,105 L 435,101 L 421,97 L 411,96 L 397,97 Z M 388,131 L 392,123 L 396,119 L 403,116 L 414,116 L 418,118 L 422,121 L 427,131 L 426,135 L 388,134 Z M 156,101 L 146,107 L 137,116 L 130,130 L 128,146 L 129,155 L 131,162 L 137,173 L 147,183 L 150,185 L 161,190 L 168,192 L 176,193 L 188,193 L 195,192 L 207,188 L 217,182 L 226,173 L 232,162 L 234,154 L 234,135 L 232,127 L 228,119 L 225,115 L 217,107 L 207,101 L 194,97 L 187,96 L 176,96 L 169,97 Z M 181,120 L 187,121 L 194,124 L 200,130 L 203,136 L 204,141 L 204,148 L 203,153 L 200,159 L 194,165 L 188,168 L 180,169 L 172,167 L 163,159 L 159,151 L 159,139 L 163,130 L 169,124 L 172,122 Z M 695,66 L 695,97 L 693,99 L 678,99 L 679,123 L 695,124 L 695,191 L 723,191 L 724,123 L 740,122 L 740,99 L 738,98 L 725,99 L 723,97 L 723,66 Z M 863,59 L 864,60 L 864,78 L 867,78 L 868,71 L 870,71 L 873,74 L 874,77 L 879,78 L 876,72 L 876,70 L 879,66 L 879,62 L 877,59 L 875,58 Z M 857,50 L 852,55 L 850,59 L 850,76 L 853,82 L 859,87 L 865,89 L 876,89 L 880,88 L 885,85 L 888,82 L 891,76 L 891,60 L 889,55 L 884,50 L 878,47 L 863,47 Z M 861,53 L 866,51 L 875,51 L 880,53 L 886,59 L 887,62 L 887,74 L 885,78 L 880,83 L 877,84 L 863,84 L 861,83 L 856,78 L 854,74 L 854,62 L 855,59 Z M 643,49 L 639,52 L 639,53 L 636,57 L 635,65 L 637,71 L 642,76 L 649,79 L 656,79 L 660,78 L 665,75 L 667,73 L 670,66 L 670,59 L 668,54 L 664,50 L 657,47 L 648,47 Z M 250,47 L 250,191 L 280,191 L 280,130 L 281,126 L 283,123 L 286,120 L 291,117 L 302,117 L 304,118 L 309,123 L 311,130 L 311,191 L 340,191 L 340,119 L 336,107 L 332,102 L 324,97 L 316,95 L 303,95 L 298,96 L 290,100 L 281,110 L 280,47 Z"/>
+</svg>
         </div>
 </header>
 
@@ -1022,7 +1016,6 @@ new Chart(yCanvas, {
         <tbody>
 
         <!-- 야간 출발 -->
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌙 야간 출발</div></td></tr>
 
         <tr class="t-start">
             <td class="col-time"><div class="cell"><div class="time-main">03:00</div></div></td>
@@ -1045,7 +1038,6 @@ new Chart(yCanvas, {
         </tr>
 
         <!-- 오전 -->
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌅 오전 — 매요마을 ~ 복성이재</div></td></tr>
 
         <tr class="t-supply">
             <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">06:00</div><div class="time-sub">20분 휴식</div></div></td>
@@ -1078,7 +1070,6 @@ new Chart(yCanvas, {
         </tr>
 
         <!-- 폭염 -->
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">☀️ 폭염 본격 — 빨래판 능선</div></td></tr>
 
         <tr class="t-caution">
             <td class="col-time"><div class="cell"><div class="time-main c-orange">12:15</div></div></td>
@@ -1111,7 +1102,6 @@ new Chart(yCanvas, {
         </tr>
 
         <!-- 분기 -->
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">⚡ 중재 — 1안 / 2안 분기점</div></td></tr>
 
         <tr class="t-branch">
             <td class="col-time"><div class="cell"><div class="time-main c-orange">16:15</div><div class="time-sub">10분 정비</div></div></td>
@@ -1124,7 +1114,6 @@ new Chart(yCanvas, {
         </tr>
 
         <!-- 백운산 -->
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🔥 백운산 — 최대 고비</div></td></tr>
 
         <tr class="t-supply">
             <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">16:45</div><div class="time-sub">15분 쿨링</div></div></td>
@@ -1147,7 +1136,6 @@ new Chart(yCanvas, {
         </tr>
 
         <!-- 피니시 -->
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌙 야간 — 피니시 구간</div></td></tr>
 
         <tr class="t-start">
             <td class="col-time"><div class="cell"><div class="time-main">20:20</div></div></td>
@@ -1191,8 +1179,6 @@ new Chart(yCanvas, {
         </tr></thead>
         <tbody>
 
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌙 야간 출발 (1안 동일)</div></td></tr>
-
         <tr class="t-start">
             <td class="col-time"><div class="cell"><div class="time-main">03:00</div></div></td>
             <td class="col-stats"><div class="stats-inner"><div class="d-cum">0.0km</div><div class="e-flat">—</div></div></div></td>
@@ -1212,8 +1198,6 @@ new Chart(yCanvas, {
                 <div class="name-sub-m">야간 활용 · 페이스 억제</div>
             </div></td>
         </tr>
-
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🌅 오전 — 매요마을 ~ 복성이재 (1안 동일)</div></td></tr>
 
         <tr class="t-supply">
             <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">06:00</div><div class="time-sub">20분 휴식</div></div></td>
@@ -1245,8 +1229,6 @@ new Chart(yCanvas, {
             </div></td>
         </tr>
 
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">☀️ 폭염 — 빨래판 능선 (중재까지)</div></td></tr>
-
         <tr class="t-caution">
             <td class="col-time"><div class="cell"><div class="time-main c-orange">12:15</div></div></td>
             <td class="col-stats"><div class="stats-inner"><div class="d-cum">26.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,809m</div></div></div></td>
@@ -1276,8 +1258,6 @@ new Chart(yCanvas, {
                 <div class="name-sub-m">빨래판 마지막 정점<br/>하강 시작</div>
             </div></td>
         </tr>
-
-        <tr class="sec-row"><td colspan="3"><div class="sec-label">🛡️ 2안 전용 — 안전 하산</div></td></tr>
 
         <tr class="t-branch">
             <td class="col-time"><div class="cell"><div class="time-main c-orange">16:15</div><div class="time-sub">10분 정비</div></div></td>
