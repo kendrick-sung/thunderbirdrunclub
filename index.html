@@ -22,7 +22,7 @@
             --up:#FFA07A; --dn:#87CEEB;
         }
         *{margin:0;padding:0;box-sizing:border-box;}
-        body{background:var(--bg);color:#fff;font-family:'Noto Sans KR',sans-serif;min-height:100vh;padding:80px 16px 56px;}
+        body{background:var(--bg);color:#fff;font-family:'Noto Sans KR',sans-serif;min-height:100vh;padding:80px 32px 56px;}
 
         /* ── 헤더 ── */
         .header{max-width:1100px;margin:0 auto 32px;}
@@ -122,7 +122,7 @@
            모바일 (≤ 640px)
         ══════════════════════════════ */
         @media(max-width:640px){
-            body{padding:20px 10px 40px;}
+            body{padding:20px 20px 40px;}
             .tabs{gap:3px;}
             .tab{padding:8px 12px;font-size:12px;}
             .summary-bar{padding:12px 14px;gap:14px;}
@@ -149,7 +149,7 @@
         position: fixed;
         top: 0; left: 0; width: 100%;
         height: 64px;
-        padding: 0 40px;
+        padding: 0 80px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -191,7 +191,7 @@
     .sec-nav-inner {
         max-width: 1280px;
         margin: 0 auto;
-        padding: 0 24px;
+        padding: 0 48px;
         display: flex;
         gap: 2px;
         min-width: max-content;
@@ -220,11 +220,11 @@
     body { padding-top: 104px !important; }
 
     @media (max-width: 640px) {
-        .global-header { padding: 0 16px; }
+        .global-header { padding: 0 32px; }
         .partner-logos { gap: 10px; }
     }
     @media (max-width: 640px) {
-        .content-pad, .section-title-block { padding-left: 20px !important; padding-right: 20px !important; }
+        .content-pad,
     }
     @media (max-width: 400px) {
         .partner-logos { display: none; }
@@ -234,7 +234,7 @@
     .section-title-block {
         max-width: 1100px;
         margin: 0 auto;
-        padding: 56px 40px 8px;
+        padding: 48px 0 16px;
     }
     .section-title-block h2 {
         font-size: clamp(24px,3.5vw,36px);
@@ -258,12 +258,18 @@
         position: relative;
         width: 100%;
         min-height: calc(100vh - 104px);
-        padding: 60px 40px 52px;
+        padding: 48px 0 40px;
         display: flex;
         flex-direction: column;
-        background: linear-gradient(135deg, #080808 0%, #121212 100%);
+        background: transparent;
         overflow: hidden;
         box-sizing: border-box;
+    }
+    @media (max-width: 640px) {
+        .slide-section {
+            padding: 28px 0 28px;
+            min-height: unset;
+        }
     }
     .background-pattern {
         position: absolute; top:0; left:0; width:100%; height:100%;
@@ -307,9 +313,8 @@
     .info-value { color: #fff; font-size: 15px; font-weight: 600; }
     .info-value.highlight { color: var(--neon); }
     @media (max-width: 640px) {
-        .slide-section { padding: 40px 20px 40px; }
         .slide-title { font-size: 26px; }
-        .section-title-block { padding: 40px 20px 8px; }
+        .section-title-block { padding: 32px 0 12px; }
     }
 
     </style>
@@ -396,8 +401,7 @@
 </nav>
 
 <section class="slide-section" id="sec-title">
-    <div class="background-pattern"></div>
-    <div class="section-body">
+    <div class="section-body" style="max-width:1100px;width:100%;margin:0 auto;padding:0;">
         <div class="slide-header">
             <h1 class="slide-title">
                 The Thunderbird Way 2, <span class="title-highlight">Ridges</span><br/>
@@ -413,6 +417,18 @@
                     <h3 class="card-title">2회차 핵심 운행 정보</h3>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6" style="align-content:start;row-gap:12px;">
+                    <div class="info-row">
+                        <span class="info-label">날짜</span>
+                        <span class="info-value">2026. 6. 26</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">집결지</span>
+                        <span class="info-value">양재역</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">집결 시각</span>
+                        <span class="info-value">21:30</span>
+                    </div>
                     <div class="info-row">
                         <span class="info-label">출발지</span>
                         <span class="info-value">여원재</span>
@@ -516,7 +532,7 @@
     <p class="sec-sub">여원재 → 무룡고개 · 43.7km · 드래그 및 핀치로 탐색</p>
 </div>
 <!-- ════════════ 경로 지도 ════════════ -->
-<div class="content-pad" style="max-width:1100px;margin:0 auto;padding:0 40px 40px;">
+<div class="content-pad" style="max-width:1100px;margin:0 auto;padding:0 0 40px;">
 
     <div style="position:relative;width:100%;height:420px;border-radius:12px;border:1px solid rgba(255,255,255,.09);background:#1a1a1a;cursor:grab;">
         <canvas id="mapCanvas" style="position:absolute;top:0;left:0;border-radius:12px;"></canvas>
@@ -780,7 +796,7 @@ canvas.addEventListener('mouseleave',()=>{ tooltip.style.display='none'; });
     <p class="sec-sub">GPX 실측 200m 간격 · 누적상승 4,015m · 누적하강 3,549m</p>
 </div>
 <!-- ════════════ GPX 고도표 ════════════ -->
-<div class="content-pad" style="max-width:1100px;margin:0 auto;padding:0 40px 40px;">
+<div class="content-pad" style="max-width:1100px;margin:0 auto;padding:0 0 40px;">
 
 
 
@@ -1013,7 +1029,7 @@ new Chart(yCanvas, {
     <h2>운행 <span class="hl">타임테이블</span></h2>
     <p class="sec-sub">1안 풀코스 43.7km · 21:00 피니시 &nbsp;|&nbsp; 2안 35.9km · 17:30 안전 하산</p>
 </div>
-<div class="content-pad" style="padding:0 40px;">
+<div class="content-pad" style="padding:0;">
 <div class="tabs">
     <div class="tab tab-a active" onclick="switchPlan('a')">🏁 1안 — 풀코스 (43.7km)</div>
     <div class="tab tab-b" onclick="switchPlan('b')">🛡️ 2안 — 안전 하산 (35.9km)</div>
