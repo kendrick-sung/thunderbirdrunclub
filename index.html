@@ -34,12 +34,6 @@
         .meta-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
         /* ── 탭 ── */
-        .tabs{max-width:1100px;margin:0 auto;display:flex;gap:4px;}
-        .tab{padding:9px 18px;border-radius:10px 10px 0 0;font-size:13px;font-weight:700;cursor:pointer;border:1px solid transparent;border-bottom:none;transition:all .2s;user-select:none;white-space:nowrap;}
-        .tab-a{background:rgba(161,208,108,.08);color:rgba(161,208,108,.45);border-color:rgba(161,208,108,.12);}
-        .tab-a.active{background:rgba(161,208,108,.15);color:var(--neon);border-color:rgba(161,208,108,.4);}
-        .tab-b{background:rgba(255,165,0,.06);color:rgba(255,165,0,.38);border-color:rgba(255,165,0,.1);}
-        .tab-b.active{background:rgba(255,165,0,.13);color:var(--orange);border-color:rgba(255,165,0,.4);}
 
         /* ── 패널 ── */
         .panel{max-width:1100px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:0 12px 12px 12px;overflow:hidden;display:none;}
@@ -123,8 +117,6 @@
         ══════════════════════════════ */
         @media(max-width:640px){
             body{padding:20px 20px 40px;}
-            .tabs{gap:3px;}
-            .tab{padding:8px 12px;font-size:12px;}
             .summary-bar{padding:12px 14px;gap:14px;}
             .sum-label{font-size:10px;}
             .sum-val{font-size:16px;}
@@ -447,14 +439,9 @@
                         <span class="info-value highlight">4,015m</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">1안 피니시</span>
+                        <span class="info-label">피니시</span>
                         <span class="info-value">무룡고개 21:00</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">2안 하산</span>
-                        <span class="info-value">중기마을 17:30</span>
-                    </div>
-                </div>
+                    </div></div>
             </div>
 
             <!-- 프로젝트 개요 카드 -->
@@ -466,7 +453,7 @@
                 <p style="font-size:14px;color:#ccc;line-height:1.8;margin-bottom:20px;">
                     백두대간 2회차 — 여원재에서 무룡고개까지.<br/>
                     폭염 기준 재설계된 10~12분/km 생존 페이스로 진행하며,<br/>
-                    1안(풀코스)과 2안(안전 하산) 두 가지 시나리오로 운영됩니다.
+                    컨디션에 따라 지지리계곡에서 운행을 종료할 수 있습니다.
                 </p>
                 <div class="grid grid-cols-3 gap-3 text-center">
                     <div style="background:rgba(0,0,0,.4);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);">
@@ -974,17 +961,11 @@ new Chart(yCanvas, {
 <div id="sec-timetable"></div>
 <div class="section-title-block content-pad">
     <h2>운행 <span class="hl">타임테이블</span></h2>
-    <p class="sec-sub">1안 풀코스 43.7km · 21:00 피니시 &nbsp;|&nbsp; 2안 35.9km · 17:30 안전 하산</p>
+    <p class="sec-sub">여원재 → 무룡고개 · 43.7km · 03:00 출발 · 21:00 피니시</p>
 </div>
 <div class="content-pad" style="padding:0;">
-<div class="tabs">
-    <div class="tab tab-a active" onclick="switchPlan('a')">🏁 1안 — 풀코스 (43.7km)</div>
-    <div class="tab tab-b" onclick="switchPlan('b')">🛡️ 2안 — 안전 하산 (35.9km)</div>
-</div>
 
-<!-- ════════════ 1안 ════════════ -->
-<div class="panel active" id="plan-a">
-    <div class="summary-bar">
+<div class="summary-bar">
         <div class="sum-item"><div class="sum-label">총 거리</div><div class="sum-val v-neon">43.7 km</div></div>
         <div class="sum-item"><div class="sum-label">출발</div><div class="sum-val">03:00</div></div>
         <div class="sum-item"><div class="sum-label">예상 피니시</div><div class="sum-val v-neon">21:00</div></div>
@@ -1088,13 +1069,13 @@ new Chart(yCanvas, {
 
         <!-- 분기 -->
 
-        <tr class="t-branch">
+        <tr>
             <td class="col-time"><div class="cell"><div class="time-main c-orange">16:15</div><div class="time-sub">10분 정비</div></div></td>
             <td class="col-stats"><div class="stats-inner"><div class="d-cum">33.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
             <td class="col-name"><div class="cell">
-                <div class="name-main">중재 <span class="tag tag-branch">1안 / 2안 분기</span></div>
-                <div class="name-sub">컨디션 자가 진단 · 2안: 중고개재 방향 하산 / 1안: 지지리계곡 쿨링 후 백운산</div>
-                <div class="name-sub-m">2안: 중고개재 하산<br/>1안: 지지리 쿨링 후 백운산</div>
+                <div class="name-main">중재</div>
+                <div class="name-sub">지지리계곡 방향 하강 · 쿨링 후 백운산</div>
+                <div class="name-sub-m">지지리계곡 쿨링 후 백운산</div>
             </div></td>
         </tr>
 
@@ -1104,9 +1085,9 @@ new Chart(yCanvas, {
             <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">16:45</div><div class="time-sub">15분 쿨링</div></div></td>
             <td class="col-stats"><div class="stats-inner"><div class="d-cum">37.4km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,979m</div></div></div></td>
             <td class="col-name"><div class="cell">
-                <div class="name-main">지지리계곡 <span class="tag tag-cp">강제 쿨링</span></div>
-                <div class="name-sub"><strong style="color:var(--neon)">머리·목·팔토시 계곡물 흠뻑</strong> — 체온 강제 하강 · <strong style="color:var(--heat)">절대 생략 금지</strong> · 17:00 재출발</div>
-                <div class="name-sub-m"><strong style="color:var(--neon)">머리·목 계곡물 흠뻑</strong><br/><strong style="color:var(--heat)">생략 절대 금지</strong> · 17:00 출발</div>
+                <div class="name-main">지지리계곡 <span class="tag tag-cp">강제 쿨링</span><span class="tag tag-branch" style="margin-left:4px;">컨디션에 따라 운행종료</span></div>
+                <div class="name-sub"><strong style="color:var(--neon)">머리·목·팔토시 계곡물 흠뻑</strong> — 체온 강제 하강 · <strong style="color:var(--heat)">절대 생략 금지</strong> · 컨디션 이상 시 여기서 하산 · 17:00 재출발</div>
+                <div class="name-sub-m"><strong style="color:var(--neon)">머리·목 계곡물 흠뻑</strong><br/>컨디션 이상 시 하산 · 17:00 출발</div>
             </div></td>
         </tr>
 
@@ -1146,158 +1127,8 @@ new Chart(yCanvas, {
     </table>
 </div>
 
-<!-- ════════════ 2안 ════════════ -->
-<div class="panel" id="plan-b">
-    <div class="summary-bar">
-        <div class="sum-item"><div class="sum-label">총 거리</div><div class="sum-val v-orange">35.9 km</div></div>
-        <div class="sum-item"><div class="sum-label">출발</div><div class="sum-val">03:00</div></div>
-        <div class="sum-item"><div class="sum-label">예상 하산</div><div class="sum-val v-orange">17:30</div></div>
-        <div class="sum-item"><div class="sum-label">예상 소요</div><div class="sum-val">14h 30m</div></div>
-        <div class="sum-item"><div class="sum-label">누적 상승</div><div class="sum-val v-heat">3,050 m</div></div>
-        <div class="sum-item"><div class="sum-label">핵심 장점</div><div class="sum-val v-orange">백운산 전 탈출</div></div>
-    </div>
-    <table>
-        <thead><tr>
-            <th class="col-time">시각</th>
-            <th class="col-stats">누적거리 / 상승</th>
-            <th class="col-name">지점 / 액션</th>
-        </tr></thead>
-        <tbody>
 
-        <tr class="t-start">
-            <td class="col-time"><div class="cell"><div class="time-main">03:00</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">0.0km</div><div class="e-flat">—</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">여원재 <span class="tag tag-fin">START</span></div>
-                <div class="name-sub">물 2L 적재 · 헤드램프 점등 · 장비 최종 확인</div>
-                <div class="name-sub-m">물 2L · 헤드램프</div>
-            </div></td>
-        </tr>
 
-        <tr class="t-start">
-            <td class="col-time"><div class="cell"><div class="time-main">04:45</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">5.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>651m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">고남산</div>
-                <div class="name-sub">1안 동일 — 선선한 야간 활용, 페이스 억제</div>
-                <div class="name-sub-m">야간 활용 · 페이스 억제</div>
-            </div></td>
-        </tr>
-
-        <tr class="t-supply">
-            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">06:00</div><div class="time-sub">20분 휴식</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">10.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>651m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">매요마을 <span class="tag tag-cp">CP 1</span></div>
-                <div class="name-sub">간단식(쉐이크) · 식수 완전 보충 · <strong style="color:#fff">06:20 재출발</strong></div>
-                <div class="name-sub-m">간단식(쉐이크) · 식수 보충<br/><strong style="color:#fff">06:20 재출발</strong></div>
-            </div></td>
-        </tr>
-
-        <tr class="t-start">
-            <td class="col-time"><div class="cell"><div class="time-main">07:15</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">13.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>883m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">사치재</div>
-                <div class="name-sub">기온 상승 인지 · 수분 섭취 증가</div>
-                <div class="name-sub-m">기온 상승 · 수분 증가</div>
-            </div></td>
-        </tr>
-
-        <tr class="t-supply">
-            <td class="col-time"><div class="cell"><div class="time-main" style="color:var(--teal)">09:40</div><div class="time-sub">40분 휴식</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">20.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,109m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">복성이재 <span class="tag tag-cp">마지막 CP ★★</span></div>
-                <div class="name-sub">2안의 최후 보급 거점 — <strong style="color:var(--neon)">얼음물 2L</strong> + 식염 캡슐 · <strong style="color:#fff">10:20 재출발</strong> — 중기마을까지 15km 무보급</div>
-                <div class="name-sub-m"><strong style="color:var(--neon)">얼음물 2L</strong> · 식염 캡슐<br/><strong style="color:#fff">10:20 재출발</strong></div>
-            </div></td>
-        </tr>
-
-        <tr class="t-caution">
-            <td class="col-time"><div class="cell"><div class="time-main c-orange">12:15</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">26.3km</div><div class="e-cum"><span style="font-size:10px">▲</span>1,809m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">봉화산</div>
-                <div class="name-sub">폭염 돌입 · <strong style="color:#fff">식염 캡슐 30분마다 강제 섭취</strong></div>
-                <div class="name-sub-m">폭염 돌입<br/><strong style="color:#fff">식염 캡슐 30분마다</strong></div>
-            </div></td>
-        </tr>
-
-        <tr class="t-caution">
-            <td class="col-time"><div class="cell"><div class="time-main c-orange">14:30</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">28.2km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,376m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">광대치</div>
-                <div class="name-sub">한낮 빨래판 최고조 — <strong style="color:#fff">걷기만으로 버티기</strong></div>
-                <div class="name-sub-m"><strong style="color:#fff">걷기만으로 버티기</strong></div>
-            </div></td>
-        </tr>
-
-        <tr class="t-caution">
-            <td class="col-time"><div class="cell"><div class="time-main c-orange">15:00</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">32.1km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">월경산</div>
-                <div class="name-sub">빨래판 마지막 정점 · 중재까지 하강 시작</div>
-                <div class="name-sub-m">빨래판 마지막 정점<br/>하강 시작</div>
-            </div></td>
-        </tr>
-
-        <tr class="t-branch">
-            <td class="col-time"><div class="cell"><div class="time-main c-orange">16:15</div><div class="time-sub">10분 정비</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">33.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,922m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">중재 <span class="tag tag-branch">2안 하산 결정</span></div>
-                <div class="name-sub">백운산 포기 · 중고개재 방향 하산 — <strong style="color:#fff">이 선택이 진정한 트레일러너의 실력</strong></div>
-                <div class="name-sub-m">중고개재 방향 하산<br/><strong style="color:#fff">이 선택이 진짜 실력</strong></div>
-            </div></td>
-        </tr>
-
-        <tr class="t-start">
-            <td class="col-time"><div class="cell"><div class="time-main">17:00</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">~35.0km</div><div class="e-cum"><span style="font-size:10px">▲</span>2,979m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">중고개재 경유</div>
-                <div class="name-sub">746m 안부 통과 · 중기마을 방향 하산 진입</div>
-                <div class="name-sub-m">중기마을 방향 하산</div>
-            </div></td>
-        </tr>
-
-        <tr class="t-finish">
-            <td class="col-time"><div class="cell"><div class="time-main c-orange">17:30</div></div></td>
-            <td class="col-stats"><div class="stats-inner"><div class="d-cum">35.9km</div><div class="e-cum"><span style="font-size:10px">▲</span>3,050m</div></div></div></td>
-            <td class="col-name"><div class="cell">
-                <div class="name-main">중기마을 <span class="tag tag-fin">안전 하산 🛡️</span></div>
-                <div class="name-sub">차량 탑승 · 해 지기 전 완전 회복 · 총 소요 14시간 30분 · 열사병 리스크 완전 회피</div>
-                <div class="name-sub-m">버스 탑승 · 총 14h 30m<br/>열사병 리스크 회피</div>
-            </div></td>
-        </tr>
-
-        </tbody>
-    </table>
-</div>
-
-<!-- 범례 -->
-<div class="footnote">
-    <div class="fn-item"><div class="fn-bar" style="background:var(--teal)"></div>보급·휴식</div>
-    <div class="fn-item"><div class="fn-bar" style="background:var(--orange)"></div>주의 구간</div>
-    <div class="fn-item"><div class="fn-bar" style="background:var(--heat)"></div>위험 구간</div>
-    <div class="fn-item"><div class="fn-bar" style="background:var(--orange);border:1px dashed var(--orange)"></div>분기점</div>
-    <div class="fn-item">
-        <span style="color:var(--up);font-family:'JetBrains Mono',monospace;font-weight:700">▲ 누적 상승고도</span>
-    </div>
-    <div class="fn-item" style="margin-left:auto;font-size:11px;color:#555">폭염 기준 · GPX 실측</div>
-</div>
-
-<script>
-function switchPlan(p){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-    document.querySelector('.tab-'+p).classList.add('active');
-    document.getElementById('plan-'+p).classList.add('active');
-}
-</script>
 
 
 
@@ -1342,3 +1173,4 @@ function switchPlan(p){
 
 </div>
 </body>
+</html>
