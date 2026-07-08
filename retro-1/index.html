@@ -20,7 +20,7 @@
   section{padding:54px 0;border-top:1px solid #E4DFD1;}
   h2{margin:8px 0 0;font-size:clamp(23px,3.4vw,34px);font-weight:800;line-height:1.05;letter-spacing:-.01em;}
   h3{font-size:19px;font-weight:800;margin:0 0 4px;}
-  .lead{font-size:clamp(15px,1.8vw,17px);color:#3a382f;margin-top:14px;max-width:66ch;}
+  .lead{font-size:clamp(15px,1.8vw,17px);color:#3a382f;margin-top:14px;}
   .subhead{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;color:#355610;text-transform:uppercase;margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
   .subhead::after{content:'';flex:1;height:1px;background:#D8D2C2;}
   /* number emphasis */
@@ -215,16 +215,16 @@
       <thead><tr><th>상세</th><th class="num">총액</th><th class="num">인원</th><th class="num">인당</th></tr></thead>
       <tbody>
         <tr><td>버스 대절 <span class="note">고정비</span></td><td class="num">₩750,000</td><td class="num">7</td><td class="num">₩107,143</td></tr>
-        <tr><td>철쭉식당<sup style="color:#B4471F;">*</sup> <span class="note">주문 실수분 제외</span></td><td class="num">₩100,000</td><td class="num">7</td><td class="num">₩14,286</td></tr>
+        <tr><td>철쭉식당<sup style="color:#B4471F;">*</sup> <span class="note">주문 실수분 제외 · 8인 분담</span></td><td class="num">₩100,000</td><td class="num">8</td><td class="num">₩12,500</td></tr>
         <tr><td>햄버거 <span class="note">기사님 포함</span></td><td class="num">₩59,200</td><td class="num">7</td><td class="num">₩8,457</td></tr>
         <tr><td>김밥 <span class="note">기사님 포함</span></td><td class="num">₩40,000</td><td class="num">7</td><td class="num">₩5,714</td></tr>
         <tr><td>편의점 <span class="note">물·라면·음료</span></td><td class="num">₩33,650</td><td class="num">7</td><td class="num">₩4,807</td></tr>
         <tr><td>간식 <span class="note">수박</span></td><td class="num">₩15,650</td><td class="num">7</td><td class="num">₩2,236</td></tr>
-        <tr class="total"><td>합계</td><td class="num"><span class="mono">₩998,500</span></td><td class="num">7</td><td class="num"><span class="mono">₩142,643</span></td></tr>
+        <tr class="total"><td>합계 <span class="mono" style="font-size:11px;color:#A1D06C;">참석 7명</span></td><td class="num"><span class="mono">₩998,500</span></td><td class="num">7</td><td class="num"><span class="mono">₩140,857</span></td></tr>
       </tbody>
     </table>
     </div>
-    <p style="font-size:12.5px;color:#8a8368;margin-top:10px;"><span style="color:#B4471F;font-weight:700;">*</span> 철쭉식당 <b>실제 발생액은 ₩200,000</b>이지만, <b>주문 실수로 생긴 불필요한 ₩100,000은 정산에서 제외</b>하고 ₩100,000만 계산에 반영했습니다. 아래 2회차 총계·1인당·비교·시뮬레이션은 모두 이 <b>조정 기준 ₩998,500</b>(1인당 ₩142,643)을 사용합니다.</p>
+    <p style="font-size:12.5px;color:#8a8368;margin-top:10px;"><span style="color:#B4471F;font-weight:700;">*</span> 철쭉식당 <b>실제 발생액은 ₩200,000</b>이지만, <b>주문 실수로 생긴 불필요한 ₩100,000은 정산에서 제외</b>하고 ₩100,000만 반영했습니다. 이 ₩100,000은 <b>식당 예약 후 미참석한 1인을 포함해 8인이 분담</b>(1인 ₩12,500)했고, 나머지 항목은 참석 7인이 나눕니다. 따라서 <b>참여자 1인당 부담은 ₩140,857</b>이며(미참석 1인은 철쭉식당 몫 ₩12,500만 부담), 아래 총계·비교·시뮬레이션은 이 기준을 사용합니다.</p>
   </div>
 </section>
 
@@ -237,7 +237,7 @@
 
     <div class="stats">
       <div class="tile"><div class="k">참석 인원</div><div class="v">13 → 7<span style="font-size:12px;color:#8a8368;"> 명</span></div><div class="d bad">▼ 46%</div></div>
-      <div class="tile"><div class="k">1인당 비용 <span style="text-transform:none;letter-spacing:0;">(조정 후)</span></div><div class="v">93k → 143k</div><div class="d bad">▲ 54%</div></div>
+      <div class="tile"><div class="k">1인당 비용 <span style="text-transform:none;letter-spacing:0;">(조정 후)</span></div><div class="v">93k → 141k</div><div class="d bad">▲ 52%</div></div>
       <div class="tile"><div class="k">버스비 1인당</div><div class="v">65k → 107k</div><div class="d bad">▲ 64%</div></div>
       <div class="tile"><div class="k">고정비(버스) 비중</div><div class="v">75<span style="font-size:13px;">%</span></div><div class="d good">2회차 기준</div></div>
     </div>
@@ -295,27 +295,27 @@
     <div class="subhead">③ 참석 인원별 1인당 비용 시뮬레이션</div>
     <div class="diagram">
       <div class="bars">
-        <div class="bar-row"><div class="lab">5명</div><div class="bar-track"><div class="bar-fill neutral" style="width:100%;">₩185,500</div></div></div>
-        <div class="bar-row"><div class="lab">6명</div><div class="bar-track"><div class="bar-fill neutral" style="width:86.5%;">₩160,500</div></div></div>
-        <div class="bar-row"><div class="lab">7명 ●</div><div class="bar-track"><div class="bar-fill bad" style="width:76.9%;">₩142,643</div></div></div>
-        <div class="bar-row"><div class="lab">8명</div><div class="bar-track"><div class="bar-fill neutral" style="width:69.7%;">₩129,250</div></div></div>
-        <div class="bar-row"><div class="lab">9명</div><div class="bar-track"><div class="bar-fill neutral" style="width:64.1%;">₩118,833</div></div></div>
-        <div class="bar-row"><div class="lab">10명</div><div class="bar-track"><div class="bar-fill neutral" style="width:59.6%;">₩110,500</div></div></div>
+        <div class="bar-row"><div class="lab">5명</div><div class="bar-track"><div class="bar-fill neutral" style="width:100%;">₩183,714</div></div></div>
+        <div class="bar-row"><div class="lab">6명</div><div class="bar-track"><div class="bar-fill neutral" style="width:86.4%;">₩158,714</div></div></div>
+        <div class="bar-row"><div class="lab">7명 ●</div><div class="bar-track"><div class="bar-fill bad" style="width:76.7%;">₩140,857</div></div></div>
+        <div class="bar-row"><div class="lab">8명</div><div class="bar-track"><div class="bar-fill neutral" style="width:69.4%;">₩127,464</div></div></div>
+        <div class="bar-row"><div class="lab">9명</div><div class="bar-track"><div class="bar-fill neutral" style="width:63.7%;">₩117,047</div></div></div>
+        <div class="bar-row"><div class="lab">10명</div><div class="bar-track"><div class="bar-fill neutral" style="width:59.2%;">₩108,714</div></div></div>
         <div style="display:flex;align-items:center;gap:10px;margin:11px 0 5px;">
           <div style="flex:1;height:1px;background:#E0B9A6;"></div>
           <div class="mono" style="font-size:10px;font-weight:700;color:#B4471F;letter-spacing:.02em;white-space:nowrap;">▲ 11명↑ 버스 증차 · 대절료 ₩750,000 → ₩850,000</div>
           <div style="flex:1;height:1px;background:#E0B9A6;"></div>
         </div>
-        <div class="bar-row"><div class="lab">11명</div><div class="bar-track"><div class="bar-fill neutral" style="width:60.8%;">₩112,773</div></div></div>
-        <div class="bar-row"><div class="lab">12명</div><div class="bar-track"><div class="bar-fill neutral" style="width:57.3%;">₩106,333</div></div></div>
-        <div class="bar-row"><div class="lab">13명 ★</div><div class="bar-track"><div class="bar-fill good" style="width:54.4%;">₩100,885</div></div></div>
+        <div class="bar-row"><div class="lab">11명</div><div class="bar-track"><div class="bar-fill neutral" style="width:60.4%;">₩110,987</div></div></div>
+        <div class="bar-row"><div class="lab">12명</div><div class="bar-track"><div class="bar-fill neutral" style="width:56.9%;">₩104,547</div></div></div>
+        <div class="bar-row"><div class="lab">13명 ★</div><div class="bar-track"><div class="bar-fill good" style="width:53.9%;">₩99,099</div></div></div>
       </div>
       <div class="legend">
         <span><i class="swatch" style="background:#C0562A;"></i> 실제 2회차 (7명)</span>
         <span><i class="swatch" style="background:#5A8C21;"></i> 정원 회복 시 (13명)</span>
         <span><i class="swatch" style="background:#9FB27E;"></i> 가정 시나리오</span>
       </div>
-      <figcaption>변동비 ₩35,500/인 + 버스 대절료(<b>10명 이하 ₩750,000 · 11명 이상 ₩850,000</b>) 기준. <span class="hl">7명 → 13명</span>이면 1인당 부담은 <span class="up">₩143k</span> → <span class="down">₩101k</span>. 다만 <b>11명을 넘으면 버스 증차로 반등</b>(₩111k→₩113k)해 절감이 완만해지므로, <b>10명 전후가 비용 효율 구간</b>입니다.</figcaption>
+      <figcaption>변동비 ₩33,714/인 <span style="color:#8a8368;">(철쭉식당 8인 분담 반영)</span> + 버스 대절료(<b>10명 이하 ₩750,000 · 11명 이상 ₩850,000</b>) 기준. <span class="hl">7명 → 13명</span>이면 1인당 부담은 <span class="up">₩141k</span> → <span class="down">₩99k</span>. 다만 <b>11명을 넘으면 버스 증차로 반등</b>(₩109k→₩111k)해 절감이 완만해지므로, <b>10명 전후가 비용 효율 구간</b>입니다.</figcaption>
     </div>
 
     <div class="callout dark">
@@ -337,8 +337,8 @@
         <div class="tag">완화안 1 · 미참여 ₩30,000</div>
         <h3 style="margin-top:6px;">미참여 3만원 지원</h3>
         <div class="burden" style="color:#1E1E18;">₩116,929</div>
-        <div class="minibar"><div style="width:82%;background:#9FB27E;"></div></div>
-        <div class="mono" style="font-size:11px;color:#4E7A16;margin-bottom:8px;">₩143k → ₩117k · ▼18%</div>
+        <div class="minibar"><div style="width:83%;background:#9FB27E;"></div></div>
+        <div class="mono" style="font-size:11px;color:#4E7A16;margin-bottom:8px;">₩141k → ₩117k · ▼17%</div>
         <ul>
           <li>미참여 6인 × ₩30,000 = <b>₩180,000</b> 선입금</li>
           <li>참여자 = (₩998,500 − ₩180,000) ÷ 7</li>
@@ -349,8 +349,8 @@
         <div class="tag">완화안 2 · 미참여 ₩50,000</div>
         <h3 style="margin-top:6px;">미참여 5만원 지원</h3>
         <div class="burden" style="color:#1E1E18;">₩99,786</div>
-        <div class="minibar"><div style="width:70%;background:#5A8C21;"></div></div>
-        <div class="mono" style="font-size:11px;color:#4E7A16;margin-bottom:8px;">₩143k → ₩100k · ▼30%</div>
+        <div class="minibar"><div style="width:71%;background:#5A8C21;"></div></div>
+        <div class="mono" style="font-size:11px;color:#4E7A16;margin-bottom:8px;">₩141k → ₩100k · ▼29%</div>
         <ul>
           <li>미참여 6인 × ₩50,000 = <b>₩300,000</b> 선입금</li>
           <li>참여자 = (₩998,500 − ₩300,000) ÷ 7</li>
@@ -360,7 +360,7 @@
       <div class="card">
         <div class="tag">현행 · 참석자만 부담</div>
         <h3 style="margin-top:6px;">지원 없음 (유지)</h3>
-        <div class="burden" style="color:#B4471F;">₩142,643</div>
+        <div class="burden" style="color:#B4471F;">₩140,857</div>
         <div class="minibar"><div style="width:100%;background:#C0562A;"></div></div>
         <div class="mono" style="font-size:11px;color:#B4471F;margin-bottom:8px;">인원 적을수록 부담 폭증</div>
         <ul>
@@ -375,8 +375,8 @@
     <table class="tbl">
       <thead><tr><th>기준</th><th>완화 3만원</th><th>완화 5만원</th><th>현행 유지</th></tr></thead>
       <tbody>
-        <tr><td class="cat">참여자 1인당 부담</td><td><span class="hl">₩116,929</span></td><td><span class="hl">₩99,786</span></td><td><span class="up">₩142,643</span></td></tr>
-        <tr><td class="cat">현행 대비 절감</td><td><span class="down">▼ ₩25,714</span></td><td><span class="down">▼ ₩42,857</span></td><td>—</td></tr>
+        <tr><td class="cat">참여자 1인당 부담</td><td><span class="hl">₩116,929</span></td><td><span class="hl">₩99,786</span></td><td><span class="up">₩140,857</span></td></tr>
+        <tr><td class="cat">현행 대비 절감</td><td><span class="down">▼ ₩23,928</span></td><td><span class="down">▼ ₩41,071</span></td><td>—</td></tr>
         <tr><td class="cat">미참여자 부담</td><td>₩30,000</td><td>₩50,000</td><td>₩0</td></tr>
         <tr><td class="cat">미참여 선입금 계</td><td>₩180,000</td><td>₩300,000</td><td>₩0</td></tr>
         <tr><td class="cat">참석 문턱</td><td>낮음</td><td>가장 낮음</td><td>높음(현 문제)</td></tr>
@@ -431,7 +431,7 @@
       <li><span><b>정산 담당 &amp; 공유 방식</b> — 회차별 정산표 작성·공유 주체</span></li>
     </ul>
     <div class="callout dark">
-      <b>제안 (강제 아님)</b> — 미참여 지원 방식이 참여자 부담을 확실히 낮춥니다. <b>3만원 지원</b>은 참여자 <b>₩117k(▼18%)</b>로 미참여 부담이 가벼워 합의가 쉽고, <b>5만원 지원</b>은 참여자 <b>₩100k(▼30%)</b>로 부담을 더 줄이는 대신 미참여자가 ₩50,000을 냅니다. 3회차는 완화안(예: 3만원)으로 시작해 4회차에 지원액을 조정하는 방식을 제안합니다.
+      <b>제안 (강제 아님)</b> — 미참여 지원 방식이 참여자 부담을 확실히 낮춥니다. <b>3만원 지원</b>은 참여자 <b>₩117k(▼17%)</b>로 미참여 부담이 가벼워 합의가 쉽고, <b>5만원 지원</b>은 참여자 <b>₩100k(▼29%)</b>로 부담을 더 줄이는 대신 미참여자가 ₩50,000을 냅니다. 3회차는 완화안(예: 3만원)으로 시작해 4회차에 지원액을 조정하는 방식을 제안합니다.
     </div>
   </div>
 </section>
@@ -439,7 +439,7 @@
 <footer style="padding:40px 0 56px;border-top:1px solid #E4DFD1;">
   <div class="wrap">
     <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#8a8368;text-transform:uppercase;">Thunderbird Run Club · From Jiri To Seorak</div>
-    <div style="font-size:13px;color:#8a8368;margin-top:6px;">숫자는 1·2회차 실측 정산 내역 기준 <b>(1회차 뒤풀이 ₩181,000 · 2회차 철쭉식당 주문 실수분 ₩100,000 제외)</b>. 시뮬레이션 가정 — 변동비 ₩35,500/인 · 버스 대절료 <b>10명 이하 ₩750,000 / 11명 이상 ₩850,000</b> · 미참여 지원 산정 정원 13명. 확정은 회의에서.</div>
+    <div style="font-size:13px;color:#8a8368;margin-top:6px;">숫자는 1·2회차 실측 정산 내역 기준 <b>(1회차 뒤풀이 ₩181,000 · 2회차 철쭉식당 주문 실수분 ₩100,000 제외)</b>. 2회차 철쭉식당(₩100,000)은 예약 후 미참석 1인 포함 <b>8인 분담</b> → 참여자 1인당 ₩140,857. 시뮬레이션 가정 — 변동비 ₩33,714/인 · 버스 대절료 <b>10명 이하 ₩750,000 / 11명 이상 ₩850,000</b> · 미참여 지원 산정 정원 13명. 확정은 회의에서.</div>
   </div>
 </footer>
 
