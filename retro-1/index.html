@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thunderbird — 1·2회차 비용 정산 회고 안건</title>
-<meta name="description" content="백두대간 FJTS 1·2회차 실측 정산 데이터를 도식화한 비용 분담 방식 회고 미팅 안건.">
+<title>Thunderbird — 1·2회차 회고 기록</title>
+<meta name="description" content="백두대간 FJTS 1·2회차 회고 미팅 기록 — 크루 전원 소감, 실측 정산 데이터 분석, 회비·취소·운영 정책 결정 사항과 다음 단계.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
@@ -111,6 +111,29 @@
   .chk li{display:flex;gap:12px;padding:13px 0;border-bottom:1px dashed #D8D2C2;font-size:14.5px;}
   .chk li::before{content:'☐';font-size:18px;color:#5A8C21;line-height:1.3;}
   .chk li.done::before{content:'✅';}
+  /* crew voices */
+  .voices{margin-top:6px;}
+  .voice{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed #D8D2C2;}
+  .voice:last-child{border-bottom:none;}
+  .voice .who{flex:0 0 118px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.01em;color:#355610;line-height:1.5;}
+  .voice .say{flex:1;min-width:0;font-size:14px;color:#43413a;}
+  @media (max-width:560px){
+    .voice{flex-direction:column;gap:4px;}
+    .voice .who{flex-basis:auto;color:#5A8C21;}
+  }
+  /* action items */
+  .tasks{margin-top:14px;}
+  .task{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #E4DFD1;}
+  .task:last-child{border-bottom:none;}
+  .task .owner{flex:0 0 66px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.02em;color:#F6F4EC;background:#5A8C21;border-radius:20px;padding:4px 0;text-align:center;}
+  .task .what{flex:1;min-width:0;font-size:14px;color:#43413a;}
+  .task .st{flex:0 0 auto;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;border-radius:20px;padding:3px 10px;}
+  .task .st.open{background:#FBE3D6;color:#B4471F;}
+  .task .st.done{background:#E4F0D2;color:#4E7A16;}
+  @media (max-width:560px){
+    .task{flex-wrap:wrap;gap:8px;}
+    .task .what{flex-basis:100%;order:3;}
+  }
   /* decision cards */
   .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
   .dcard{background:#FBFAF4;border:1px solid #cfe0b3;border-radius:14px;padding:20px 22px;}
@@ -147,15 +170,15 @@
   <div class="wrap" style="position:relative;z-index:2;">
     <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;border-bottom:1px solid rgba(190,220,158,.22);padding-bottom:16px;">
       <div class="mono" style="font-size:12px;letter-spacing:.24em;color:#A1D06C;font-weight:700;text-transform:uppercase;">From Jiri To Seorak</div>
-      <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#9C9377;">RETROSPECTIVE · 비용 정산</div>
+      <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#9C9377;">RETROSPECTIVE · 완료 기록</div>
     </div>
-    <h1 style="font-weight:800;font-size:clamp(30px,6vw,52px);line-height:1.02;letter-spacing:-.02em;margin:34px 0 0;">1·2회차 비용 정산 회고<span style="color:#A1D06C;">.</span></h1>
-    <div style="font-weight:700;font-size:clamp(15px,2.2vw,20px);color:#E9E5D8;margin-top:14px;">참석률 제고 · 참석자 부담 완화 방안 미팅</div>
+    <h1 style="font-weight:800;font-size:clamp(30px,6vw,52px);line-height:1.02;letter-spacing:-.02em;margin:34px 0 0;">1·2회차 회고 기록<span style="color:#A1D06C;">.</span></h1>
+    <div style="font-weight:700;font-size:clamp(15px,2.2vw,20px);color:#E9E5D8;margin-top:14px;">크루 소감 · 비용 정산 분석 · 회비·운영 정책 결정</div>
     <div class="stats" style="margin-top:32px;">
       <div class="tile dark"><div class="k">일정</div><div class="v">07.08 <span style="font-size:13px;color:#9C9377;">수</span></div></div>
-      <div class="tile dark"><div class="k">시간</div><div class="v">22:00<span style="font-size:13px;color:#9C9377;">–23:00</span></div></div>
-      <div class="tile dark"><div class="k">장소</div><div class="v">화상회의</div></div>
-      <div class="tile dark"><div class="k">반영 시점</div><div class="v" style="color:#A1D06C;">3회차 前</div></div>
+      <div class="tile dark"><div class="k">참석</div><div class="v">13<span style="font-size:13px;color:#9C9377;">명 · 화상</span></div></div>
+      <div class="tile dark"><div class="k">상태</div><div class="v" style="color:#A1D06C;">회고 완료</div></div>
+      <div class="tile dark"><div class="k">적용 시점</div><div class="v" style="color:#A1D06C;">3회차부터</div></div>
     </div>
   </div>
 </section>
@@ -163,16 +186,16 @@
 <!-- ══════════ 개요 (OVERVIEW · AGENDA) ══════════ -->
 <section id="sec-top" style="border-top:none;">
   <div class="wrap">
-    <div class="eyebrow">Overview · 60 min</div>
-    <h2>회의 개요</h2>
-    <p class="lead">초반 회차를 진행하며 <b>참석률이 눈에 띄게 떨어졌고</b>, 그만큼 참석자 1인당 부담이 커졌습니다. 3회차 시작 전, 참석률을 높이고 부담을 완화할 <b>비용 분담 방식</b>을 정하는 자리입니다. 아래 <b>①→⑤ 순서</b>대로 진행하며, 모든 논의는 감이 아니라 <b>1·2회차 실측 데이터</b>를 근거로 합니다. <b>회고 결과(결정 사항)</b>는 바로 아래에 정리돼 있습니다.</p>
+    <div class="eyebrow">Overview · 회고 기록</div>
+    <h2>회고 개요</h2>
+    <p class="lead">초반 회차를 진행하며 <b>참석률이 눈에 띄게 떨어졌고</b>, 그만큼 참석자 1인당 부담이 커졌습니다. 3회차를 앞두고 <b>13명</b>이 화상으로 모여 초반 회차를 돌아보고, 참석률을 높이고 부담을 완화할 <b>회비·운영 정책</b>을 확정했습니다. 모든 논의는 감이 아니라 <b>1·2회차 실측 데이터</b>를 근거로 했으며, 아래는 그날 나온 이야기와 <b>결정 사항</b>을 정리한 기록입니다. <b>결정 사항 요약</b>은 바로 아래에 있습니다.</p>
 
-    <div class="subhead">오늘의 진행 순서</div>
-    <a class="ag" href="#sec-1"><div class="no">1</div><div><h3>1·2회차 진행 소감</h3><p>참석자 전원 한 마디 — 좋았던 점 / 아쉬웠던 점 / 바라는 점.</p></div><div class="time">~10min</div><div class="go">↓</div></a>
+    <div class="subhead">회고 진행 순서</div>
+    <a class="ag" href="#sec-1"><div class="no">1</div><div><h3>1·2회차 진행 소감</h3><p>크루 전원 한 마디 — 좋았던 점 / 아쉬웠던 점 / 바라는 점.</p></div><div class="time">~15min</div><div class="go">↓</div></a>
     <a class="ag" href="#sec-2"><div class="no">2</div><div><h3>회의 목적 상기 &amp; 데이터 공유</h3><p>실측 정산 데이터와 "숫자가 말하는 것"으로 문제를 같은 그림으로 맞추고 시작.</p></div><div class="time">~5min</div><div class="go">↓</div></a>
-    <a class="ag" href="#sec-3"><div class="no">3</div><div><h3>분담 방안 논의 <span class="mono" style="font-size:12px;color:#8a8368;">(취소 정책·부대비용 포함)</span></h3><p>미참여 지원(3만원·5만원)과 현행을 한 화면에서 비교.</p></div><div class="time">~30min</div><div class="go">↓</div></a>
-    <a class="ag" href="#sec-4"><div class="no">4</div><div><h3>클럽장 공지사항</h3><p>운영 관련 전달 사항.</p></div><div class="time">~5min</div><div class="go">↓</div></a>
-    <a class="ag" href="#sec-5"><div class="no">5</div><div><h3>이후 진행 방식 <span class="mono" style="font-size:12px;color:#8a8368;">(시간 여유 시)</span></h3><p>휴식·리딩·식사 등 3회차부터의 운영 방식 논의.</p></div><div class="time">~5min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-3"><div class="no">3</div><div><h3>분담 방안 논의 <span class="mono" style="font-size:12px;color:#8a8368;">(취소 정책·부대비용 포함)</span></h3><p>미참여 지원(3만원·5만원)과 현행을 한 화면에서 비교 → 완화안 1 채택.</p></div><div class="time">~30min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-4"><div class="no">4</div><div><h3>운영 방식 결정</h3><p>후미 완주를 위한 팩 운영·버스 시간, 신발·스폰서십, 총무·정산.</p></div><div class="time">~10min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-6"><div class="no">5</div><div><h3>다음 단계 <span class="mono" style="font-size:12px;color:#8a8368;">(액션 아이템)</span></h3><p>회고에서 정리된 담당자별 후속 과제.</p></div><div class="time">기록</div><div class="go">↓</div></a>
   </div>
 </section>
 
@@ -181,27 +204,37 @@
   <div class="wrap">
     <div class="eyebrow">Retro Result · 결정 사항</div>
     <h2>회고 결과 — 결정 사항</h2>
-    <p class="lead">7/8 회고 미팅에서 아래와 같이 결정했습니다. <b>3회차부터 적용</b>합니다.</p>
+    <p class="lead">7/8 회고에서 아래와 같이 결정했습니다. <b>3회차부터 적용</b>합니다.</p>
     <div class="dgrid">
       <div class="dcard">
-        <div class="dh"><span class="dnum">1</span><span class="dtag">분담 방식</span></div>
-        <h3>미참여자 3만원 분담</h3>
-        <p>완화안 1 채택 — <b>미참여자는 1인 ₩30,000</b> 부담, 참여자는 남은 비용을 나눠 냅니다.</p>
+        <div class="dh"><span class="dnum">1</span><span class="dtag">회비 인상</span></div>
+        <h3>월 회비 ₩10,000 → ₩30,000</h3>
+        <p>프로젝트 기간에 한해 월 회비를 <b>₩30,000</b>으로 인상하고, 그중 일부를 <b>회차별 지원금(고정비 충당)</b>으로 사용합니다.</p>
       </div>
       <div class="dcard">
-        <div class="dh"><span class="dnum">2</span><span class="dtag">취소 정책</span></div>
+        <div class="dh"><span class="dnum">2</span><span class="dtag">분담 방식</span></div>
+        <h3>미참여자도 ₩30,000 지원</h3>
+        <p>완화안 1 채택 — <b>미참여자도 1인 ₩30,000</b>을 지원금으로 납부, 참여자는 남은 비용을 나눠 냅니다. 참여자 부담 <b>₩141k → 약 ₩117k</b>.</p>
+      </div>
+      <div class="dcard">
+        <div class="dh"><span class="dnum">3</span><span class="dtag">부상자</span></div>
+        <h3>부상자도 예외 없이 ₩30,000 후원</h3>
+        <p>심각한 부상이 아닌 한, 부상으로 불참하더라도 <b>참여하는 팀원을 응원하는 뜻</b>으로 미참여 지원금 ₩30,000을 함께 냅니다.</p>
+      </div>
+      <div class="dcard">
+        <div class="dh"><span class="dnum">4</span><span class="dtag">취소 정책</span></div>
         <h3>취소 멤버 = 미참여 회비 + 예약된 특수비용</h3>
-        <p>취소 멤버는 <b>미참여 회비 ₩30,000</b>을 부담하고, 미리 예약된 <b>특수비용(예: 철쭉식당 식사 예약)</b>은 별도로 지불합니다.</p>
+        <p>취소 멤버는 <b>미참여 회비 ₩30,000</b>을 부담하고, 미리 예약된 <b>특수비용(버스 증차·식당 선결제 등)</b>은 참여 예정 인원이 별도 분담합니다.</p>
       </div>
       <div class="dcard">
-        <div class="dh"><span class="dnum">3</span><span class="dtag">최소 진행 인원</span></div>
+        <div class="dh"><span class="dnum">5</span><span class="dtag">최소 진행 인원</span></div>
         <h3>회차 진행 최소 인원 7명</h3>
-        <p>참석 <b>7명</b>을 최소 진행 인원으로 합니다. 인원 미달로 <b>연기 회차</b>가 발생하면 추후 재논의합니다.</p>
+        <p>참석 <b>7명</b>을 기준으로 하되 유동적으로 운영합니다. 7명 미만이면 <b>다음 회차는 5명이라도 진행</b>해 프로젝트 흐름을 끊지 않고, 이후 재논의합니다.</p>
       </div>
       <div class="dcard">
-        <div class="dh"><span class="dnum">4</span><span class="dtag">부대비용</span></div>
+        <div class="dh"><span class="dnum">6</span><span class="dtag">부대비용</span></div>
         <h3>필름 카메라 부대비용 전액 회비 지출</h3>
-        <p>프로젝트 <b>필름 카메라 관련 부대비용(필름·인화 등)</b>은 모두 <b>회비로 지출</b>합니다.</p>
+        <p>기록용 <b>필름 구매비와 현상·스캔 비용</b>은 모두 <b>회비로 지출</b>합니다. 사진 기록의 가치에 전원 공감했습니다.</p>
       </div>
     </div>
   </div>
@@ -210,13 +243,51 @@
 <!-- ══════════ ① 소감 ══════════ -->
 <section id="sec-1">
   <div class="wrap">
-    <div class="eyebrow">Agenda ① · 10 min</div>
+    <div class="eyebrow">Agenda ① · 크루 소감</div>
     <h2>1·2회차 진행 소감</h2>
-    <p class="lead">참석자 전원이 돌아가며 한 마디. 1인 <b>30초~1분</b>. 아래 세 가지를 짚어 주세요.</p>
+    <p class="lead">크루 전원이 돌아가며 한 마디씩 나눴습니다. 공통적으로 <b>철저한 준비</b>와 <b>남는 기록</b>에 만족했고, <b>1회차 완주 실패·그룹 운영·부상</b>에 대한 아쉬움, 그리고 <b>변주와 아카이브</b>에 대한 바람이 모였습니다.</p>
     <div class="opt" style="margin-top:22px;">
-      <div class="card"><div class="tag">Keep</div><h3 style="margin-top:6px;">좋았던 점</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">계속 이어가고 싶은 것 — 코스, 보급, 분위기 등.</p></div>
-      <div class="card"><div class="tag">Problem</div><h3 style="margin-top:6px;">아쉬웠던 점</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">힘들었거나 개선이 필요했던 것.</p></div>
-      <div class="card"><div class="tag">Try</div><h3 style="margin-top:6px;">바라는 점</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">3회차부터 시도해 보고 싶은 것.</p></div>
+      <div class="card"><div class="tag">Keep · 좋았던 점</div><h3 style="margin-top:6px;">이어가고 싶은 것</h3>
+        <ul>
+          <li>리더·부리더의 <b>철저한 준비</b> — 코스·난이도·보급이 딱 맞아 완주로 이어짐</li>
+          <li>영상·사진·문서로 남는 <b>기록물</b> (GitHub 운행 페이지 포함)</li>
+          <li>좋은 팀 분위기와 더 가까워진 유대감</li>
+          <li>2회차, 소수 인원이 <b>한 팩으로 뭉쳐 완주</b></li>
+        </ul>
+      </div>
+      <div class="card"><div class="tag">Problem · 아쉬웠던 점</div><h3 style="margin-top:6px;">개선이 필요한 것</h3>
+        <ul>
+          <li>1회차 완주 실패 · <b>선두/후미 그룹 운영 기준</b>이 불명확</li>
+          <li>회차마다 발생하는 <b>부상자</b> (승훈 부상 미참석)</li>
+          <li>2회차 철쭉식당 <b>주먹밥 과잉 주문</b> (불필요한 ₩100,000)</li>
+          <li>장거리 <b>버스 이동 중 휴식</b> 불편</li>
+        </ul>
+      </div>
+      <div class="card"><div class="tag">Try · 바라는 점</div><h3 style="margin-top:6px;">시도해 보고 싶은 것</h3>
+        <ul>
+          <li><b>백패킹·숙박</b> 등 운영에 변주</li>
+          <li>식사 메뉴 다양화 + <b>음식 아카이브</b></li>
+          <li>연말, 필름·영상으로 <b>페이퍼북</b> 제작</li>
+          <li>회차별 <b>후기·주의사항 아카이브</b> (향후 참여자 가이드)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subhead">크루 한 마디 · 13명</div>
+    <div class="voices">
+      <div class="voice"><div class="who">형돈 · tto2</div><div class="say">처음엔 잘될까 걱정했지만 준비를 너무 잘해 계획대로 착착 진행됐다. 분위기도 훌륭. 이대로 흐름을 유지하며 멋지게 완주하고 싶다.</div></div>
+      <div class="voice"><div class="who">킴포크 · Kimpork</div><div class="say">1·2회차 모두 만족. 팀원들과 더 단단해지고 가까워지는 느낌이라 기분이 좋다.</div></div>
+      <div class="voice"><div class="who">크루</div><div class="say">철저한 준비 덕에 훈련도 효과적이었고 즐겁게 완주했다. 다만 팩을 나눠 갈지 뭉쳐 갈지 <b>기준이 뚜렷하면</b> 좋겠다.</div></div>
+      <div class="voice"><div class="who">의재 · 이의재</div><div class="say">사진 등 결과물이 잘 남아 좋았다. 앞으로 먹는 걸 다양하게 시도하고 <b>아카이브</b>로 남기면 재밌는 포인트가 될 것.</div></div>
+      <div class="voice"><div class="who">대원 · Daewon</div><div class="say">리더·부리더 준비가 철저해 계획대로 진행. <b>기현이 만든 운행 페이지</b>가 예측에 큰 도움. 1회차 선두-후미 조율 부족을 2회차엔 하나로 뭉쳐 완주해 좋았다.</div></div>
+      <div class="voice"><div class="who">정효 · 김정효</div><div class="say">준비가 훌륭해 잘 해냈고 산에서 오래 함께한 시간이 좋았다. 1회차 완주 실패는 아쉽지만 동기부여가 됐다. <b>백패킹 코스</b> 회차를 시도해 보고 싶다.</div></div>
+      <div class="voice"><div class="who">기현 · iklab</div><div class="say">영상·사진·문서로 기록이 남는 게 벌써부터 꺼내 보는 재미가 있다. 1회차 실패가 계기가 돼 운동을 더 했고 2회차 완주로 이어졌다. <b>백패킹·숙박 등 변주</b>를 주면 더 재밌겠다.</div></div>
+      <div class="voice"><div class="who">강호 · Kangho</div><div class="say">팀원들의 준비가 훌륭했고, <b>GitHub 링크</b>가 운행 중 타임라인 잡기에 가장 큰 도움이었다. 장거리 버스 휴식 방식은 고민이 필요. 연말 <b>페이퍼북</b> 제작을 제안.</div></div>
+      <div class="voice"><div class="who">성현 · Sunghyun</div><div class="say">프로젝트 윤곽이 드러나 앞으로가 더 기대된다. 2회차 철쭉식당에서 할머니 기세에 눌려 <b>주먹밥을 과하게 주문</b>한 건 아쉬웠다.</div></div>
+      <div class="voice"><div class="who">bularmtong</div><div class="say">기현이 쌓는 <b>데이터</b>가 향후 참여자에게 중요한 지표가 될 것. 활동 후 짧은 후기·주의사항을 남겨 기록으로 활용하자.</div></div>
+      <div class="voice"><div class="who">주영 · 이주영</div><div class="say">리더·부리더 협업이 훌륭했다. 1회차 완주 실패와 2회차 직전 취소로 팀에 피해를 준 점, 회차마다 <b>부상자</b>가 생기는 점이 아쉽다.</div></div>
+      <div class="voice"><div class="who">승훈 · King_of_neck</div><div class="say"><b>부상으로 참석하지 못한 게</b> 가장 아쉽다. 재활 중이며 완전히 회복해 복귀하기까지 2~3주 예상.</div></div>
+      <div class="voice"><div class="who">재수 · P JS</div><div class="say">다들 바쁜 와중에 시간을 내 함께하는 게 좋다. <b>참석자만 계속 비용을 부담하는 구조</b>가 참여의 장애가 될 수 있으니 짚고 가자. <span class="mono" style="font-size:11px;color:#8a8368;">→ 안건 ③</span></div></div>
     </div>
   </div>
 </section>
@@ -368,9 +439,9 @@
 <!-- ══════════ ③ 분담 방안 ══════════ -->
 <section id="sec-3">
   <div class="wrap">
-    <div class="eyebrow">Agenda ③ · 30 min</div>
+    <div class="eyebrow">Agenda ③ · 분담 방안</div>
     <h2>분담 방안 비교 — 미참여 지원 vs 현행</h2>
-    <p class="lead">미참여자 지원금을 <b>3만원 / 5만원</b>으로 걷었을 때와 현행(참석자만 부담)을 비교합니다. 숫자는 모두 <span class="mono">2회차 조정 기준(총 <span class="hl">₩998,500</span> · 참석 7 · 정원 13명 → 미참석 6 가정)</span>. 막대는 <b>참여자 1인당 부담</b>. 각 안에는 <b>1회차 전원참석 엔빵(₩92,512)</b> 대비 참여자가 더 내는 금액도 함께 표시했습니다.</p>
+    <p class="lead">미참여자 지원금을 <b>3만원 / 5만원</b>으로 걷었을 때와 현행(참석자만 부담)을 비교해 <b>완화안 1(3만원)을 채택</b>했습니다. 숫자는 모두 <span class="mono">2회차 조정 기준(총 <span class="hl">₩998,500</span> · 참석 7 · 정원 13명 → 미참석 6 가정)</span>. 막대는 <b>참여자 1인당 부담</b>. 각 안에는 <b>1회차 전원참석 엔빵(₩92,512)</b> 대비 참여자가 더 내는 금액도 함께 표시했습니다.</p>
 
     <div class="opt" style="margin-top:30px;">
       <div class="card pick">
@@ -439,23 +510,52 @@
 <!-- ══════════ ④ 클럽장 공지사항 ══════════ -->
 <section id="sec-4">
   <div class="wrap">
-    <div class="eyebrow">Agenda ④ · 5 min</div>
-    <h2>클럽장 공지사항</h2>
-    <p class="lead">운영 관련 전달 사항 — 일정·준비물·기타 안내.</p>
-    <div class="callout soft" style="margin-top:20px;">회의 당일 클럽장이 공유하는 공지를 이 자리에서 전달합니다. <span style="color:#8a8368;">(내용은 당일 업데이트)</span></div>
+    <div class="eyebrow">Agenda ④ · 운영 결정</div>
+    <h2>운영 방식 결정</h2>
+    <p class="lead">비용 외에 <b>3회차부터의 운영 방식</b>도 함께 정리했습니다. 핵심은 <b>후미 그룹의 안전과 완주</b>, 그리고 <b>안전을 최우선</b>으로 한 장비·스폰서십 운영입니다.</p>
+    <div class="dgrid">
+      <div class="dcard">
+        <div class="dh"><span class="dnum">A</span><span class="dtag">팩 운영 · 버스</span></div>
+        <h3>후미 완주를 위해 함께 이동 · 버스 시간 여유</h3>
+        <p>2회차처럼 <b>후미를 선두에 배치</b>해 팩이 벌어지지 않도록 서로 독려하며 함께 이동합니다. 후미도 완주할 수 있도록 <b>버스 시간을 더 여유롭게</b> 잡습니다.</p>
+      </div>
+      <div class="dcard">
+        <div class="dh"><span class="dnum">B</span><span class="dtag">장비 · 스폰서십</span></div>
+        <h3>안전 우선 신발 허용 · 자연스러운 브랜드 노출</h3>
+        <p>On 제품 안정성에 따른 부상 우려로 <b>필요시 다른 신발 착용을 허용</b>합니다. 스폰서 브랜드(On·아크테릭스 등)는 강요보다 <b>자연스러운 활동</b> 위주로 운영하고, 승훈의 의류 계약은 <b>썬더버드 로고 활용</b>으로 유연하게 풀어갑니다.</p>
+      </div>
+      <div class="dcard">
+        <div class="dh"><span class="dnum">C</span><span class="dtag">총무 · 정산</span></div>
+        <h3>결제 담당(리더·카드)이 정산 지속</h3>
+        <p>비용 정산은 관례대로 <b>결제를 진행하는 리더나 카드 담당자</b>가 계속 맡습니다.</p>
+      </div>
+      <div class="dcard">
+        <div class="dh"><span class="dnum">D</span><span class="dtag">보급 · 식사</span></div>
+        <h3>메뉴 다양화 · 주문 유의</h3>
+        <p>매 회차 <b>다양한 메뉴</b>를 시도해 아카이브로 남기고, 2회차 과잉 주문 같은 일이 없도록 <b>주문 시 수량·가격을 미리 확인</b>합니다.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ══════════ ⑤ 이후 진행 방식 ══════════ -->
-<section id="sec-5">
+<section id="sec-6">
   <div class="wrap">
-    <div class="eyebrow">Agenda ⑤ · 시간 여유 시</div>
-    <h2>이후 진행 방식</h2>
-    <p class="lead">3회차부터의 운영 방식 논의. 시간이 남으면 아래 항목을 다룹니다.</p>
-    <div class="opt" style="margin-top:22px;">
-      <div class="card"><div class="tag">Rest</div><h3 style="margin-top:6px;">휴식</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">휴식 지점·시간 운영 방식.</p></div>
-      <div class="card"><div class="tag">Leading</div><h3 style="margin-top:6px;">리딩</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">선두·후미 및 페이스 운영.</p></div>
-      <div class="card"><div class="tag">Meal</div><h3 style="margin-top:6px;">식사</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">식사·보급 방식과 예산.</p></div>
+    <div class="eyebrow">Next Steps · 다음 단계</div>
+    <h2>다음 단계 — 액션 아이템</h2>
+    <p class="lead">회고에서 정리된 담당자별 후속 과제입니다. <span class="mono" style="font-size:12px;color:#5A8C21;">DONE</span>은 이번 회고에서 확정된 항목, <span class="mono" style="font-size:12px;color:#B4471F;">OPEN</span>은 이후 진행할 과제입니다.</p>
+    <div class="tasks">
+      <div class="task"><span class="owner">강호</span><div class="what">버스 휴식 방안 탐색 — 장거리 이동 중 편안히 쉴 수 있는 대안 조사</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">전체</span><div class="what">음식 다양성 기록 — 회차별 시도한 메뉴를 아카이브·데이터로 정리</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">전체</span><div class="what">프로젝트 결과 웹사이트 제작 — 후속 참여자를 위한 가이드라인 구축</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">전체</span><div class="what">회차별 후기 작성 — 후기·주의사항을 기록해 데이터베이스화</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">킴포크</span><div class="what">식비 오류 보전 — 지난 회차 주문 오류 ₩100,000을 다음 회차 정산 시 보전</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">그룹</span><div class="what">버스 예약 조정 — 후미 완주를 위해 운행 시간을 여유롭게 재설정</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">승훈</span><div class="what">패치 부착 논의 — 의류 계약을 바탕으로 썬더버드 로고 부착 가능 여부 검토</div><span class="st open">OPEN</span></div>
+      <div class="task"><span class="owner">전체</span><div class="what">비용 분담 정책 — 미참여자 ₩30,000 지원(완화안 1)으로 확정</div><span class="st done">DONE</span></div>
+      <div class="task"><span class="owner">그룹</span><div class="what">최소 인원 설정 — 7명 기준, 미달 시 5명이라도 진행해 흐름 유지</div><span class="st done">DONE</span></div>
+      <div class="task"><span class="owner">그룹</span><div class="what">취소 비용 정산 — 미참여 회비 + 예약된 특수비용 별도 분담으로 확정</div><span class="st done">DONE</span></div>
+      <div class="task"><span class="owner">그룹</span><div class="what">필름 비용 지원 — 필름 구매·현상·스캔 비용을 회비에서 지원</div><span class="st done">DONE</span></div>
     </div>
   </div>
 </section>
@@ -467,11 +567,13 @@
     <h2>결정 완료</h2>
     <p class="lead">회고에서 확정한 사항입니다. 3회차부터 적용합니다.</p>
     <ul class="chk">
-      <li class="done"><span><b>분담 방식</b> — 미참여자 <b>3만원 분담</b>(완화안 1) 채택</span></li>
-      <li class="done"><span><b>미참여 지원금 액수</b> — <b>₩30,000</b> 확정</span></li>
-      <li class="done"><span><b>취소 정책</b> — 취소 멤버는 미참여 회비 ₩30,000 + 예약된 특수비용(예: 철쭉식당 식사 예약) 별도 지불</span></li>
-      <li class="done"><span><b>최소 진행 인원</b> — <b>7명</b>. 인원 미달로 연기 회차 발생 시 추후 재논의</span></li>
-      <li class="done"><span><b>부대비용 회비 지출</b> — 필름 카메라 관련 부대비용 전액 회비 지출</span></li>
+      <li class="done"><span><b>월 회비 인상</b> — 프로젝트 기간 한시 <b>₩10,000 → ₩30,000</b>, 일부를 회차별 지원금으로 사용</span></li>
+      <li class="done"><span><b>분담 방식</b> — 미참여자도 <b>₩30,000</b> 지원(완화안 1) 채택</span></li>
+      <li class="done"><span><b>부상자</b> — 심각한 부상이 아닌 한 부상자도 <b>₩30,000 후원</b></span></li>
+      <li class="done"><span><b>취소 정책</b> — 취소 멤버는 미참여 회비 ₩30,000 + 예약된 특수비용(버스 증차·식당 선결제 등) 별도 분담</span></li>
+      <li class="done"><span><b>최소 진행 인원</b> — <b>7명</b> 기준, 미달 시 다음 회차는 <b>5명이라도 진행</b>해 흐름 유지 후 재논의</span></li>
+      <li class="done"><span><b>부대비용 회비 지출</b> — 필름 구매·현상·스캔 비용 전액 회비 지출</span></li>
+      <li class="done"><span><b>운영</b> — 후미 완주를 위해 함께 이동·버스 시간 여유, 안전 우선 신발 허용, 자연스러운 스폰서십</span></li>
     </ul>
     <div class="callout dark">
       <b>적용 안내</b> — 3회차부터 <b>미참여자 3만원 분담</b>을 적용합니다. 참여자 부담은 <b>약 ₩117k</b>(1회차 전원참석 ₩92,512 대비 +₩24k · 현행 대비 ▼약 24k) 수준으로 낮아집니다. 운영 결과를 보고 <b>4회차에 지원액 재검토</b> 가능합니다.
