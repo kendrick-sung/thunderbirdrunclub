@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thunderbird — 1·2회차 비용 정산 회고 안건</title>
+<meta name="description" content="백두대간 FJTS 1·2회차 실측 정산 데이터를 도식화한 비용 분담 방식 회고 미팅 안건.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#F6F4EC;color:#1E1E18;font-family:'Pretendard',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.62;}
+  ::selection{background:#A1D06C;color:#1E1E18;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px;}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.22em;color:#5A8C21;font-weight:700;text-transform:uppercase;}
+  .mono{font-family:'Space Mono',monospace;}
+  section{padding:54px 0;border-top:1px solid #E4DFD1;}
+  h2{margin:8px 0 0;font-size:clamp(23px,3.4vw,34px);font-weight:800;line-height:1.05;letter-spacing:-.01em;}
+  h3{font-size:19px;font-weight:800;margin:0 0 4px;}
+  .lead{font-size:clamp(15px,1.8vw,17px);color:#3a382f;margin-top:14px;max-width:66ch;}
+  .subhead{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;color:#355610;text-transform:uppercase;margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .subhead::after{content:'';flex:1;height:1px;background:#D8D2C2;}
+  /* number emphasis */
+  .hl{background:linear-gradient(transparent 58%,#d3ebae 0);padding:0 3px;font-weight:800;border-radius:2px;}
+  .up{color:#B4471F;font-weight:800;}
+  .down{color:#4E7A16;font-weight:800;}
+  .fig{font-family:'Space Mono',monospace;font-weight:700;}
+  /* data table */
+  .tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px;}
+  .tbl th,.tbl td{padding:9px 12px;text-align:left;border-bottom:1px solid #E4DFD1;}
+  .tbl th{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;font-weight:700;border-bottom:1.5px solid #1E1E18;}
+  .tbl td.num,.tbl th.num{text-align:right;font-family:'Space Mono',monospace;white-space:nowrap;}
+  .tbl tr.sub td{background:#EFEBDF;font-weight:700;}
+  .tbl tr.total td{background:#1E1E18;color:#F6F4EC;font-weight:700;}
+  .tbl tr.total td .mono{color:#A1D06C;}
+  .tbl tr.excl td{color:#a7a08c;background:#F3F0E6;}
+  .tbl tr.excl s{color:#b3ab96;text-decoration-color:#cdc5b1;}
+  .excl-tag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;color:#a7a08c;border:1px solid #d8d0bd;border-radius:20px;padding:1px 7px;margin-left:6px;white-space:nowrap;}
+  .tbl .cat{color:#5A8C21;font-weight:700;}
+  .tbl .note{color:#8a8368;font-size:12px;}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .scroll .tbl{min-width:600px;}
+  /* compact data tables (1·2회차) — unified format, narrow for mobile */
+  .tbl.dt{font-size:13px;}
+  .tbl.dt th,.tbl.dt td{padding:6px 7px;}
+  .tbl.dt .note{margin-left:4px;}
+  .scroll.dt .tbl{min-width:328px;}
+  /* stat tiles */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;}
+  .tile{background:#FBFAF4;border:1px solid #E1DCCC;border-radius:14px;padding:20px;}
+  .tile.dark{background:#20231C;border-color:rgba(190,220,158,.2);}
+  .tile .k{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#8a8368;}
+  .tile.dark .k{color:#9C9377;}
+  .tile .v{font-family:'Space Mono',monospace;font-size:clamp(19px,2.4vw,24px);font-weight:700;margin-top:8px;line-height:1;color:#1E1E18;}
+  .tile.dark .v{color:#F6F4EC;}
+  .tile .d{margin-top:10px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;display:inline-block;padding:3px 9px;border-radius:20px;}
+  .d.bad{background:#FBE3D6;color:#B4471F;}
+  .d.good{background:#E4F0D2;color:#4E7A16;}
+  /* diagram card */
+  .diagram{background:#FBFAF4;border:1px solid #E1DCCC;border-radius:16px;padding:26px 22px;margin-top:18px;}
+  .diagram figcaption{font-size:13px;color:#8a8368;margin-top:14px;text-align:center;}
+  svg{display:block;max-width:100%;height:auto;margin:0 auto;}
+  /* bar chart */
+  .bars{margin-top:8px;}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:7px 0;}
+  .bar-row .lab{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;width:64px;flex-shrink:0;color:#43413a;text-align:right;}
+  .bar-track{flex:1;background:#ECE7DA;border-radius:7px;height:30px;position:relative;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#fff;min-width:52px;}
+  .bar-fill.neutral{background:#9FB27E;color:#22301a;}
+  .bar-fill.bad{background:#C0562A;}
+  .bar-fill.good{background:#5A8C21;}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#6b6655;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .swatch{width:12px;height:12px;border-radius:3px;display:inline-block;}
+  /* stacked composition */
+  .stack{display:flex;height:46px;border-radius:10px;overflow:hidden;margin-top:8px;border:1px solid #E1DCCC;}
+  .stack>div{display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#fff;text-align:center;padding:0 6px;}
+  /* agenda */
+  .ag{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #E4DFD1;}
+  .ag:last-child{border-bottom:none;}
+  .ag .no{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#F6F4EC;background:#1E1E18;min-width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ag .time{font-family:'Space Mono',monospace;font-size:11px;color:#8a8368;margin-left:auto;flex-shrink:0;white-space:nowrap;}
+  .ag p{margin:6px 0 0;font-size:14px;color:#43413a;}
+  /* option compare */
+  .opt{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:6px;}
+  .card{background:#FBFAF4;border:1px solid #E1DCCC;border-radius:14px;padding:22px;position:relative;display:flex;flex-direction:column;}
+  .card.pick{border-color:#A1D06C;box-shadow:0 0 0 2px rgba(161,208,108,.3);}
+  .card .badge{position:absolute;top:-11px;left:20px;background:#A1D06C;color:#1E1E18;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;}
+  .card .tag{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#5A8C21;}
+  .card .burden{font-family:'Space Mono',monospace;font-weight:700;font-size:26px;margin:12px 0 2px;}
+  .card .minibar{height:8px;border-radius:5px;background:#ECE7DA;overflow:hidden;margin:4px 0 10px;}
+  .card .minibar>div{height:100%;border-radius:5px;}
+  .card ul{margin:6px 0 0;padding-left:17px;font-size:13px;color:#43413a;}
+  .card ul li{margin-bottom:6px;}
+  .callout{border-radius:14px;padding:20px 22px;margin-top:22px;font-size:14.5px;}
+  .callout.dark{background:#20231C;color:#E9E5D8;}
+  .callout.dark b{color:#A1D06C;}
+  .callout.soft{background:#EFEBDF;color:#43413a;}
+  .callout.soft b{color:#5A8C21;}
+  /* checklist */
+  .chk{list-style:none;padding:0;margin:8px 0 0;}
+  .chk li{display:flex;gap:12px;padding:13px 0;border-bottom:1px dashed #D8D2C2;font-size:14.5px;}
+  .chk li::before{content:'☐';font-size:18px;color:#5A8C21;line-height:1.3;}
+  @media (max-width:720px){
+    .wrap{padding:0 16px;}
+    section{padding:44px 0;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .opt{grid-template-columns:1fr;}
+    .ag{flex-wrap:wrap;align-items:flex-start;}
+    .ag>div:nth-child(2){flex:1;min-width:0;}
+    .ag .time{margin-left:0;padding-left:42px;flex-basis:100%;order:9;margin-top:3px;}
+    .diagram{padding:20px 14px;}
+    .stack{height:auto;}
+    .stack>div{padding:9px 6px;font-size:11px;line-height:1.3;}
+    .bar-row .lab{width:52px;font-size:11px;}
+    .bar-fill{font-size:11px;padding-right:7px;min-width:46px;}
+    .callout{padding:18px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="tb-grain" style="position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.32;mix-blend-mode:multiply;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E&quot;);"></div>
+
+<!-- ══════════ HERO ══════════ -->
+<section style="border-top:none;background:#20231C;color:#F6F4EC;padding:66px 0 52px;overflow:hidden;position:relative;">
+  <div style="position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(161,208,108,.14),transparent 62%);pointer-events:none;"></div>
+  <div class="wrap" style="position:relative;z-index:2;">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;border-bottom:1px solid rgba(190,220,158,.22);padding-bottom:16px;">
+      <div class="mono" style="font-size:12px;letter-spacing:.24em;color:#A1D06C;font-weight:700;text-transform:uppercase;">From Jiri To Seorak</div>
+      <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#9C9377;">RETROSPECTIVE · 비용 정산</div>
+    </div>
+    <h1 style="font-weight:800;font-size:clamp(30px,6vw,52px);line-height:1.02;letter-spacing:-.02em;margin:34px 0 0;">1·2회차 비용 정산 회고<span style="color:#A1D06C;">.</span></h1>
+    <div style="font-weight:700;font-size:clamp(15px,2.2vw,20px);color:#E9E5D8;margin-top:14px;">참석률 제고 · 참석자 부담 완화 방안 미팅</div>
+    <div class="stats" style="margin-top:32px;">
+      <div class="tile dark"><div class="k">일정</div><div class="v">07.08 <span style="font-size:13px;color:#9C9377;">수</span></div></div>
+      <div class="tile dark"><div class="k">시간</div><div class="v">22:00<span style="font-size:13px;color:#9C9377;">–23:00</span></div></div>
+      <div class="tile dark"><div class="k">장소</div><div class="v">화상회의</div></div>
+      <div class="tile dark"><div class="k">반영 시점</div><div class="v" style="color:#A1D06C;">3회차 前</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 목적 ══════════ -->
+<section style="border-top:none;">
+  <div class="wrap">
+    <div class="eyebrow">Why We Meet</div>
+    <h2>왜 모이나</h2>
+    <p class="lead">초반 회차를 진행하며 <b>참석률이 눈에 띄게 떨어졌고</b>, 그만큼 참석자 1인당 부담이 커졌습니다. 3회차 시작 전, 참석률을 높이고 부담을 완화할 <b>비용 분담 방식</b>을 함께 정하기 위한 자리입니다. 논의는 감이 아니라 <b>1·2회차 실측 정산 데이터</b>를 근거로 합니다.</p>
+  </div>
+</section>
+
+<!-- ══════════ 실측 데이터 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The Receipts</div>
+    <h2>실측 정산 데이터</h2>
+    <p class="lead">두 회차의 실제 지출 내역. 굵게 강조된 숫자가 이번 회의의 출발점입니다.</p>
+
+    <div class="subhead">1회차 · FJTS (지리산 성삼재 구간) · 13명</div>
+    <div class="scroll dt">
+    <table class="tbl dt">
+      <thead><tr><th>상세</th><th class="num">총액</th><th class="num">인원</th><th class="num">인당</th></tr></thead>
+      <tbody>
+        <tr><td>버스</td><td class="num">₩850,000</td><td class="num">12.5</td><td class="num">₩68,000</td></tr>
+        <tr><td>성삼재 중탈 버스비</td><td class="num">₩50,000</td><td class="num">2</td><td class="num">₩25,000</td></tr>
+        <tr class="sub"><td>교통 소계</td><td class="num">₩900,000</td><td class="num">12.5</td><td class="num">₩72,000</td></tr>
+        <tr><td>휴게소 음료+대피소 햇반</td><td class="num">₩51,000</td><td class="num">13</td><td class="num">₩3,923</td></tr>
+        <tr><td>대피소 햇반 <span class="note">선두 5인</span></td><td class="num">₩15,000</td><td class="num">5</td><td class="num">₩3,000</td></tr>
+        <tr><td>버거킹 와퍼</td><td class="num">₩103,600</td><td class="num">13</td><td class="num">₩7,969</td></tr>
+        <tr><td>맛다시+진미채</td><td class="num">₩29,060</td><td class="num">13</td><td class="num">₩2,235</td></tr>
+        <tr><td>성삼재 편의점 보급</td><td class="num">₩84,000</td><td class="num">12</td><td class="num">₩7,000</td></tr>
+        <tr><td>여원재 편의점 보급</td><td class="num">₩20,000</td><td class="num">6</td><td class="num">₩3,333</td></tr>
+        <tr class="sub"><td>식비 소계</td><td class="num">₩302,660</td><td class="num">13</td><td class="num">₩23,282</td></tr>
+        <tr class="total"><td>총계 <span class="excl-tag" style="border-color:rgba(190,220,158,.4);color:#A1D06C;">뒤풀이 제외</span></td><td class="num"><span class="mono">₩1,202,660</span></td><td class="num">13</td><td class="num"><span class="mono">₩92,512</span></td></tr>
+        <tr class="excl"><td>뒤풀이 · 양평해장국 <span class="note">제외</span></td><td class="num"><s>₩181,000</s></td><td class="num">11</td><td class="num"><s>₩16,455</s></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:12.5px;color:#8a8368;margin-top:10px;">※ 1회차 <b>뒤풀이(양평해장국 ₩181,000)는 모든 계산에서 제외</b>했습니다. 아래 총계·1인당·비교·시뮬레이션은 전부 <b>운행 비용 ₩1,202,660</b>(1인당 ₩92,512) 기준입니다.</p>
+
+    <div class="subhead">2회차 · 여원재 → 영취산 · 7명</div>
+    <div class="scroll dt">
+    <table class="tbl dt">
+      <thead><tr><th>상세</th><th class="num">총액</th><th class="num">인원</th><th class="num">인당</th></tr></thead>
+      <tbody>
+        <tr><td>버스 대절 <span class="note">고정비</span></td><td class="num">₩750,000</td><td class="num">7</td><td class="num">₩107,143</td></tr>
+        <tr><td>철쭉식당</td><td class="num">₩200,000</td><td class="num">7</td><td class="num">₩28,571</td></tr>
+        <tr><td>햄버거 <span class="note">기사님 포함</span></td><td class="num">₩59,200</td><td class="num">7</td><td class="num">₩8,457</td></tr>
+        <tr><td>김밥 <span class="note">기사님 포함</span></td><td class="num">₩40,000</td><td class="num">7</td><td class="num">₩5,714</td></tr>
+        <tr><td>편의점 <span class="note">물·라면·음료</span></td><td class="num">₩33,650</td><td class="num">7</td><td class="num">₩4,807</td></tr>
+        <tr><td>간식 <span class="note">수박</span></td><td class="num">₩15,650</td><td class="num">7</td><td class="num">₩2,236</td></tr>
+        <tr class="total"><td>합계</td><td class="num"><span class="mono">₩1,098,500</span></td><td class="num">7</td><td class="num"><span class="mono">₩156,929</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 숫자가 말하는 것 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">What The Numbers Say</div>
+    <h2>숫자가 말하는 것</h2>
+    <p class="lead">1회차에서 2회차 사이에 벌어진 일 — 그리고 이게 왜 <b>부담</b>의 문제인지.</p>
+
+    <div class="stats">
+      <div class="tile"><div class="k">참석 인원</div><div class="v">13 → 7<span style="font-size:12px;color:#8a8368;"> 명</span></div><div class="d bad">▼ 46%</div></div>
+      <div class="tile"><div class="k">1인당 비용 <span style="text-transform:none;letter-spacing:0;">(뒤풀이 제외)</span></div><div class="v">93k → 157k</div><div class="d bad">▲ 70%</div></div>
+      <div class="tile"><div class="k">버스비 1인당</div><div class="v">65k → 107k</div><div class="d bad">▲ 64%</div></div>
+      <div class="tile"><div class="k">고정비(버스) 비중</div><div class="v">68<span style="font-size:13px;">%</span></div><div class="d good">2회차 기준</div></div>
+    </div>
+
+    <!-- 악순환 다이어그램 -->
+    <div class="subhead">① 왜 부담이 커지나 — 악순환 구조</div>
+    <figure class="diagram" style="margin:0;">
+      <svg viewBox="0 0 700 430" role="img" aria-label="참석 인원 감소가 1인당 부담 증가로, 다시 참석 망설임으로 이어지는 악순환 다이어그램">
+        <defs>
+          <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto">
+            <path d="M0,0 L9,4 L0,8 Z" fill="#C0562A"></path>
+          </marker>
+        </defs>
+        <!-- arrows (clockwise) -->
+        <path d="M452,92 Q560,108 566,180" fill="none" stroke="#C0562A" stroke-width="2.4" marker-end="url(#ah)"></path>
+        <path d="M566,268 Q560,338 452,352" fill="none" stroke="#C0562A" stroke-width="2.4" marker-end="url(#ah)"></path>
+        <path d="M248,352 Q140,338 134,268" fill="none" stroke="#C0562A" stroke-width="2.4" marker-end="url(#ah)"></path>
+        <path d="M134,180 Q140,108 248,92" fill="none" stroke="#C0562A" stroke-width="2.4" marker-end="url(#ah)"></path>
+        <!-- center label -->
+        <circle cx="350" cy="222" r="52" fill="#FBE3D6"></circle>
+        <text x="350" y="216" text-anchor="middle" font-family="Pretendard" font-weight="800" font-size="19" fill="#B4471F">악순환</text>
+        <text x="350" y="238" text-anchor="middle" font-family="'Space Mono',monospace" font-size="11" fill="#B4471F">VICIOUS CYCLE</text>
+        <!-- nodes -->
+        <g font-family="Pretendard" font-weight="800" font-size="16" fill="#1E1E18">
+          <rect x="235" y="42" width="230" height="62" rx="14" fill="#20231C"></rect>
+          <text x="350" y="79" text-anchor="middle" fill="#F6F4EC" font-size="16">참석 인원 감소 ↓</text>
+
+          <rect x="452" y="180" width="230" height="62" rx="14" fill="#EFEBDF" stroke="#E1DCCC"></rect>
+          <text x="567" y="209" text-anchor="middle" font-size="15">고정비(버스)</text>
+          <text x="567" y="229" text-anchor="middle" font-size="15">1인당 부담 ↑</text>
+
+          <rect x="235" y="358" width="230" height="62" rx="14" fill="#EFEBDF" stroke="#E1DCCC"></rect>
+          <text x="350" y="387" text-anchor="middle" font-size="15">1인당 총비용 ↑</text>
+          <text x="350" y="407" text-anchor="middle" font-size="15">부담 체감</text>
+
+          <rect x="18" y="180" width="230" height="62" rx="14" fill="#EFEBDF" stroke="#E1DCCC"></rect>
+          <text x="133" y="209" text-anchor="middle" font-size="15">다음 회차</text>
+          <text x="133" y="229" text-anchor="middle" font-size="15">참석 망설임 →</text>
+        </g>
+      </svg>
+      <figcaption>버스 대절료는 인원과 무관하게 고정 → 인원이 줄면 나눌 사람이 줄어 1인당 부담이 튀고, 부담이 커지니 다음 참석을 망설이게 되는 구조.</figcaption>
+    </figure>
+
+    <!-- 고정비 vs 변동비 -->
+    <div class="subhead">② 2회차 비용 구성 — 고정비가 지배한다</div>
+    <div class="diagram">
+      <div class="stack">
+        <div style="width:68.3%;background:#20231C;">버스(고정) ₩750,000 · 68%</div>
+        <div style="width:31.7%;background:#9FB27E;color:#22301a;">변동비 ₩348,500 · 32%</div>
+      </div>
+      <figcaption>총 ₩1,098,500 중 <span class="hl">₩750,000(68%)</span>이 인원과 무관한 <b>고정비</b>. 이 덩어리를 몇 명이 나누느냐가 1인당 비용을 좌우합니다. <span style="color:#B4471F;">(7명 기준 소형버스 · 11명↑이면 증차로 ₩850,000)</span></figcaption>
+    </div>
+
+    <!-- 민감도 바차트 -->
+    <div class="subhead">③ 참석 인원별 1인당 비용 시뮬레이션</div>
+    <div class="diagram">
+      <div class="bars">
+        <div class="bar-row"><div class="lab">5명</div><div class="bar-track"><div class="bar-fill neutral" style="width:100%;">₩199,786</div></div></div>
+        <div class="bar-row"><div class="lab">6명</div><div class="bar-track"><div class="bar-fill neutral" style="width:87.5%;">₩174,786</div></div></div>
+        <div class="bar-row"><div class="lab">7명 ●</div><div class="bar-track"><div class="bar-fill bad" style="width:78.6%;">₩156,929</div></div></div>
+        <div class="bar-row"><div class="lab">8명</div><div class="bar-track"><div class="bar-fill neutral" style="width:71.8%;">₩143,536</div></div></div>
+        <div class="bar-row"><div class="lab">9명</div><div class="bar-track"><div class="bar-fill neutral" style="width:66.6%;">₩133,119</div></div></div>
+        <div class="bar-row"><div class="lab">10명</div><div class="bar-track"><div class="bar-fill neutral" style="width:62.5%;">₩124,786</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;margin:11px 0 5px;">
+          <div style="flex:1;height:1px;background:#E0B9A6;"></div>
+          <div class="mono" style="font-size:10px;font-weight:700;color:#B4471F;letter-spacing:.02em;white-space:nowrap;">▲ 11명↑ 버스 증차 · 대절료 ₩750,000 → ₩850,000</div>
+          <div style="flex:1;height:1px;background:#E0B9A6;"></div>
+        </div>
+        <div class="bar-row"><div class="lab">11명</div><div class="bar-track"><div class="bar-fill neutral" style="width:63.6%;">₩127,059</div></div></div>
+        <div class="bar-row"><div class="lab">12명</div><div class="bar-track"><div class="bar-fill neutral" style="width:60.4%;">₩120,619</div></div></div>
+        <div class="bar-row"><div class="lab">13명 ★</div><div class="bar-track"><div class="bar-fill good" style="width:57.6%;">₩115,171</div></div></div>
+      </div>
+      <div class="legend">
+        <span><i class="swatch" style="background:#C0562A;"></i> 실제 2회차 (7명)</span>
+        <span><i class="swatch" style="background:#5A8C21;"></i> 정원 회복 시 (13명)</span>
+        <span><i class="swatch" style="background:#9FB27E;"></i> 가정 시나리오</span>
+      </div>
+      <figcaption>변동비 약 ₩49,786/인 + 버스 대절료(<b>10명 이하 ₩750,000 · 11명 이상 ₩850,000</b>) 기준. <span class="hl">7명 → 13명</span>이면 1인당 부담은 <span class="up">₩157k</span> → <span class="down">₩115k</span>. 다만 <b>11명을 넘으면 버스 증차로 반등</b>(₩125k→₩127k)해 절감이 완만해지므로, <b>10명 전후가 비용 효율 구간</b>입니다.</figcaption>
+    </div>
+
+    <div class="callout dark">
+      핵심은 <b>고정비 레버리지</b>입니다. <b>참석↓ → 1인당 부담↑ → 참석 망설임 → 인원 더↓</b>의 악순환을 끊으려면, "이 고정비를 <b>누가·어떻게 나눌 것인가</b>"를 정해야 합니다. 이어지는 안건 3의 세 방안이 그 답입니다.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 안건 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Agenda · 60 min</div>
+    <h2>회의 안건</h2>
+
+    <div class="ag"><div class="no">1</div><div><h3>1·2회차 진행 소감</h3><p>참석자 전원, 1인 30초~1분. 좋았던 점 / 아쉬웠던 점 / 바라는 점.</p></div><div class="time">~10min</div></div>
+    <div class="ag"><div class="no">2</div><div><h3>회의 목적 상기 &amp; 데이터 공유</h3><p>위 "숫자가 말하는 것"을 함께 보며 악순환·고정비 구조를 같은 그림으로 맞추고 시작.</p></div><div class="time">~5min</div></div>
+    <div class="ag"><div class="no">3</div><div style="flex:1;"><h3>분담 방안 논의 <span class="mono" style="font-size:12px;color:#8a8368;">(아래 비교)</span></h3><p>미참여 지원(3만원·5만원)과 현행을 한 화면에서 비교합니다.</p></div><div class="time">~30min</div></div>
+    <div class="ag"><div class="no">4</div><div><h3>클럽장 공지사항</h3><p>운영 관련 전달 사항.</p></div><div class="time">~5min</div></div>
+    <div class="ag"><div class="no">5</div><div><h3>이후 진행 방식 <span class="mono" style="font-size:12px;color:#8a8368;">(시간 여유 시)</span></h3><p>휴식·리딩·식사 등 3회차부터의 운영 방식 논의.</p></div><div class="time">~5min</div></div>
+  </div>
+</section>
+
+<!-- ══════════ 방안 비교 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Agenda 3 · Compare At A Glance</div>
+    <h2>분담 방안 비교 — 미참여 지원 vs 현행</h2>
+    <p class="lead">미참여자 지원금을 <b>3만원 / 5만원</b>으로 걷었을 때와 현행(참석자만 부담)을 비교합니다. 숫자는 모두 <span class="mono">2회차(총 <span class="hl">₩1,098,500</span> · 참석 7 · 정원 13명 → 미참석 6 가정)</span> 기준. 막대는 <b>참여자 1인당 부담</b>.</p>
+
+    <div class="opt" style="margin-top:30px;">
+      <div class="card pick">
+        <div class="badge">추천 출발점</div>
+        <div class="tag">완화안 1 · 미참여 ₩30,000</div>
+        <h3 style="margin-top:6px;">미참여 3만원 지원</h3>
+        <div class="burden" style="color:#1E1E18;">₩131,214</div>
+        <div class="minibar"><div style="width:83.6%;background:#9FB27E;"></div></div>
+        <div class="mono" style="font-size:11px;color:#4E7A16;margin-bottom:8px;">₩157k → ₩131k · ▼16%</div>
+        <ul>
+          <li>미참여 6인 × ₩30,000 = <b>₩180,000</b> 선입금</li>
+          <li>참여자 = (₩1,098,500 − ₩180,000) ÷ 7</li>
+          <li>미참여 부담이 가벼워 합의가 쉬움</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">완화안 2 · 미참여 ₩50,000</div>
+        <h3 style="margin-top:6px;">미참여 5만원 지원</h3>
+        <div class="burden" style="color:#1E1E18;">₩114,071</div>
+        <div class="minibar"><div style="width:72.7%;background:#5A8C21;"></div></div>
+        <div class="mono" style="font-size:11px;color:#4E7A16;margin-bottom:8px;">₩157k → ₩114k · ▼27%</div>
+        <ul>
+          <li>미참여 6인 × ₩50,000 = <b>₩300,000</b> 선입금</li>
+          <li>참여자 = (₩1,098,500 − ₩300,000) ÷ 7</li>
+          <li>참여자 부담 최소 · 단 미참여 부담↑</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">현행 · 참석자만 부담</div>
+        <h3 style="margin-top:6px;">지원 없음 (유지)</h3>
+        <div class="burden" style="color:#B4471F;">₩156,929</div>
+        <div class="minibar"><div style="width:100%;background:#C0562A;"></div></div>
+        <div class="mono" style="font-size:11px;color:#B4471F;margin-bottom:8px;">인원 적을수록 부담 폭증</div>
+        <ul>
+          <li>규칙 가장 단순 · 낸 만큼만 부담</li>
+          <li>현재 문제(부담 급증)를 그대로 안고 감</li>
+          <li>갑작스런 취소 시 고정비 처리 규칙 필요 ↓</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="scroll" style="margin-top:26px;">
+    <table class="tbl">
+      <thead><tr><th>기준</th><th>완화 3만원</th><th>완화 5만원</th><th>현행 유지</th></tr></thead>
+      <tbody>
+        <tr><td class="cat">참여자 1인당 부담</td><td><span class="hl">₩131,214</span></td><td><span class="hl">₩114,071</span></td><td><span class="up">₩156,929</span></td></tr>
+        <tr><td class="cat">현행 대비 절감</td><td><span class="down">▼ ₩25,715</span></td><td><span class="down">▼ ₩42,858</span></td><td>—</td></tr>
+        <tr><td class="cat">미참여자 부담</td><td>₩30,000</td><td>₩50,000</td><td>₩0</td></tr>
+        <tr><td class="cat">미참여 선입금 계</td><td>₩180,000</td><td>₩300,000</td><td>₩0</td></tr>
+        <tr><td class="cat">참석 문턱</td><td>낮음</td><td>가장 낮음</td><td>높음(현 문제)</td></tr>
+        <tr><td class="cat">주의점</td><td>정원·지원금 합의</td><td>미참여 부담 큼</td><td>부담 급증 지속</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout soft">
+      <b>③-1 취소 정책</b> — 버스 대절 확정 후 갑작스런 취소 시 이미 확정된 고정비는? <span style="color:#8a8368;">예: 마감일 이후 취소는 분담 유지 / 이전은 환불 등 기준선 합의.</span><br>
+      <b>③-2 부대비용</b> — 프로젝트 관련 사진 필름·인화 및 그 외 부대비용을 회비로 지출할지 <span class="mono">yes / no</span> 결정.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 결정 체크리스트 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Decisions To Lock</div>
+    <h2>이 자리에서 정할 것</h2>
+    <p class="lead">"논의"로 끝내지 않기 위한 체크리스트 — 회의가 끝날 때 아래 칸이 모두 채워지면 성공입니다.</p>
+    <ul class="chk">
+      <li><span><b>분담 방식</b> — 미참여 지원(3만원 / 5만원) / 현행 유지 중 3회차 적용안 확정</span></li>
+      <li><span><b>미참여 지원금 액수</b> — ₩30,000 / ₩50,000 등 확정</span></li>
+      <li><span><b>정원 기준(N)</b> — 1인당 계산·미참여 지원 산정의 기준 인원 수</span></li>
+      <li><span><b>취소 정책</b> — 확정 후 취소 시 고정비 분담 기준선</span></li>
+      <li><span><b>부대비용 회비 지출</b> — 사진 필름·인화 등 <span class="mono">yes / no</span></span></li>
+      <li><span><b>정산 담당 &amp; 공유 방식</b> — 회차별 정산표 작성·공유 주체</span></li>
+    </ul>
+    <div class="callout dark">
+      <b>제안 (강제 아님)</b> — 미참여 지원 방식이 참여자 부담을 확실히 낮춥니다. <b>3만원 지원</b>은 참여자 <b>₩131k(▼16%)</b>로 미참여 부담이 가벼워 합의가 쉽고, <b>5만원 지원</b>은 참여자 <b>₩114k(▼27%)</b>로 부담을 더 줄이는 대신 미참여자가 ₩50,000을 냅니다. 3회차는 완화안(예: 3만원)으로 시작해 4회차에 지원액을 조정하는 방식을 제안합니다.
+    </div>
+  </div>
+</section>
+
+<footer style="padding:40px 0 56px;border-top:1px solid #E4DFD1;">
+  <div class="wrap">
+    <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#8a8368;text-transform:uppercase;">Thunderbird Run Club · From Jiri To Seorak</div>
+    <div style="font-size:13px;color:#8a8368;margin-top:6px;">숫자는 1·2회차 실측 정산 내역 기준 <b>(1회차 뒤풀이 ₩181,000 제외)</b>. 시뮬레이션 가정 — 변동비 ₩49,786/인 · 버스 대절료 <b>10명 이하 ₩750,000 / 11명 이상 ₩850,000</b> · 미참여 지원 산정 정원 13명. 확정은 회의에서.</div>
+  </div>
+</footer>
+
+</body>
+</html>
