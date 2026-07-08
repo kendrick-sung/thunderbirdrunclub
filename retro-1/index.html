@@ -84,6 +84,10 @@
   .ag .no{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#F6F4EC;background:#1E1E18;min-width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .ag .time{font-family:'Space Mono',monospace;font-size:11px;color:#8a8368;margin-left:auto;flex-shrink:0;white-space:nowrap;}
   .ag p{margin:6px 0 0;font-size:14px;color:#43413a;}
+  a.ag{text-decoration:none;color:inherit;border-radius:12px;padding-left:12px;padding-right:12px;margin:0 -12px;transition:background .15s;}
+  a.ag:hover{background:#EFEBDF;}
+  a.ag .go{margin-left:auto;align-self:center;font-family:'Space Mono',monospace;font-size:16px;color:#A1D06C;flex-shrink:0;}
+  a.ag .time{margin-left:0;}
   /* option compare */
   .opt{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:6px;}
   .card{background:#FBFAF4;border:1px solid #E1DCCC;border-radius:14px;padding:22px;position:relative;display:flex;flex-direction:column;}
@@ -144,21 +148,42 @@
   </div>
 </section>
 
-<!-- ══════════ 목적 ══════════ -->
-<section style="border-top:none;">
+<!-- ══════════ 개요 (OVERVIEW · AGENDA) ══════════ -->
+<section id="sec-top" style="border-top:none;">
   <div class="wrap">
-    <div class="eyebrow">Why We Meet</div>
-    <h2>왜 모이나</h2>
-    <p class="lead">초반 회차를 진행하며 <b>참석률이 눈에 띄게 떨어졌고</b>, 그만큼 참석자 1인당 부담이 커졌습니다. 3회차 시작 전, 참석률을 높이고 부담을 완화할 <b>비용 분담 방식</b>을 함께 정하기 위한 자리입니다. 논의는 감이 아니라 <b>1·2회차 실측 정산 데이터</b>를 근거로 합니다.</p>
+    <div class="eyebrow">Overview · 60 min</div>
+    <h2>회의 개요</h2>
+    <p class="lead">초반 회차를 진행하며 <b>참석률이 눈에 띄게 떨어졌고</b>, 그만큼 참석자 1인당 부담이 커졌습니다. 3회차 시작 전, 참석률을 높이고 부담을 완화할 <b>비용 분담 방식</b>을 정하는 자리입니다. 아래 <b>①→⑤ 순서</b>대로 진행하며, 모든 논의는 감이 아니라 <b>1·2회차 실측 데이터</b>를 근거로 합니다.</p>
+
+    <div class="subhead">오늘의 진행 순서</div>
+    <a class="ag" href="#sec-1"><div class="no">1</div><div><h3>1·2회차 진행 소감</h3><p>참석자 전원 한 마디 — 좋았던 점 / 아쉬웠던 점 / 바라는 점.</p></div><div class="time">~10min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-2"><div class="no">2</div><div><h3>회의 목적 상기 &amp; 데이터 공유</h3><p>실측 정산 데이터와 "숫자가 말하는 것"으로 문제를 같은 그림으로 맞추고 시작.</p></div><div class="time">~5min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-3"><div class="no">3</div><div><h3>분담 방안 논의 <span class="mono" style="font-size:12px;color:#8a8368;">(취소 정책·부대비용 포함)</span></h3><p>미참여 지원(3만원·5만원)과 현행을 한 화면에서 비교.</p></div><div class="time">~30min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-4"><div class="no">4</div><div><h3>클럽장 공지사항</h3><p>운영 관련 전달 사항.</p></div><div class="time">~5min</div><div class="go">↓</div></a>
+    <a class="ag" href="#sec-5"><div class="no">5</div><div><h3>이후 진행 방식 <span class="mono" style="font-size:12px;color:#8a8368;">(시간 여유 시)</span></h3><p>휴식·리딩·식사 등 3회차부터의 운영 방식 논의.</p></div><div class="time">~5min</div><div class="go">↓</div></a>
   </div>
 </section>
 
-<!-- ══════════ 실측 데이터 ══════════ -->
-<section>
+<!-- ══════════ ① 소감 ══════════ -->
+<section id="sec-1">
   <div class="wrap">
-    <div class="eyebrow">The Receipts</div>
+    <div class="eyebrow">Agenda ① · 10 min</div>
+    <h2>1·2회차 진행 소감</h2>
+    <p class="lead">참석자 전원이 돌아가며 한 마디. 1인 <b>30초~1분</b>. 아래 세 가지를 짚어 주세요.</p>
+    <div class="opt" style="margin-top:22px;">
+      <div class="card"><div class="tag">Keep</div><h3 style="margin-top:6px;">좋았던 점</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">계속 이어가고 싶은 것 — 코스, 보급, 분위기 등.</p></div>
+      <div class="card"><div class="tag">Problem</div><h3 style="margin-top:6px;">아쉬웠던 점</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">힘들었거나 개선이 필요했던 것.</p></div>
+      <div class="card"><div class="tag">Try</div><h3 style="margin-top:6px;">바라는 점</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">3회차부터 시도해 보고 싶은 것.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ② 데이터 공유 — 실측 데이터 ══════════ -->
+<section id="sec-2">
+  <div class="wrap">
+    <div class="eyebrow">Agenda ② · 데이터 공유</div>
     <h2>실측 정산 데이터</h2>
-    <p class="lead">두 회차의 실제 지출 내역. 굵게 강조된 숫자가 이번 회의의 출발점입니다.</p>
+    <p class="lead">먼저 사실부터. 두 회차의 실제 지출 내역이며, 굵게 강조된 숫자가 이번 회의의 출발점입니다.</p>
 
     <div class="subhead">1회차 · FJTS (지리산 성삼재 구간) · 13명</div>
     <div class="scroll dt">
@@ -204,7 +229,7 @@
 <!-- ══════════ 숫자가 말하는 것 ══════════ -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">What The Numbers Say</div>
+    <div class="eyebrow">Agenda ② · 데이터 해석</div>
     <h2>숫자가 말하는 것</h2>
     <p class="lead">1회차에서 2회차 사이에 벌어진 일 — 그리고 이게 왜 <b>부담</b>의 문제인지.</p>
 
@@ -297,24 +322,10 @@
   </div>
 </section>
 
-<!-- ══════════ 안건 ══════════ -->
-<section>
+<!-- ══════════ ③ 분담 방안 ══════════ -->
+<section id="sec-3">
   <div class="wrap">
-    <div class="eyebrow">Agenda · 60 min</div>
-    <h2>회의 안건</h2>
-
-    <div class="ag"><div class="no">1</div><div><h3>1·2회차 진행 소감</h3><p>참석자 전원, 1인 30초~1분. 좋았던 점 / 아쉬웠던 점 / 바라는 점.</p></div><div class="time">~10min</div></div>
-    <div class="ag"><div class="no">2</div><div><h3>회의 목적 상기 &amp; 데이터 공유</h3><p>위 "숫자가 말하는 것"을 함께 보며 악순환·고정비 구조를 같은 그림으로 맞추고 시작.</p></div><div class="time">~5min</div></div>
-    <div class="ag"><div class="no">3</div><div style="flex:1;"><h3>분담 방안 논의 <span class="mono" style="font-size:12px;color:#8a8368;">(아래 비교)</span></h3><p>미참여 지원(3만원·5만원)과 현행을 한 화면에서 비교합니다.</p></div><div class="time">~30min</div></div>
-    <div class="ag"><div class="no">4</div><div><h3>클럽장 공지사항</h3><p>운영 관련 전달 사항.</p></div><div class="time">~5min</div></div>
-    <div class="ag"><div class="no">5</div><div><h3>이후 진행 방식 <span class="mono" style="font-size:12px;color:#8a8368;">(시간 여유 시)</span></h3><p>휴식·리딩·식사 등 3회차부터의 운영 방식 논의.</p></div><div class="time">~5min</div></div>
-  </div>
-</section>
-
-<!-- ══════════ 방안 비교 ══════════ -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">Agenda 3 · Compare At A Glance</div>
+    <div class="eyebrow">Agenda ③ · 30 min</div>
     <h2>분담 방안 비교 — 미참여 지원 vs 현행</h2>
     <p class="lead">미참여자 지원금을 <b>3만원 / 5만원</b>으로 걷었을 때와 현행(참석자만 부담)을 비교합니다. 숫자는 모두 <span class="mono">2회차 조정 기준(총 <span class="hl">₩998,500</span> · 참석 7 · 정원 13명 → 미참석 6 가정)</span>. 막대는 <b>참여자 1인당 부담</b>.</p>
 
@@ -379,10 +390,34 @@
   </div>
 </section>
 
-<!-- ══════════ 결정 체크리스트 ══════════ -->
-<section>
+<!-- ══════════ ④ 클럽장 공지사항 ══════════ -->
+<section id="sec-4">
   <div class="wrap">
-    <div class="eyebrow">Decisions To Lock</div>
+    <div class="eyebrow">Agenda ④ · 5 min</div>
+    <h2>클럽장 공지사항</h2>
+    <p class="lead">운영 관련 전달 사항 — 일정·준비물·기타 안내.</p>
+    <div class="callout soft" style="margin-top:20px;">회의 당일 클럽장이 공유하는 공지를 이 자리에서 전달합니다. <span style="color:#8a8368;">(내용은 당일 업데이트)</span></div>
+  </div>
+</section>
+
+<!-- ══════════ ⑤ 이후 진행 방식 ══════════ -->
+<section id="sec-5">
+  <div class="wrap">
+    <div class="eyebrow">Agenda ⑤ · 시간 여유 시</div>
+    <h2>이후 진행 방식</h2>
+    <p class="lead">3회차부터의 운영 방식 논의. 시간이 남으면 아래 항목을 다룹니다.</p>
+    <div class="opt" style="margin-top:22px;">
+      <div class="card"><div class="tag">Rest</div><h3 style="margin-top:6px;">휴식</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">휴식 지점·시간 운영 방식.</p></div>
+      <div class="card"><div class="tag">Leading</div><h3 style="margin-top:6px;">리딩</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">선두·후미 및 페이스 운영.</p></div>
+      <div class="card"><div class="tag">Meal</div><h3 style="margin-top:6px;">식사</h3><p style="margin:8px 0 0;font-size:13.5px;color:#43413a;">식사·보급 방식과 예산.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 마무리 · 결정 체크리스트 ══════════ -->
+<section id="sec-decide">
+  <div class="wrap">
+    <div class="eyebrow">Wrap-up · Decisions To Lock</div>
     <h2>이 자리에서 정할 것</h2>
     <p class="lead">"논의"로 끝내지 않기 위한 체크리스트 — 회의가 끝날 때 아래 칸이 모두 채워지면 성공입니다.</p>
     <ul class="chk">
