@@ -45,8 +45,12 @@
            letter-spacing:-.015em;line-height:1.15;}
   .hero h1 .dot{color:var(--sprout);}
   .hero .lede{margin:20px 0 0;font-size:15.5px;color:var(--mute);line-height:1.8;}
-  .hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
-        font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--khaki);}
+  .hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+        font-size:20px;line-height:1;color:var(--khaki);text-decoration:none;
+        animation:hintbob 1.8s ease-in-out infinite;transition:color .18s;}
+  .hint:hover{color:var(--ink);}
+  @keyframes hintbob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,5px);}}
+  @media (prefers-reduced-motion:reduce){.hint{animation:none;}}
 
   /* about */
   .grid2{display:grid;grid-template-columns:180px 1fr;gap:44px;align-items:start;}
@@ -138,7 +142,7 @@
     <h1>The Thunderbird Way 2,<br>Ridges<span class="dot">.</span></h1>
     <p class="lede">백두대간 700km. 지리산에서 설악산까지,<br>14번의 밤과 낮.</p>
   </div>
-  <div class="hint">SCROLL</div>
+  <a class="hint" href="#about" aria-label="아래로 스크롤">&darr;</a>
 </section>
 
 <section id="about" style="padding-top:40px;">
