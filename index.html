@@ -56,9 +56,13 @@
 
   /* stages */
   .stagelist{margin-top:44px;border-bottom:1px solid var(--hair);}
-  .stage{display:grid;grid-template-columns:56px 1fr 110px 150px;gap:14px;align-items:baseline;
-         padding:21px 8px;border-top:1px solid var(--hair);text-decoration:none;transition:background .18s;}
-  a.stage:hover{background:var(--panel);}
+  .stage{display:grid;grid-template-columns:56px 1fr 110px 150px 20px;gap:14px;align-items:baseline;
+         padding:21px 8px;border-top:1px solid var(--hair);text-decoration:none;
+         transition:background .18s,transform .22s cubic-bezier(.2,.6,.2,1);}
+  a.stage:hover{background:var(--panel);transform:translateX(6px);}
+  a.stage:hover .s-no{color:var(--forest);}
+  .s-ar{font-size:13px;color:var(--khaki);text-align:right;transition:color .18s,transform .22s;}
+  a.stage:hover .s-ar{color:var(--ink);transform:translate(2px,-2px);}
   .s-no{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--khaki);}
   .s-route{font-size:16px;font-weight:500;letter-spacing:-.01em;}
   .s-dist{font-family:'Space Mono',monospace;font-size:12px;color:var(--mute);text-align:right;}
@@ -106,6 +110,7 @@
     .s-no{position:absolute;left:8px;top:20px;}
     .s-route{display:block;}
     .s-dist,.s-st{display:inline-block;text-align:left;margin:7px 16px 0 0;}
+    .s-ar{position:absolute;right:10px;top:18px;}
     .vgrid{grid-template-columns:1fr;}
     .jgrid{grid-template-columns:1fr 1fr;gap:14px;}
   }
@@ -140,8 +145,8 @@
   <div class="wrap grid2">
     <div class="cap">01 — About</div>
     <div class="body">
-      <p>백두대간은 지리산 천왕봉에서 설악산으로 이어지는 한반도의 등줄기다.
-      천둥새 런클럽은 이 길을 매월 한 번, 열네 개의 구간으로 나누어 잇는다.
+      <p>백두대간은 백두산에서 지리산으로 이어지는 한반도의 등줄기다.
+      천둥새 런클럽은 이 중 지리산에서 설악산까지의 대간 길을 매월 한 번, 열네 개의 구간으로 나누어 잇는다.
       트레일러닝과 패스트패킹으로 — 대개 새벽 세 시의 어둠 속에서 출발해,
       능선 위에서 하루를 통째로 보낸다.</p>
       <p>기록과 등수는 목표가 아니다. 경쟁을 배제하고, 험준하고 아름다운 능선을
@@ -155,18 +160,19 @@
 <section id="stages">
   <div class="wrap">
     <div class="cap">02 — Stages</div>
+    <p class="secnote">각 회차를 누르면 운행 기록이 열립니다.</p>
     <div class="stagelist">
       <a class="stage" href="vol1/">
         <span class="s-no">01</span><span class="s-route">중산리 → 여원재</span>
-        <span class="s-dist">57.0 KM</span><span class="s-st done">완주 2026.05</span>
+        <span class="s-dist">57.0 KM</span><span class="s-st done">완주 2026.05</span><span class="s-ar">&#8599;</span>
       </a>
       <a class="stage" href="vol2/">
         <span class="s-no">02</span><span class="s-route">여원재 → 무룡고개</span>
-        <span class="s-dist">43.7 KM</span><span class="s-st done">완주 2026.06</span>
+        <span class="s-dist">43.7 KM</span><span class="s-st done">완주 2026.06</span><span class="s-ar">&#8599;</span>
       </a>
       <a class="stage" href="vol3/">
         <span class="s-no">03</span><span class="s-route">무룡고개 → 빼재</span>
-        <span class="s-dist">44.2 KM</span><span class="s-st">예정 07.25</span>
+        <span class="s-dist">44.2 KM</span><span class="s-st">예정 07.25</span><span class="s-ar">&#8599;</span>
       </a>
       <div class="stage">
         <span class="s-no">04</span><span class="s-route">빼재 → 우두령</span>
