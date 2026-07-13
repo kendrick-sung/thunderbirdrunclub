@@ -82,15 +82,9 @@
 
   /* journal */
   .jgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:42px;}
-  .tile{aspect-ratio:1;border:1px solid var(--hair);background:var(--panel);text-decoration:none;
-        display:flex;flex-direction:column;justify-content:space-between;padding:14px 15px;
-        transition:background .18s;}
-  .tile:nth-child(3n){background:#E9E5D8;}
-  .tile:nth-child(4n+2){background:#EDE8DA;}
-  .tile:hover{background:var(--hair);}
-  .t-no{font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.18em;color:var(--khaki);}
-  .t-ar{align-self:flex-end;font-size:13px;color:var(--khaki);}
-  .tile:hover .t-no,.tile:hover .t-ar{color:var(--ink);}
+  .tile{aspect-ratio:1;border:1px solid var(--hair);background:var(--panel) center/cover no-repeat;
+        display:block;transition:opacity .18s;}
+  .tile:hover{opacity:.86;}
 
   /* footer */
   footer{border-top:1px solid var(--hair);padding:56px 0 44px;}
@@ -225,16 +219,16 @@
     <div class="cap">04 — Journal</div>
     <p class="secnote">능선 위의 기록.</p>
     <div class="jgrid">
-      <a class="tile" href="https://www.instagram.com/p/DafyQYaj5r_/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 01</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DafwaZrj5FQ/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 02</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DaKmQN4j1sv/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 03</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DaKioa-D2az/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 04</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DZC9UMvD3Yd/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 05</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DZC6vkZD841/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 06</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DZC3T9VjzsY/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 07</span><span class="t-ar">&#8599;</span></a>
-      <a class="tile" href="https://www.instagram.com/p/DXDIWkmE3RT/" target="_blank" rel="noopener"><span class="t-no">JOURNAL 08</span><span class="t-ar">&#8599;</span></a>
+      <a class="tile" href="https://www.instagram.com/p/DafyQYaj5r_/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j11.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DafwaZrj5FQ/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j10.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DaKmQN4j1sv/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j09.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DaKioa-D2az/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j08.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DZC9UMvD3Yd/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j07.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DZC6vkZD841/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j06.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DZC3T9VjzsY/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j05.jpg')" aria-label="Instagram post"></a>
+      <a class="tile" href="https://www.instagram.com/p/DXDIWkmE3RT/" target="_blank" rel="noopener" style="background-image:url('assets/journal/j04.jpg')" aria-label="Instagram post"></a>
     </div>
-    <a class="more" href="https://www.instagram.com/p/DafyQYaj5r_/" target="_blank" rel="noopener">MORE ON INSTAGRAM &rarr;</a>
+    <a class="more" href="https://www.instagram.com/thunderbirdrunclub/" target="_blank" rel="noopener">MORE ON INSTAGRAM &rarr;</a>
   </div>
 </section>
 
@@ -248,7 +242,7 @@
     </div>
     <div class="fline">
       <span>THUNDERBIRD RUNNING CLUB &mdash; FJTS &middot; FROM JIRI TO SEORAK</span>
-      <span><a href="https://www.instagram.com/p/DafyQYaj5r_/" target="_blank" rel="noopener">INSTAGRAM</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="https://www.youtube.com/@%EA%B9%80%ED%98%95%EB%8F%88%EA%B9%8C%EC%8A%A4" target="_blank" rel="noopener">YOUTUBE</a></span>
+      <span><a href="https://www.instagram.com/thunderbirdrunclub/" target="_blank" rel="noopener">INSTAGRAM</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="https://www.youtube.com/@%EA%B9%80%ED%98%95%EB%8F%88%EA%B9%8C%EC%8A%A4" target="_blank" rel="noopener">YOUTUBE</a></span>
     </div>
   </div>
 </footer>

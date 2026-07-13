@@ -3,11 +3,225 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thunderbird Vol.3 — 영취산·빼재 (FJTS)</title>
+<title>FJTS Vol.3 — 영취산 · 무룡고개 → 빼재</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{--cream:#F6F4EC;--ink:#1E1E18;--mute:#6b6655;--khaki:#9C9377;--hair:#E4DFD1;
+        --sprout:#A1D06C;--forest:#5A8C21;--deep:#355610;--panel:#EFEBDF;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);
+       font-family:'Pretendard',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--sprout);color:var(--ink);}
+  canvas{touch-action:pan-y;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+  .cap{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+       letter-spacing:.28em;text-transform:uppercase;color:var(--forest);}
+  section{padding:110px 0 0;}
+  .mono{font-family:'Space Mono',monospace;}
+
+  .idx{position:sticky;top:0;z-index:50;background:rgba(246,244,236,.96);border-bottom:1px solid var(--hair);}
+  .idx .in{height:44px;display:flex;align-items:center;justify-content:space-between;}
+  .idx a,.idx span{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+       letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-decoration:none;}
+  .idx span{color:var(--khaki);}
+  .idx a:hover{color:var(--ink);}
+
+  .head{padding:96px 0 0;}
+  .head h1{margin:20px 0 0;font-weight:600;font-size:clamp(27px,4.6vw,42px);letter-spacing:-.015em;line-height:1.2;}
+  .head .sub{margin:16px 0 0;font-size:14.5px;color:var(--mute);line-height:1.8;}
+  .spec{margin-top:44px;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--hair);}
+  .spec div{flex:1;min-width:140px;padding:18px 4px 16px;}
+  .spec .v{font-family:'Space Mono',monospace;font-size:19px;font-weight:700;color:var(--ink);}
+  .spec .v small{font-size:11px;color:var(--khaki);letter-spacing:.06em;}
+  .spec .k{margin-top:7px;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.2em;color:var(--khaki);text-transform:uppercase;}
+
+  .grid2{display:grid;grid-template-columns:180px 1fr;gap:44px;align-items:start;}
+  .body p{margin:0 0 20px;font-size:15.5px;line-height:1.95;color:#2a281f;max-width:620px;}
+  .kv{border-top:1px solid var(--ink);margin-top:8px;}
+  .kv div{display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid var(--hair);}
+  .kv .k{color:var(--khaki);font-size:13px;}
+  .kv .v{font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:var(--ink);text-align:right;}
+  .crew{margin-top:26px;font-size:15px;color:#2a281f;line-height:2;}
+  .crew b{font-weight:700;}
+  .crew .ld{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--forest);letter-spacing:.1em;vertical-align:2px;}
+
+  .cvbox{position:relative;width:100%;height:clamp(360px,50vh,480px);border:1px solid var(--hair);overflow:hidden;background:#EDE8DA;margin-top:38px;}
+  .cvbox canvas{display:block;width:100%;height:100%;}
+  .cvtag{position:absolute;left:12px;bottom:10px;font-family:'Space Mono',monospace;font-size:9.5px;
+         letter-spacing:.14em;color:var(--mute);background:rgba(246,244,236,.9);padding:4px 8px;}
+  .legend{display:flex;flex-wrap:wrap;gap:7px 20px;margin-top:13px;font-family:'Space Mono',monospace;font-size:10.5px;color:var(--mute);letter-spacing:.04em;}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px;}
+  .profbox{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--hair);background:#F3F0E7;margin-top:38px;}
+  .profbox canvas{display:block;height:300px;touch-action:pan-x pan-y;}
+  .secnote{margin:14px 0 0;font-family:'Space Mono',monospace;font-size:11px;color:var(--khaki);letter-spacing:.06em;}
+
+  .wlist{border-top:1px solid var(--ink);margin-top:38px;border-bottom:1px solid var(--hair);}
+  .wrow{display:grid;grid-template-columns:70px 1fr 110px;gap:14px;align-items:baseline;padding:15px 2px;border-top:1px solid var(--hair);}
+  .wrow:first-child{border-top:none;}
+  .wrow .no{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--khaki);}
+  .wrow .nm{font-size:15px;font-weight:600;}
+  .wrow .nm small{font-weight:400;color:var(--mute);font-size:12.5px;margin-left:8px;}
+  .wrow .km{font-family:'Space Mono',monospace;font-size:12px;color:var(--deep);font-weight:700;text-align:right;}
+
+  .tsub{font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.14em;
+        color:var(--deep);text-transform:uppercase;margin:44px 0 0;display:flex;align-items:center;gap:10px;}
+  .tsub::after{content:'';flex:1;height:1px;background:var(--hair);}
+  .tt{border-top:1px solid var(--ink);margin-top:14px;}
+  .trow{display:grid;grid-template-columns:88px 1fr 128px;gap:14px;padding:15px 2px;border-bottom:1px solid var(--hair);}
+  .trow.hl{background:var(--panel);}
+  .t-time{font-family:'Space Mono',monospace;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35;}
+  .t-time small{display:block;font-size:10px;font-weight:400;color:var(--khaki);}
+  .t-name{font-size:14.5px;font-weight:700;}
+  .t-tag{font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--forest);margin-left:9px;text-transform:uppercase;}
+  .t-tag.warn{color:#8a5a20;}
+  .t-note{margin-top:5px;font-size:12.5px;color:var(--mute);line-height:1.6;}
+  .t-side{font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;color:var(--deep);text-align:right;line-height:1.5;}
+  .t-side small{display:block;font-weight:400;color:var(--khaki);font-size:10.5px;}
+
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;margin-top:38px;}
+  .srow{display:flex;gap:14px;align-items:baseline;padding:11px 2px;border-bottom:1px solid var(--hair);}
+  .srow .w{flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;color:var(--deep);}
+  .srow .d{font-size:13px;color:#2a281f;line-height:1.6;}
+  .srow .d small{color:var(--khaki);font-size:11.5px;}
+  .warnbox{margin-top:36px;padding:20px 22px;background:var(--panel);border-left:2px solid var(--deep);}
+  .warnbox h4{margin:0 0 8px;font-size:14px;font-weight:800;}
+  .warnbox p{margin:0;font-size:13px;color:#2a281f;line-height:1.75;}
+  .check{border-top:1px solid var(--ink);margin-top:14px;}
+  .check div{display:grid;grid-template-columns:30px 1fr;gap:8px;padding:11px 2px;border-bottom:1px solid var(--hair);font-size:13.5px;color:#2a281f;}
+  .check .n{font-family:'Space Mono',monospace;font-size:11px;color:var(--forest);font-weight:700;}
+  .check small{color:var(--khaki);font-size:12px;}
+
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px;}
+  .plan{border:1px solid var(--hair);padding:22px;}
+  .plan.b{border-color:var(--ink);}
+  .plan h3{margin:0;font-size:17px;font-weight:800;}
+  .plan h3 small{font-size:12px;color:var(--forest);font-weight:700;margin-left:8px;}
+  .plan p{margin:10px 0 0;font-size:13px;color:var(--mute);line-height:1.7;}
+  .plan .st{display:flex;gap:20px;margin-top:16px;font-family:'Space Mono',monospace;}
+  .plan .st b{font-size:16px;font-weight:700;color:var(--deep);display:block;}
+  .plan .st i{font-style:normal;font-size:9px;letter-spacing:.16em;color:var(--khaki);}
+  .dec3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
+  .dec3 div{padding:15px 16px;background:var(--panel);}
+  .dec3 .t{font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;color:var(--deep);}
+  .dec3 p{margin:6px 0 0;font-size:12.5px;color:#2a281f;line-height:1.55;}
+
+  .media3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:38px;border-top:1px solid var(--hair);}
+  .media3>div{padding:22px 22px 22px 0;}
+  .media3>div+div{border-left:1px solid var(--hair);padding-left:22px;}
+  .media3 h3{margin:0;font-size:15.5px;font-weight:800;}
+  .media3 h3 small{font-family:'Space Mono',monospace;font-size:10px;color:var(--deep);font-weight:700;margin-left:8px;letter-spacing:.05em;}
+  .media3 ul{margin:12px 0 0;padding:0;list-style:none;}
+  .media3 li{font-size:12.5px;color:#2a281f;line-height:1.6;padding:5px 0;}
+  .media3 li b{color:var(--ink);}
+
+  footer{margin-top:120px;border-top:1px solid var(--hair);}
+  .pn{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:26px 0;
+      font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;}
+  .pn a{color:var(--deep);text-decoration:none;}
+  .pn a:hover{color:var(--ink);}
+  .pn span{color:#C9C2AE;}
+  .fline{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+         border-top:1px solid var(--hair);padding:22px 0 40px;
+         font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--khaki);}
+  .fline .ps{display:flex;align-items:center;gap:18px;}
+  .fline img{height:15px;width:auto;opacity:.65;}
+
+  @media (max-width:720px){
+    section{padding:76px 0 0;}
+    .grid2{grid-template-columns:1fr;gap:24px;}
+    .cols2{grid-template-columns:1fr;}
+    .trow{grid-template-columns:64px 1fr;}
+    .t-side{grid-column:2;text-align:left;margin-top:2px;}
+    .t-side small{display:inline;margin-left:8px;}
+    .plans{grid-template-columns:1fr;}
+    .dec3{grid-template-columns:1fr;}
+    .media3{grid-template-columns:1fr;}
+    .media3>div{padding:20px 0;}
+    .media3>div+div{border-left:none;border-top:1px solid var(--hair);padding-left:0;}
+    .spec div{min-width:44%;}
+  }
+</style>
+</head>
+<body>
+<div style="position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.25;mix-blend-mode:multiply;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);"></div>
+
+<div class="idx"><div class="wrap in">
+  <a href="../">&larr; INDEX</a>
+  <span>VOL.3 — 영취산 · 무룡고개 &rarr; 빼재</span>
+</div></div>
+
+<div class="wrap head">
+  <div class="cap">VOL.03 — 2026.07.25 · From Jiri To Seorak</div>
+  <h1>영취산 · 무룡고개 → 빼재</h1>
+  <p class="sub">하절기 고강도 종주 · 삿갓재·백암봉 분기 플랜 A/B 운행</p>
+  <div class="spec"><div><div class="v">44.2<small> KM</small></div><div class="k">Distance · 플랜B</div></div><div><div class="v">3,400<small> M</small></div><div class="k">Total Gain</div></div><div><div class="v">18<small> H</small></div><div class="k">Duration</div></div><div><div class="v">10<small> 인</small></div><div class="k">Crew</div></div></div>
+</div>
+
+
+<section>
+  <div class="wrap grid2">
+    <div class="cap">01 — Briefing</div>
+    <div class="body">
+      <p style="font-size:17.5px;font-weight:500;color:#2a281f;">백두대간 3회차, 무룡고개(영취산)에서 빼재까지. 삿갓재(24km)와 백암봉(32.7km) 두 분기점에서 컨디션에 따라 플랜 A(설천봉 곤도라 단축)와 플랜 B(빼재 완주)를 결정한다.</p>
+      <p style="color:var(--mute);font-size:14px;">새벽의 선선함으로 전반부를 벌고, 남덕유·무룡산 능선의 한낮 폭염 구간은 페이스를 눌러 버티며, 백암봉 이후 마루금은 일몰 전후 야간 모드로 대열을 밀착해 빼재를 잇는다.</p>
+      <div class="kv"><div><span class="k">날짜</span><span class="v">2026.07.25</span></div><div><span class="k">집결</span><span class="v">양재역 07.24 23:00</span></div><div><span class="k">출발 · 피니시</span><span class="v">03:00 → 21:00</span></div><div><span class="k">총 거리 · 플랜B</span><span class="v">44.2 KM</span></div><div><span class="k">누적 상승 · 하강</span><span class="v">▲3,400 · ▼3,390</span></div><div><span class="k">최고점</span><span class="v">남덕유산 1,523 M</span></div></div>
+      <div class="crew"><div class="cap" style="font-size:9.5px;letter-spacing:.2em;color:var(--khaki);">Crew · 10</div><div style="margin-top:10px;"><b>전성현</b> <span class='ld'>LEAD</span> <span style='color:#C9C2AE;'>·</span> <b>박재수</b> <span class='ld'>부</span> <span style='color:#C9C2AE;'>·</span> 김대원 <span style='color:#C9C2AE;'>·</span> 김정효 <span style='color:#C9C2AE;'>·</span> 김재면 <span style='color:#C9C2AE;'>·</span> 김형돈 <span style='color:#C9C2AE;'>·</span> 성기연 <span style='color:#C9C2AE;'>·</span> 이주영 <span style='color:#C9C2AE;'>·</span> 이의재 <span style='color:#C9C2AE;'>·</span> 김주현</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cap">02 — Route</div>
+    <div class="cvbox"><canvas id="map-canvas"></canvas><div class="cvtag">N &uarr; · 44.2 KM</div></div>
+    <div class="legend">
+      <span><i style="background:#A1D06C;"></i>START · FINISH</span>
+      <span><i style="background:#5A8C21;"></i>CP 보급</span>
+      <span><i style="background:#1E1E18;"></i>최대 고비</span>
+      <span><i style="background:#355610;border-radius:0;height:2px;width:14px;vertical-align:2px;"></i>운행 경로</span>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="cap">03 — Profile</div>
+    <p class="secnote">GPX 실측 · 누적상승 ▲3,400m · 최고점 남덕유산 1,523m</p>
+    <div class="profbox"><canvas id="prof-canvas"></canvas></div>
+    <p class="secnote" style="letter-spacing:.02em;">좁은 화면에선 좌우로 밀어 보세요 — 커서를 올리면 위치별 고도를 읽습니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cap">04 — The Day</div>
+    <div class="tsub">공통 구간 · 03:00 → 백암봉 16:25</div><div class="tt"><div class="trow"><div class="t-time">03:00<small>(+0:00)</small></div><div><span class="t-name">무룡고개</span><span class="t-tag">START</span><div class="t-note">장안산주차장 출발 · 야간 산행 개시 · 초기 페이스 조절</div></div><div class="t-side">0.0 KM<small>▲0</small></div></div><div class="trow"><div class="t-time">06:00<small>(+3:00)</small></div><div><span class="t-name">깃대봉 샘터</span><span class="t-tag">CP · 조식 20분</span><div class="t-note">구시봉 · 요헤미티 쉐이크 + 물 보급</div></div><div class="t-side">9.5 KM<small>▲450</small></div></div><div class="trow"><div class="t-time">07:30<small>(+4:30)</small></div><div><span class="t-name">육십령</span><div class="t-note">완만한 하향 · 최저점, 수분 섭취 늘리기</div></div><div class="t-side">13.0 KM<small>▲600</small></div></div><div class="trow"><div class="t-time">08:40<small>(+5:40)</small></div><div><span class="t-name">할미봉</span><div class="t-note">급경사 업힐 시작 (평속 2.1km/h)</div></div><div class="t-side">15.5 KM<small>▲950</small></div></div><div class="trow"><div class="t-time">11:45<small>(+8:45)</small></div><div><span class="t-name">서봉</span><span class="t-tag warn">난구간</span><div class="t-note">암릉 및 대형 업힐 (평속 1.8km/h)</div></div><div class="t-side">21.0 KM<small>▲2,100</small></div></div><div class="trow hl"><div class="t-time">12:40<small>(+9:40)</small></div><div><span class="t-name">삿갓재대피소</span><span class="t-tag">CP · 중식 30분 ★</span><div class="t-note">즉석밥+참치+맛다시 · 삿갓샘 완충 · 플랜 1차 결정</div></div><div class="t-side">24.0 KM<small>▲2,220</small></div></div><div class="trow"><div class="t-time">15:20<small>(+12:20)</small></div><div><span class="t-name">동엽령</span><div class="t-note">후미 상태 점검 · 대열 정비 (10분)</div></div><div class="t-side">30.5 KM<small>▲2,600</small></div></div><div class="trow hl"><div class="t-time">16:25<small>(+13:25)</small></div><div><span class="t-name">백암봉 분기점</span><span class="t-tag">최종 분기 ★</span><div class="t-note">플랜 A / B 진입 결정</div></div><div class="t-side">32.7 KM<small>▲2,870</small></div></div></div><div class="tsub">플랜 A · 곤도라 단축 — 설천봉 종료</div><div class="tt"><div class="trow"><div class="t-time">17:00<small>(+14:00)</small></div><div><span class="t-name">향적봉대피소</span><span class="t-tag">보급</span><div class="t-note">평속 3.6km/h · 대피소 보급 가능 (음료·햇반)</div></div><div class="t-side">34.8 KM<small>▲3,000</small></div></div><div class="trow hl"><div class="t-time">17:10<small>(+14:10)</small></div><div><span class="t-name">설천봉</span><span class="t-tag">FINISH · A</span><div class="t-note">관광곤도라 하행 · 운행 종료 (마감 18:00 준수)</div></div><div class="t-side">35.4 KM<small>▲3,020</small></div></div></div><div class="tsub">플랜 B · 빼재 완주 — 대간 마루금</div><div class="tt"><div class="trow"><div class="t-time">17:20<small>(+14:20)</small></div><div><span class="t-name">귀봉</span><div class="t-note">능선 주행 (평속 2.6km/h)</div></div><div class="t-side">35.2 KM<small>▲2,950</small></div></div><div class="trow"><div class="t-time">19:05<small>(+16:05)</small></div><div><span class="t-name">지봉 (못봉)</span><span class="t-tag warn">피로 극대</span><div class="t-note">급경사 업힐 · 후반부 피로 극대화</div></div><div class="t-side">39.7 KM<small>▲3,250</small></div></div><div class="trow"><div class="t-time">19:36<small>(+16:36)</small></div><div><span class="t-name">월음령</span><span class="t-tag">야간 개시</span><div class="t-note">급경사 다운힐 · 헤드랜턴 필수 착용</div></div><div class="t-side">41.0 KM<small>▲3,280</small></div></div><div class="trow"><div class="t-time">20:05<small>(+17:05)</small></div><div><span class="t-name">갈미봉</span><div class="t-note">일몰 19:40 — 완전한 야간 운행 · 대열 밀착</div></div><div class="t-side">42.3 KM<small>▲3,380</small></div></div><div class="trow hl"><div class="t-time">20:50<small>(+17:50)</small></div><div><span class="t-name">빼재 (신풍령)</span><span class="t-tag">FINISH · B</span><div class="t-note">최종 하산 · 21:00 수송 버스 탑승 · 완주</div></div><div class="t-side">44.2 KM<small>▲3,400</small></div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cap">05 — Supply</div>
+    <div class="cols2"><div><div class="srow"><span class="w">~02:00</span><span class="d">버스/휴게소 김밥 식사 (출발 전)</span></div><div class="srow"><span class="w">깃대봉샘터</span><span class="d">쉐이크 · 물 보급 — 06:00 조식</span></div><div class="srow"><span class="w">삿갓재</span><span class="d">즉석밥 3,000원 + 참치 + 맛다시 · 생수 0.5L 1,500 / 2L 3,000</span></div></div><div><div class="srow"><span class="w">삿갓재 매점</span><span class="d">연양갱 1,000 · 에너지바 1,500 · 이온분말 2,000 · 건전지 2,500</span></div><div class="srow"><span class="w">향적봉</span><span class="d">커피·콜라·햇반·가스 (플랜 A 진입 시)</span></div><div class="srow"><span class="w">쓰레기</span><span class="d">대피소 투기 불가 · 전량 회수 밀봉 패킹</span></div></div></div>
+    <div class="warnbox"><h4>삿갓재 이후 무보급 7시간 40분</h4><p>삿갓재(13:10 출발)부터 빼재(20:50)까지 추가 보급처가 없다. 획득고도 1,180m — 개인 고형 행동식 3–4회분 필수. 향적봉 샘터 음용 부적합 · 동엽령 샘터 이용 배제, 삿갓샘에서 수량 완충.</p></div>
+    <div class="tsub" style="margin-top:44px;">Checklist · 준비물</div><div class="check"><div><span class="n">01</span><span>팀 조끼 · On Cloud Ultra <small>러닝화</small></span></div><div><span class="n">02</span><span>고광도 헤드랜턴 + 예비 배터리 <small>플랜 B 야간 필수</small></span></div><div><span class="n">03</span><span>개인 고형 행동식 3–4회분 <small>양갱 · 에너지바 · 포도당</small></span></div><div><span class="n">04</span><span>수분 · 전해질 보충제 <small>폭염 탈수 대비</small></span></div><div><span class="n">05</span><span>모자 · 팔토시 · 다리토시 · 선글라스 <small>자외선 · 수풀 긁힘 방지</small></span></div><div><span class="n">06</span><span>스포크 <small>삿갓재 중식용</small></span></div><div><span class="n">07</span><span>즉석밥 · 참치파우치 · 맛다시 <small>중식 (삿갓재 매점 구매 가능)</small></span></div></div>
+  </div>
+</section>
+<section><div class="wrap"><div class="cap">06 — The Call</div><div class="plans"><div class="plan "><h3>플랜 A<small>단축 탈출</small></h3><p>백암봉 → 향적봉 → 설천봉, 관광곤도라 하행으로 종료. 곤도라 마감 18:00 이전 안정적 하산.</p><div class="st"><div><b>35.4 KM</b><i>DIST</i></div><div><b>▲3,020</b><i>GAIN</i></div><div><b>주간</b><i>MODE</i></div></div></div><div class="plan b"><h3>플랜 B<small>완주</small></h3><p>백암봉 → 귀봉 → 지봉 → 갈미봉 → 빼재, 대간 마루금 유지. 지봉 급업힐과 일몰 후 야간 산행 발생.</p><div class="st"><div><b>44.2 KM</b><i>DIST</i></div><div><b>▲3,400</b><i>GAIN</i></div><div><b>야간</b><i>MODE</i></div></div></div></div><div class="dec3"><div><div class="t">12:40 · 삿갓재</div><p>플랜 A/B 1차 의사결정 · 후미 컨디션 점검</p></div><div><div class="t">16:25 · 백암봉</div><p>최종 분기 · 각 플랜 진입 확정</p></div><div><div class="t">19:36 · 헤드랜턴</div><p>일몰 19:40 · 전원 랜턴 착용 · 대열 밀착</p></div></div></div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pn"><a href="../vol2/">&larr;&nbsp; VOL.2 여원재 &rarr; 무룡고개</a><span>VOL.4 빼재 &rarr; 우두령 &mdash; 준비 중</span></div>
+    <div class="fline">
+      <span>THUNDERBIRD RUNNING CLUB — FJTS VOL.3 · 2026.07.25 · 무룡고개 → 빼재 44.2KM ▲3,400M</span>
+      <span class="ps"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTQiIGhlaWdodD0iNTQiIHZpZXdCb3g9IjAgMCA1NCA1NCIgZmlsbD0iIzFFMUUxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgICAgICAgICAgICA8cGF0aCBkPSJNMzYuMjgxIDExLjM4NGMtLjA1Ni4wNTgtLjExNC4xMy0uMTcuMTg4bC0yLjM2NCAyLjQxLS4wNTcuMDU4Yy0uMDU3LjA3Mi0uMDU3LjE0NS4wMTQuMjQ3YTguMzMxIDguMzMxIDAgMCAxIDEuMDk2IDMuMzA5Yy4yNTcgMi40MDktLjM0MiA0LjU3MS0xLjgyMiA2LjQ3My0xLjI2OCAxLjYyNS0yLjkyIDIuNjQtNC44OTkgMy4wOS0uOTExLjIwNC0xLjgzNy4yMTgtMi43NjIuMTE3LTEuNTI0LS4xNi0yLjg5MS0uNzI2LTQuMTE2LTEuNjU1LTEuNzY2LTEuMzM1LTIuODYyLTMuMTA1LTMuMzE4LTUuMzExLS4xNy0uODEzLS4xOTktMS42NC0uMTI4LTIuNDUzLjE3MS0xLjkwMS44ODMtMy41ODUgMi4xNS01LjAyMiAxLjIxLTEuMzc5IDIuNjkyLTIuMjc4IDQuNDQzLTIuNjg1YTguMDMgOC4wMyAwIDAgMSAyLjYzNS0uMTg5IDguNSA4LjUgMCAwIDEgMy41ODggMS4xNDdjLjE0Mi4wODcuMi4wMjkuMjg1LS4wNThsMi4zNS0yLjM5NWMuMDU2LS4wNTguMTEzLS4xMy4xODUtLjIxN2wyLjg4OSAyLjk0NS4wMDEuMDAxWm0tNS4zNDIgNy40Yy4wNzEtMi44LTIuMDkzLTQuODMyLTQuNTI5LTQuOTA1LTIuNzQ4LS4wNzMtNC43OTggMi4yNS00Ljc5OCA0Ljc2IDAgMi41NyAyLjEyMiA0Ljc5IDQuNjcgNC43NDYgMi41MDcuMDMgNC42LTIuMDc2IDQuNjU2LTQuNlptMy42MDUgMTkuMzkxYy4wMTQgMi4zNTEgMCA0LjcxNyAwIDcuMDY4di4zMmgtNC4xM3YtLjI5YzAtMi40NjguMDE1LTQuOTM1IDAtNy40MDMgMC0xLjI5MS0uNDQtMi40MjMtMS4zNjYtMy4zMjNhMy44MjcgMy44MjcgMCAwIDAtMi4yMDgtMS4wNmMtMS4xMS0uMTYtMi4xMjEuMTE3LTMuMDE4Ljc5OS0uODk4LjY5Ni0xLjQyNCAxLjY0LTEuNTk1IDIuNzU3LS4wODYuNTM3LS4xIDEuMDg5LS4xIDEuNjQtLjAxNCAyLjE5MiAwIDQuMzY5IDAgNi41NnYuMzA1aC00LjEwMXYtLjI3NmMwLTIuNjU2LS4wMjktNS4zMjYuMDE0LTcuOTgyLjAyOS0xLjQwOC40Ny0yLjc0MyAxLjE5Ni0zLjk2MiAxLjIxLTIuMDMyIDIuOTM0LTMuMzM4IDUuMTk4LTMuODc1YTguNDE0IDguNDE0IDAgMCAxIDIuMTc4LS4yMDNjMi4yNjUuMTAxIDQuMjAxIDEuMDE1IDUuNzQgMi43NDIgMS4wOTYgMS4yNDggMS43OTQgMi43IDIuMDM2IDQuMzY5LjA5OC42MDguMTU1IDEuMjE3LjE1NSAxLjgxMiI+PC9wYXRoPgogICAgICAgICAgICA8L3N2Zz4=" alt="On"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MTAgMjc0Ij4KICA8cGF0aCBmaWxsPSIjMUUxRTE4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0gNjQwLDk4IEwgNjM4LDk5IEwgNjM5LDE5MSBMIDY2NywxOTEgTCA2NjcsOTkgWiBNIDEyNyw5OCBMIDEwMiw5OCBMIDk4LDk5IEwgOTAsMTE4IEwgNzgsMTUwIEwgNzYsMTUzIEwgNzQsMTUxIEwgNzMsMTQ3IEwgNjksMTM5IEwgNTcsMTA3IEwgNTMsOTkgTCAyMSw5OCBMIDIyLDEwMyBMIDMyLDEyMiBMIDU2LDE3NSBMIDU4LDE3NyBMIDYxLDE4NCBMIDU5LDE4NyBMIDU4LDE5MSBMIDQ1LDIyMSBMIDM4LDIzNSBMIDQwLDIzNiBMIDY0LDIzNSBMIDY4LDIzNiBMIDc0LDIyMyBMIDc3LDIxNCBMIDgyLDIwNSBMIDg1LDE5NiBMIDkwLDE4NyBMIDEwNCwxNTMgTCAxMDksMTQ0IEwgMTE5LDExOSBMIDEyNywxMDMgWiBNIDc3OCw5OSBMIDc2NSwxMDUgTCA3NjAsMTA5IEwgNzUyLDExOSBMIDc0OSwxMjYgTCA3NDcsMTM0IEwgNzQ2LDE0NyBMIDc0OSwxNjMgTCA3NTUsMTc0IEwgNzY1LDE4NCBMIDc2OCwxODYgTCA3ODUsMTkyIEwgNzkyLDE5MyBMIDgwNiwxOTMgTCA4MjEsMTkwIEwgODMwLDE4NiBMIDgzNiwxODIgTCA4NDMsMTc1IEwgODQ2LDE3MSBMIDg0OCwxNjYgTCA4NDYsMTY2IEwgODQ1LDE2NSBMIDgyNSwxNjAgTCA4MjIsMTYwIEwgODE2LDE2NyBMIDgxMSwxNzAgTCA4MDQsMTcyIEwgNzk0LDE3MiBMIDc4OCwxNzAgTCA3ODUsMTY4IEwgNzgwLDE2MiBMIDc3NywxNTUgTCA3NzgsMTUxIEwgODQ4LDE1MSBMIDg0OCwxMzMgTCA4NDUsMTIyIEwgODQwLDExMyBMIDgzMywxMDYgTCA4MTksOTkgTCA4MTEsOTcgTCA4MDEsOTYgTCA3ODYsOTcgWiBNIDc3OCwxMzAgTCA3ODEsMTI0IEwgNzg3LDExOCBMIDc5MiwxMTYgTCA4MDMsMTE2IEwgODA2LDExNyBMIDgxMywxMjMgTCA4MTYsMTI5IEwgODE1LDEzNSBMIDc3OCwxMzQgWiBNIDQ3NSw5OSBMIDQ3NSwxOTEgTCA1MDQsMTkxIEwgNTA0LDEyOSBMIDUwNywxMjIgTCA1MTAsMTE5IEwgNTE0LDExNyBMIDUyMywxMTcgTCA1MjgsMTIxIEwgNTMwLDEyNSBMIDUzMSwxMzIgTCA1MzEsMTkxIEwgNTYwLDE5MSBMIDU2MSwxODkgTCA1NjAsMTc2IEwgNTYwLDEzMyBMIDU2MSwxMjcgTCA1NjMsMTIzIEwgNTY4LDExOCBMIDU3NSwxMTYgTCA1ODEsMTE4IEwgNTg1LDEyMiBMIDU4NywxMjcgTCA1ODgsMTkxIEwgNjE3LDE5MSBMIDYxNywxMjIgTCA2MTUsMTEzIEwgNjEyLDEwNyBMIDYwNywxMDEgTCA2MDEsOTggTCA1OTIsOTYgTCA1ODQsOTYgTCA1NzMsOTkgTCA1NjUsMTA0IEwgNTU5LDExMSBMIDU1NiwxMDggTCA1NTQsMTA0IEwgNTUyLDEwMiBMIDU0NSw5OCBMIDUzNiw5NiBMIDUyOCw5NiBMIDUyMCw5OCBMIDUxNCwxMDEgTCA1MDUsMTExIEwgNTA0LDk5IFogTSAzODMsMTAxIEwgMzc3LDEwNCBMIDM3MywxMDcgTCAzNjYsMTE0IEwgMzYxLDEyMiBMIDM1OCwxMzEgTCAzNTcsMTM2IEwgMzU3LDE1MyBMIDM1OSwxNjIgTCAzNjQsMTcyIEwgMzY3LDE3NiBMIDM3MywxODIgTCAzODMsMTg4IEwgMzk1LDE5MiBMIDQwMywxOTMgTCA0MTYsMTkzIEwgNDI4LDE5MSBMIDQzNCwxODkgTCA0NDIsMTg1IEwgNDUwLDE3OSBMIDQ1NSwxNzMgTCA0NTksMTY2IEwgNDU3LDE2NiBMIDQ1NiwxNjUgTCA0NTIsMTY1IEwgNDM1LDE2MCBMIDQzMiwxNjAgTCA0MjYsMTY3IEwgNDIxLDE3MCBMIDQxNSwxNzIgTCA0MDQsMTcyIEwgMzk3LDE2OSBMIDM5MSwxNjMgTCAzODgsMTU3IEwgMzg4LDE1MSBMIDQ1OSwxNTAgTCA0NTksMTM2IEwgNDU3LDEyNiBMIDQ1MiwxMTUgTCA0NDcsMTA5IEwgNDQyLDEwNSBMIDQzNSwxMDEgTCA0MjEsOTcgTCA0MTEsOTYgTCAzOTcsOTcgWiBNIDM4OCwxMzEgTCAzOTIsMTIzIEwgMzk2LDExOSBMIDQwMywxMTYgTCA0MTQsMTE2IEwgNDE4LDExOCBMIDQyMiwxMjEgTCA0MjcsMTMxIEwgNDI2LDEzNSBMIDM4OCwxMzQgWiBNIDE1NiwxMDEgTCAxNDYsMTA3IEwgMTM3LDExNiBMIDEzMCwxMzAgTCAxMjgsMTQ2IEwgMTI5LDE1NSBMIDEzMSwxNjIgTCAxMzcsMTczIEwgMTQ3LDE4MyBMIDE1MCwxODUgTCAxNjEsMTkwIEwgMTY4LDE5MiBMIDE3NiwxOTMgTCAxODgsMTkzIEwgMTk1LDE5MiBMIDIwNywxODggTCAyMTcsMTgyIEwgMjI2LDE3MyBMIDIzMiwxNjIgTCAyMzQsMTU0IEwgMjM0LDEzNSBMIDIzMiwxMjcgTCAyMjgsMTE5IEwgMjI1LDExNSBMIDIxNywxMDcgTCAyMDcsMTAxIEwgMTk0LDk3IEwgMTg3LDk2IEwgMTc2LDk2IEwgMTY5LDk3IFogTSAxODEsMTIwIEwgMTg3LDEyMSBMIDE5NCwxMjQgTCAyMDAsMTMwIEwgMjAzLDEzNiBMIDIwNCwxNDEgTCAyMDQsMTQ4IEwgMjAzLDE1MyBMIDIwMCwxNTkgTCAxOTQsMTY1IEwgMTg4LDE2OCBMIDE4MCwxNjkgTCAxNzIsMTY3IEwgMTYzLDE1OSBMIDE1OSwxNTEgTCAxNTksMTM5IEwgMTYzLDEzMCBMIDE2OSwxMjQgTCAxNzIsMTIyIFogTSA2OTUsNjYgTCA2OTUsOTcgTCA2OTMsOTkgTCA2NzgsOTkgTCA2NzksMTIzIEwgNjk1LDEyNCBMIDY5NSwxOTEgTCA3MjMsMTkxIEwgNzI0LDEyMyBMIDc0MCwxMjIgTCA3NDAsOTkgTCA3MzgsOTggTCA3MjUsOTkgTCA3MjMsOTcgTCA3MjMsNjYgWiBNIDg2Myw1OSBMIDg2NCw2MCBMIDg2NCw3OCBMIDg2Nyw3OCBMIDg2OCw3MSBMIDg3MCw3MSBMIDg3Myw3NCBMIDg3NCw3NyBMIDg3OSw3OCBMIDg3Niw3MiBMIDg3Niw3MCBMIDg3OSw2NiBMIDg3OSw2MiBMIDg3Nyw1OSBMIDg3NSw1OCBaIE0gODU3LDUwIEwgODUyLDU1IEwgODUwLDU5IEwgODUwLDc2IEwgODUzLDgyIEwgODU5LDg3IEwgODY1LDg5IEwgODc2LDg5IEwgODgwLDg4IEwgODg1LDg1IEwgODg4LDgyIEwgODkxLDc2IEwgODkxLDYwIEwgODg5LDU1IEwgODg0LDUwIEwgODc4LDQ3IEwgODYzLDQ3IFogTSA4NjEsNTMgTCA4NjYsNTEgTCA4NzUsNTEgTCA4ODAsNTMgTCA4ODYsNTkgTCA4ODcsNjIgTCA4ODcsNzQgTCA4ODUsNzggTCA4ODAsODMgTCA4NzcsODQgTCA4NjMsODQgTCA4NjEsODMgTCA4NTYsNzggTCA4NTQsNzQgTCA4NTQsNjIgTCA4NTUsNTkgWiBNIDY0Myw0OSBMIDYzOSw1MiBMIDYzOSw1MyBMIDYzNiw1NyBMIDYzNSw2NSBMIDYzNyw3MSBMIDY0Miw3NiBMIDY0OSw3OSBMIDY1Niw3OSBMIDY2MCw3OCBMIDY2NSw3NSBMIDY2Nyw3MyBMIDY3MCw2NiBMIDY3MCw1OSBMIDY2OCw1NCBMIDY2NCw1MCBMIDY1Nyw0NyBMIDY0OCw0NyBaIE0gMjUwLDQ3IEwgMjUwLDE5MSBMIDI4MCwxOTEgTCAyODAsMTMwIEwgMjgxLDEyNiBMIDI4MywxMjMgTCAyODYsMTIwIEwgMjkxLDExNyBMIDMwMiwxMTcgTCAzMDQsMTE4IEwgMzA5LDEyMyBMIDMxMSwxMzAgTCAzMTEsMTkxIEwgMzQwLDE5MSBMIDM0MCwxMTkgTCAzMzYsMTA3IEwgMzMyLDEwMiBMIDMyNCw5NyBMIDMxNiw5NSBMIDMwMyw5NSBMIDI5OCw5NiBMIDI5MCwxMDAgTCAyODEsMTEwIEwgMjgwLDQ3IFoiPjwvcGF0aD4KPC9zdmc+" alt="Yohemite"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDE2MCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICAgICAgICAgICAgPHBhdGggZmlsbD0iIzFFMUUxOCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNzQuMjI2MyA1NS4yOTMzQzc0LjIyNjMgNTYuMDUwMiA3NC4wNzIzIDU2Ljc5NzcgNzMuMTg2MiA1Ni43OTc3QzcyLjQ4MDMgNTYuNzk3NyA3Mi4xNTk5IDU1LjY0NjEgNzEuODkyMyA1NS4xMjIxQzY5Ljc3NzYgNTAuODYwNCA2Ny4wNDk3IDQ4Ljc4MzMgNjIuNzYzMyA0OC43ODMzQzU0LjIzMjYgNDguNzgzMyA1MC4xNzUzIDU2LjMxOTkgNTAuMTc1MyA2My4zMjAxQzUwLjE3NTMgNzIuOTgyMSA1Ni4wMTE3IDc3Ljc2OTMgNjIuNTA2NiA3Ny43NjkzQzY2LjM5ODUgNzcuNzY5MyA2OS4wOTQ4IDc2LjIyMTcgNzEuODM2NiA3My40NzEzQzcyLjI4MDggNzMuMDI2OSA3Mi43NjIxIDcyLjI3MjUgNzMuNTE1IDcyLjI3MjVDNzMuNjQ4OSA3Mi4yNzYgNzMuNzgwOCA3Mi4zMDY2IDczLjkwMjggNzIuMzYyNEM3NC4wMjQ5IDcyLjQxODIgNzQuMTM0NSA3Mi40OTgxIDc0LjIyNTQgNzIuNTk3NEM3NC4zMTYyIDcyLjY5NjcgNzQuMzg2NCA3Mi44MTMzIDc0LjQzMTggNzIuOTQwNEM3NC40NzcxIDczLjA2NzYgNzQuNDk2NyA3My4yMDI1IDc0LjQ4OTQgNzMuMzM3NEM3NC40ODk0IDc0LjgwMTkgNzEuMTcyNiA3Ny4zMjc5IDcwLjA2NzMgNzcuOTk0OEM2Ny42ODEgNzkuNDk3NiA2NS40NzE1IDgwLjI5NzggNjEuODAzMiA4MC4yOTc4QzUyLjk2NjkgODAuMjk3OCA0NS42NzUyIDczLjc0MDUgNDUuNjc1MiA2NC42NTE4QzQ1LjY3NTIgNTUuOTYyNiA1MC44MDMyIDQ2LjUxODYgNjIuOTUyOSA0Ni41MTg2QzY1Ljg4MzEgNDYuNDIwMSA2OC43ODMyIDQ3LjE0MTEgNzEuMzMyIDQ4LjYwMTdDNzMuODAwMyA0OS44ODcxIDc0LjIyMjQgNTAuODE1NiA3NC4yMjI0IDUyLjEwNEw3NC4yMjYzIDU1LjI5MzNaIj48L3BhdGg+CiAgICAgICAgICAgICAgPHBhdGggZmlsbD0iIzFFMUUxOCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNODMuNjg2MSA2OC4zNjExQzgzLjIwMDggNjkuODc3OSA4MS42NDk4IDczLjczNTUgODEuNjQ5OCA3NS4yODgxQzgxLjY0OTggNzguMDM1MSA4My45OTEyIDc3LjI3MzcgODMuOTkxMiA3OC42MDUzQzgzLjk5MTIgNzkuNTgwMiA4Mi43MTMxIDc5LjQ4NDcgODEuMzM3MyA3OS40ODQ3SDc3Ljc1NzRDNzYuNzAyIDc5LjQ4NDcgNzUuOTAyNyA3OS41NjAzIDc1LjkwMjcgNzguNTM5MkM3NS45MDI3IDc4LjAxMjIgNzYuMjE1NyA3Ny43ODA4IDc2LjYxNDYgNzcuNTEyNUM3Ni45NDQxIDc3LjM0NTEgNzcuMjM1NyA3Ny4xMTA2IDc3LjQ3MSA3Ni44MjRDNzcuNzA2MiA3Ni41MzczIDc3Ljg4MDEgNzYuMjA0NyA3Ny45ODE1IDc1Ljg0N0M4MS4yMDc1IDY1Ljc4ODQgODUuNTQwMiA1NS43MzIyIDg5LjA3NDIgNDkuMzAyOEM4OS42NDg0IDQ4LjI0MTkgOTAuNjE2OSA0Ni4yOTc2IDkxLjI4MTMgNDYuMjk3NkM5Mi4xMjQ1IDQ2LjI5NzYgOTMuNDQ3IDQ4Ljc4MTMgOTMuNzU1NSA0OS4zMDk4Qzk3LjUxMTcgNTUuNzM5NyAxMDEuMDA0IDY0LjI5NTUgMTA0Ljk4NCA3Ni4wOTEzQzEwNS4yOTEgNzYuOTczMSAxMDUuNjkgNzcuMjQyMyAxMDYuNTI3IDc3LjY4MzdDMTA2Ljk3MSA3Ny45MDUyIDEwNy4yODEgNzguMDU0IDEwNy4yODEgNzguNTg1OUMxMDcuMjgxIDc5LjYwOTEgMTA2LjI2OCA3OS40ODU2IDEwNS41MTMgNzkuNDg1NkgxMDAuMDM0Qzk5LjMzMjcgNzkuNDg1NiA5OC40NDIyIDc5LjQ3NTIgOTguNDQyMiA3OC41NDAyQzk4LjQ0MjIgNzcuMTY3NyAxMDAuNjk4IDc3LjczMTUgMTAwLjY5OCA3Ni4zMTM4QzEwMC42OTggNzUuNDI0IDk4Ljg4NiA3MC4zODYgOTguMDQ0OCA2OC4zNjMxTDgzLjY4NjEgNjguMzYxMVoiPjwvcGF0aD4KICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjMUUxRTE4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05Ny4zNDA0IDY1LjgzMzZDOTUuMzQ4NSA2MC43Nzc3IDkzLjEzNyA1NS4zMjc2IDkwLjc1NTYgNTEuNTUxNkM4OC4zMTA5IDU2LjE0MSA4Ni4yMjYzIDYwLjkxNjMgODQuNTIwOCA2NS44MzM2SDk3LjM0MDRaIj48L3BhdGg+CiAgICAgICAgICAgICAgPHBhdGggZmlsbD0iIzFFMUUxOCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTE1LjU1MyA2Ni41MTM5QzExMS4zNjcgNjEuNTU2NSAxMDcuNzQyIDU2LjE0NSAxMDQuNzQzIDUwLjM3OTJDMTA0LjE2OCA0OS4yNjggMTAxLjk2NiA0OS41MzMzIDEwMS45NjYgNDguMjUzM0MxMDEuOTY2IDQ3LjQ5ODQgMTAyLjY0IDQ3LjYzMzggMTAzLjMwNSA0Ny42MzM4SDEwOS44NDlDMTEwLjU0OSA0Ny42MzM4IDExMS4zMDIgNDcuNDUyNyAxMTEuMzAyIDQ4LjI5NjFDMTExLjMwMiA0OS40NDc3IDEwOS4xODMgNDkuMTE1NyAxMDkuMTgzIDUwLjI3MDdDMTA5LjE4MyA1MS41OTY0IDExMi4wOTkgNTcuMzAyOCAxMTguMTk4IDY0LjA4N0MxMjIuOTI0IDU5LjA3OTMgMTI3LjEyMyA1MS45NjAyIDEyNy4xMjMgNTAuNzU5NEMxMjcuMTIzIDQ4Ljc2NTkgMTI0LjY5NiA0OS42NDAyIDEyNC42OTYgNDguMTc5MkMxMjQuNjk2IDQ3LjM3ODUgMTI1LjYyMSA0Ny42MzE4IDEyNi4xMDcgNDcuNjMxOEgxMzEuMDZDMTMxLjY3NSA0Ny42MzE4IDEzMi44MjMgNDcuNDUwNyAxMzIuODIzIDQ4LjIwODFDMTMyLjgyMyA0OS4yNjkgMTMxLjI0NCA0OS4zNzggMTMwLjYyOCA1MC42MjAxQzEyOC4wNjQgNTUuODAzOSAxMjMuNjE4IDYxLjkwNDkgMTE5LjU4NyA2Ni42MDRWNzQuOTM1OEMxMTkuNTg3IDc2Ljg4NTYgMTE5LjU3MiA3Ny4xNTA4IDEyMC4zMjcgNzcuMzc0MkMxMjEuNTcyIDc3LjY4MTMgMTIyLjA5IDc3LjczOTUgMTIyLjA5IDc4LjUzNzJDMTIyLjA5IDc5LjUxNDUgMTIxLjIwMSA3OS40ODI3IDEyMC40OTMgNzkuNDgyN0gxMTQuNDRDMTEzLjY4OCA3OS40ODI3IDExMi44NTMgNzkuNTE0NSAxMTIuODUzIDc4LjUzNzJDMTEyLjg1MyA3Ny44MjUxIDExMy40MDYgNzcuNjg4NyAxMTQuMjQ2IDc3LjQyM0MxMTUuMzUgNzcuMDcwMiAxMTUuNTU0IDc2LjcwODkgMTE1LjU1NCA3NC45MzQ4TDExNS41NTMgNjYuNTEzOVoiPjwvcGF0aD4KICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjMUUxRTE4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzcuMjI2IDUwLjgxNzZDMTM3LjIyNiA0OS42MjMzIDEzNi44MjEgNDkuNTM0MyAxMzUuOTMxIDQ5LjMxMTNDMTM1LjI3NSA0OS4xMzg2IDEzNC43NCA0OS4yMjgyIDEzNC43NCA0OC4zODQ3QzEzNC43NCA0Ny40MDk0IDEzNS42NjIgNDcuNjMzOCAxMzYuNDE4IDQ3LjYzMzhIMTQyLjQyNUMxNDMuMTczIDQ3LjYzMzggMTQ0LjAxMSA0Ny40NTUyIDE0NC4wMTEgNDguMzg0N0MxNDQuMDExIDQ5LjEzOTYgMTQzLjM4OCA0OS4xMTY3IDE0Mi44MTEgNDkuMzM3N0MxNDEuMTc3IDQ5Ljk1OTIgMTQxLjI1OSA1MC4wNzAyIDE0MS4yNTkgNTEuODQxM1Y3NC40OTQ0QzE0MS4yNTkgNzYuOTcyNiAxNDEuNTI3IDc3LjM3NjcgMTQ1LjczIDc3LjM3NjdDMTU0LjQ3OSA3Ny4zNzY3IDE1NS4zOTIgNzYuODg5NSAxNTcuNTU3IDc1LjI4NjdDMTU3LjkwOCA3NS4wMjA5IDE1OC43IDc0LjMxMzMgMTU5LjIyOSA3NC4zMTMzQzE1OS43NTggNzQuMzEzMyAxNjAgNzQuNzExNCAxNjAgNzUuMjA2MUMxNTkuODM1IDc2LjM3ODcgMTU5LjU4NiA3Ny41Mzc4IDE1OS4yNTUgNzguNjc0QzE1OC44MSA3OS42NDc5IDE1Ny44OTUgNzkuNDgzMiAxNTcuMDA5IDc5LjQ4MzJIMTM2LjU4OEMxMzUuODggNzkuNDgzMiAxMzUuMDQ2IDc5LjUxNjUgMTM1LjA0NiA3OC41Mzc3QzEzNS4wNDYgNzcuODI2MSAxMzUuMzIxIDc3LjczMyAxMzUuODkyIDc3LjUwODZDMTM3LjM5NiA3Ni45MzI4IDEzNy4yMjUgNzYuNzA5OSAxMzcuMjI1IDc0LjkzNzNMMTM3LjIyNiA1MC44MTc2WiI+PC9wYXRoPgogICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMxRTFFMTgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1Mi44NSA0Ny42MzU3SDE1NS44NzNWNDguMTQwOEgxNTQuMzYyVjUwLjY2ODhIMTUzLjg1OFY0OC4xNDA4SDE1Mi44NVY0Ny42MzU3WiI+PC9wYXRoPgogICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMxRTFFMTgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1OS40MDEgNTAuNjY2OFY0OC43MzA1QzE1OS40MzMgNDguNTMwNiAxNTkuNDc2IDQ4LjMzMjcgMTU5LjUzIDQ4LjEzNzhIMTU5LjUyM0wxNTguNDY3IDUwLjY2NThIMTU3Ljk1NkwxNTYuOTA2IDQ4LjEzNzhIMTU2Ljg5M0MxNTYuODkzIDQ4LjEzNzggMTU2Ljg4MiA0OC42MjExIDE1Ni44ODIgNDguNzMwNVY1MC42NjU4SDE1Ni4zNzhWNDcuNjM1N0gxNTcuMTQ0TDE1OC4yMTIgNTAuMTYzN0gxNTguMjIyTDE1OS4yODkgNDcuNjM1N0gxNTkuOTA2VjUwLjY3MTNMMTU5LjQwMSA1MC42NjY4WiI+PC9wYXRoPgogICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiMxRTFFMTgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTk5LjY3NDggMTIuNDYzN0w4My42NzAzIDI2LjcyOThMNzMuOTU2OCAyMS40MTY2TDU4LjI1MDQgMEw0NC4yMDMyIDI2Ljc0MjJMMjguNzExNSA1NC41OTgxTDIwLjc4NiA1Mi4yMDZMMCAxMDBMMjAuNzg2NSA2My4xMjU1TDIzLjY0MzcgNTkuMjMxNkwzMC40MTgxIDU5Ljc3NUw1MC40NjcxIDI2LjgxMzlMNTkuMDI2OSAxMC44ODk3TDY3LjA5MTYgMjMuNzUyNEw4NC41MDUgMzMuNTE0NUw5OS41NTE5IDIwLjIwMzhMMTQ2LjM2IDM1Ljg2MDhMOTkuNjc0OCAxMi40NjM3WiI+PC9wYXRoPgogICAgICAgICAgICA8L3N2Zz4=" alt="CAYL"></span>
+    </div>
+  </div>
+</footer>
+
 <script>
 // Auto-extracted route data for FJTS Vol.3 (무룡고개/영취산 → 빼재)
 // GPX total 43.60km · max 1523m · min 698m
@@ -59,409 +273,58 @@ window.RouteData = {
   {name:'빼재',km:43.6,ele:896,color:'#A1D06C'},
 ]
 };
-
 </script>
-<style>
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0;background:#F6F4EC;color:#1E1E18;font-family:'Pretendard',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;}
-  ::selection{background:#A1D06C;color:#1E1E18;}
-  canvas{touch-action:pan-y;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
-  .eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.24em;color:#5A8C21;font-weight:700;text-transform:uppercase;}
-  .h2row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:2px solid #1E1E18;padding-bottom:15px;margin-top:12px;}
-  .h2row h2{margin:0;font-size:clamp(24px,3.68vw,40px);color:#1E1E18;line-height:.95;font-family:'Pretendard';font-weight:800;}
-  .toggle{display:inline-flex;gap:4px;padding:4px;background:#EFEBDF;border:1px solid #D8D2C2;border-radius:8px;flex-shrink:0;}
-  .toggle button{border:1px solid transparent;border-radius:6px;padding:7px 16px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;background:transparent;color:#6b6655;}
-  .subhead{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;color:#355610;text-transform:uppercase;margin:26px 0 2px;display:flex;align-items:center;gap:9px;}
-  .subhead::after{content:'';flex:1;height:1px;background:#D8D2C2;}
-  @media (max-width:720px){
-    .wrap{padding-left:20px !important;padding-right:20px !important;}
-    .r-2col{grid-template-columns:1fr !important;gap:26px !important;}
-    .r-2col.r-resupply{row-gap:0 !important;}
-    .r-3col{grid-template-columns:1fr !important;gap:14px !important;}
-    .r-hero-stats{grid-template-columns:1fr 1fr !important;}
-    .r-hero-stats>div{padding:16px 18px !important;}
-    .r-hero-stats>div:nth-child(2){border-right:none !important;}
-    .r-summary{grid-template-columns:1fr 1fr !important;}
-    .r-summary>div{border-right:none !important;border-bottom:1px solid #E4DFD1 !important;}
-    .r-summary>div:nth-last-child(1){border-bottom:none !important;}
-    .r-media{grid-template-columns:1fr !important;}
-    .r-media>div{border-left:none !important;border-top:1px solid #D8D2C2 !important;padding:22px 0 !important;}
-    .r-media>div:first-child{border-top:none !important;padding-top:10px !important;}
-    .r-tthead,.r-ttrow{grid-template-columns:6px 52px 1fr auto !important;gap:11px !important;}
-    .r-ele{white-space:normal !important;}
-    .r-hero-title{font-size:40px !important;}
-    .r-sep{display:none !important;}
-    .r-dist,.r-gain{display:block !important;}
-  }
-  @media (max-width:420px){
-    .r-hero-stats{grid-template-columns:1fr !important;}
-    .r-hero-stats>div{border-right:none !important;border-bottom:1px solid rgba(190,220,158,.16) !important;}
-    .r-hero-stats>div:nth-last-child(1){border-bottom:none !important;}
-    .r-summary{grid-template-columns:1fr !important;}
-  }
-</style>
-</head>
-<body>
-<!-- fjts-index-bar -->
-<div style="background:#F6F4EC;border-bottom:1px solid #E4DFD1;position:relative;z-index:70;"><div style="max-width:1120px;margin:0 auto;padding:0 28px;height:36px;display:flex;align-items:center;justify-content:space-between;"><a href="../" style="font-family:'Space Mono',ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.18em;color:#6b6655;text-decoration:none;">&larr; INDEX</a><span style="font-family:'Space Mono',ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.18em;color:#9C9377;">VOL.3 — 무룡고개 → 빼재</span></div></div>
-
-
-<div id="tb-grain" style="position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.4;mix-blend-mode:multiply;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);"></div>
-
-<!-- ══════════ STICKY NAV ══════════ -->
-<nav style="position:sticky;top:0;z-index:50;background:rgba(246,244,236,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #1E1E18;">
-  <div class="wrap" style="height:54px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
-    <a href="#sec-top" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0;">
-      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjM3MCAzNTEgMjUwIDc1Ij4KICAgICAgICAgICAgICAgIDxkZWZzPgogICAgICAgICAgICAgICAgICAgIDxjbGlwUGF0aCBpZD0iY2xpcFBhdGgxOCIgY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBpZD0icGF0aDE2IiBkPSJNIDAsOTg0LjU2OCBIIDE4ODkuODggViAwIEggMCBaIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgPC9jbGlwUGF0aD4KICAgICAgICAgICAgICAgIDwvZGVmcz4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDEuMzMzMzMzMywwLDAsLTEuMzMzMzMzMywwLDEzMTIuNzU3MykiIGlkPSJnMTAiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJnMTIiPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOCkiIGlkPSJnMTQiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjkyLjcxNDQsNzExLjIxMDgpIiBpZD0iZzIwIj48cGF0aCBpZD0icGF0aDIyIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIDEuOTk5LC03Ljg0MSA0LjUxOSwtMTEuNzI4IDAuODczLC0xOS41NDkgLTEuMDk3LC0wLjI5NiAtMS42NzEsLTAuNDI0IC0yLjc5MywtMC41ODggMy44MDMsNy41NjIgMS4xNjEsMTEuMTY4IC0wLjk0MywxOC43NDggLTEuNzk3LC0wLjk5MiAtMi42MDUsLTEuNTUgLTMuODA3LC0yLjczNSAtMC4yMjQsMS40MzMgLTAuMTU5LDIuMzE2IDAuNTgzLDQuMDExIDIuOTY1LDMuNTEgNy4zNjEsNS42NjIgMTEuODIxLDYuNTIgQyA1LjA3Nyw0LjQyIDQuOTksMy4zNzkgNS4xNTQsMS42MzcgMy4wNCwxLjE5NyAxLjk3NywwLjg0IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwOS4yODM0LDY5NC4yNDQ4KSIgaWQ9ImcyNCI+PHBhdGggaWQ9InBhdGgyNiIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAxLjkzOCwyLjk0NyAyLjgzLDUuNTY1IDIuMzYyLDguOTU1IC0yLjM2NywwLjkyMyAtMy4zMzEsMS4yNSAtNi4zOTgsMS4xNTkgMC41MjIsLTMuMjQzIC0wLjY2OCwtNy40MzEgLTIuNjE0LC0xMC4wNDcgLTEuMTYxLC0wLjE4OCAtMS42MzYsLTAuMzQ0IC0yLjcwMywtMC42NTggNC4yNzcsOS4wNjUgLTAuNDEyLDE1LjEwOCAwLjc5MywyNC4yNTcgMS4zMDEsMC4wOSAxLjgwMiwwLjEwNiAzLjIyOSwtMC4wODEgLTEuNTIxLC00LjI4NyAtMC42OTgsLTYuMDI3IDAuMzQxLC05LjQ3MSAzLjIyOCwtMC4wODQgNC4xOTMsLTAuNTU4IDYuNDY0LC0xLjY3IEMgMC41MSwxNS40MzggLTAuMjIyLDE2Ljk3NiAxLjExLDIwLjc4NSAxLjkxOSwyMC4xNiAyLjI4NiwxOS44MjMgMy4wNjksMTkuMTkxIDIuNDExLDExLjQ2NCA1Ljg1NSw2Ljg1MiAyLjUzLC0wLjc0IDEuNTgyLC0wLjM4MyAxLjExNywtMC4yMTMgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzI0LjAwODUsNjkyLjE2NDMpIiBpZD0iZzI4Ij48cGF0aCBpZD0icGF0aDMwIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0xLjY2NiwtMS42ODggLTMuMzAyLC0yLjE5NyAtNC44MDUsLTEuODM4IC0xLjQ5MSwwLjM1NiAtMi41NSwxLjQ4NSAtMi45MDYsMy40MDEgLTAuMzYsMS45MzQgLTAuMTY2LDQuNjYxIC0wLjQzNiw2Ljg1MiAtMS4yMSw0LjYxOCAtMi4wNjgsNi43MDcgLTEuNzA4LDExLjU0NSAwLjg3NSwtMC41NDggMS4zNDQsLTAuNzk2IDIuNDY0LC0xLjE1NiAtMC4zMzksLTQuNzM1IDAuNDg2LC02Ljg4NyAxLjYwNiwtMTEuNDIzIDAuMTM3LC0xLjIwNSAwLjMxOSwtMi41ODIgMC43NDYsLTMuNzc5IDAuNDI1LC0xLjE5IDEuMDU3LC0xLjgyNyAxLjg5MywtMS45NzggMC44MzYsLTAuMTUgMS43MTEsMC4yMjUgMi41MDQsMS4yNTYgMC44MDEsMS4wNDEgMS4yMiwyLjM4NCAxLjE2NSwzLjY2NiAtMC42OTYsNC42NjggLTEuMzI0LDcuNDkgLTAuODY5LDEyLjI0OSAwLjk3NSwwLjMyNSAxLjQyOSwwLjU0NSAyLjMyMiwxLjAzMyBDIDEuNTU1LDE0Ljk5MSAyLjA4NCwxMS42OTIgMi43NTUsNi45MjMgMi44MjksNC41MDcgMS42ODEsMS43MDQgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzM2LjI5NDksNjkyLjQ3OTQpIiBpZD0iZzMyIj48cGF0aCBpZD0icGF0aDM0IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJNIDAsMCBDIC0wLjY3OSw1LjM3OCAtMi4zOTEsOS44NyAtNi4wMzUsMTMuOTM5IC00LjcyNCw4LjMyNSAtNS40MDMsMy43NSAtNy4xMTIsLTEuNjc1IGMgLTEuMDgyLC0wLjIwNCAtMS41OCwtMC4yODcgLTIuNTQxLC0wLjQwOCAyLjg3NSw4LjE1MiAwLjUzNSwxNC41NDQgMS4yODIsMjIuNzY4IDAuNzksMC41MSAxLjE4MiwwLjc4IDIsMS4zMDEgQyAtNS4yMDgsMTcuMTUgLTEuMTI2LDEzLjI1NSAxLjQxMyw5LjEwNiAxLjAwMiwxNC40NTcgMC4xMSwxOS40OTcgMC4yNiwyNC44ODMgMS41MDgsMjUuMTI5IDIuMjc4LDI1LjE5NiAzLjYzNiwyNS4xNjcgMy4zMjcsMTYuNDYxIDQuODg1LDkuMTQ0IDIuNTgyLDAuNDk4IDEuNTgxLDAuMzM4IDEuMDE4LDAuMjMzIDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1MC4yMjM4LDcwNy43NzQ0KSIgaWQ9ImczNiI+PHBhdGggaWQ9InBhdGgzOCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC44MDYsMS40ODEgLTEuNjU1LDIuNjIgLTIuNjU5LDMuMTM5IC0wLjkzOCwwLjQ4NCAtMS40MSwwLjcxOSAtMi40NDUsMS4xMDIgMC4yMTYsLTQuOTU2IDAuNDY2LC05LjI3IC0wLjM0OCwtMTQuMjAxIDAuOTMsLTAuMDU2IDEuMzY1LC0wLjExIDIuMjU1LC0wLjIzNSAwLjk1MywtMC4xMzMgMi4wNDgsMC41MzYgMy4wMzksMS43NTQgMC45ODcsMS4yMTQgMS41MTIsMi41MzkgMS40OTQsNC4wNyBDIDEuMzE3LC0yLjg0IDAuODAyLC0xLjQ3MyAwLDAgbSAwLjczLC0xMS42MDggYyAtMS45MSwtMS45MjUgLTMuNjY2LC0yLjgwMSAtNS4yMDksLTIuNzQ3IC0xLjcyNiwwLjA2IC0yLjUxMSwwLjA2NSAtNC40ODIsLTAuMTMgMi4zNjksOC4zNjMgMS4xNiwxNS41MzcgMS41NjUsMjQuMDAzIEMgLTUuMDU5LDguOTczIC00LjE5Myw4LjQxMSAtMi40NDcsNy4yOTUgLTAuODc1LDYuMjkgMC4yOCw0LjA4NiAxLjUwNywxLjY1NyAyLjcyNCwtMC43NTIgMy43NTYsLTIuNjk1IDMuNzkxLC00Ljk5NyAzLjgyNiwtNy4yODUgMi42NCwtOS42ODMgMC43MywtMTEuNjA4Ij48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzU0LjkzNzksNjkyLjk1NjIpIiBpZD0iZzQwIj48cGF0aCBpZD0icGF0aDQyIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIDEuNzA3LDYuNDIgMS4zMjgsMTEuNDQ1IDEuMTYyLDE3Ljk5NyA0LjA3LC0wLjA5NiA3LjY4MiwtMC4xMjUgMTEuMTA4LDIuNDY5IDAuMjIsLTEuNDgyIDAuMjY1LC0yLjM5IDAuMzU1LC0zLjc3IC0yLjU5OCwtMS40MzggLTMuODgsLTIuMTg0IC03Ljk5NCwtMi4zMzUgMC4xMTIsLTEuNTQ4IDAuMjA5LC0yLjIxMSAwLjMwMSwtMy42MDggMy4xNiwwLjA5OSA0LjI5OSwwLjQ2IDYuNDMyLDEuMjc3IDAuMDIxLC0xLjIxOSAwLjAxMywtMS44MTcgLTAuMTAyLC0zLjEzNyBDIDkuMTc2LDguMjM1IDguMDYxLDcuOTQ1IDQuOTY2LDcuODYgNC44ODUsNi4zMjkgNC43NDksNS4zOCA0LjI5NywzLjUyOSA4LjE5OCwzLjYyNyA5LjQyNCwzLjk2NCAxMS45MDEsNC42MyAxMS41NCwyLjk5MSAxMS4zMTgsMi4yMjQgMTEuMDY5LDAuNjU1IDcuMzkyLC0wLjAxOCAzLjcyNCwwLjAwMiAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNzYuNjIwOSw3MTMuMDEzNykiIGlkPSJnNDQiPjxwYXRoIGlkPSJwYXRoNDYiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Im0gMCwwIGMgLTAuNDgyLDAuMzgzIC0xLjAxMiwwLjUyNiAtMS41NjEsMC4zNzMgLTEuNDU3LC0wLjQwNSAtMi4wODcsLTAuNjk5IC0zLjMwNSwtMS4zMyAwLjEyNCwtMS45MDggMC4xNiwtMi43NjEgMC4xMjUsLTQuNTMgMS4yMDIsMC41MDkgMS44MjMsMC43NDcgMy4yNTgsMS4wNzggMC41NCwwLjEyNSAxLjA1NCwwLjQ0MyAxLjUyMiwwLjk0NiAwLjQ1OCwwLjQ5MyAwLjcyNCwxLjA4NCAwLjcxOCwxLjgwMiBDIDAuNzUxLC0wLjk0MiAwLjQ3MiwtMC4zNzUgMCwwIG0gMC4xNjQsLTE3Ljk5OCBjIC0xLjI1MiwzLjQ3MiAtMS4yODMsNS4zNzMgLTIuMDc4LDguMjg5IC0wLjI1MiwwLjk0NyAtMC44NzgsMS4yNzYgLTEuNzQxLDEuMDIzIC0wLjU0NSwtMC4xNiAtMC44MDUsLTAuMjQ2IC0xLjMxNiwtMC40MjYgLTAuMzY3LC0zLjQxMSAtMS4xMjgsLTUuNjYxIC0xLjU5LC05LjU2NiAtMC44NTcsLTAuMTQ1IC0xLjI2MiwtMC4yMjIgLTIuMDg0LC0wLjM3NCAxLjQwMSw3LjI0NiAxLjkyNywxMy40NjEgMS4yMDksMjAuODI1IDEuOTUyLDEuMzc1IDIuODUzLDIuMTI5IDUuMzI4LDIuOTI2IEMgLTAuODc4LDUuMDk2IDAuNTI2LDQuNjc3IDEuODgxLDMuMzE4IDMuMzU2LDEuODM5IDQuMTA5LDAuMjA1IDQuMTAyLC0xLjU5IDQuMDk2LC0zLjAyNyAzLjU4MSwtNC4yNDEgMi42MjYsLTUuMzc3IDEuOTc2LC02LjExNiAxLjI4NywtNi43MTggMC41OTQsLTcuMTgxIDAuNzAzLC03LjM2NCAwLjgxLC03LjU3NCAwLjkxMSwtNy44MTEgMS4wMTQsLTguMDQ4IDEuMTIsLTguMzA0IDEuMjMyLC04LjU3OCAxLjIyMywtOC41NzkgMS4yMTgsLTguNTc5IDEuMjA5LC04LjU3OSBjIDEuMTg1LC0zLjM0IDEuMzYyLC01LjU0MyAyLjgyNiwtOS4zNjkgLTEuNTI2LC0wLjAxMSAtMi4zNTksMC4wMDEgLTMuODcxLC0wLjA1Ij48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzg5Ljk1NDksNzAyLjcyOTIpIiBpZD0iZzQ4Ij48cGF0aCBpZD0icGF0aDUwIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJNIDAsMCBDIC0wLjIzNSwwLjQ1OCAtMC41OTIsMC43NTggLTEuMDIxLDAuODc4IC0yLjIzOSwxLjIyMSAtMi44MTUsMS40MTkgLTQuMTkyLDEuNzM5IC00LjQ4LC0wLjExNCAtNC42OSwtMS4xMzQgLTUuMDgsLTMuMzA4IGMgMS4zOTcsLTAuMTUxIDEuOTc2LC0wLjI1IDMuMTgyLC0wLjQwNyAwLjQyNiwtMC4wNTYgMC44NDEsMC4xNDEgMS4yNSwwLjU0OCAwLjQxLDAuNDA3IDAuNjg5LDAuOTI5IDAuODIzLDEuNTU3IEMgMC4zMDEsLTEuMDE2IDAuMjQ2LC0wLjQ4MSAwLDAgTSAwLjI2NSw3LjEyNyBDIC0wLjExNSw3LjY2MyAtMC41MjYsOC4wNyAtMC45NTMsOC4zIC0yLjA4Nyw4LjkxMiAtMi42MjEsOS4yNDMgLTMuODU3LDkuNzk4IC0zLjY1Nyw3LjkxNSAtMy42Niw3LjA2NiAtMy43NzUsNS4zMTQgLTIuNTE2LDQuOTA0IC0xLjk3NCw0LjY1OCAtMC44NCw0LjIxIC0wLjQxNCw0LjA0MiAtMC4wMTcsNC4wOTEgMC4zMzUsNC4zMTYgMC42ODEsNC41MzcgMC44ODIsNC45MTkgMC44NzEsNS40OTEgMC44NTgsNi4wNjIgMC42MzcsNi42MDIgMC4yNjUsNy4xMjcgTSAwLjMyNywtNi4wMjYgYyAtMC45MTMsLTEuMTI1IC0xLjcyNywtMS43NTMgLTIuNjg1LC0xLjczNyAtMi4wNTEsMC4wMzQgLTIuOTgxLDAuMTAxIC01Ljk0NCwwLjEwMyAxLjEwNyw3Ljg3OSAyLjU5OCwxNC42ODYgMS4yMzksMjIuNTk4IDIuNDQ0LC0wLjgyNyAzLjIxNiwtMS42MDEgNS4wOTUsLTIuODkxIEMgLTEuMDM0LDExLjQwNSAwLjEwNCwxMC4zOTUgMS4yNzMsOC45MjUgMi41NDQsNy4zMjYgMy4yMzcsNi4wNjUgMy4yNDcsNC43MzMgMy4yNTYsMy4zODggMi41OTMsMi40ODYgMS42NDgsMS45NDUgMi41MzMsMC45NjQgMi44NDQsLTAuMTQ5IDIuNDE5LC0xLjg3MSAyLjAzOCwtMy40MTggMS4yNTgsLTQuODc5IDAuMzI3LC02LjAyNiI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM5My43MTAxLDY5NS4xODI2KSIgaWQ9Imc1MiI+PHBhdGggaWQ9InBhdGg1NCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAwLjg1Niw1LjQ4OCAzLjc1NSwxMS40MjYgMS4xNjgsMTYuODE1IDEuMzIsLTAuMTMxIDIuMTA1LC0wLjExNyAzLjMwNywwLjAzIEMgNi4xNzgsMTAuNTk1IDQuMTAyLDYuNTc2IDIuODc1LDAuMzMzIDEuNzQ5LDAuMTc4IDEuMTI0LDAuMTAxIDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQwOC45MzE1LDcxMS44MTU0KSIgaWQ9Imc1NiI+PHBhdGggaWQ9InBhdGg1OCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC40MDksMC4yMyAtMC44NzEsMC4yNDMgLTEuMzM3LDAuMDIyIC0xLjIzOCwtMC41ODYgLTEuODE1LC0wLjkwNyAtMy4wOTMsLTEuNDYgMC4yNTksLTEuNDk4IDAuMTc5LC0yLjE3MyAtMC4xMTUsLTMuNTY3IDEuMjkzLDAuNDM2IDEuODY5LDAuNjggMy4wOTIsMS4xMTggMC40NiwwLjE2NiAwLjkxMSwwLjQ5MiAxLjM0LDAuOTgzIDAuNDIsMC40ODEgMC42ODgsMS4wMjggMC43MTcsMS42MzkgQyAwLjYzMiwtMC42NTUgMC40MDIsLTAuMjI1IDAsMCBtIC0xLjIxOSwtMTUuMzc0IGMgLTEuMjksMy40MTQgLTEuMTcxLDQuODU4IC0xLjQzLDcuMTYzIC0wLjA3OSwwLjc0OCAtMC41MjYsMC45NjQgLTEuMzYxLDAuNzI4IC0wLjUyNywtMC4xNDkgLTAuNzk1LC0wLjIyNSAtMS4zNTQsLTAuMzc0IC0wLjg4MiwtMi42NzUgLTEuNzQyLC00LjI3NSAtMS42NDEsLTcuNzg2IC0wLjk2MywtMC4wOTUgLTEuNDc1LC0wLjE1MyAtMi42NTMsLTAuMjkgMC44NzQsNS4zNzYgNC4zMTksMTEuNDkgMS41MzMsMTYuNzQ2IDIuMzgxLDAuODEyIDMuMjM5LDEuNTQxIDUuMzE2LDIuNzU2IDEuMDMyLDAuNjA0IDIuNDA4LDAuNjUyIDMuODAyLC0wLjIxMiBDIDIuNTEyLDIuNDE1IDMuMzE1LDEuMDc5IDMuMjE4LC0wLjU0IDMuMTQsLTEuODM2IDIuNSwtMy4wMzQgMS41NzksLTQuMTU3IGMgLTAuNjIxLC0wLjczNSAtMS4yNSwtMS4zMjkgLTEuODYsLTEuNzg3IDAuMDUxLC0wLjE0MiAwLjA5NCwtMC4zMDggMC4xMywtMC40OTcgMC4wMzYsLTAuMTkgMC4wNzIsLTAuMzk2IDAuMTExLC0wLjYxOCAtMC4wMDcsLTEwZS00IC0wLjAxMSwtMC4wMDIgLTAuMDE4LC0wLjAwMyAwLjMzOCwtMi43MTggMC4xODcsLTQuNDE0IDEuOTE5LC04LjQyOSAtMS4zOSwwLjA3OCAtMS45NzQsMC4xMDEgLTMuMDgsMC4xMTciPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MjYuMzI4Myw3MTAuNzQ2NykiIGlkPSJnNjAiPjxwYXRoIGlkPSJwYXRoNjIiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Im0gMCwwIGMgLTEuMDMxLDEuNTI3IC0yLjU4MywyLjU0NSAtNC4xODMsMi44MTMgLTEuNDk1LDAuMjUxIC0yLjI0NiwwLjMyNiAtMy42NjksMC40MDUgMC40NjQsLTQuNjUyIC0xLjg5NSwtOC45NTkgLTMuMDY2LC0xMy4zMjkgMS40NDcsLTAuMDgzIDIuMTMsLTAuMTE2IDMuNTczLC0wLjIyMiAxLjU0NCwtMC4xMTMgMy4wMTcsMC41MDYgNC41MjgsMS42NCAxLjUwMSwxLjEyNyAyLjY2MSwyLjQxOCAzLjMxNCw0LjAyOSBDIDEuMTUsLTMuMDU0IDEuMDIzLC0xLjUxNiAwLDAgbSAtMS41NzQsLTExLjgyNiBjIC0xLjkwNSwtMS44OTcgLTMuNzQ4LC0zLjE2IC02LjIwNywtMy4wNDkgLTIuNzUsMC4xMjQgLTQuMTE4LDAuMjI1IC02Ljc3NSwwLjM5MyAwLjgyNyw3Ljk5OCA0LjgzOSwxMy45MTYgMS43OTQsMjEuNzMzIDIuOTM1LDAuMjkgNC4wNDMsMC4xNTEgNi44MTMsLTAuNDA0IDIuNDk0LC0wLjUwMSA1LjcxNSwtMi42MTQgNy43NzYsLTUuMjQ2IDIuMDQ5LC0yLjYxOCAyLjMyNiwtNC45ODYgMS4yNTcsLTcuMzQ1IC0xLjA2MywtMi4zNDUgLTIuNzUzLC00LjE4NCAtNC42NTgsLTYuMDgyIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjg5Ljk1MjksNjg2LjYxNTIpIiBpZD0iZzY0Ij48cGF0aCBpZD0icGF0aDY2IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0wLjEzOCwwLjI1NiAtMC40ODMsMC4zNDUgLTEuMDY5LDAuMjYzIC0xLjU1NywtMC4yMTcgLTIuNDY0LC0wLjIxIC0zLjk2MSwtMC4wNiAtMS40MTEsLTEuMzMzIC0yLjExNCwtMS45NyAtMy4wMjUsLTMuNjEyIDEuNTg5LC0wLjM1NiAyLjU0OCwtMC40NDUgNC4xNDksLTAuMzI0IDAuNjAzLDAuMDQ1IDEuMjEzLDAuMzQzIDEuODczLDAuODI5IDAuNjQ3LDAuNDc2IDEuMTY5LDEuMDM4IDEuNTk0LDEuNjQgQyAtMC4wMTQsLTAuNjYzIDAuMTM1LC0wLjI1MSAwLDAgbSAyLjA0NCwtMTguMDU3IGMgLTIuNjY5LDIuMTU2IC01LjI1LDUuMzM0IC02Ljc2OCw4LjQxNyAtMC41OTYsMS4xOSAtMS4zNywxLjc0OCAtMi41NjEsMS45NDUgLTAuNzUyLDAuMTI1IC0xLjEyMSwwLjIxNCAtMS44MzIsMC40MzQgLTAuMTM1LC0zLjQzIDEuNzI2LC03LjU1MyA0LjAzOCwtMTAuMDA4IC0xLjE2MSwwLjYzIC0xLjcxOCwxLjAzOCAtMi43MiwxLjk2IC01LjgxNSw4LjA0NCAtNC40NzMsMTIuODkzIDMuMjc1LDE4LjMxOSBDIC0yLjU0MSwyLjgyMSAtMC45OTcsMi43OTkgMS42MjcsMy4zMzYgMi45MzEsMy42MDMgMy42NywzLjQyMiAzLjgwNCwyLjc4MSAzLjk1MywyLjA3MyAzLjM0MywxLjA0OCAyLjI4MywtMC40NjEgMS40MzQsLTEuNjY4IDAuNTAyLC0yLjk2OSAtMC41MjUsLTQuMzYgYyAtMC42OTIsLTAuOTEzIC0xLjMxMywtMS43MTYgLTEuOTU2LC0yLjMxOCAwLjA5NiwtMC4xOTYgMC4xOTMsLTAuNDI1IDAuMjk4LC0wLjY5MSAwLjEwNSwtMC4yNjcgMC4yMjUsLTAuNTUxIDAuMzY0LC0wLjg1MSAtMC4wMDcsLTAuMDAzIC0wLjAxMSwtMC4wMDQgLTAuMDE5LC0wLjAwNyAxLjI4MiwtMy4xMjUgMy44NDQsLTYuNDE0IDYuNTA4LC04LjQ3NyAtMS4wNDEsLTAuNjU2IC0xLjU0MywtMC45NTggLTIuNjI2LC0xLjM1MyI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwNS4xOTg5LDY3Ni43MzQyKSIgaWQ9Imc2OCI+PHBhdGggaWQ9InBhdGg3MCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC43MTgsLTEuNzEzIC0yLjM2NSwtMi44NjQgLTQuMTY5LC0zLjY0NSAtMS43ODksLTAuNzc1IC0zLjYyMSwtMC44OTcgLTUuNTAyLDAuNDAyIC0xLjkwMywxLjMxNCAtMy4yOTksMy43NjggLTMuMjQ1LDYuNjgxIDAuMTE5LDQuOTY5IDMuNTU0LDguNDE2IDYuNTcxLDExLjk0NiAxLjA2NSwwLjMyNCAxLjU0NSwwLjQ4OSAyLjcwMiwwLjY5OSAtMi45NzEsLTMuMzggLTYuNDAxLC02LjY1MSAtNi42MjEsLTExLjQ2NCAtMC4wNjEsLTEuNTYzIDAuNDg3LC0yLjg1NSAxLjM5MywtMy42NzcgMC44OTgsLTAuODE2IDEuOTA4LC0wLjk2MiAyLjkzMSwtMC42MDUgMS4wMjQsMC4zNTYgMS44MzMsMS4xMDkgMi40NDcsMi4yNjMgMC42MTcsMS4xNTkgMC44NiwyLjQ0NyAwLjg5NSwzLjgyIDAuMDE0LDMuODA2IDMuMjIsNy4yODUgNS43MjQsOS43NjQgQyA0LjI4NCwxNS45OTUgNC43NjMsMTUuODM0IDUuNzM4LDE1LjQ5IDMuNDQzLDEzLjEyMiAwLjUyNSw5LjgwNiAwLjYzMiw2LjIzNyAwLjYzMywzLjg3NyAwLjcyMywxLjcyNiAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTguNzgxMSw2NzAuNTAzKSIgaWQ9Imc3MiI+PHBhdGggaWQ9InBhdGg3NCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMi44NTMsNC44OTMgLTUuNjAzLDkuNzg0IC02LjY4NSwxNS40MTUgLTIuMzUzLC0zLjk3MSAtMC40NDIsLTguNDY3IDAuOTc5LC0xMi4yODMgLTAuOTI2LDAuNDA1IC0xLjQwMiwwLjU4MyAtMi40MzIsMC44MzkgLTIuOTM5LDcuMTcxIC0yLjc4LDExLjA1NCAyLjQwNCwxNi45MTggMC44NTksLTAuMzYyIDEuMjg1LC0wLjU1MyAyLjE5NSwtMC45MDYgLTAuMzU2LC00LjUxOSAwLjYxNywtNy45ODEgMS45MjQsLTEyLjI5NyAwLjY3Myw0LjUzMSAxLjU5NCw2Ljk1NSA0LjM4NiwxMC42NDggQyAzLjY4OSwxOC4yMiA0LjEzNywxOC4xOTEgNS4wNjcsMTguMTg0IDAuODc5LDExLjM1MSAwLjU5LDYuNjc0IDIuMjEzLC0xLjExMiAxLjI4MSwtMC42OTcgMC44NDcsLTAuNDY3IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzNC42NDcsNjY4LjQwMzMpIiBpZD0iZzc2Ij48cGF0aCBpZD0icGF0aDc4IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJNIDAsMCBDIC0yLjk3Miw0LjcgLTUuODksOS40NDUgLTguMzY2LDE0LjQzMSAtOS44MzIsOS40NCAtOC44MzQsNC4zNzIgLTcuOTE1LC0wLjYwNiBjIC0xLjM4LDAuMTY2IC0yLjAwMywwLjMwNSAtMy4xNjcsMC42NDUgLTEuNTEyLDguMTU2IC0xLjEwMywxMi45MTkgMi41NCwyMC4zMzggMC45MDMsMC4wNzcgMS4zNzIsMC4xMzUgMi4zODIsMC4yODcgMC42NDksLTQuMjQ5IDMuMDA2LC04LjEzIDQuOTY3LC0xMS44NDkgLTAuMzE3LDQuNjU1IDAuODYxLDkuMDAxIDIuMjY0LDEzLjM4NCAxLjExNiwwLjI1MiAxLjczMywwLjM2OCAyLjgxMSwwLjU0NyBDIDEuMzcyLDE1LjI0MyAxLjQ4Myw4LjcgMi4xNzIsMC44NCAxLjM0OCwwLjQ2IDAuOTE5LDAuMjg3IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzOC44NjUxLDY3MC4zMTMyKSIgaWQ9Imc4MCI+PHBhdGggaWQ9InBhdGg4MiIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC4zNyw3LjY4MSAtMC4yMiwxMy43ODkgMi4wMTksMjEuMTcyIDAuOTI2LDAuMTA3IDEuMzUzLDAuMTQzIDIuMTk2LDAuMTkyIEMgMi4xMDUsMTQuNDEgMS45NjIsOC40OTMgMi4wODEsMS4yNTUgMS4yNDQsMC43NCAwLjgzOCwwLjQ4MiAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNTMuNTA4NCw2NzYuMTcwOSkiIGlkPSJnODQiPjxwYXRoIGlkPSJwYXRoODYiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Ik0gMCwwIEMgLTIuNzA1LDMuMjk5IC01LjM2OSw2LjU5NCAtNy42OTUsMTAuMTc4IC04LjMxNiw2LjE3NyAtOC4wMjMsMS44OCAtOC4xMzcsLTIuMTQ5IGMgLTEuMDEzLC0wLjQ2MyAtMS40NzYsLTAuNzE0IC0yLjM2OSwtMS4yMjMgMC4wNTYsNi42NTUgLTAuMDQ0LDEyLjU1MyAyLjA2MiwxOC45NDIgMC43NTUsMC4wMDUgMS4xMzMsMCAxLjkzMSwtMC4wMiAwLjMyNywtMy45NDYgMy43MzMsLTYuNjc2IDYuMjg0LC05LjIyNSAtMC4yOTcsNC42MyAtMC40NjgsNC40NDggMC40ODQsOS4wMTMgQyAxLjU4MiwxNS4zMSAyLjMxNiwxNS4yOTUgMy43LDE1LjI4OSAyLjc3NSwxMC4zNzMgMy43NzgsNS4xNTEgMy41MTYsMC4xNzUgMi4yMTIsMC4xODUgMS40NywwLjE1MyAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNzMuNzI2MSw2NzcuNDI5KSIgaWQ9Imc4OCI+PHBhdGggaWQ9InBhdGg5MCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC40MDcsLTAuODI2IC0wLjkxMiwtMS41MjkgLTEuNDY5LC0yLjA5OSAtMC41NTgsLTAuNTcgLTEuMTQ5LC0wLjk5MSAtMS43NDgsLTEuMjczIC0wLjYsLTAuMjgyIC0xLjE5NCwtMC40MiAtMS43OCwtMC40MzkgLTAuNTg1LC0wLjAxOCAtMS4xNDcsMC4wODYgLTEuNjk1LDAuMjg4IC0xLjgyNiwwLjY3MSAtMy4xNzMsMi4wMjcgLTQuNTc1LDQuMjMzIC0xLjM5LDIuMTg2IC0yLjU2OCw0Ljc5OCAtMi43NjgsNi43MzkgLTAuMTk4LDEuOTI4IDAuNjc1LDMuMDc5IDIuMjIyLDQuNTczIDEuNTc1LDEuNTE5IDMuMjU0LDIuODY5IDQuOTE0LDMuMTA4IDAuOTUzLDAuMTM3IDEuODA0LC0wLjIwOCAyLjcyNSwtMS4wMDEgMC45MjEsLTAuNzkyIDEuODMyLC0xLjkyNiAyLjgxOSwtMy4yNjIgLTAuNzA4LC0wLjc1MyAtMS4wMzYsLTEuMDk0IC0xLjY4NSwtMS43MzMgLTAuNjUzLDAuODI5IC0xLjMwNiwxLjQ3MyAtMS45ODMsMS45MjUgLTAuNjc2LDAuNDUzIC0xLjMwNywwLjY2NSAtMS45NDksMC42NDYgLTEuMTM1LC0wLjAzMyAtMi4xMjgsLTAuNTk5IC0yLjk1OSwtMS40NDggLTAuODQ4LC0wLjg2NSAtMS4yNjksLTEuNzM2IC0xLjExMSwtMy4wMjEgMC4xNTgsLTEuMjk5IDAuODcyLC0yLjc1IDEuODU4LC00LjMwNCAwLjk4OSwtMS41NTkgMS45NzIsLTIuNTUzIDMuMTk4LC0yLjg4NyAxLjQsLTAuMzgyIDIuNjk2LDAuMjgzIDMuNTQ3LDEuODgzIC0wLjAzMywxLjE1MiAtMC4wOSwxLjcwOCAtMC4yMTMsMi43IEMgLTQuMjMzLDQuODQ1IC00Ljk2NCw0Ljk4NCAtNi41MjMsNS4yNDYgLTYuNjY3LDYuNTE0IC02Ljc2NSw3LjAzNCAtNi45MzYsOC4wNjkgLTQuNDg2LDcuODM1IC0zLjQyNyw3LjcwNSAtMC42OTksNy41OSAtMC4xNzYsNS4xNzQgMC4yNDcsMy44NyAwLjEsMC40MDcgMC4wNjIsMC4yNDMgMC4wNDIsMC4xNjIgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzkxLjI4OTIsNjc4LjU2MjkpIiBpZD0iZzkyIj48cGF0aCBpZD0icGF0aDk0IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0xLjg5MywtMi42NjMgLTQuMTgyLC00LjU1NyAtNi44MzMsLTUuNDMzIC0yLjY1MiwtMC44NzcgLTQuOTI2LC0wLjI2OCAtNi4zMDIsMi4wODYgLTEuMzY0LDIuMzMzIC0yLjI3OSw1LjUzIC0yLjc5NSw4LjE1NSAtMC41MTMsMi42MDcgLTAuMzQyLDQuNTIxIDEuMTY4LDYuNjM5IDEuNTM2LDIuMTU2IDQuMTAxLDMuNjUyIDYuMjgzLDMuNjY4IDIuMTY4LDAuMDE1IDMuNjI4LC0xLjY0MSA1Ljc1NiwtMy40NjkgLTAuMzI0LC0wLjkxNiAtMC40NjYsLTEuMzQgLTAuODEsLTIuMjA2IC0xLjYxOSwxLjA1MiAtMi45NTksMS43NTUgLTQuNDM4LDEuNjcxIC0xLjUwOCwtMC4wODcgLTIuOTg0LC0wLjgzMyAtMy45MzksLTIuMDUzIC0wLjk3NCwtMS4yNDQgLTEuMjM3LC0yLjU2OSAtMC44ODMsLTQuMjUyIDAuMzU4LC0xLjY5OCAxLjIwMiwtMy4zNjMgMi41MDIsLTQuODY4IDEuMzAzLC0xLjUxIDIuOTY2LC0yIDQuNjksLTEuNTM2IDEuNjksMC40NTQgMy4zMjIsMi4wMSA0LjQxOCw0LjAzNiBDIC0wLjUyMywxLjg1MiAtMC4yNTEsMS40OTEgMC4xODQsMC45MjIgMC4xMjgsMC41NDggMC4wOTEsMC4zNjMgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzkyLjQ1ODUsNjc3LjM3OTgpIiBpZD0iZzk2Ij48cGF0aCBpZD0icGF0aDk4IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIDIuMDEyLDYuOTk1IC0wLjYwOSw5LjMyOSAtMi44ODUsMTUuODM2IDAuODUxLDAuMDQxIDEuMjgzLDAuMDY3IDIuMjQ2LDAuMTQzIEMgMS4xODQsMTEuNDIgMy4wMDQsOS4wNjQgMy42NTcsNC4yMiA1LjkyNCw1LjA0MiA3LjE1OCw1LjQwNSAxMC4xODcsNS40NDkgOS44MTcsNC4xOTEgOS40NCwzLjU4IDguNDc4LDIuNTMzIDQuMTk4LDIuNTQ5IDIuOTY3LDEuNjg2IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQxNC4yMjg1LDY3Ny41NTA3KSIgaWQ9ImcxMDAiPjxwYXRoIGlkPSJwYXRoMTAyIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0xLjk2OSwtMS4xNTIgLTMuODk2LC0xLjA3IC01LjI4MiwtMC4yOTEgLTEuMzc1LDAuNzc1IC0yLjAxMiwxLjk3NiAtMi41NSwzLjYyNSAtMC41NCwxLjY1NiAtMS4wMTUsMy41NTkgLTEuNTIxLDUuMDE1IC0xLjEyOSwzLjI1NiAtMy44MTMsMy4xMzQgLTQuNzQyLDguMzc0IDEuMTM2LDAuMSAxLjYzMSwwLjEzNSAyLjU3MiwwLjE4MSAwLjc1MywtMy42NTMgMy40OTIsLTUuODM0IDUuMTg2LC04Ljk2NCAwLjMxMiwtMC44NTcgMC43MjEsLTEuODAxIDEuMjM3LC0yLjgzNSAwLjUxNSwtMS4wMyAxLjA2LC0xLjczOCAxLjg1OSwtMi4wOTcgMC43OTksLTAuMzU4IDEuNjgzLC0wLjI1OCAyLjM3OCwwLjQxMyAwLjcwNCwwLjY3OCAwLjk0LDEuNTc3IDAuNjAzLDIuNTkgLTEuOTQ1LDMuOTUzIC00LjE1LDYuNjYzIC01LjgwMywxMC44NDYgMC45NDksLTAuMDU4IDEuNDUsLTAuMDk1IDIuNTk5LC0wLjE4NSBDIC0xLjc4NCwxMi4yOTggMC41MDUsOS4zNjYgMi40NjcsNS4yMTIgMy4wNzIsMy4zMDYgMS45ODQsMS4xNjEgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDMwLjMzOTYsNjgyLjM5MDEpIiBpZD0iZzEwNCI+PHBhdGggaWQ9InBhdGgxMDYiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Im0gMCwwIGMgLTAuNjM1LDAuMjYzIC0xLjM1NSwwLjM0NCAtMi4wNzksMC4yNjggLTIuMDU0LC0wLjIxNSAtMy4xNTMsLTAuMjggLTUuMjY5LC0wLjI0MyAwLjYzOSwtMS41NDMgMC44MjQsLTIuNDU3IDAuMjMyLC00LjQ4MyAyLjEzMiwwLjAxNSAzLjIzMywwLjEyOSA1LjMsMC40ODcgMC43MjgsMC4xMjcgMS40MzYsMC40ODUgMi4wNSwxLjA0OCAwLjYxNCwwLjU2MyAwLjkxOSwxLjE1IDAuODYzLDEuNzE5IEMgMS4wNDQsLTAuNjY2IDAuNjU0LC0wLjI3MSAwLDAgbSAtNS4yNDksNi4zMzEgYyAtMC43NjksMC4zODIgLTEuNDc5LDAuNjA1IC0yLjE1MSwwLjYwNiAtMS43ODgsMC4wMDMgLTIuNzQsMC4wMSAtNC41NjEsMC4wOTIgMS4wNDQsLTEuODYxIDEuNzE5LC0yLjU4MSAyLjgxMSwtNC4wNDkgMS44OTIsLTAuMDY0IDIuODc1LC0wLjA0MiA0LjcyOSwwLjA0OSAwLjY5OCwwLjAzNCAxLjE2MiwwLjI0OCAxLjM4NSwwLjU5NCAwLjIyLDAuMzQyIDAuMDk1LDAuNzY4IC0wLjM3NCwxLjMxNyAtMC40NzEsMC41NSAtMS4wODYsMS4wMTYgLTEuODM5LDEuMzkxIE0gMS4xNzMsLTQuOTMgYyAtMS44NjIsLTEuNDE2IC0zLjc3MSwtMi4zNjQgLTUuMzQ5LC0yLjcyNiAtMy4zNzksLTAuNzc1IC01LjM4NCwtMC45NzYgLTguNzcsLTAuNDM5IDQuNzIzLDguMzQ4IC0xLjA2MSwxMS44NDcgLTMuODU3LDE5LjcgMi44NCwtMC4yNiA0LjY0LC0wLjI2NSA3LjY2MiwtMC4zNzUgMS41MDIsLTAuMDU0IDIuODYzLC0wLjkxIDQuMzU1LC0yLjE2OCAxLjYyMywtMS4zNyAzLjA0MywtMi43MDEgNC4yNzEsLTMuOTY0IEMgMC43MjYsMy44MjMgMS4xNzcsMi45NyAwLjYwNSwyLjE4OCAyLjQ3NiwxLjc1MiAzLjkyNywxLjA3NiA0LjEwOSwtMC40MjggNC4yNzQsLTEuNzggMy4wNzQsLTMuNDg1IDEuMTczLC00LjkzIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L3N2Zz4=" alt="Thunderbird Running Club" style="height:40px;width:auto;">
-    </a>
-    <div style="display:flex;gap:0;overflow-x:auto;scrollbar-width:none;">
-      <a class="tb-navlink" data-sec="sec-overview" href="#sec-overview" style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;text-decoration:none;padding:6px 12px;border-bottom:2px solid transparent;white-space:nowrap;">개요</a>
-      <a class="tb-navlink" data-sec="sec-map" href="#sec-map" style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;text-decoration:none;padding:6px 12px;border-bottom:2px solid transparent;white-space:nowrap;">지도</a>
-      <a class="tb-navlink" data-sec="sec-elev" href="#sec-elev" style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;text-decoration:none;padding:6px 12px;border-bottom:2px solid transparent;white-space:nowrap;">고도</a>
-      <a class="tb-navlink" data-sec="sec-timetable" href="#sec-timetable" style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;text-decoration:none;padding:6px 12px;border-bottom:2px solid transparent;white-space:nowrap;">타임테이블</a>
-      <a class="tb-navlink" data-sec="sec-plan" href="#sec-plan" style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;text-decoration:none;padding:6px 12px;border-bottom:2px solid transparent;white-space:nowrap;">분기</a>
-      <a class="tb-navlink" data-sec="sec-prep" href="#sec-prep" style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6b6655;text-decoration:none;padding:6px 12px;border-bottom:2px solid transparent;white-space:nowrap;">보급</a>
-    </div>
-  </div>
-</nav>
-
-<!-- ══════════ HERO (NIGHT) ══════════ -->
-<section id="sec-top" style="position:relative;background:#20231C;color:#F6F4EC;padding:76px 0 66px;overflow:hidden;">
-  <div style="position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(161,208,108,.14),transparent 62%);pointer-events:none;"></div>
-  <div class="wrap" style="position:relative;z-index:2;">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;border-bottom:1px solid rgba(190,220,158,.22);padding-bottom:18px;">
-      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.24em;color:#A1D06C;font-weight:700;text-transform:uppercase;">From Jiri To Seorak</div>
-      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9C9377;">백두대간 EXPEDITION · VOL.03</div>
-    </div>
-
-    <h1 class="r-hero-title" style="font-family:Helvetica;font-weight:700;font-size:63px;line-height:.9;letter-spacing:-.01em;color:#F6F4EC;margin:46px 0 0;">The Thunderbird Way 2, Ridges<span style="color:#A1D06C;">.</span></h1>
-    <div style="font-family:'Pretendard';font-weight:700;font-size:clamp(16px,2.3vw,23px);color:#E9E5D8;margin-top:16px;">영취산 · 무룡고개 → 빼재(신풍령)</div>
-
-    <div class="r-hero-stats" style="display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px;border:1px solid rgba(190,220,158,.22);border-radius:12px;overflow:hidden;">
-      <div style="padding:20px 22px;border-right:1px solid rgba(190,220,158,.16);"><div style="font-family:'Space Mono',monospace;font-size:clamp(23px,3vw,31px);font-weight:700;color:#A1D06C;line-height:1;">44.2<span style="font-size:13px;color:#BEDC9E;letter-spacing:.05em;"> KM</span></div><div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9C9377;margin-top:10px;text-transform:uppercase;">Distance · 플랜B</div></div>
-      <div style="padding:20px 22px;border-right:1px solid rgba(190,220,158,.16);"><div style="font-family:'Space Mono',monospace;font-size:clamp(23px,3vw,31px);font-weight:700;color:#A1D06C;line-height:1;">3,400<span style="font-size:13px;color:#BEDC9E;letter-spacing:.05em;"> M</span></div><div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9C9377;margin-top:10px;text-transform:uppercase;">Total Gain ▲</div></div>
-      <div style="padding:20px 22px;border-right:1px solid rgba(190,220,158,.16);"><div style="font-family:'Space Mono',monospace;font-size:clamp(23px,3vw,31px);font-weight:700;color:#A1D06C;line-height:1;">18<span style="font-size:13px;color:#BEDC9E;letter-spacing:.05em;"> H</span></div><div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9C9377;margin-top:10px;text-transform:uppercase;">Duration</div></div>
-      <div style="padding:20px 22px;"><div style="font-family:'Space Mono',monospace;font-size:clamp(23px,3vw,31px);font-weight:700;color:#A1D06C;line-height:1;">10<span style="font-size:13px;color:#BEDC9E;letter-spacing:.05em;"> 인</span></div><div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9C9377;margin-top:10px;text-transform:uppercase;">Crew</div></div>
-    </div>
-
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px 30px;margin-top:24px;flex-wrap:wrap;">
-      <div style="display:flex;flex-wrap:wrap;gap:6px 22px;font-family:'Space Mono',monospace;font-size:12px;color:#BEC4B3;letter-spacing:.03em;">
-        <span><span style="color:#9C9377;">DATE</span> 2026.07.25 SAT</span>
-        <span><span style="color:#9C9377;">집결</span> 양재역 07.24 23:00</span>
-        <span><span style="color:#9C9377;">출발</span> 무룡고개 03:00</span>
-        <span><span style="color:#9C9377;">피니시</span> 빼재 21:00</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:16px;">
-        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:#9C9377;">WITH</span>
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTQiIGhlaWdodD0iNTQiIHZpZXdCb3g9IjAgMCA1NCA1NCIgZmlsbD0iI0Y2RjRFQyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgICAgICAgICAgICA8cGF0aCBkPSJNMzYuMjgxIDExLjM4NGMtLjA1Ni4wNTgtLjExNC4xMy0uMTcuMTg4bC0yLjM2NCAyLjQxLS4wNTcuMDU4Yy0uMDU3LjA3Mi0uMDU3LjE0NS4wMTQuMjQ3YTguMzMxIDguMzMxIDAgMCAxIDEuMDk2IDMuMzA5Yy4yNTcgMi40MDktLjM0MiA0LjU3MS0xLjgyMiA2LjQ3My0xLjI2OCAxLjYyNS0yLjkyIDIuNjQtNC44OTkgMy4wOS0uOTExLjIwNC0xLjgzNy4yMTgtMi43NjIuMTE3LTEuNTI0LS4xNi0yLjg5MS0uNzI2LTQuMTE2LTEuNjU1LTEuNzY2LTEuMzM1LTIuODYyLTMuMTA1LTMuMzE4LTUuMzExLS4xNy0uODEzLS4xOTktMS42NC0uMTI4LTIuNDUzLjE3MS0xLjkwMS44ODMtMy41ODUgMi4xNS01LjAyMiAxLjIxLTEuMzc5IDIuNjkyLTIuMjc4IDQuNDQzLTIuNjg1YTguMDMgOC4wMyAwIDAgMSAyLjYzNS0uMTg5IDguNSA4LjUgMCAwIDEgMy41ODggMS4xNDdjLjE0Mi4wODcuMi4wMjkuMjg1LS4wNThsMi4zNS0yLjM5NWMuMDU2LS4wNTguMTEzLS4xMy4xODUtLjIxN2wyLjg4OSAyLjk0NS4wMDEuMDAxWm0tNS4zNDIgNy40Yy4wNzEtMi44LTIuMDkzLTQuODMyLTQuNTI5LTQuOTA1LTIuNzQ4LS4wNzMtNC43OTggMi4yNS00Ljc5OCA0Ljc2IDAgMi41NyAyLjEyMiA0Ljc5IDQuNjcgNC43NDYgMi41MDcuMDMgNC42LTIuMDc2IDQuNjU2LTQuNlptMy42MDUgMTkuMzkxYy4wMTQgMi4zNTEgMCA0LjcxNyAwIDcuMDY4di4zMmgtNC4xM3YtLjI5YzAtMi40NjguMDE1LTQuOTM1IDAtNy40MDMgMC0xLjI5MS0uNDQtMi40MjMtMS4zNjYtMy4zMjNhMy44MjcgMy44MjcgMCAwIDAtMi4yMDgtMS4wNmMtMS4xMS0uMTYtMi4xMjEuMTE3LTMuMDE4Ljc5OS0uODk4LjY5Ni0xLjQyNCAxLjY0LTEuNTk1IDIuNzU3LS4wODYuNTM3LS4xIDEuMDg5LS4xIDEuNjQtLjAxNCAyLjE5MiAwIDQuMzY5IDAgNi41NnYuMzA1aC00LjEwMXYtLjI3NmMwLTIuNjU2LS4wMjktNS4zMjYuMDE0LTcuOTgyLjAyOS0xLjQwOC40Ny0yLjc0MyAxLjE5Ni0zLjk2MiAxLjIxLTIuMDMyIDIuOTM0LTMuMzM4IDUuMTk4LTMuODc1YTguNDE0IDguNDE0IDAgMCAxIDIuMTc4LS4yMDNjMi4yNjUuMTAxIDQuMjAxIDEuMDE1IDUuNzQgMi43NDIgMS4wOTYgMS4yNDggMS43OTQgMi43IDIuMDM2IDQuMzY5LjA5OC42MDguMTU1IDEuMjE3LjE1NSAxLjgxMiI+PC9wYXRoPgogICAgICAgICAgICA8L3N2Zz4=" alt="On" style="height:20px;width:auto;opacity:.85;">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MTAgMjc0Ij4KICA8cGF0aCBmaWxsPSIjRjZGNEVDIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0gNjQwLDk4IEwgNjM4LDk5IEwgNjM5LDE5MSBMIDY2NywxOTEgTCA2NjcsOTkgWiBNIDEyNyw5OCBMIDEwMiw5OCBMIDk4LDk5IEwgOTAsMTE4IEwgNzgsMTUwIEwgNzYsMTUzIEwgNzQsMTUxIEwgNzMsMTQ3IEwgNjksMTM5IEwgNTcsMTA3IEwgNTMsOTkgTCAyMSw5OCBMIDIyLDEwMyBMIDMyLDEyMiBMIDU2LDE3NSBMIDU4LDE3NyBMIDYxLDE4NCBMIDU5LDE4NyBMIDU4LDE5MSBMIDQ1LDIyMSBMIDM4LDIzNSBMIDQwLDIzNiBMIDY0LDIzNSBMIDY4LDIzNiBMIDc0LDIyMyBMIDc3LDIxNCBMIDgyLDIwNSBMIDg1LDE5NiBMIDkwLDE4NyBMIDEwNCwxNTMgTCAxMDksMTQ0IEwgMTE5LDExOSBMIDEyNywxMDMgWiBNIDc3OCw5OSBMIDc2NSwxMDUgTCA3NjAsMTA5IEwgNzUyLDExOSBMIDc0OSwxMjYgTCA3NDcsMTM0IEwgNzQ2LDE0NyBMIDc0OSwxNjMgTCA3NTUsMTc0IEwgNzY1LDE4NCBMIDc2OCwxODYgTCA3ODUsMTkyIEwgNzkyLDE5MyBMIDgwNiwxOTMgTCA4MjEsMTkwIEwgODMwLDE4NiBMIDgzNiwxODIgTCA4NDMsMTc1IEwgODQ2LDE3MSBMIDg0OCwxNjYgTCA4NDYsMTY2IEwgODQ1LDE2NSBMIDgyNSwxNjAgTCA4MjIsMTYwIEwgODE2LDE2NyBMIDgxMSwxNzAgTCA4MDQsMTcyIEwgNzk0LDE3MiBMIDc4OCwxNzAgTCA3ODUsMTY4IEwgNzgwLDE2MiBMIDc3NywxNTUgTCA3NzgsMTUxIEwgODQ4LDE1MSBMIDg0OCwxMzMgTCA4NDUsMTIyIEwgODQwLDExMyBMIDgzMywxMDYgTCA4MTksOTkgTCA4MTEsOTcgTCA4MDEsOTYgTCA3ODYsOTcgWiBNIDc3OCwxMzAgTCA3ODEsMTI0IEwgNzg3LDExOCBMIDc5MiwxMTYgTCA4MDMsMTE2IEwgODA2LDExNyBMIDgxMywxMjMgTCA4MTYsMTI5IEwgODE1LDEzNSBMIDc3OCwxMzQgWiBNIDQ3NSw5OSBMIDQ3NSwxOTEgTCA1MDQsMTkxIEwgNTA0LDEyOSBMIDUwNywxMjIgTCA1MTAsMTE5IEwgNTE0LDExNyBMIDUyMywxMTcgTCA1MjgsMTIxIEwgNTMwLDEyNSBMIDUzMSwxMzIgTCA1MzEsMTkxIEwgNTYwLDE5MSBMIDU2MSwxODkgTCA1NjAsMTc2IEwgNTYwLDEzMyBMIDU2MSwxMjcgTCA1NjMsMTIzIEwgNTY4LDExOCBMIDU3NSwxMTYgTCA1ODEsMTE4IEwgNTg1LDEyMiBMIDU4NywxMjcgTCA1ODgsMTkxIEwgNjE3LDE5MSBMIDYxNywxMjIgTCA2MTUsMTEzIEwgNjEyLDEwNyBMIDYwNywxMDEgTCA2MDEsOTggTCA1OTIsOTYgTCA1ODQsOTYgTCA1NzMsOTkgTCA1NjUsMTA0IEwgNTU5LDExMSBMIDU1NiwxMDggTCA1NTQsMTA0IEwgNTUyLDEwMiBMIDU0NSw5OCBMIDUzNiw5NiBMIDUyOCw5NiBMIDUyMCw5OCBMIDUxNCwxMDEgTCA1MDUsMTExIEwgNTA0LDk5IFogTSAzODMsMTAxIEwgMzc3LDEwNCBMIDM3MywxMDcgTCAzNjYsMTE0IEwgMzYxLDEyMiBMIDM1OCwxMzEgTCAzNTcsMTM2IEwgMzU3LDE1MyBMIDM1OSwxNjIgTCAzNjQsMTcyIEwgMzY3LDE3NiBMIDM3MywxODIgTCAzODMsMTg4IEwgMzk1LDE5MiBMIDQwMywxOTMgTCA0MTYsMTkzIEwgNDI4LDE5MSBMIDQzNCwxODkgTCA0NDIsMTg1IEwgNDUwLDE3OSBMIDQ1NSwxNzMgTCA0NTksMTY2IEwgNDU3LDE2NiBMIDQ1NiwxNjUgTCA0NTIsMTY1IEwgNDM1LDE2MCBMIDQzMiwxNjAgTCA0MjYsMTY3IEwgNDIxLDE3MCBMIDQxNSwxNzIgTCA0MDQsMTcyIEwgMzk3LDE2OSBMIDM5MSwxNjMgTCAzODgsMTU3IEwgMzg4LDE1MSBMIDQ1OSwxNTAgTCA0NTksMTM2IEwgNDU3LDEyNiBMIDQ1MiwxMTUgTCA0NDcsMTA5IEwgNDQyLDEwNSBMIDQzNSwxMDEgTCA0MjEsOTcgTCA0MTEsOTYgTCAzOTcsOTcgWiBNIDM4OCwxMzEgTCAzOTIsMTIzIEwgMzk2LDExOSBMIDQwMywxMTYgTCA0MTQsMTE2IEwgNDE4LDExOCBMIDQyMiwxMjEgTCA0MjcsMTMxIEwgNDI2LDEzNSBMIDM4OCwxMzQgWiBNIDE1NiwxMDEgTCAxNDYsMTA3IEwgMTM3LDExNiBMIDEzMCwxMzAgTCAxMjgsMTQ2IEwgMTI5LDE1NSBMIDEzMSwxNjIgTCAxMzcsMTczIEwgMTQ3LDE4MyBMIDE1MCwxODUgTCAxNjEsMTkwIEwgMTY4LDE5MiBMIDE3NiwxOTMgTCAxODgsMTkzIEwgMTk1LDE5MiBMIDIwNywxODggTCAyMTcsMTgyIEwgMjI2LDE3MyBMIDIzMiwxNjIgTCAyMzQsMTU0IEwgMjM0LDEzNSBMIDIzMiwxMjcgTCAyMjgsMTE5IEwgMjI1LDExNSBMIDIxNywxMDcgTCAyMDcsMTAxIEwgMTk0LDk3IEwgMTg3LDk2IEwgMTc2LDk2IEwgMTY5LDk3IFogTSAxODEsMTIwIEwgMTg3LDEyMSBMIDE5NCwxMjQgTCAyMDAsMTMwIEwgMjAzLDEzNiBMIDIwNCwxNDEgTCAyMDQsMTQ4IEwgMjAzLDE1MyBMIDIwMCwxNTkgTCAxOTQsMTY1IEwgMTg4LDE2OCBMIDE4MCwxNjkgTCAxNzIsMTY3IEwgMTYzLDE1OSBMIDE1OSwxNTEgTCAxNTksMTM5IEwgMTYzLDEzMCBMIDE2OSwxMjQgTCAxNzIsMTIyIFogTSA2OTUsNjYgTCA2OTUsOTcgTCA2OTMsOTkgTCA2NzgsOTkgTCA2NzksMTIzIEwgNjk1LDEyNCBMIDY5NSwxOTEgTCA3MjMsMTkxIEwgNzI0LDEyMyBMIDc0MCwxMjIgTCA3NDAsOTkgTCA3MzgsOTggTCA3MjUsOTkgTCA3MjMsOTcgTCA3MjMsNjYgWiBNIDg2Myw1OSBMIDg2NCw2MCBMIDg2NCw3OCBMIDg2Nyw3OCBMIDg2OCw3MSBMIDg3MCw3MSBMIDg3Myw3NCBMIDg3NCw3NyBMIDg3OSw3OCBMIDg3Niw3MiBMIDg3Niw3MCBMIDg3OSw2NiBMIDg3OSw2MiBMIDg3Nyw1OSBMIDg3NSw1OCBaIE0gODU3LDUwIEwgODUyLDU1IEwgODUwLDU5IEwgODUwLDc2IEwgODUzLDgyIEwgODU5LDg3IEwgODY1LDg5IEwgODc2LDg5IEwgODgwLDg4IEwgODg1LDg1IEwgODg4LDgyIEwgODkxLDc2IEwgODkxLDYwIEwgODg5LDU1IEwgODg0LDUwIEwgODc4LDQ3IEwgODYzLDQ3IFogTSA4NjEsNTMgTCA4NjYsNTEgTCA4NzUsNTEgTCA4ODAsNTMgTCA4ODYsNTkgTCA4ODcsNjIgTCA4ODcsNzQgTCA4ODUsNzggTCA4ODAsODMgTCA4NzcsODQgTCA4NjMsODQgTCA4NjEsODMgTCA4NTYsNzggTCA4NTQsNzQgTCA4NTQsNjIgTCA4NTUsNTkgWiBNIDY0Myw0OSBMIDYzOSw1MiBMIDYzOSw1MyBMIDYzNiw1NyBMIDYzNSw2NSBMIDYzNyw3MSBMIDY0Miw3NiBMIDY0OSw3OSBMIDY1Niw3OSBMIDY2MCw3OCBMIDY2NSw3NSBMIDY2Nyw3MyBMIDY3MCw2NiBMIDY3MCw1OSBMIDY2OCw1NCBMIDY2NCw1MCBMIDY1Nyw0NyBMIDY0OCw0NyBaIE0gMjUwLDQ3IEwgMjUwLDE5MSBMIDI4MCwxOTEgTCAyODAsMTMwIEwgMjgxLDEyNiBMIDI4MywxMjMgTCAyODYsMTIwIEwgMjkxLDExNyBMIDMwMiwxMTcgTCAzMDQsMTE4IEwgMzA5LDEyMyBMIDMxMSwxMzAgTCAzMTEsMTkxIEwgMzQwLDE5MSBMIDM0MCwxMTkgTCAzMzYsMTA3IEwgMzMyLDEwMiBMIDMyNCw5NyBMIDMxNiw5NSBMIDMwMyw5NSBMIDI5OCw5NiBMIDI5MCwxMDAgTCAyODEsMTEwIEwgMjgwLDQ3IFoiPjwvcGF0aD4KPC9zdmc+" alt="Yohemite" style="height:15px;width:auto;opacity:.85;">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDE2MCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0Y2RjRFQyIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNzQuMjI2MyA1NS4yOTMzQzc0LjIyNjMgNTYuMDUwMiA3NC4wNzIzIDU2Ljc5NzcgNzMuMTg2MiA1Ni43OTc3QzcyLjQ4MDMgNTYuNzk3NyA3Mi4xNTk5IDU1LjY0NjEgNzEuODkyMyA1NS4xMjIxQzY5Ljc3NzYgNTAuODYwNCA2Ny4wNDk3IDQ4Ljc4MzMgNjIuNzYzMyA0OC43ODMzQzU0LjIzMjYgNDguNzgzMyA1MC4xNzUzIDU2LjMxOTkgNTAuMTc1MyA2My4zMjAxQzUwLjE3NTMgNzIuOTgyMSA1Ni4wMTE3IDc3Ljc2OTMgNjIuNTA2NiA3Ny43NjkzQzY2LjM5ODUgNzcuNzY5MyA2OS4wOTQ4IDc2LjIyMTcgNzEuODM2NiA3My40NzEzQzcyLjI4MDggNzMuMDI2OSA3Mi43NjIxIDcyLjI3MjUgNzMuNTE1IDcyLjI3MjVDNzMuNjQ4OSA3Mi4yNzYgNzMuNzgwOCA3Mi4zMDY2IDczLjkwMjggNzIuMzYyNEM3NC4wMjQ5IDcyLjQxODIgNzQuMTM0NSA3Mi40OTgxIDc0LjIyNTQgNzIuNTk3NEM3NC4zMTYyIDcyLjY5NjcgNzQuMzg2NCA3Mi44MTMzIDc0LjQzMTggNzIuOTQwNEM3NC40NzcxIDczLjA2NzYgNzQuNDk2NyA3My4yMDI1IDc0LjQ4OTQgNzMuMzM3NEM3NC40ODk0IDc0LjgwMTkgNzEuMTcyNiA3Ny4zMjc5IDcwLjA2NzMgNzcuOTk0OEM2Ny42ODEgNzkuNDk3NiA2NS40NzE1IDgwLjI5NzggNjEuODAzMiA4MC4yOTc4QzUyLjk2NjkgODAuMjk3OCA0NS42NzUyIDczLjc0MDUgNDUuNjc1MiA2NC42NTE4QzQ1LjY3NTIgNTUuOTYyNiA1MC44MDMyIDQ2LjUxODYgNjIuOTUyOSA0Ni41MTg2QzY1Ljg4MzEgNDYuNDIwMSA2OC43ODMyIDQ3LjE0MTEgNzEuMzMyIDQ4LjYwMTdDNzMuODAwMyA0OS44ODcxIDc0LjIyMjQgNTAuODE1NiA3NC4yMjI0IDUyLjEwNEw3NC4yMjYzIDU1LjI5MzNaIj48L3BhdGg+CiAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0Y2RjRFQyIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNODMuNjg2MSA2OC4zNjExQzgzLjIwMDggNjkuODc3OSA4MS42NDk4IDczLjczNTUgODEuNjQ5OCA3NS4yODgxQzgxLjY0OTggNzguMDM1MSA4My45OTEyIDc3LjI3MzcgODMuOTkxMiA3OC42MDUzQzgzLjk5MTIgNzkuNTgwMiA4Mi43MTMxIDc5LjQ4NDcgODEuMzM3MyA3OS40ODQ3SDc3Ljc1NzRDNzYuNzAyIDc5LjQ4NDcgNzUuOTAyNyA3OS41NjAzIDc1LjkwMjcgNzguNTM5MkM3NS45MDI3IDc4LjAxMjIgNzYuMjE1NyA3Ny43ODA4IDc2LjYxNDYgNzcuNTEyNUM3Ni45NDQxIDc3LjM0NTEgNzcuMjM1NyA3Ny4xMTA2IDc3LjQ3MSA3Ni44MjRDNzcuNzA2MiA3Ni41MzczIDc3Ljg4MDEgNzYuMjA0NyA3Ny45ODE1IDc1Ljg0N0M4MS4yMDc1IDY1Ljc4ODQgODUuNTQwMiA1NS43MzIyIDg5LjA3NDIgNDkuMzAyOEM4OS42NDg0IDQ4LjI0MTkgOTAuNjE2OSA0Ni4yOTc2IDkxLjI4MTMgNDYuMjk3NkM5Mi4xMjQ1IDQ2LjI5NzYgOTMuNDQ3IDQ4Ljc4MTMgOTMuNzU1NSA0OS4zMDk4Qzk3LjUxMTcgNTUuNzM5NyAxMDEuMDA0IDY0LjI5NTUgMTA0Ljk4NCA3Ni4wOTEzQzEwNS4yOTEgNzYuOTczMSAxMDUuNjkgNzcuMjQyMyAxMDYuNTI3IDc3LjY4MzdDMTA2Ljk3MSA3Ny45MDUyIDEwNy4yODEgNzguMDU0IDEwNy4yODEgNzguNTg1OUMxMDcuMjgxIDc5LjYwOTEgMTA2LjI2OCA3OS40ODU2IDEwNS41MTMgNzkuNDg1NkgxMDAuMDM0Qzk5LjMzMjcgNzkuNDg1NiA5OC40NDIyIDc5LjQ3NTIgOTguNDQyMiA3OC41NDAyQzk4LjQ0MjIgNzcuMTY3NyAxMDAuNjk4IDc3LjczMTUgMTAwLjY5OCA3Ni4zMTM4QzEwMC42OTggNzUuNDI0IDk4Ljg4NiA3MC4zODYgOTguMDQ0OCA2OC4zNjMxTDgzLjY4NjEgNjguMzYxMVoiPjwvcGF0aD4KICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRjZGNEVDIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05Ny4zNDA0IDY1LjgzMzZDOTUuMzQ4NSA2MC43Nzc3IDkzLjEzNyA1NS4zMjc2IDkwLjc1NTYgNTEuNTUxNkM4OC4zMTA5IDU2LjE0MSA4Ni4yMjYzIDYwLjkxNjMgODQuNTIwOCA2NS44MzM2SDk3LjM0MDRaIj48L3BhdGg+CiAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0Y2RjRFQyIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTE1LjU1MyA2Ni41MTM5QzExMS4zNjcgNjEuNTU2NSAxMDcuNzQyIDU2LjE0NSAxMDQuNzQzIDUwLjM3OTJDMTA0LjE2OCA0OS4yNjggMTAxLjk2NiA0OS41MzMzIDEwMS45NjYgNDguMjUzM0MxMDEuOTY2IDQ3LjQ5ODQgMTAyLjY0IDQ3LjYzMzggMTAzLjMwNSA0Ny42MzM4SDEwOS44NDlDMTEwLjU0OSA0Ny42MzM4IDExMS4zMDIgNDcuNDUyNyAxMTEuMzAyIDQ4LjI5NjFDMTExLjMwMiA0OS40NDc3IDEwOS4xODMgNDkuMTE1NyAxMDkuMTgzIDUwLjI3MDdDMTA5LjE4MyA1MS41OTY0IDExMi4wOTkgNTcuMzAyOCAxMTguMTk4IDY0LjA4N0MxMjIuOTI0IDU5LjA3OTMgMTI3LjEyMyA1MS45NjAyIDEyNy4xMjMgNTAuNzU5NEMxMjcuMTIzIDQ4Ljc2NTkgMTI0LjY5NiA0OS42NDAyIDEyNC42OTYgNDguMTc5MkMxMjQuNjk2IDQ3LjM3ODUgMTI1LjYyMSA0Ny42MzE4IDEyNi4xMDcgNDcuNjMxOEgxMzEuMDZDMTMxLjY3NSA0Ny42MzE4IDEzMi44MjMgNDcuNDUwNyAxMzIuODIzIDQ4LjIwODFDMTMyLjgyMyA0OS4yNjkgMTMxLjI0NCA0OS4zNzggMTMwLjYyOCA1MC42MjAxQzEyOC4wNjQgNTUuODAzOSAxMjMuNjE4IDYxLjkwNDkgMTE5LjU4NyA2Ni42MDRWNzQuOTM1OEMxMTkuNTg3IDc2Ljg4NTYgMTE5LjU3MiA3Ny4xNTA4IDEyMC4zMjcgNzcuMzc0MkMxMjEuNTcyIDc3LjY4MTMgMTIyLjA5IDc3LjczOTUgMTIyLjA5IDc4LjUzNzJDMTIyLjA5IDc5LjUxNDUgMTIxLjIwMSA3OS40ODI3IDEyMC40OTMgNzkuNDgyN0gxMTQuNDRDMTEzLjY4OCA3OS40ODI3IDExMi44NTMgNzkuNTE0NSAxMTIuODUzIDc4LjUzNzJDMTEyLjg1MyA3Ny44MjUxIDExMy40MDYgNzcuNjg4NyAxMTQuMjQ2IDc3LjQyM0MxMTUuMzUgNzcuMDcwMiAxMTUuNTU0IDc2LjcwODkgMTE1LjU1NCA3NC45MzQ4TDExNS41NTMgNjYuNTEzOVoiPjwvcGF0aD4KICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRjZGNEVDIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzcuMjI2IDUwLjgxNzZDMTM3LjIyNiA0OS42MjMzIDEzNi44MjEgNDkuNTM0MyAxMzUuOTMxIDQ5LjMxMTNDMTM1LjI3NSA0OS4xMzg2IDEzNC43NCA0OS4yMjgyIDEzNC43NCA0OC4zODQ3QzEzNC43NCA0Ny40MDk0IDEzNS42NjIgNDcuNjMzOCAxMzYuNDE4IDQ3LjYzMzhIMTQyLjQyNUMxNDMuMTczIDQ3LjYzMzggMTQ0LjAxMSA0Ny40NTUyIDE0NC4wMTEgNDguMzg0N0MxNDQuMDExIDQ5LjEzOTYgMTQzLjM4OCA0OS4xMTY3IDE0Mi44MTEgNDkuMzM3N0MxNDEuMTc3IDQ5Ljk1OTIgMTQxLjI1OSA1MC4wNzAyIDE0MS4yNTkgNTEuODQxM1Y3NC40OTQ0QzE0MS4yNTkgNzYuOTcyNiAxNDEuNTI3IDc3LjM3NjcgMTQ1LjczIDc3LjM3NjdDMTU0LjQ3OSA3Ny4zNzY3IDE1NS4zOTIgNzYuODg5NSAxNTcuNTU3IDc1LjI4NjdDMTU3LjkwOCA3NS4wMjA5IDE1OC43IDc0LjMxMzMgMTU5LjIyOSA3NC4zMTMzQzE1OS43NTggNzQuMzEzMyAxNjAgNzQuNzExNCAxNjAgNzUuMjA2MUMxNTkuODM1IDc2LjM3ODcgMTU5LjU4NiA3Ny41Mzc4IDE1OS4yNTUgNzguNjc0QzE1OC44MSA3OS42NDc5IDE1Ny44OTUgNzkuNDgzMiAxNTcuMDA5IDc5LjQ4MzJIMTM2LjU4OEMxMzUuODggNzkuNDgzMiAxMzUuMDQ2IDc5LjUxNjUgMTM1LjA0NiA3OC41Mzc3QzEzNS4wNDYgNzcuODI2MSAxMzUuMzIxIDc3LjczMyAxMzUuODkyIDc3LjUwODZDMTM3LjM5NiA3Ni45MzI4IDEzNy4yMjUgNzYuNzA5OSAxMzcuMjI1IDc0LjkzNzNMMTM3LjIyNiA1MC44MTc2WiI+PC9wYXRoPgogICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNGNkY0RUMiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1Mi44NSA0Ny42MzU3SDE1NS44NzNWNDguMTQwOEgxNTQuMzYyVjUwLjY2ODhIMTUzLjg1OFY0OC4xNDA4SDE1Mi44NVY0Ny42MzU3WiI+PC9wYXRoPgogICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNGNkY0RUMiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1OS40MDEgNTAuNjY2OFY0OC43MzA1QzE1OS40MzMgNDguNTMwNiAxNTkuNDc2IDQ4LjMzMjcgMTU5LjUzIDQ4LjEzNzhIMTU5LjUyM0wxNTguNDY3IDUwLjY2NThIMTU3Ljk1NkwxNTYuOTA2IDQ4LjEzNzhIMTU2Ljg5M0MxNTYuODkzIDQ4LjEzNzggMTU2Ljg4MiA0OC42MjExIDE1Ni44ODIgNDguNzMwNVY1MC42NjU4SDE1Ni4zNzhWNDcuNjM1N0gxNTcuMTQ0TDE1OC4yMTIgNTAuMTYzN0gxNTguMjIyTDE1OS4yODkgNDcuNjM1N0gxNTkuOTA2VjUwLjY3MTNMMTU5LjQwMSA1MC42NjY4WiI+PC9wYXRoPgogICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNGNkY0RUMiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTk5LjY3NDggMTIuNDYzN0w4My42NzAzIDI2LjcyOThMNzMuOTU2OCAyMS40MTY2TDU4LjI1MDQgMEw0NC4yMDMyIDI2Ljc0MjJMMjguNzExNSA1NC41OTgxTDIwLjc4NiA1Mi4yMDZMMCAxMDBMMjAuNzg2NSA2My4xMjU1TDIzLjY0MzcgNTkuMjMxNkwzMC40MTgxIDU5Ljc3NUw1MC40NjcxIDI2LjgxMzlMNTkuMDI2OSAxMC44ODk3TDY3LjA5MTYgMjMuNzUyNEw4NC41MDUgMzMuNTE0NUw5OS41NTE5IDIwLjIwMzhMMTQ2LjM2IDM1Ljg2MDhMOTkuNjc0OCAxMi40NjM3WiI+PC9wYXRoPgogICAgICAgICAgICA8L3N2Zz4=" alt="CAYL" style="height:20px;width:auto;opacity:.85;">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ OVERVIEW ══════════ -->
-<section id="sec-overview" style="padding:74px 0 60px;">
-  <div class="wrap">
-    <div class="eyebrow">01 / Briefing</div>
-    <div class="h2row"><h2>운행 개요</h2><div style="font-family:'Space Mono',monospace;font-size:11px;color:#9C9377;text-align:right;letter-spacing:.03em;">2026.07.25 · 백두대간 3회차</div></div>
-
-    <div class="r-2col" style="display:grid;grid-template-columns:1.2fr .9fr;gap:44px;margin-top:34px;">
-      <div>
-        <p style="margin:0;font-size:clamp(19px,2.3vw,25px);line-height:1.62;color:#2a281f;font-weight:500;">백두대간 3회차, 무룡고개(영취산)에서 빼재까지. 하절기 고강도 종주로, <span style="color:#355610;border-bottom:2px solid #A1D06C;">삿갓재(24km)·백암봉(32.7km) 두 분기점</span>에서 컨디션에 따라 <span style="color:#355610;border-bottom:2px solid #A1D06C;">플랜 A(설천봉 곤도라 단축) / 플랜 B(빼재 완주)</span>를 결정합니다.</p>
-        <p style="margin:22px 0 0;font-size:14.5px;line-height:1.75;color:#6b6655;">경쟁이 아닌 완주와 안전이 우선. 새벽의 선선함으로 전반부를 벌고, 남덕유·무룡산 능선의 한낮 폭염 구간은 페이스를 눌러 버티며, 백암봉 이후 마루금은 일몰 전후 야간 모드로 대열을 밀착해 빼재를 잇는다.</p>
-      </div>
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9C9377;text-transform:uppercase;margin-bottom:4px;">Key Figures · 핵심 수치</div>
-        <div style="border-top:1px solid #1E1E18;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><span style="color:#9C9377;font-size:13.5px;">날짜</span><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13.5px;color:#1E1E18;">2026.07.25</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><span style="color:#9C9377;font-size:13.5px;">집결</span><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13.5px;color:#1E1E18;">양재역 07.24 23:00</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><span style="color:#9C9377;font-size:13.5px;">출발 · 피니시</span><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13.5px;color:#1E1E18;">03:00 → 21:00</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><span style="color:#9C9377;font-size:13.5px;">총 거리 (플랜 B)</span><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13.5px;color:#355610;">44.2 km</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><span style="color:#9C9377;font-size:13.5px;">누적 상승 · 하강</span><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13.5px;color:#355610;">▲3,400 · ▼3,390</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><span style="color:#9C9377;font-size:13.5px;">최고점</span><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13.5px;color:#1E1E18;">남덕유산 1,523 m</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div style="border-top:1px solid #D8D2C2;margin-top:30px;padding-top:22px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9C9377;text-transform:uppercase;">Crew · 참여 멤버 10</div>
-      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 15px;margin-top:14px;font-family:'Pretendard';font-size:clamp(21px,2.8vw,30px);color:#1E1E18;">
-        <span style="font-weight:800;">전성현 <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;color:#5A8C21;letter-spacing:.08em;vertical-align:3px;">LEAD</span></span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:800;">박재수 <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:11px;color:#9C9377;letter-spacing:.08em;vertical-align:3px;">부</span></span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">김대원</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">김정효</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">김재면</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">김형돈</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">성기연</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">이주영</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">이의재</span>
-        <span style="color:#C9C2AE;">·</span><span style="font-weight:600;color:#3a382f;">김주현</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;max-width:1120px;margin:0 auto;background:#E4DFD1;"></div>
-
-<!-- ══════════ MAP ══════════ -->
-<section id="sec-map" style="padding:64px 0;">
-  <div class="wrap">
-    <div class="eyebrow">02 / Route</div>
-    <div class="h2row"><h2>경로 지도</h2>
-      <div class="toggle">
-        <button id="mapBtn-paper" onclick="TB.setMap('paper')">PAPER</button>
-        <button id="mapBtn-night" onclick="TB.setMap('night')">NIGHT</button>
-      </div>
-    </div>
-    <p style="margin:14px 0 0;font-family:'Space Mono',monospace;font-size:12px;color:#9C9377;letter-spacing:.03em;">무룡고개 → 빼재 · 능선을 따라 흐르는 등고선 · 손으로 그린 지형도</p>
-
-    <div style="position:relative;width:100%;height:clamp(380px,54vh,520px);border:1px solid #1E1E18;border-radius:8px;overflow:hidden;background:#EDE8DA;margin-top:22px;">
-      <canvas id="map-canvas" style="display:block;width:100%;height:100%;"></canvas>
-      <div style="position:absolute;left:14px;bottom:12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:#F6F4EC;background:rgba(32,35,28,.72);padding:4px 9px;border-radius:6px;">N ↑ · 44.2 KM</div>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:7px 20px;margin-top:14px;font-family:'Space Mono',monospace;font-size:11px;color:#6b6655;letter-spacing:.02em;">
-      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:11px;height:11px;border-radius:50%;background:#A1D06C;"></span>START · FINISH</span>
-      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:11px;height:11px;border-radius:50%;background:#5A8C21;"></span>CP 보급 · 샘터</span>
-      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:11px;height:11px;border-radius:50%;background:#1E1E18;"></span>남덕유·백암봉 최대 고비</span>
-      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:16px;height:2px;background:#355610;"></span>운행 경로</span>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;max-width:1120px;margin:0 auto;background:#E4DFD1;"></div>
-
-<!-- ══════════ ELEVATION ══════════ -->
-<section id="sec-elev" style="padding:64px 0;">
-  <div class="wrap">
-    <div class="eyebrow">03 / Profile</div>
-    <div class="h2row"><h2>고도 프로파일</h2>
-      <div class="toggle">
-        <button id="profBtn-ridge" onclick="TB.setProf('ridge')">RIDGE</button>
-        <button id="profBtn-strata" onclick="TB.setProf('strata')">STRATA</button>
-      </div>
-    </div>
-    <p style="margin:14px 0 0;font-family:'Space Mono',monospace;font-size:12px;color:#9C9377;letter-spacing:.03em;">GPX 실측 · 누적상승 ▲3,400m · 누적하강 ▼3,390m · 최고점 남덕유산 1,523m</p>
-
-    <div style="width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #1E1E18;border-radius:8px;background:#F3F0E7;margin-top:22px;">
-      <canvas id="prof-canvas" style="display:block;height:300px;touch-action:pan-x pan-y;"></canvas>
-    </div>
-    <p style="margin:12px 2px 0;font-size:12px;color:#9C9377;">RIDGE는 능선 실루엣, STRATA는 고도대별 지층 단면 — 좁은 화면에선 좌우로 밀어 보세요. 커서를 올리면 위치별 고도를 읽습니다.</p>
-  </div>
-</section>
-
-<div style="height:1px;max-width:1120px;margin:0 auto;background:#E4DFD1;"></div>
-
-<!-- ══════════ TIMETABLE ══════════ -->
-<section id="sec-timetable" style="padding:64px 0;">
-  <div class="wrap">
-    <div class="eyebrow">04 / The Day</div>
-    <div class="h2row"><h2>운행 타임테이블</h2><div style="font-family:'Space Mono',monospace;font-size:11px;color:#9C9377;text-align:right;letter-spacing:.03em;">공통 8 + 플랜 A/B · 03:00–21:00 · 18H</div></div>
-
-    <div style="display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 2px 0;font-family:'Space Mono',monospace;font-size:11px;color:#6b6655;letter-spacing:.02em;">
-      <span style="display:inline-flex;align-items:center;gap:7px;"><span style="width:14px;height:5px;border-radius:2px;background:#A1D06C;"></span>출발 · 피니시</span>
-      <span style="display:inline-flex;align-items:center;gap:7px;"><span style="width:14px;height:5px;border-radius:2px;background:#5A8C21;"></span>CP · 보급</span>
-      <span style="display:inline-flex;align-items:center;gap:7px;"><span style="width:14px;height:5px;border-radius:2px;background:#9C9377;"></span>난구간 · 폭염</span>
-      <span style="display:inline-flex;align-items:center;gap:7px;"><span style="width:14px;height:5px;border-radius:2px;background:#1E1E18;"></span>최대 고비 · 분기</span>
-    </div>
-
-    <div id="tt-body" style="margin-top:16px;"></div>
-    <p style="margin:16px 2px 0;font-size:12px;color:#9C9377;line-height:1.6;">거리·시간·누적고도는 공지 운행계획(03:00 출발 기준) 값입니다. 지도·고도 프로파일은 GPX 실측 기반이라 소수점 수치가 미세하게 다를 수 있습니다.</p>
-  </div>
-</section>
-
-<div style="height:1px;max-width:1120px;margin:0 auto;background:#E4DFD1;"></div>
-
-<!-- ══════════ PLAN A / B ══════════ -->
-<section id="sec-plan" style="padding:64px 0 8px;">
-  <div class="wrap">
-    <div class="eyebrow">05 / The Call</div>
-    <div class="h2row"><h2>분기 플랜 &amp; 통제</h2><div style="font-family:'Space Mono',monospace;font-size:11px;color:#9C9377;text-align:right;letter-spacing:.03em;">삿갓재 · 백암봉 의사결정</div></div>
-
-    <div class="r-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px;">
-      <div style="border:1px solid #D8D2C2;border-radius:12px;padding:24px;background:#fff;">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-          <h3 style="margin:0;font-family:'Pretendard';font-weight:800;font-size:20px;color:#1E1E18;">플랜 A <span style="font-size:13px;color:#5A8C21;">단축 탈출</span></h3>
-          <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#5A8C21;">설천봉 17:10</span>
-        </div>
-        <p style="margin:12px 0 0;font-size:13.5px;color:#6b6655;line-height:1.6;">백암봉 → 향적봉 → 설천봉, <b style="color:#355610;">관광곤도라 하행</b>으로 종료. 곤도라 마감 18:00 이전 안정적 하산.</p>
-        <div style="display:flex;gap:18px;margin-top:16px;font-family:'Space Mono',monospace;">
-          <div><div style="font-size:19px;font-weight:700;color:#355610;">35.4<span style="font-size:11px;"> KM</span></div><div style="font-size:10px;color:#9C9377;letter-spacing:.1em;margin-top:3px;">DIST</div></div>
-          <div><div style="font-size:19px;font-weight:700;color:#355610;">▲3,020</div><div style="font-size:10px;color:#9C9377;letter-spacing:.1em;margin-top:3px;">GAIN</div></div>
-          <div><div style="font-size:19px;font-weight:700;color:#355610;">주간</div><div style="font-size:10px;color:#9C9377;letter-spacing:.1em;margin-top:3px;">MODE</div></div>
-        </div>
-      </div>
-      <div style="border:1px solid #A1D06C;border-radius:12px;padding:24px;background:#20231C;color:#F6F4EC;">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-          <h3 style="margin:0;font-family:'Pretendard';font-weight:800;font-size:20px;color:#F6F4EC;">플랜 B <span style="font-size:13px;color:#A1D06C;">완주</span></h3>
-          <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#A1D06C;">빼재 20:50</span>
-        </div>
-        <p style="margin:12px 0 0;font-size:13.5px;color:#BEC4B3;line-height:1.6;">백암봉 → 귀봉 → 지봉 → 갈미봉 → 빼재, <b style="color:#A1D06C;">대간 마루금 유지</b>. 지봉 급업힐과 일몰 후 야간 산행 발생.</p>
-        <div style="display:flex;gap:18px;margin-top:16px;font-family:'Space Mono',monospace;">
-          <div><div style="font-size:19px;font-weight:700;color:#A1D06C;">44.2<span style="font-size:11px;"> KM</span></div><div style="font-size:10px;color:#9C9377;letter-spacing:.1em;margin-top:3px;">DIST</div></div>
-          <div><div style="font-size:19px;font-weight:700;color:#A1D06C;">▲3,400</div><div style="font-size:10px;color:#9C9377;letter-spacing:.1em;margin-top:3px;">GAIN</div></div>
-          <div><div style="font-size:19px;font-weight:700;color:#A1D06C;">야간</div><div style="font-size:10px;color:#9C9377;letter-spacing:.1em;margin-top:3px;">MODE</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div style="border-top:1px solid #D8D2C2;margin-top:30px;padding-top:22px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9C9377;text-transform:uppercase;margin-bottom:14px;">Decision & Control · 결정 시점과 통제</div>
-      <div class="r-3col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-        <div style="padding:16px 18px;background:#EFEBDF;border-radius:10px;"><div style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#355610;">12:40 · 삿갓재</div><div style="margin-top:6px;font-size:13px;color:#2a281f;line-height:1.5;">플랜 A/B <b>1차 의사결정</b> · 후미 컨디션 점검</div></div>
-        <div style="padding:16px 18px;background:#EFEBDF;border-radius:10px;"><div style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#355610;">16:25 · 백암봉</div><div style="margin-top:6px;font-size:13px;color:#2a281f;line-height:1.5;"><b>최종 분기</b> · 각 플랜 진입 확정</div></div>
-        <div style="padding:16px 18px;background:#20231C;border-radius:10px;"><div style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#A1D06C;">19:36 · 헤드랜턴</div><div style="margin-top:6px;font-size:13px;color:#BEC4B3;line-height:1.5;">일몰 19:40 · <b style="color:#F6F4EC;">전원 랜턴 착용</b> · 대열 밀착</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div style="height:1px;max-width:1120px;margin:0 auto;background:#E4DFD1;"></div>
-
-<!-- ══════════ PREP & SUPPLY ══════════ -->
-<section id="sec-prep" style="padding:64px 0;">
-  <div class="wrap">
-    <div class="eyebrow">06 / The Kit</div>
-    <div class="h2row"><h2>준비 &amp; 보급</h2><div style="font-family:'Space Mono',monospace;font-size:11px;color:#9C9377;text-align:right;letter-spacing:.03em;">GEAR · FUEL · WATER</div></div>
-
-    <div class="r-2col" style="display:grid;grid-template-columns:1.25fr 1fr;gap:44px;margin-top:34px;">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9C9377;text-transform:uppercase;margin-bottom:4px;">Checklist · 준비물</div>
-        <div style="border-top:1px solid #1E1E18;">
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">01</span><span style="font-size:14.5px;color:#2a281f;">팀 조끼 · On Cloud Ultra <span style="color:#9C9377;font-size:12.5px;">러닝화</span></span></div>
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">02</span><span style="font-size:14.5px;color:#2a281f;">고광도 헤드랜턴 + 예비 배터리 <span style="color:#9C9377;font-size:12.5px;">플랜 B 야간 필수</span></span></div>
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">03</span><span style="font-size:14.5px;color:#2a281f;">개인 고형 행동식 <b style="color:#1E1E18;">3–4회 분량</b> <span style="color:#9C9377;font-size:12.5px;">양갱·에너지바·포도당 캔디</span></span></div>
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">04</span><span style="font-size:14.5px;color:#2a281f;">수분 · 전해질 보충제 <span style="color:#9C9377;font-size:12.5px;">하절기 폭염 탈수 대비</span></span></div>
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">05</span><span style="font-size:14.5px;color:#2a281f;">모자 · 팔토시 · 다리토시 · 선글라스 <span style="color:#9C9377;font-size:12.5px;">자외선 · 수풀 긁힘 방지</span></span></div>
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">06</span><span style="font-size:14.5px;color:#2a281f;">스포크 <span style="color:#9C9377;font-size:12.5px;">삿갓재대피소 중식 취식용</span></span></div>
-          <div style="display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #E4DFD1;"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#5A8C21;font-weight:700;">07</span><span style="font-size:14.5px;color:#2a281f;">즉석밥·참치파우치·맛다시 <span style="color:#9C9377;font-size:12.5px;">중식(삿갓재 매점 구매 가능)</span></span></div>
-        </div>
-      </div>
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9C9377;text-transform:uppercase;margin-bottom:4px;">Fuel Warning · 무보급 구간</div>
-        <div style="border-top:1px solid #1E1E18;padding-top:18px;">
-          <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-family:'Pretendard';font-weight:800;font-size:26px;color:#355610;line-height:.8;">7시간 40분</span><span style="font-size:14px;color:#6b6655;font-weight:600;">삿갓재→빼재 무보급</span></div>
-          <p style="margin:16px 0 0;font-size:13px;color:#7c7868;line-height:1.65;">삿갓재대피소(13:10 출발) 이후 빼재(20:50)까지 <b style="color:#1E1E18;">추가 보급처가 없다.</b> 이 구간에서 획득고도 <b style="color:#1E1E18;">1,180m</b>(2,220→3,400)를 올려야 한다.</p>
-          <p style="margin:12px 0 0;font-size:13px;color:#7c7868;line-height:1.65;">에너지젤 장기 섭취는 위장 장애를 유발 — 소화 쉬운 <b style="color:#355610;">고형 행동식</b>으로 열량을 채운다.</p>
-          <div style="margin-top:18px;padding:14px 16px;background:#20231C;border-radius:10px;">
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A1D06C;font-weight:700;text-transform:uppercase;">Yohemite · 보급 리듬</div>
-            <p style="margin:8px 0 0;font-size:12.5px;color:#BEC4B3;line-height:1.6;">깃대봉샘터 조식 쉐이크 → 삿갓재 중식(즉석밥) → 이후 개인 행동식 70분 간격.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="border-top:1px solid #D8D2C2;margin-top:34px;padding-top:24px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9C9377;text-transform:uppercase;margin-bottom:16px;">Resupply · 보급 계획 · 대피소 판매</div>
-      <div class="r-2col r-resupply" style="display:grid;grid-template-columns:1fr 1fr;gap:0 44px;">
-        <div>
-          <div style="display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><div style="flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:#5A8C21;">~02:00</div><div style="font-size:13.5px;color:#2a281f;">버스/휴게소 <b style="color:#1E1E18;">김밥 식사</b> <span style="color:#9C9377;font-size:12px;">(출발 전)</span></div></div>
-          <div style="display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><div style="flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:#5A8C21;">깃대봉샘터</div><div style="font-size:13.5px;color:#2a281f;">Yohemite 쉐이크 · 물 보급 <span style="color:#9C9377;font-size:12px;">06:00 조식</span></div></div>
-          <div style="display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><div style="flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:#5A8C21;">삿갓재</div><div style="font-size:13.5px;color:#2a281f;">즉석밥 <b>3,000원</b> + 참치 + 맛다시 · 생수(0.5L 1,500 / 2L 3,000)</div></div>
-        </div>
-        <div>
-          <div style="display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><div style="flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:#5A8C21;">삿갓재 매점</div><div style="font-size:13.5px;color:#2a281f;">연양갱1,000 · 에너지바1,500 · 이온분말2,000 · 건전지2,500</div></div>
-          <div style="display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><div style="flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:#5A8C21;">향적봉</div><div style="font-size:13.5px;color:#2a281f;">커피·콜라·햇반·가스 <span style="color:#9C9377;font-size:12px;">(플랜 A 진입 시)</span></div></div>
-          <div style="display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid #E4DFD1;"><div style="flex-shrink:0;width:96px;font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;color:#9C9377;">쓰레기</div><div style="font-size:13.5px;color:#2a281f;">대피소 투기 불가 · <b style="color:#1E1E18;">전량 회수</b> 밀봉 패킹</div></div>
-        </div>
-      </div>
-
-      <div style="margin-top:22px;padding:20px 22px;background:#EFEBDF;border-left:3px solid #5A8C21;border-radius:0 10px 10px 0;">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
-          <h4 style="margin:0;font-family:'Pretendard';font-size:15px;font-weight:800;color:#1E1E18;">샘터 · 식수 지침</h4>
-          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#5A8C21;font-weight:700;">원칙 · 삿갓재에서 수량 완충</span>
-        </div>
-        <div class="r-3col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-          <div style="font-size:13.5px;color:#2a281f;line-height:1.5;"><span style="font-family:'Space Mono',monospace;font-weight:700;color:#5A8C21;font-size:13px;">삿갓샘</span><div style="margin-top:4px;">대피소 황점마을 방면 <b style="color:#1E1E18;">50m 아래</b> · 사계절 음용 가능</div></div>
-          <div style="font-size:13.5px;color:#2a281f;line-height:1.5;"><span style="font-family:'Space Mono',monospace;font-weight:700;color:#c0392b;font-size:13px;">향적봉</span><div style="margin-top:4px;"><b style="color:#c0392b;">음용 부적합</b> · 정수 또는 반드시 끓여 마실 것</div></div>
-          <div style="font-size:13.5px;color:#2a281f;line-height:1.5;"><span style="font-family:'Space Mono',monospace;font-weight:700;color:#9C9377;font-size:13px;">동엽령</span><div style="margin-top:4px;">수량 불안정 · 왕복 소요로 <b style="color:#1E1E18;">이용 배제</b>(비상용)</div></div>
-        </div>
-        <p style="margin:14px 0 0;font-size:12.5px;color:#7c7868;line-height:1.6;">서봉샘터(참샘)는 서봉 전 이정표 좌측 5분 — 할미봉~서봉 탈수 시 비상 급수처.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ FOOTER (NIGHT) ══════════ -->
-<footer style="background:#20231C;color:#F6F4EC;padding:26px 0;margin-top:48px;">
-  <div class="wrap">
-    <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.05em;color:#7e8475;">THUNDERBIRD RUNNING CLUB · FJTS VOL.3 · 2026.07.25 · 무룡고개 → 빼재 44.2KM ▲3,400M</div>
-  </div>
-</footer>
-
 <script>
-/* ============ Thunderbird Vol.3 — standalone render (ported from FJTS_main_design.html) ============ */
-const TB = (function(){
-  const props = { showContours:true, contourGap:64, mapMajorEvery:4, routeWeight:3, mapLabels:true, mapMinorMarks:true,
-                  profileGrid:true, profileWaypoints:true, profileHover:true, grainStrength:0.4 };
-  const EMIN=600, EMAX=1600;
-  const MAP_BIG=new Set(['무룡고개','빼재']), MAP_CP=new Set(['깃대봉','삿갓재대피소']), MAP_PEAK=new Set(['남덕유산','백암봉']);
-  const PROF_KEY=new Set(['무룡고개','육십령','남덕유산','삿갓재대피소','백암봉','빼재']);
-  let D=null, pts=null, bnd=null, field=null, fieldKey='', mapVar='paper', profVar='ridge';
+(function(){
+  const MAP_BIG=new Set(['무룡고개','빼재']),MAP_CP=new Set(['깃대봉','삿갓재대피소']),MAP_PEAK=new Set(['남덕유산','백암봉']);
+  const PROF_KEY=new Set(['무룡고개','육십령','남덕유산','삿갓재대피소','백암봉','빼재']);const EMIN=600,EMAX=1600;
+  let D=null,pts=null,bnd=null,field=null,fieldKey='';
   const $=id=>document.getElementById(id);
-  const rr=(ctx,x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();};
-
-  function prep(){
-    const T=D.TRACK,S=D.SAMPLES,toR=Math.PI/180,R=6371000,cum=[0];
-    for(let i=1;i<T.length;i++){const dLat=(T[i][0]-T[i-1][0])*toR,dLon=(T[i][1]-T[i-1][1])*toR;
-      const a=Math.sin(dLat/2)**2+Math.cos(T[i-1][0]*toR)*Math.cos(T[i][0]*toR)*Math.sin(dLon/2)**2;
+  const rr=(c,x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();};
+  function prep(){const T=D.TRACK,S=D.SAMPLES,toR=Math.PI/180,R=6371000,cum=[0];
+    for(let i=1;i<T.length;i++){const a=Math.sin((T[i][0]-T[i-1][0])*toR/2)**2+Math.cos(T[i-1][0]*toR)*Math.cos(T[i][0]*toR)*Math.sin((T[i][1]-T[i-1][1])*toR/2)**2;
       cum.push(cum[i-1]+R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));}
     const total=cum[cum.length-1],kmMax=S[S.length-1][0];
     pts=T.map((p,i)=>({lat:p[0],lon:p[1],ele:interp(cum[i]/total*kmMax)}));
-    bnd={minLat:Math.min(...T.map(p=>p[0])),maxLat:Math.max(...T.map(p=>p[0])),minLon:Math.min(...T.map(p=>p[1])),maxLon:Math.max(...T.map(p=>p[1]))};
-  }
+    bnd={minLat:Math.min(...T.map(p=>p[0])),maxLat:Math.max(...T.map(p=>p[0])),minLon:Math.min(...T.map(p=>p[1])),maxLon:Math.max(...T.map(p=>p[1]))};}
   function interp(km){const S=D.SAMPLES;if(km<=S[0][0])return S[0][1];
     for(let i=1;i<S.length;i++){if(S[i][0]>=km){const t=(km-S[i-1][0])/(S[i][0]-S[i-1][0]||1);return S[i-1][1]+t*(S[i][1]-S[i-1][1]);}}
     return S[S.length-1][1];}
-
-  /* ---- MAP ---- */
-  function renderMap(){
-    const cv=$('map-canvas');if(!cv||!D)return;
-    const wrap=cv.parentElement,cssW=wrap.clientWidth,cssH=wrap.clientHeight||470,dpr=Math.min(window.devicePixelRatio||1,2);
+  function renderMap(){const cv=$('map-canvas');if(!cv||!D)return;
+    const wrap=cv.parentElement,cssW=wrap.clientWidth,cssH=wrap.clientHeight||440,dpr=Math.min(devicePixelRatio||1,2);
     cv.width=cssW*dpr;cv.height=cssH*dpr;cv.style.width=cssW+'px';cv.style.height=cssH+'px';
     const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
-    const night=mapVar==='night',P=props,showC=P.showContours,gap=P.contourGap,majorEvery=P.mapMajorEvery,rw=P.routeWeight,labels=P.mapLabels,minorMarks=P.mapMinorMarks;
-    const pal=night
-      ?{bg:'#20231C',minor:'rgba(156,147,119,.30)',major:'rgba(190,220,158,.42)',route:'#A1D06C',halo:'rgba(8,10,6,.85)',tick:'rgba(190,220,158,.5)',labBg:'rgba(8,10,6,.82)',labBd:'rgba(190,220,158,.35)',lab:'#F6F4EC'}
-      :{bg:'#EDE8DA',minor:'rgba(120,110,84,.36)',major:'rgba(90,140,33,.5)',route:'#355610',halo:'rgba(246,244,236,.95)',tick:'rgba(60,50,30,.42)',labBg:'rgba(246,244,236,.92)',labBd:'#C9C2AE',lab:'#1E1E18'};
+    const pal={bg:'#EDE8DA',minor:'rgba(120,110,84,.30)',major:'rgba(90,140,33,.42)',route:'#355610',halo:'rgba(246,244,236,.95)',tick:'rgba(60,50,30,.4)',labBg:'rgba(246,244,236,.92)',labBd:'#D8D2C2',lab:'#1E1E18'};
     ctx.fillStyle=pal.bg;ctx.fillRect(0,0,cssW,cssH);
     const padX=44,padY=42,{minLat,maxLat,minLon,maxLon}=bnd,latC=Math.cos((minLat+maxLat)/2*Math.PI/180);
     const spanLon=(maxLon-minLon)*latC,spanLat=(maxLat-minLat),sc=Math.min((cssW-padX*2)/spanLon,(cssH-padY*2)/spanLat);
-    const ox=(cssW-spanLon*sc)/2,oy=(cssH-spanLat*sc)/2,proj=(lat,lon)=>({x:ox+(lon-minLon)*latC*sc,y:oy+(maxLat-lat)*sc});
+    const ox=(cssW-spanLon*sc)/2,oy=(cssH-spanLat*sc)/2,proj=(la,lo)=>({x:ox+(lo-minLon)*latC*sc,y:oy+(maxLat-la)*sc});
     const key=cssW+'x'+cssH;if(!field||fieldKey!==key){field=buildField(cssW,cssH,proj);fieldKey=key;}
-    if(showC)contours(ctx,field,cssW,cssH,pal,gap,majorEvery);
+    contours(ctx,field,cssW,cssH,pal,64,4);
     ctx.lineCap='round';ctx.lineJoin='round';
     ctx.beginPath();D.TRACK.forEach((p,i)=>{const q=proj(p[0],p[1]);i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});
-    ctx.strokeStyle=pal.halo;ctx.lineWidth=rw*2.1+0.5;ctx.stroke();
-    ctx.strokeStyle=pal.route;ctx.lineWidth=rw;ctx.stroke();
+    ctx.strokeStyle=pal.halo;ctx.lineWidth=6.8;ctx.stroke();ctx.strokeStyle=pal.route;ctx.lineWidth=3;ctx.stroke();
     D.CPS.forEach(c=>{const q=proj(c.lat,c.lon);let r,fill,ring=pal.bg,lab=null;
       if(MAP_BIG.has(c.name)){r=8;fill='#A1D06C';lab=c.name;}
-      else if(MAP_CP.has(c.name)){r=6;fill=night?'#BEDC9E':'#5A8C21';lab=c.name;}
-      else if(MAP_PEAK.has(c.name)){r=5.5;fill=night?'#F6F4EC':'#1E1E18';lab=c.name;}
-      else{if(!minorMarks)return;r=2.6;fill=pal.tick;ring=null;}
+      else if(MAP_CP.has(c.name)){r=6;fill='#5A8C21';lab=c.name;}
+      else if(MAP_PEAK.has(c.name)){r=5.5;fill='#1E1E18';lab=c.name;}
+      else{r=2.6;fill=pal.tick;ring=null;}
       if(ring){ctx.beginPath();ctx.arc(q.x,q.y,r+2.6,0,7);ctx.fillStyle=ring;ctx.fill();}
       ctx.beginPath();ctx.arc(q.x,q.y,r,0,7);ctx.fillStyle=fill;ctx.fill();
-      if(lab&&labels){ctx.font='700 11px "Pretendard",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      if(lab){ctx.font='700 11px Pretendard,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
         const tw=ctx.measureText(lab).width+12,bx=Math.max(2,Math.min(q.x-tw/2,cssW-tw-2)),by=q.y-r-21;
-        ctx.fillStyle=pal.labBg;ctx.strokeStyle=pal.labBd;ctx.lineWidth=1;rr(ctx,bx,by,tw,17,5);ctx.fill();ctx.stroke();
+        ctx.fillStyle=pal.labBg;ctx.strokeStyle=pal.labBd;ctx.lineWidth=1;rr(ctx,bx,by,tw,17,3);ctx.fill();ctx.stroke();
         ctx.fillStyle=pal.lab;ctx.fillText(lab,bx+tw/2,by+9);}
-    });
-  }
-  function buildField(cssW,cssH,proj){
-    const gx=Math.max(70,Math.round(cssW/7)),gy=Math.max(46,Math.round(cssH/7));
+    });}
+  function buildField(cssW,cssH,proj){const gx=Math.max(70,Math.round(cssW/7)),gy=Math.max(46,Math.round(cssH/7));
     const P=pts.map(p=>{const q=proj(p.lat,p.lon);return{x:q.x,y:q.y,e:p.ele};});
     const f=new Float32Array(gx*gy);let mn=1e9,mx=-1e9;
     for(let j=0;j<gy;j++)for(let i=0;i<gx;i++){const x=(i+0.5)/gx*cssW,y=(j+0.5)/gy*cssH;let num=0,den=0;
       for(let k=0;k<P.length;k++){const dx=x-P[k].x,dy=y-P[k].y,w=1/(dx*dx+dy*dy+95);num+=w*P[k].e;den+=w;}
       const e=num/den;f[j*gx+i]=e;if(e<mn)mn=e;if(e>mx)mx=e;}
-    return{f,gx,gy,mn,mx};
-  }
-  function contours(ctx,F,cssW,cssH,pal,step,majorEvery){
-    step=step||64;majorEvery=majorEvery||4;const{f,gx,gy,mn,mx}=F,start=Math.ceil(mn/step)*step;
-    for(let thr=start;thr<mx;thr+=step){const major=Math.round(thr/step)%majorEvery===0;ctx.beginPath();
+    return{f,gx,gy,mn,mx};}
+  function contours(ctx,F,cssW,cssH,pal,step,me){const{f,gx,gy,mn,mx}=F,start=Math.ceil(mn/step)*step;
+    for(let thr=start;thr<mx;thr+=step){const major=Math.round(thr/step)%me===0;ctx.beginPath();
       for(let j=0;j<gy-1;j++)for(let i=0;i<gx-1;i++){
         const x0=(i+0.5)/gx*cssW,x1=(i+1.5)/gx*cssW,y0=(j+0.5)/gy*cssH,y1=(j+1.5)/gy*cssH;
         const a=f[j*gx+i],b=f[j*gx+i+1],c=f[(j+1)*gx+i+1],d=f[(j+1)*gx+i];
@@ -470,140 +333,45 @@ const TB = (function(){
         const s=(p,q)=>{ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);};
         switch(idx){case 1:case 14:s(L(),B());break;case 2:case 13:s(B(),R());break;case 3:case 12:s(L(),R());break;case 4:case 11:s(T(),R());break;case 6:case 9:s(T(),B());break;case 7:case 8:s(T(),L());break;case 5:s(T(),L());s(B(),R());break;case 10:s(T(),R());s(L(),B());break;}
       }
-      ctx.strokeStyle=major?pal.major:pal.minor;ctx.lineWidth=major?1.3:0.7;ctx.stroke();
-    }
-  }
-
-  /* ---- PROFILE ---- */
-  function renderProfile(hoverX){
-    const cv=$('prof-canvas');if(!cv||!D)return;
-    const wrap=cv.parentElement,cssW=Math.max(wrap.clientWidth,760),cssH=300,dpr=Math.min(window.devicePixelRatio||1,2);
+      ctx.strokeStyle=major?pal.major:pal.minor;ctx.lineWidth=major?1.2:0.65;ctx.stroke();}}
+  function renderProfile(hx){const cv=$('prof-canvas');if(!cv||!D)return;
+    const wrap=cv.parentElement,cssW=Math.max(wrap.clientWidth,760),cssH=300,dpr=Math.min(devicePixelRatio||1,2);
     cv.width=cssW*dpr;cv.height=cssH*dpr;cv.style.width=cssW+'px';cv.style.height=cssH+'px';
     const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#F3F0E7';ctx.fillRect(0,0,cssW,cssH);
     const S=D.SAMPLES,W=D.WPTS,kmMax=S[S.length-1][0];
-    const eMin=EMIN,eMax=EMAX,padL=48,padR=18,padT=42,padB=30;
-    const X=km=>padL+km/kmMax*(cssW-padL-padR),Y=e=>padT+(1-(e-eMin)/(eMax-eMin))*(cssH-padT-padB);
-    const strata=profVar==='strata',P=props,grid=P.profileGrid,wpts=P.profileWaypoints,hov=P.profileHover;
+    const padL=48,padR=18,padT=42,padB=30;
+    const X=km=>padL+km/kmMax*(cssW-padL-padR),Y=e=>padT+(1-(e-EMIN)/(EMAX-EMIN))*(cssH-padT-padB);
     ctx.strokeStyle='rgba(156,147,119,.22)';ctx.lineWidth=1;ctx.font='10px "Space Mono",monospace';ctx.fillStyle='#9C9377';ctx.textBaseline='middle';ctx.textAlign='right';
-    if(grid){for(let e=eMin;e<=eMax;e+=200){const y=Y(e);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(cssW-padR,y);ctx.stroke();ctx.fillText(e+'M',padL-7,y);}}
+    for(let e=EMIN;e<=EMAX;e+=200){const y=Y(e);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(cssW-padR,y);ctx.stroke();ctx.fillText(e+'M',padL-7,y);}
     ctx.textAlign='center';ctx.textBaseline='top';
     for(let k=0;k<=Math.floor(kmMax);k+=5){ctx.fillText(k+'KM',X(k),cssH-padB+9);}
     const top=()=>{ctx.beginPath();S.forEach((s,i)=>{const x=X(s[0]),y=Y(s[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});};
-    if(strata){
-      ctx.save();top();ctx.lineTo(X(kmMax),Y(eMin));ctx.lineTo(X(0),Y(eMin));ctx.closePath();ctx.clip();
-      const bands=[[eMin,900,'#E3DCC8'],[900,1200,'#D3C9AD'],[1200,1400,'#B7AC87'],[1400,eMax,'#8C9D60']];
-      bands.forEach(b=>{ctx.fillStyle=b[2];const y1=Y(b[1]),y0=Y(b[0]);ctx.fillRect(padL,y1,cssW-padL-padR,y0-y1);});
-      ctx.strokeStyle='rgba(54,46,28,.12)';ctx.lineWidth=1;for(let e=eMin;e<=eMax;e+=100){const y=Y(e);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(cssW-padR,y);ctx.stroke();}
-      ctx.restore();top();ctx.strokeStyle='#2c3a14';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
-    }else{
-      top();ctx.lineTo(X(kmMax),Y(eMin));ctx.lineTo(X(0),Y(eMin));ctx.closePath();
-      const g=ctx.createLinearGradient(0,padT,0,cssH-padB);g.addColorStop(0,'rgba(161,208,108,.55)');g.addColorStop(.6,'rgba(146,178,108,.26)');g.addColorStop(1,'rgba(90,140,33,.08)');
-      ctx.fillStyle=g;ctx.fill();top();ctx.strokeStyle='#355610';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
-    }
-    if(wpts)W.forEach((w,i)=>{const x=X(w.km),y=Y(w.ele),k=PROF_KEY.has(w.name);
-      ctx.setLineDash([2,4]);ctx.strokeStyle='rgba(54,46,28,.26)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,Y(eMin));ctx.lineTo(x,y);ctx.stroke();ctx.setLineDash([]);
-      ctx.beginPath();ctx.arc(x,y,k?5:3,0,7);ctx.fillStyle=k?'#A1D06C':'#1E1E18';ctx.fill();ctx.strokeStyle='#3a3220';ctx.lineWidth=1.4;ctx.stroke();
-      if(k){const above=(i%2===0),ly=above?y-15:y+15;ctx.font='700 11px "Pretendard",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    top();ctx.lineTo(X(kmMax),Y(EMIN));ctx.lineTo(X(0),Y(EMIN));ctx.closePath();
+    const g=ctx.createLinearGradient(0,padT,0,cssH-padB);g.addColorStop(0,'rgba(161,208,108,.5)');g.addColorStop(.6,'rgba(146,178,108,.24)');g.addColorStop(1,'rgba(90,140,33,.07)');
+    ctx.fillStyle=g;ctx.fill();top();ctx.strokeStyle='#355610';ctx.lineWidth=2.4;ctx.lineJoin='round';ctx.stroke();
+    W.forEach((w,i)=>{const x=X(w.km),y=Y(w.ele),k=PROF_KEY.has(w.name);
+      ctx.setLineDash([2,4]);ctx.strokeStyle='rgba(54,46,28,.24)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,Y(EMIN));ctx.lineTo(x,y);ctx.stroke();ctx.setLineDash([]);
+      ctx.beginPath();ctx.arc(x,y,k?5:3,0,7);ctx.fillStyle=k?'#A1D06C':'#1E1E18';ctx.fill();ctx.strokeStyle='#3a3220';ctx.lineWidth=1.3;ctx.stroke();
+      if(k){const ly=(i%2===0)?y-15:y+15;ctx.font='700 11px Pretendard,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
         const tw=ctx.measureText(w.name).width+12,bx=Math.max(padL,Math.min(x-tw/2,cssW-padR-tw));
-        ctx.fillStyle='rgba(246,244,236,.94)';ctx.strokeStyle='#D8D2C2';ctx.lineWidth=1;rr(ctx,bx,ly-9,tw,18,5);ctx.fill();ctx.stroke();
+        ctx.fillStyle='rgba(246,244,236,.94)';ctx.strokeStyle='#D8D2C2';ctx.lineWidth=1;rr(ctx,bx,ly-9,tw,18,3);ctx.fill();ctx.stroke();
         ctx.fillStyle='#355610';ctx.fillText(w.name,bx+tw/2,ly);}
     });
-    if(hoverX!=null&&hov){const km=Math.max(0,Math.min(kmMax,(hoverX-padL)/(cssW-padL-padR)*kmMax)),ele=interp(km),x=X(km),y=Y(ele);
+    if(hx!=null){const km=Math.max(0,Math.min(kmMax,(hx-padL)/(cssW-padL-padR)*kmMax)),ele=interp(km),x=X(km),y=Y(ele);
       ctx.strokeStyle='rgba(53,86,16,.5)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,padT);ctx.lineTo(x,cssH-padB);ctx.stroke();
       ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fillStyle='#355610';ctx.fill();ctx.strokeStyle='#F6F4EC';ctx.lineWidth=1.6;ctx.stroke();
       const txt=km.toFixed(1)+'KM  '+Math.round(ele)+'M';ctx.font='700 11px "Space Mono",monospace';ctx.textAlign='left';ctx.textBaseline='middle';
-      const tw=ctx.measureText(txt).width+16;let bx=x+11;if(bx+tw>cssW-padR)bx=x-11-tw;const by=padT+2;
-      ctx.fillStyle='#1E1E18';rr(ctx,bx,by,tw,22,6);ctx.fill();ctx.fillStyle='#A1D06C';ctx.fillText(txt,bx+8,by+11);}
+      const tw=ctx.measureText(txt).width+16;let bx=x+11;if(bx+tw>cssW-padR)bx=x-11-tw;
+      ctx.fillStyle='#1E1E18';rr(ctx,bx,padT+2,tw,22,4);ctx.fill();ctx.fillStyle='#A1D06C';ctx.fillText(txt,bx+8,padT+13);}
   }
-
-  /* ---- TIMETABLE ---- */
-  function buildTimetable(){
-    const ink='#1E1E18',forest='#355610',olive='#5A8C21',lime='#A1D06C',mut='#9C9377',faint='#5a574b',hair='#D8D2C2';
-    const TAG={start:'background:#A1D06C;color:#355610;padding:3px 9px;border-radius:6px;',
-      cp:'background:#355610;color:#E7F0DA;padding:3px 9px;border-radius:6px;',
-      heat:'background:transparent;border:1px solid #9C9377;color:#7c7457;padding:2px 9px;border-radius:6px;',
-      peak:'background:rgba(161,208,108,.16);border:1px solid rgba(161,208,108,.5);color:#A1D06C;padding:2px 9px;border-radius:6px;'};
-    const CHIP={g:'background:#D2E4BE;color:#355610;',lime:'background:#A1D06C;color:#20231C;'};
-    const barColor={start:lime,cp:olive,cool:olive,heat:mut,mid:hair,peak:lime,finish:lime};
-    const tagKey={start:'start',cp:'cp',cool:'cp',heat:'heat',peak:'peak',finish:'start'};
-    const groups=[
-      {label:'공통 구간 · 03:00 → 백암봉 16:25', rows:[
-        {t:'03:00',d:'0.0KM',g:'▲0',n:'무룡고개',e:'920M',note:'장안산주차장 출발 · 야간 산행 개시 · 초기 페이스 조절',tag:'START',ph:'start',ck:'g'},
-        {t:'06:00',d:'9.5KM',g:'▲450',n:'깃대봉 샘터',e:'972M',note:'구시봉 · 요헤미티 쉐이크 + 물 보급',chip:'조식 20분',tag:'CP · 조식',ph:'cp',ck:'g'},
-        {t:'07:30',d:'13.0KM',g:'▲600',n:'육십령',e:'698M',note:'완만한 하향 · 최저점, 수분 섭취 늘리기',ph:'mid'},
-        {t:'08:40',d:'15.5KM',g:'▲950',n:'할미봉',e:'1,034M',note:'급경사 업힐 시작 (평속 2.1km/h)',ph:'mid'},
-        {t:'11:45',d:'21.0KM',g:'▲2,100',n:'서봉',e:'1,514M',note:'암릉 및 대형 업힐 (평속 1.8km/h)',tag:'난구간',ph:'heat'},
-        {t:'12:40',d:'24.0KM',g:'▲2,220',n:'삿갓재대피소',e:'1,236M',note:'즉석밥+참치+맛다시 · 삿갓샘 완충 · 플랜 1차 결정',chip:'중식·결정 30분',tag:'CP · 중식 ★',ph:'cp',ck:'g'},
-        {t:'15:20',d:'30.5KM',g:'▲2,600',n:'동엽령',e:'1,328M',note:'후미 상태 점검 · 대열 정비 (10분)',ph:'mid'},
-        {t:'16:25',d:'32.7KM',g:'▲2,870',n:'백암봉 분기점',e:'1,518M',note:'★ 최종 분기 — 플랜 A / B 진입 결정',tag:'최종 분기',ph:'peak'},
-      ]},
-      {label:'플랜 A · 곤도라 단축 (설천봉 종료)', rows:[
-        {t:'17:00',d:'34.8KM',g:'▲3,000',n:'향적봉대피소',e:'1,560M',note:'평속 3.6km/h · 대피소 보급 가능(음료·햇반)',ph:'cp',tag:'보급',ck:'g'},
-        {t:'17:10',d:'35.4KM',g:'▲3,020',n:'설천봉',e:'1,520M',note:'관광곤도라 탑승 · 운행 종료 (하행 마감 18:00 준수)',tag:'FINISH · A',ph:'finish',ck:'g'},
-      ]},
-      {label:'플랜 B · 빼재 완주 (대간 마루금)', rows:[
-        {t:'17:20',d:'35.2KM',g:'▲2,950',n:'귀봉',e:'1,379M',note:'능선 주행 (평속 2.6km/h)',ph:'mid'},
-        {t:'19:05',d:'39.7KM',g:'▲3,250',n:'지봉 (못봉)',e:'1,359M',note:'급경사 업힐 · 후반부 피로 극대화',tag:'폭염·피로',ph:'heat'},
-        {t:'19:36',d:'41.0KM',g:'▲3,280',n:'월음령',e:'1,100M',note:'급경사 다운힐 · 헤드랜턴 필수 착용',tag:'야간 개시',ph:'mid'},
-        {t:'20:05',d:'42.3KM',g:'▲3,380',n:'갈미봉',e:'1,233M',note:'[일몰 19:40] 완전한 야간 운행 · 대열 밀착',ph:'peak'},
-        {t:'20:50',d:'44.2KM',g:'▲3,400',n:'빼재 (신풍령)',e:'896M · ▼3,390',note:'최종 하산 · 21:00 수송 버스 탑승 · 완주.',tag:'FINISH · B',ph:'finish',ck:'lime'},
-      ]},
-    ];
-    const head='<div class="r-tthead" style="display:grid;grid-template-columns:8px 76px 1fr auto;gap:16px;padding:10px 4px 10px 0;border-bottom:1px solid #D8D2C2;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.14em;color:#9C9377;text-transform:uppercase;"><div></div><div>Time</div><div>Waypoint · Note</div><div style="text-align:right;">Dist · Gain</div></div>';
-    let html='';
-    groups.forEach(gr=>{
-      html+='<div class="subhead">'+gr.label+'</div>';
-      html+='<div style="border-top:2px solid #1E1E18;">'+head;
-      gr.rows.forEach(r=>{
-        const peak=r.ph==='peak';
-        const rowStyle=peak?'background:#20231C;':'';
-        const timeColor=peak?lime:(r.ph==='finish'?forest:ink);
-        const nameColor=peak?'#F6F4EC':ink;
-        const noteColor=peak?'#BEC4B3':faint;
-        const eleColor=peak?lime:((r.ph==='mid'||r.ph==='heat')?mut:olive);
-        const gainColor=peak?'rgba(190,196,179,.75)':mut;
-        const tagStyle=r.tag?TAG[tagKey[r.ph]]:'';
-        const chipStyle=r.chip?CHIP[r.ck||'g']:'';
-        html+='<div class="r-ttrow" style="display:grid;grid-template-columns:8px 76px 1fr auto;gap:16px;align-items:stretch;border-bottom:1px solid #E4DFD1;'+rowStyle+'">'
-          +'<div style="background:'+barColor[r.ph]+';"></div>'
-          +'<div style="padding:15px 0;"><div style="font-family:\'Space Mono\',monospace;font-size:15px;font-weight:700;color:'+timeColor+';line-height:1.1;">'+r.t+'</div></div>'
-          +'<div style="padding:15px 0;min-width:0;"><div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;"><span style="font-family:\'Pretendard\';font-weight:800;font-size:16px;color:'+nameColor+';">'+r.n+'</span>'
-          +(r.tag?'<span style="font-family:\'Space Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;'+tagStyle+'">'+r.tag+'</span>':'')+'</div>'
-          +'<div style="margin-top:6px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;">'
-          +(r.chip?'<span style="font-family:\'Pretendard\';font-weight:700;font-size:11px;border-radius:6px;padding:2px 9px;'+chipStyle+'">'+r.chip+'</span>':'')
-          +'<span style="font-size:13.5px;color:'+noteColor+';line-height:1.5;">'+r.note+'</span></div></div>'
-          +'<div class="r-ele" style="padding:15px 4px 15px 0;text-align:right;white-space:nowrap;"><div style="font-family:\'Space Mono\',monospace;font-size:13px;font-weight:700;color:'+eleColor+';"><span class="r-dist">'+r.d+'</span><span class="r-sep"> · </span><span class="r-gain">'+r.g+'</span></div>'
-          +'<div style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:400;color:'+gainColor+';margin-top:4px;">'+r.e+'</div></div>'
-          +'</div>';
-      });
-      html+='</div>';
-    });
-    $('tt-body').innerHTML=html;
-  }
-
-  /* ---- toggles / spy / boot ---- */
-  function setMap(v){mapVar=v;['paper','night'].forEach(k=>{const b=$('mapBtn-'+k);if(b){const on=k===v;b.style.background=on?'#1E1E18':'transparent';b.style.color=on?'#F6F4EC':'#6b6655';b.style.borderColor=on?'#1E1E18':'transparent';}});renderMap();}
-  function setProf(v){profVar=v;['ridge','strata'].forEach(k=>{const b=$('profBtn-'+k);if(b){const on=k===v;b.style.background=on?'#1E1E18':'transparent';b.style.color=on?'#F6F4EC':'#6b6655';b.style.borderColor=on?'#1E1E18':'transparent';}});renderProfile();}
-  function spy(){const ids=['sec-overview','sec-map','sec-elev','sec-timetable','sec-plan','sec-prep'],y=(window.scrollY||window.pageYOffset)+150;let cur=ids[0];
-    for(const id of ids){const el=$(id);if(el&&el.offsetTop<=y)cur=id;}
-    document.querySelectorAll('.tb-navlink').forEach(a=>{const on=a.getAttribute('data-sec')===cur;a.style.color=on?'#355610':'#6b6655';a.style.borderBottomColor=on?'#A1D06C':'transparent';});}
-
-  function boot(){
-    if(!boot._tt){boot._tt=1;buildTimetable();}
-    D=window.RouteData;if(!D){setTimeout(boot,60);return;}
-    prep();setMap('paper');setProf('ridge');
-    const g=$('tb-grain');if(g)g.style.opacity=props.grainStrength;
-    let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{field=null;renderMap();renderProfile();},160);});
-    window.addEventListener('scroll',spy,{passive:true});setTimeout(spy,50);
+  function boot(){D=window.RouteData;if(!D){setTimeout(boot,60);return;}
+    prep();renderMap();renderProfile();
+    let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{field=null;renderMap();renderProfile();},160);});
     const pc=$('prof-canvas');
-    if(pc){pc.addEventListener('mousemove',e=>{const r=pc.getBoundingClientRect();renderProfile(e.clientX-r.left);});pc.addEventListener('mouseleave',()=>renderProfile());}
-  }
+    if(pc){pc.addEventListener('mousemove',e=>{const r=pc.getBoundingClientRect();renderProfile(e.clientX-r.left);});
+      pc.addEventListener('mouseleave',()=>renderProfile());}}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
-  return {setMap,setProf};
 })();
 </script>
-
-<!-- fjts-prevnext -->
-<div style="background:#F6F4EC;border-top:1px solid #E4DFD1;"><div style="max-width:1120px;margin:0 auto;padding:26px 28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;font-family:'Space Mono',ui-monospace,monospace;font-size:11px;font-weight:700;letter-spacing:.08em;"><a href="../vol2/" style="color:#355610;text-decoration:none;">&larr;&nbsp; VOL.2 여원재 &rarr; 무룡고개</a><span style="color:#C9C2AE;">VOL.4 빼재 &rarr; 우두령 &mdash; 준비 중</span></div></div>
 </body>
 </html>
