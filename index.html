@@ -3,11 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Thunderbird Way 2, Ridges — From Jiri To Seorak</title>
-<meta name="description" content="백두대간 700km, 지리산에서 설악산까지. 천둥새 런클럽의 14회 종주 프로젝트.">
+<title>The Thunderbird Way 2 — 백두대간 종주 프로젝트 FJTS | 천둥새 런클럽</title>
+<meta name="description" content="백두대간 종주 트레일러닝 프로젝트 FJTS — 지리산 천왕봉에서 설악산까지 700km를 14회에 걸쳐 매월 완주하는 천둥새 런클럽의 도전. 구간 기록·지도·고도 프로파일.">
+<meta name="naver-site-verification" content="74f4a0b3c268c5888ce5fa58c8627e664ad3fd29" />
+<meta name="google-site-verification" content="flBOkYgmSjnwTRMzfO7W7MiyPzvkmnKrZvGCI1aSiaE" />
+<link rel="canonical" href="https://fjts.thunderbirdrunclub.com/">
+<meta property="og:url" content="https://fjts.thunderbirdrunclub.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Thunderbird Running Club">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SportsOrganization",
+"name":"천둥새 런클럽 (Thunderbird Running Club)",
+"url":"https://fjts.thunderbirdrunclub.com/",
+"sameAs":["https://www.instagram.com/thunderbirdrunclub/"],
+"description":"백두대간 지리산-설악산 700km를 14회에 걸쳐 종주하는 트레일러닝 프로젝트 FJTS를 진행하는 러닝 크루"}
+</script>
 <meta property="og:title" content="The Thunderbird Way 2, Ridges — FJTS">
 <meta property="og:description" content="백두대간 700km, 지리산에서 설악산까지. 14번의 밤과 낮.">
-<meta property="og:image" content="https://thunderbirdrunclub.vercel.app/og.jpg">
+<meta property="og:image" content="https://fjts.thunderbirdrunclub.com/og-main.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +37,7 @@
   ::selection{background:var(--sprout);color:var(--ink);}
   a{color:inherit;}
   .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
-  .cap{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+  .cap{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;
        letter-spacing:.28em;text-transform:uppercase;color:var(--forest);}
   section{padding:130px 0;}
 
@@ -33,10 +46,30 @@
          border-bottom:1px solid var(--hair);}
   .hd{height:54px;display:flex;align-items:center;justify-content:space-between;}
   .hd img{height:30px;width:auto;display:block;}
-  .hd nav{display:flex;gap:4px;}
-  .hd nav a{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.18em;
-            text-transform:uppercase;color:var(--mute);text-decoration:none;padding:6px 10px;}
+  .hd nav{display:flex;align-items:center;gap:2px;}
+  .hd nav a{font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:.18em;
+            text-transform:uppercase;color:var(--mute);text-decoration:none;padding:6px 10px;
+            display:inline-flex;align-items:center;line-height:1;}
   .hd nav a:hover{color:var(--ink);}
+  .navdrop{position:relative;display:flex;align-items:center;}
+  .ddarrow{font-size:9px;line-height:1;margin-left:4px;}
+  .navmenu{position:absolute;top:100%;right:0;min-width:250px;background:var(--cream);
+           border:1px solid var(--hair);border-radius:8px;box-shadow:0 12px 34px rgba(30,30,24,.14);
+           padding:8px;display:none;flex-direction:column;gap:1px;z-index:70;}
+  .navdrop:hover .navmenu,.navdrop:focus-within .navmenu{display:flex;}
+  .navmenu a{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.04em;
+             text-transform:none;color:var(--ink);text-decoration:none;padding:9px 11px;border-radius:5px;
+             display:flex;align-items:center;gap:8px;}
+  .navmenu a:hover{background:var(--panel);color:var(--forest);}
+  .navmenu a .mn{color:var(--khaki);font-size:10px;}
+  .navmenu a .mc{margin-left:auto;font-size:9px;letter-spacing:.08em;text-transform:uppercase;}
+  .navmenu a.done .mc{color:var(--forest);} .navmenu a.next .mc{color:var(--deep);}
+  .navdiv{height:1px;background:var(--hair);margin:6px 5px;}
+  .navbadge{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;
+            color:var(--deep);background:color-mix(in srgb,var(--sprout) 32%,transparent);
+            border:1px solid var(--sprout);border-radius:20px;padding:5px 11px;margin-left:8px;
+            text-decoration:none;white-space:nowrap;}
+  .navbadge:hover{background:color-mix(in srgb,var(--sprout) 48%,transparent);}
 
   /* hero */
   .hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -44,48 +77,99 @@
   .hero h1{margin:22px 0 0;font-weight:600;font-size:clamp(30px,5.4vw,48px);
            letter-spacing:-.015em;line-height:1.15;}
   .hero h1 .dot{color:var(--sprout);}
-  .hero .lede{margin:20px 0 0;font-size:15.5px;color:var(--mute);line-height:1.8;}
+  .hero .lede{margin:20px 0 0;font-size:18px;color:var(--mute);line-height:1.8;}
   .hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
-        font-size:20px;line-height:1;color:var(--khaki);text-decoration:none;
-        animation:hintbob 1.8s ease-in-out infinite;transition:color .18s;}
+        font-size:23px;line-height:1;color:var(--khaki);text-decoration:none;
+        animation:hintbob 1.8s ease-in-out infinite;transition:color .18s,opacity .4s ease;}
   .hint:hover{color:var(--ink);}
+  .hint.hide{opacity:0;pointer-events:none;}
   @keyframes hintbob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,5px);}}
   @media (prefers-reduced-motion:reduce){.hint{animation:none;}}
 
   /* about */
   .grid2{display:grid;grid-template-columns:180px 1fr;gap:44px;align-items:start;}
-  .body p{margin:0 0 22px;font-size:16px;line-height:1.95;color:#2a281f;}
+  .body p{margin:0 0 22px;font-size:18.5px;line-height:1.76;color:#2a281f;}
   .spec{margin-top:38px;padding:16px 2px;border-top:1px solid var(--ink);border-bottom:1px solid var(--hair);
-        font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--deep);}
+        font-family:'Space Mono',monospace;font-size:14.5px;font-weight:700;letter-spacing:.14em;color:var(--deep);}
 
-  /* stages */
-  .stagelist{margin-top:44px;border-bottom:1px solid var(--hair);}
-  .stage{display:grid;grid-template-columns:56px 1fr 110px 150px 20px;gap:14px;align-items:baseline;
-         padding:21px 8px;border-top:1px solid var(--hair);text-decoration:none;
-         transition:background .18s,transform .22s cubic-bezier(.2,.6,.2,1);}
-  a.stage:hover{background:var(--panel);transform:translateX(6px);}
-  a.stage:hover .s-no{color:var(--forest);}
-  .s-ar{font-size:13px;color:var(--khaki);text-align:right;transition:color .18s,transform .22s;}
-  a.stage:hover .s-ar{color:var(--ink);transform:translate(2px,-2px);}
-  .s-no{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--khaki);}
-  .s-route{font-size:16px;font-weight:500;letter-spacing:-.01em;}
-  .s-dist{font-family:'Space Mono',monospace;font-size:12px;color:var(--mute);text-align:right;}
-  .s-st{font-family:'Space Mono',monospace;font-size:11.5px;text-align:right;color:var(--khaki);}
-  .s-st.done{color:var(--deep);font-weight:700;}
-  .stage.rest{opacity:.42;}
+  /* stages — ridge timeline */
+  .timeline{position:relative;margin-top:40px;padding-left:30px;}
+  .timeline::before{content:'';position:absolute;left:6px;top:14px;bottom:14px;width:2px;
+        background:linear-gradient(var(--sprout) 0 32%,var(--hair) 32% 100%);}
+  .tl{position:relative;display:block;padding:17px 0;border-top:1px solid var(--hair);text-decoration:none;
+      transition:transform .2s cubic-bezier(.2,.6,.2,1);}
+  .tl:first-child{border-top:none;}
+  .tl.link:hover{transform:translateX(4px);}
+  .tl .dot{position:absolute;left:-30px;top:22px;width:13px;height:13px;border-radius:50%;
+        background:var(--cream);border:2px solid var(--khaki);box-shadow:0 0 0 4px var(--cream);}
+  .tl.done .dot{background:var(--sprout);border-color:var(--deep);}
+  .tl.next .dot{background:var(--cream);border-color:var(--forest);border-width:3px;}
+  .tl.wait .dot{background:var(--cream);border-color:#D8D2C2;}
+  .tl.wait{opacity:.5;}
+  .tl-main{position:absolute;inset:0;z-index:1;}
+  .tl-head{display:flex;align-items:baseline;gap:11px;}
+  .tl-no{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--khaki);flex:none;transition:color .18s;}
+  .tl.link:hover .tl-no{color:var(--forest);}
+  .tl-route{font-size:18.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink);}
+  .tl-st{margin-left:auto;flex:none;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;
+         letter-spacing:.04em;color:var(--khaki);white-space:nowrap;}
+  .tl-st.done{color:var(--deep);}
+  .tl-st.next{color:var(--forest);}
+  .tl-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:8px;}
+  .tl-dist{font-family:'Space Mono',monospace;font-size:12px;color:var(--mute);}
+  .tl-acts{display:flex;align-items:center;gap:15px;}
+  .tl-go{font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+         text-transform:uppercase;color:var(--deep);transition:color .18s;}
+  .tl.link:hover .tl-go{color:var(--ink);}
+  .tl-arr{display:inline-block;margin-left:5px;color:var(--forest);
+          animation:tlnudge 1.3s ease-in-out infinite;}
+  .tl:nth-child(2) .tl-arr{animation-delay:.22s;}
+  .tl:nth-child(3) .tl-arr{animation-delay:.44s;}
+  .tl.link:hover .tl-arr{animation-duration:.65s;color:var(--ink);}
+  @keyframes tlnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
+  @media (prefers-reduced-motion:reduce){.tl-arr{animation:none;}}
   .prog{margin-top:40px;height:2px;background:var(--hair);}
   .prog i{display:block;height:100%;width:14.4%;background:var(--sprout);}
   .prog-cap{display:flex;justify-content:space-between;margin-top:12px;
-            font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--khaki);}
+            font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--khaki);}
+
+  /* stages map (백두대간 spine) */
+  .stagegrid{display:grid;grid-template-columns:300px 1fr;gap:54px;align-items:start;margin-top:44px;}
+  .stagegrid .stagelist{margin-top:0;}
+  .kmap{position:sticky;top:74px;margin:0;}
+  .ktrail{width:100%;height:auto;display:block;overflow:visible;}
+  .k-land{fill:var(--panel);stroke:#D8D2C2;stroke-width:1;}
+  .k-ridge{fill:none;stroke:var(--khaki);stroke-width:1.5;stroke-dasharray:2 3.4;
+           stroke-linejoin:round;stroke-linecap:round;}
+  .k-done-halo{fill:none;stroke:var(--sprout);stroke-width:9;stroke-opacity:.22;
+               stroke-linejoin:round;stroke-linecap:round;}
+  .k-done{fill:none;stroke:var(--sprout);stroke-width:3.6;stroke-linejoin:round;stroke-linecap:round;}
+  .k-dot-start{fill:var(--deep);}
+  .k-dot-now{fill:var(--sprout);stroke:var(--deep);stroke-width:1.6;}
+  .k-dot-goal{fill:var(--cream);stroke:var(--ink);stroke-width:1.6;}
+  .k-bnd{fill:var(--cream);stroke:var(--khaki);stroke-width:1.3;}
+  .k-bl{font-family:'Pretendard',system-ui,-apple-system,sans-serif;font-size:12px;font-weight:600;fill:var(--mute);}
+  .k-lb{font-family:'Pretendard',system-ui,-apple-system,sans-serif;font-size:15px;font-weight:700;letter-spacing:.01em;}
+  .k-lb-done{fill:var(--deep);}
+  .k-lb-now{fill:var(--forest);}
+  .k-lb-goal{fill:var(--khaki);}
+  .klegend{display:flex;flex-wrap:wrap;gap:11px 18px;margin-top:22px;
+           font-family:'Pretendard',system-ui,-apple-system,sans-serif;font-size:13.5px;font-weight:600;
+           letter-spacing:.02em;color:var(--mute);}
+  .klegend span{display:inline-flex;align-items:center;gap:7px;}
+  .ksw{width:16px;height:3px;background:var(--sprout);display:inline-block;border-radius:2px;}
+  .ksw.dash{height:0;background:none;border-top:1.5px dashed var(--khaki);}
+  .ksw.ring{width:9px;height:9px;background:var(--cream);border:1.6px solid var(--ink);border-radius:50%;}
+  .ksw.bdot{width:7px;height:7px;background:var(--cream);border:1.3px solid var(--khaki);border-radius:50%;}
 
   /* film */
-  .secnote{margin:14px 0 0;font-size:14px;color:var(--mute);}
+  .secnote{margin:14px 0 0;font-size:16px;color:var(--mute);}
   .feat{margin-top:42px;}
   .vframe{width:100%;aspect-ratio:16/9;border:0;display:block;background:var(--panel);}
-  .vcap{margin-top:12px;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;
+  .vcap{margin-top:12px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
         letter-spacing:.2em;color:var(--mute);}
   .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px;}
-  .more{display:inline-block;margin-top:44px;font-family:'Space Mono',monospace;font-size:11px;
+  .more{display:inline-block;margin-top:44px;font-family:'Space Mono',monospace;font-size:13px;
         font-weight:700;letter-spacing:.2em;color:var(--deep);text-decoration:none;
         border-bottom:1px solid var(--sprout);padding-bottom:3px;}
   .more:hover{color:var(--ink);}
@@ -99,24 +183,27 @@
   /* footer */
   footer{border-top:1px solid var(--hair);padding:56px 0 44px;}
   .partners{display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
-  .partners .w{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+  .partners .w{font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;
                letter-spacing:.22em;color:var(--khaki);}
   .partners img{height:18px;width:auto;opacity:.72;}
   .fline{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:44px;
-         font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--khaki);}
+         font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:var(--khaki);}
   .fline a{color:var(--khaki);text-decoration:none;}
   .fline a:hover{color:var(--ink);}
 
   @media (max-width:720px){
     section{padding:84px 0;}
     .grid2{grid-template-columns:1fr;gap:26px;}
-    .stage{display:block;position:relative;padding:18px 8px 18px 52px;}
-    .s-no{position:absolute;left:8px;top:20px;}
-    .s-route{display:block;}
-    .s-dist,.s-st{display:inline-block;text-align:left;margin:7px 16px 0 0;}
-    .s-ar{position:absolute;right:10px;top:18px;}
+    .hd nav{gap:0;}
+    .hd nav a{padding:6px 7px;letter-spacing:.12em;}
+    .ddarrow{display:none;}
+    .navbadge{display:none;}
+    .navmenu{display:none!important;}
+    .tl-route{font-size:17px;}
     .vgrid{grid-template-columns:1fr;}
     .jgrid{grid-template-columns:1fr 1fr;gap:14px;}
+    .stagegrid{grid-template-columns:1fr;gap:30px;}
+    .kmap{position:static;max-width:300px;margin:0 auto;}
   }
 </style>
 </head>
@@ -129,7 +216,14 @@
     <a href="#top" style="display:flex;align-items:center;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjM3MCAzNTEgMjUwIDc1Ij4KICAgICAgICAgICAgICAgIDxkZWZzPgogICAgICAgICAgICAgICAgICAgIDxjbGlwUGF0aCBpZD0iY2xpcFBhdGgxOCIgY2xpcFBhdGhVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBpZD0icGF0aDE2IiBkPSJNIDAsOTg0LjU2OCBIIDE4ODkuODggViAwIEggMCBaIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgPC9jbGlwUGF0aD4KICAgICAgICAgICAgICAgIDwvZGVmcz4KICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0ibWF0cml4KDEuMzMzMzMzMywwLDAsLTEuMzMzMzMzMywwLDEzMTIuNzU3MykiIGlkPSJnMTAiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJnMTIiPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBjbGlwLXBhdGg9InVybCgjY2xpcFBhdGgxOCkiIGlkPSJnMTQiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjkyLjcxNDQsNzExLjIxMDgpIiBpZD0iZzIwIj48cGF0aCBpZD0icGF0aDIyIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIDEuOTk5LC03Ljg0MSA0LjUxOSwtMTEuNzI4IDAuODczLC0xOS41NDkgLTEuMDk3LC0wLjI5NiAtMS42NzEsLTAuNDI0IC0yLjc5MywtMC41ODggMy44MDMsNy41NjIgMS4xNjEsMTEuMTY4IC0wLjk0MywxOC43NDggLTEuNzk3LC0wLjk5MiAtMi42MDUsLTEuNTUgLTMuODA3LC0yLjczNSAtMC4yMjQsMS40MzMgLTAuMTU5LDIuMzE2IDAuNTgzLDQuMDExIDIuOTY1LDMuNTEgNy4zNjEsNS42NjIgMTEuODIxLDYuNTIgQyA1LjA3Nyw0LjQyIDQuOTksMy4zNzkgNS4xNTQsMS42MzcgMy4wNCwxLjE5NyAxLjk3NywwLjg0IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwOS4yODM0LDY5NC4yNDQ4KSIgaWQ9ImcyNCI+PHBhdGggaWQ9InBhdGgyNiIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAxLjkzOCwyLjk0NyAyLjgzLDUuNTY1IDIuMzYyLDguOTU1IC0yLjM2NywwLjkyMyAtMy4zMzEsMS4yNSAtNi4zOTgsMS4xNTkgMC41MjIsLTMuMjQzIC0wLjY2OCwtNy40MzEgLTIuNjE0LC0xMC4wNDcgLTEuMTYxLC0wLjE4OCAtMS42MzYsLTAuMzQ0IC0yLjcwMywtMC42NTggNC4yNzcsOS4wNjUgLTAuNDEyLDE1LjEwOCAwLjc5MywyNC4yNTcgMS4zMDEsMC4wOSAxLjgwMiwwLjEwNiAzLjIyOSwtMC4wODEgLTEuNTIxLC00LjI4NyAtMC42OTgsLTYuMDI3IDAuMzQxLC05LjQ3MSAzLjIyOCwtMC4wODQgNC4xOTMsLTAuNTU4IDYuNDY0LC0xLjY3IEMgMC41MSwxNS40MzggLTAuMjIyLDE2Ljk3NiAxLjExLDIwLjc4NSAxLjkxOSwyMC4xNiAyLjI4NiwxOS44MjMgMy4wNjksMTkuMTkxIDIuNDExLDExLjQ2NCA1Ljg1NSw2Ljg1MiAyLjUzLC0wLjc0IDEuNTgyLC0wLjM4MyAxLjExNywtMC4yMTMgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzI0LjAwODUsNjkyLjE2NDMpIiBpZD0iZzI4Ij48cGF0aCBpZD0icGF0aDMwIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0xLjY2NiwtMS42ODggLTMuMzAyLC0yLjE5NyAtNC44MDUsLTEuODM4IC0xLjQ5MSwwLjM1NiAtMi41NSwxLjQ4NSAtMi45MDYsMy40MDEgLTAuMzYsMS45MzQgLTAuMTY2LDQuNjYxIC0wLjQzNiw2Ljg1MiAtMS4yMSw0LjYxOCAtMi4wNjgsNi43MDcgLTEuNzA4LDExLjU0NSAwLjg3NSwtMC41NDggMS4zNDQsLTAuNzk2IDIuNDY0LC0xLjE1NiAtMC4zMzksLTQuNzM1IDAuNDg2LC02Ljg4NyAxLjYwNiwtMTEuNDIzIDAuMTM3LC0xLjIwNSAwLjMxOSwtMi41ODIgMC43NDYsLTMuNzc5IDAuNDI1LC0xLjE5IDEuMDU3LC0xLjgyNyAxLjg5MywtMS45NzggMC44MzYsLTAuMTUgMS43MTEsMC4yMjUgMi41MDQsMS4yNTYgMC44MDEsMS4wNDEgMS4yMiwyLjM4NCAxLjE2NSwzLjY2NiAtMC42OTYsNC42NjggLTEuMzI0LDcuNDkgLTAuODY5LDEyLjI0OSAwLjk3NSwwLjMyNSAxLjQyOSwwLjU0NSAyLjMyMiwxLjAzMyBDIDEuNTU1LDE0Ljk5MSAyLjA4NCwxMS42OTIgMi43NTUsNi45MjMgMi44MjksNC41MDcgMS42ODEsMS43MDQgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzM2LjI5NDksNjkyLjQ3OTQpIiBpZD0iZzMyIj48cGF0aCBpZD0icGF0aDM0IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJNIDAsMCBDIC0wLjY3OSw1LjM3OCAtMi4zOTEsOS44NyAtNi4wMzUsMTMuOTM5IC00LjcyNCw4LjMyNSAtNS40MDMsMy43NSAtNy4xMTIsLTEuNjc1IGMgLTEuMDgyLC0wLjIwNCAtMS41OCwtMC4yODcgLTIuNTQxLC0wLjQwOCAyLjg3NSw4LjE1MiAwLjUzNSwxNC41NDQgMS4yODIsMjIuNzY4IDAuNzksMC41MSAxLjE4MiwwLjc4IDIsMS4zMDEgQyAtNS4yMDgsMTcuMTUgLTEuMTI2LDEzLjI1NSAxLjQxMyw5LjEwNiAxLjAwMiwxNC40NTcgMC4xMSwxOS40OTcgMC4yNiwyNC44ODMgMS41MDgsMjUuMTI5IDIuMjc4LDI1LjE5NiAzLjYzNiwyNS4xNjcgMy4zMjcsMTYuNDYxIDQuODg1LDkuMTQ0IDIuNTgyLDAuNDk4IDEuNTgxLDAuMzM4IDEuMDE4LDAuMjMzIDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1MC4yMjM4LDcwNy43NzQ0KSIgaWQ9ImczNiI+PHBhdGggaWQ9InBhdGgzOCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC44MDYsMS40ODEgLTEuNjU1LDIuNjIgLTIuNjU5LDMuMTM5IC0wLjkzOCwwLjQ4NCAtMS40MSwwLjcxOSAtMi40NDUsMS4xMDIgMC4yMTYsLTQuOTU2IDAuNDY2LC05LjI3IC0wLjM0OCwtMTQuMjAxIDAuOTMsLTAuMDU2IDEuMzY1LC0wLjExIDIuMjU1LC0wLjIzNSAwLjk1MywtMC4xMzMgMi4wNDgsMC41MzYgMy4wMzksMS43NTQgMC45ODcsMS4yMTQgMS41MTIsMi41MzkgMS40OTQsNC4wNyBDIDEuMzE3LC0yLjg0IDAuODAyLC0xLjQ3MyAwLDAgbSAwLjczLC0xMS42MDggYyAtMS45MSwtMS45MjUgLTMuNjY2LC0yLjgwMSAtNS4yMDksLTIuNzQ3IC0xLjcyNiwwLjA2IC0yLjUxMSwwLjA2NSAtNC40ODIsLTAuMTMgMi4zNjksOC4zNjMgMS4xNiwxNS41MzcgMS41NjUsMjQuMDAzIEMgLTUuMDU5LDguOTczIC00LjE5Myw4LjQxMSAtMi40NDcsNy4yOTUgLTAuODc1LDYuMjkgMC4yOCw0LjA4NiAxLjUwNywxLjY1NyAyLjcyNCwtMC43NTIgMy43NTYsLTIuNjk1IDMuNzkxLC00Ljk5NyAzLjgyNiwtNy4yODUgMi42NCwtOS42ODMgMC43MywtMTEuNjA4Ij48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzU0LjkzNzksNjkyLjk1NjIpIiBpZD0iZzQwIj48cGF0aCBpZD0icGF0aDQyIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIDEuNzA3LDYuNDIgMS4zMjgsMTEuNDQ1IDEuMTYyLDE3Ljk5NyA0LjA3LC0wLjA5NiA3LjY4MiwtMC4xMjUgMTEuMTA4LDIuNDY5IDAuMjIsLTEuNDgyIDAuMjY1LC0yLjM5IDAuMzU1LC0zLjc3IC0yLjU5OCwtMS40MzggLTMuODgsLTIuMTg0IC03Ljk5NCwtMi4zMzUgMC4xMTIsLTEuNTQ4IDAuMjA5LC0yLjIxMSAwLjMwMSwtMy42MDggMy4xNiwwLjA5OSA0LjI5OSwwLjQ2IDYuNDMyLDEuMjc3IDAuMDIxLC0xLjIxOSAwLjAxMywtMS44MTcgLTAuMTAyLC0zLjEzNyBDIDkuMTc2LDguMjM1IDguMDYxLDcuOTQ1IDQuOTY2LDcuODYgNC44ODUsNi4zMjkgNC43NDksNS4zOCA0LjI5NywzLjUyOSA4LjE5OCwzLjYyNyA5LjQyNCwzLjk2NCAxMS45MDEsNC42MyAxMS41NCwyLjk5MSAxMS4zMTgsMi4yMjQgMTEuMDY5LDAuNjU1IDcuMzkyLC0wLjAxOCAzLjcyNCwwLjAwMiAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNzYuNjIwOSw3MTMuMDEzNykiIGlkPSJnNDQiPjxwYXRoIGlkPSJwYXRoNDYiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Im0gMCwwIGMgLTAuNDgyLDAuMzgzIC0xLjAxMiwwLjUyNiAtMS41NjEsMC4zNzMgLTEuNDU3LC0wLjQwNSAtMi4wODcsLTAuNjk5IC0zLjMwNSwtMS4zMyAwLjEyNCwtMS45MDggMC4xNiwtMi43NjEgMC4xMjUsLTQuNTMgMS4yMDIsMC41MDkgMS44MjMsMC43NDcgMy4yNTgsMS4wNzggMC41NCwwLjEyNSAxLjA1NCwwLjQ0MyAxLjUyMiwwLjk0NiAwLjQ1OCwwLjQ5MyAwLjcyNCwxLjA4NCAwLjcxOCwxLjgwMiBDIDAuNzUxLC0wLjk0MiAwLjQ3MiwtMC4zNzUgMCwwIG0gMC4xNjQsLTE3Ljk5OCBjIC0xLjI1MiwzLjQ3MiAtMS4yODMsNS4zNzMgLTIuMDc4LDguMjg5IC0wLjI1MiwwLjk0NyAtMC44NzgsMS4yNzYgLTEuNzQxLDEuMDIzIC0wLjU0NSwtMC4xNiAtMC44MDUsLTAuMjQ2IC0xLjMxNiwtMC40MjYgLTAuMzY3LC0zLjQxMSAtMS4xMjgsLTUuNjYxIC0xLjU5LC05LjU2NiAtMC44NTcsLTAuMTQ1IC0xLjI2MiwtMC4yMjIgLTIuMDg0LC0wLjM3NCAxLjQwMSw3LjI0NiAxLjkyNywxMy40NjEgMS4yMDksMjAuODI1IDEuOTUyLDEuMzc1IDIuODUzLDIuMTI5IDUuMzI4LDIuOTI2IEMgLTAuODc4LDUuMDk2IDAuNTI2LDQuNjc3IDEuODgxLDMuMzE4IDMuMzU2LDEuODM5IDQuMTA5LDAuMjA1IDQuMTAyLC0xLjU5IDQuMDk2LC0zLjAyNyAzLjU4MSwtNC4yNDEgMi42MjYsLTUuMzc3IDEuOTc2LC02LjExNiAxLjI4NywtNi43MTggMC41OTQsLTcuMTgxIDAuNzAzLC03LjM2NCAwLjgxLC03LjU3NCAwLjkxMSwtNy44MTEgMS4wMTQsLTguMDQ4IDEuMTIsLTguMzA0IDEuMjMyLC04LjU3OCAxLjIyMywtOC41NzkgMS4yMTgsLTguNTc5IDEuMjA5LC04LjU3OSBjIDEuMTg1LC0zLjM0IDEuMzYyLC01LjU0MyAyLjgyNiwtOS4zNjkgLTEuNTI2LC0wLjAxMSAtMi4zNTksMC4wMDEgLTMuODcxLC0wLjA1Ij48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzg5Ljk1NDksNzAyLjcyOTIpIiBpZD0iZzQ4Ij48cGF0aCBpZD0icGF0aDUwIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJNIDAsMCBDIC0wLjIzNSwwLjQ1OCAtMC41OTIsMC43NTggLTEuMDIxLDAuODc4IC0yLjIzOSwxLjIyMSAtMi44MTUsMS40MTkgLTQuMTkyLDEuNzM5IC00LjQ4LC0wLjExNCAtNC42OSwtMS4xMzQgLTUuMDgsLTMuMzA4IGMgMS4zOTcsLTAuMTUxIDEuOTc2LC0wLjI1IDMuMTgyLC0wLjQwNyAwLjQyNiwtMC4wNTYgMC44NDEsMC4xNDEgMS4yNSwwLjU0OCAwLjQxLDAuNDA3IDAuNjg5LDAuOTI5IDAuODIzLDEuNTU3IEMgMC4zMDEsLTEuMDE2IDAuMjQ2LC0wLjQ4MSAwLDAgTSAwLjI2NSw3LjEyNyBDIC0wLjExNSw3LjY2MyAtMC41MjYsOC4wNyAtMC45NTMsOC4zIC0yLjA4Nyw4LjkxMiAtMi42MjEsOS4yNDMgLTMuODU3LDkuNzk4IC0zLjY1Nyw3LjkxNSAtMy42Niw3LjA2NiAtMy43NzUsNS4zMTQgLTIuNTE2LDQuOTA0IC0xLjk3NCw0LjY1OCAtMC44NCw0LjIxIC0wLjQxNCw0LjA0MiAtMC4wMTcsNC4wOTEgMC4zMzUsNC4zMTYgMC42ODEsNC41MzcgMC44ODIsNC45MTkgMC44NzEsNS40OTEgMC44NTgsNi4wNjIgMC42MzcsNi42MDIgMC4yNjUsNy4xMjcgTSAwLjMyNywtNi4wMjYgYyAtMC45MTMsLTEuMTI1IC0xLjcyNywtMS43NTMgLTIuNjg1LC0xLjczNyAtMi4wNTEsMC4wMzQgLTIuOTgxLDAuMTAxIC01Ljk0NCwwLjEwMyAxLjEwNyw3Ljg3OSAyLjU5OCwxNC42ODYgMS4yMzksMjIuNTk4IDIuNDQ0LC0wLjgyNyAzLjIxNiwtMS42MDEgNS4wOTUsLTIuODkxIEMgLTEuMDM0LDExLjQwNSAwLjEwNCwxMC4zOTUgMS4yNzMsOC45MjUgMi41NDQsNy4zMjYgMy4yMzcsNi4wNjUgMy4yNDcsNC43MzMgMy4yNTYsMy4zODggMi41OTMsMi40ODYgMS42NDgsMS45NDUgMi41MzMsMC45NjQgMi44NDQsLTAuMTQ5IDIuNDE5LC0xLjg3MSAyLjAzOCwtMy40MTggMS4yNTgsLTQuODc5IDAuMzI3LC02LjAyNiI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM5My43MTAxLDY5NS4xODI2KSIgaWQ9Imc1MiI+PHBhdGggaWQ9InBhdGg1NCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAwLjg1Niw1LjQ4OCAzLjc1NSwxMS40MjYgMS4xNjgsMTYuODE1IDEuMzIsLTAuMTMxIDIuMTA1LC0wLjExNyAzLjMwNywwLjAzIEMgNi4xNzgsMTAuNTk1IDQuMTAyLDYuNTc2IDIuODc1LDAuMzMzIDEuNzQ5LDAuMTc4IDEuMTI0LDAuMTAxIDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQwOC45MzE1LDcxMS44MTU0KSIgaWQ9Imc1NiI+PHBhdGggaWQ9InBhdGg1OCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC40MDksMC4yMyAtMC44NzEsMC4yNDMgLTEuMzM3LDAuMDIyIC0xLjIzOCwtMC41ODYgLTEuODE1LC0wLjkwNyAtMy4wOTMsLTEuNDYgMC4yNTksLTEuNDk4IDAuMTc5LC0yLjE3MyAtMC4xMTUsLTMuNTY3IDEuMjkzLDAuNDM2IDEuODY5LDAuNjggMy4wOTIsMS4xMTggMC40NiwwLjE2NiAwLjkxMSwwLjQ5MiAxLjM0LDAuOTgzIDAuNDIsMC40ODEgMC42ODgsMS4wMjggMC43MTcsMS42MzkgQyAwLjYzMiwtMC42NTUgMC40MDIsLTAuMjI1IDAsMCBtIC0xLjIxOSwtMTUuMzc0IGMgLTEuMjksMy40MTQgLTEuMTcxLDQuODU4IC0xLjQzLDcuMTYzIC0wLjA3OSwwLjc0OCAtMC41MjYsMC45NjQgLTEuMzYxLDAuNzI4IC0wLjUyNywtMC4xNDkgLTAuNzk1LC0wLjIyNSAtMS4zNTQsLTAuMzc0IC0wLjg4MiwtMi42NzUgLTEuNzQyLC00LjI3NSAtMS42NDEsLTcuNzg2IC0wLjk2MywtMC4wOTUgLTEuNDc1LC0wLjE1MyAtMi42NTMsLTAuMjkgMC44NzQsNS4zNzYgNC4zMTksMTEuNDkgMS41MzMsMTYuNzQ2IDIuMzgxLDAuODEyIDMuMjM5LDEuNTQxIDUuMzE2LDIuNzU2IDEuMDMyLDAuNjA0IDIuNDA4LDAuNjUyIDMuODAyLC0wLjIxMiBDIDIuNTEyLDIuNDE1IDMuMzE1LDEuMDc5IDMuMjE4LC0wLjU0IDMuMTQsLTEuODM2IDIuNSwtMy4wMzQgMS41NzksLTQuMTU3IGMgLTAuNjIxLC0wLjczNSAtMS4yNSwtMS4zMjkgLTEuODYsLTEuNzg3IDAuMDUxLC0wLjE0MiAwLjA5NCwtMC4zMDggMC4xMywtMC40OTcgMC4wMzYsLTAuMTkgMC4wNzIsLTAuMzk2IDAuMTExLC0wLjYxOCAtMC4wMDcsLTEwZS00IC0wLjAxMSwtMC4wMDIgLTAuMDE4LC0wLjAwMyAwLjMzOCwtMi43MTggMC4xODcsLTQuNDE0IDEuOTE5LC04LjQyOSAtMS4zOSwwLjA3OCAtMS45NzQsMC4xMDEgLTMuMDgsMC4xMTciPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MjYuMzI4Myw3MTAuNzQ2NykiIGlkPSJnNjAiPjxwYXRoIGlkPSJwYXRoNjIiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Im0gMCwwIGMgLTEuMDMxLDEuNTI3IC0yLjU4MywyLjU0NSAtNC4xODMsMi44MTMgLTEuNDk1LDAuMjUxIC0yLjI0NiwwLjMyNiAtMy42NjksMC40MDUgMC40NjQsLTQuNjUyIC0xLjg5NSwtOC45NTkgLTMuMDY2LC0xMy4zMjkgMS40NDcsLTAuMDgzIDIuMTMsLTAuMTE2IDMuNTczLC0wLjIyMiAxLjU0NCwtMC4xMTMgMy4wMTcsMC41MDYgNC41MjgsMS42NCAxLjUwMSwxLjEyNyAyLjY2MSwyLjQxOCAzLjMxNCw0LjAyOSBDIDEuMTUsLTMuMDU0IDEuMDIzLC0xLjUxNiAwLDAgbSAtMS41NzQsLTExLjgyNiBjIC0xLjkwNSwtMS44OTcgLTMuNzQ4LC0zLjE2IC02LjIwNywtMy4wNDkgLTIuNzUsMC4xMjQgLTQuMTE4LDAuMjI1IC02Ljc3NSwwLjM5MyAwLjgyNyw3Ljk5OCA0LjgzOSwxMy45MTYgMS43OTQsMjEuNzMzIDIuOTM1LDAuMjkgNC4wNDMsMC4xNTEgNi44MTMsLTAuNDA0IDIuNDk0LC0wLjUwMSA1LjcxNSwtMi42MTQgNy43NzYsLTUuMjQ2IDIuMDQ5LC0yLjYxOCAyLjMyNiwtNC45ODYgMS4yNTcsLTcuMzQ1IC0xLjA2MywtMi4zNDUgLTIuNzUzLC00LjE4NCAtNC42NTgsLTYuMDgyIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjg5Ljk1MjksNjg2LjYxNTIpIiBpZD0iZzY0Ij48cGF0aCBpZD0icGF0aDY2IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0wLjEzOCwwLjI1NiAtMC40ODMsMC4zNDUgLTEuMDY5LDAuMjYzIC0xLjU1NywtMC4yMTcgLTIuNDY0LC0wLjIxIC0zLjk2MSwtMC4wNiAtMS40MTEsLTEuMzMzIC0yLjExNCwtMS45NyAtMy4wMjUsLTMuNjEyIDEuNTg5LC0wLjM1NiAyLjU0OCwtMC40NDUgNC4xNDksLTAuMzI0IDAuNjAzLDAuMDQ1IDEuMjEzLDAuMzQzIDEuODczLDAuODI5IDAuNjQ3LDAuNDc2IDEuMTY5LDEuMDM4IDEuNTk0LDEuNjQgQyAtMC4wMTQsLTAuNjYzIDAuMTM1LC0wLjI1MSAwLDAgbSAyLjA0NCwtMTguMDU3IGMgLTIuNjY5LDIuMTU2IC01LjI1LDUuMzM0IC02Ljc2OCw4LjQxNyAtMC41OTYsMS4xOSAtMS4zNywxLjc0OCAtMi41NjEsMS45NDUgLTAuNzUyLDAuMTI1IC0xLjEyMSwwLjIxNCAtMS44MzIsMC40MzQgLTAuMTM1LC0zLjQzIDEuNzI2LC03LjU1MyA0LjAzOCwtMTAuMDA4IC0xLjE2MSwwLjYzIC0xLjcxOCwxLjAzOCAtMi43MiwxLjk2IC01LjgxNSw4LjA0NCAtNC40NzMsMTIuODkzIDMuMjc1LDE4LjMxOSBDIC0yLjU0MSwyLjgyMSAtMC45OTcsMi43OTkgMS42MjcsMy4zMzYgMi45MzEsMy42MDMgMy42NywzLjQyMiAzLjgwNCwyLjc4MSAzLjk1MywyLjA3MyAzLjM0MywxLjA0OCAyLjI4MywtMC40NjEgMS40MzQsLTEuNjY4IDAuNTAyLC0yLjk2OSAtMC41MjUsLTQuMzYgYyAtMC42OTIsLTAuOTEzIC0xLjMxMywtMS43MTYgLTEuOTU2LC0yLjMxOCAwLjA5NiwtMC4xOTYgMC4xOTMsLTAuNDI1IDAuMjk4LC0wLjY5MSAwLjEwNSwtMC4yNjcgMC4yMjUsLTAuNTUxIDAuMzY0LC0wLjg1MSAtMC4wMDcsLTAuMDAzIC0wLjAxMSwtMC4wMDQgLTAuMDE5LC0wLjAwNyAxLjI4MiwtMy4xMjUgMy44NDQsLTYuNDE0IDYuNTA4LC04LjQ3NyAtMS4wNDEsLTAuNjU2IC0xLjU0MywtMC45NTggLTIuNjI2LC0xLjM1MyI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwNS4xOTg5LDY3Ni43MzQyKSIgaWQ9Imc2OCI+PHBhdGggaWQ9InBhdGg3MCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC43MTgsLTEuNzEzIC0yLjM2NSwtMi44NjQgLTQuMTY5LC0zLjY0NSAtMS43ODksLTAuNzc1IC0zLjYyMSwtMC44OTcgLTUuNTAyLDAuNDAyIC0xLjkwMywxLjMxNCAtMy4yOTksMy43NjggLTMuMjQ1LDYuNjgxIDAuMTE5LDQuOTY5IDMuNTU0LDguNDE2IDYuNTcxLDExLjk0NiAxLjA2NSwwLjMyNCAxLjU0NSwwLjQ4OSAyLjcwMiwwLjY5OSAtMi45NzEsLTMuMzggLTYuNDAxLC02LjY1MSAtNi42MjEsLTExLjQ2NCAtMC4wNjEsLTEuNTYzIDAuNDg3LC0yLjg1NSAxLjM5MywtMy42NzcgMC44OTgsLTAuODE2IDEuOTA4LC0wLjk2MiAyLjkzMSwtMC42MDUgMS4wMjQsMC4zNTYgMS44MzMsMS4xMDkgMi40NDcsMi4yNjMgMC42MTcsMS4xNTkgMC44NiwyLjQ0NyAwLjg5NSwzLjgyIDAuMDE0LDMuODA2IDMuMjIsNy4yODUgNS43MjQsOS43NjQgQyA0LjI4NCwxNS45OTUgNC43NjMsMTUuODM0IDUuNzM4LDE1LjQ5IDMuNDQzLDEzLjEyMiAwLjUyNSw5LjgwNiAwLjYzMiw2LjIzNyAwLjYzMywzLjg3NyAwLjcyMywxLjcyNiAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTguNzgxMSw2NzAuNTAzKSIgaWQ9Imc3MiI+PHBhdGggaWQ9InBhdGg3NCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMi44NTMsNC44OTMgLTUuNjAzLDkuNzg0IC02LjY4NSwxNS40MTUgLTIuMzUzLC0zLjk3MSAtMC40NDIsLTguNDY3IDAuOTc5LC0xMi4yODMgLTAuOTI2LDAuNDA1IC0xLjQwMiwwLjU4MyAtMi40MzIsMC44MzkgLTIuOTM5LDcuMTcxIC0yLjc4LDExLjA1NCAyLjQwNCwxNi45MTggMC44NTksLTAuMzYyIDEuMjg1LC0wLjU1MyAyLjE5NSwtMC45MDYgLTAuMzU2LC00LjUxOSAwLjYxNywtNy45ODEgMS45MjQsLTEyLjI5NyAwLjY3Myw0LjUzMSAxLjU5NCw2Ljk1NSA0LjM4NiwxMC42NDggQyAzLjY4OSwxOC4yMiA0LjEzNywxOC4xOTEgNS4wNjcsMTguMTg0IDAuODc5LDExLjM1MSAwLjU5LDYuNjc0IDIuMjEzLC0xLjExMiAxLjI4MSwtMC42OTcgMC44NDcsLTAuNDY3IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzNC42NDcsNjY4LjQwMzMpIiBpZD0iZzc2Ij48cGF0aCBpZD0icGF0aDc4IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJNIDAsMCBDIC0yLjk3Miw0LjcgLTUuODksOS40NDUgLTguMzY2LDE0LjQzMSAtOS44MzIsOS40NCAtOC44MzQsNC4zNzIgLTcuOTE1LC0wLjYwNiBjIC0xLjM4LDAuMTY2IC0yLjAwMywwLjMwNSAtMy4xNjcsMC42NDUgLTEuNTEyLDguMTU2IC0xLjEwMywxMi45MTkgMi41NCwyMC4zMzggMC45MDMsMC4wNzcgMS4zNzIsMC4xMzUgMi4zODIsMC4yODcgMC42NDksLTQuMjQ5IDMuMDA2LC04LjEzIDQuOTY3LC0xMS44NDkgLTAuMzE3LDQuNjU1IDAuODYxLDkuMDAxIDIuMjY0LDEzLjM4NCAxLjExNiwwLjI1MiAxLjczMywwLjM2OCAyLjgxMSwwLjU0NyBDIDEuMzcyLDE1LjI0MyAxLjQ4Myw4LjcgMi4xNzIsMC44NCAxLjM0OCwwLjQ2IDAuOTE5LDAuMjg3IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzOC44NjUxLDY3MC4zMTMyKSIgaWQ9Imc4MCI+PHBhdGggaWQ9InBhdGg4MiIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC4zNyw3LjY4MSAtMC4yMiwxMy43ODkgMi4wMTksMjEuMTcyIDAuOTI2LDAuMTA3IDEuMzUzLDAuMTQzIDIuMTk2LDAuMTkyIEMgMi4xMDUsMTQuNDEgMS45NjIsOC40OTMgMi4wODEsMS4yNTUgMS4yNDQsMC43NCAwLjgzOCwwLjQ4MiAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNTMuNTA4NCw2NzYuMTcwOSkiIGlkPSJnODQiPjxwYXRoIGlkPSJwYXRoODYiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Ik0gMCwwIEMgLTIuNzA1LDMuMjk5IC01LjM2OSw2LjU5NCAtNy42OTUsMTAuMTc4IC04LjMxNiw2LjE3NyAtOC4wMjMsMS44OCAtOC4xMzcsLTIuMTQ5IGMgLTEuMDEzLC0wLjQ2MyAtMS40NzYsLTAuNzE0IC0yLjM2OSwtMS4yMjMgMC4wNTYsNi42NTUgLTAuMDQ0LDEyLjU1MyAyLjA2MiwxOC45NDIgMC43NTUsMC4wMDUgMS4xMzMsMCAxLjkzMSwtMC4wMiAwLjMyNywtMy45NDYgMy43MzMsLTYuNjc2IDYuMjg0LC05LjIyNSAtMC4yOTcsNC42MyAtMC40NjgsNC40NDggMC40ODQsOS4wMTMgQyAxLjU4MiwxNS4zMSAyLjMxNiwxNS4yOTUgMy43LDE1LjI4OSAyLjc3NSwxMC4zNzMgMy43NzgsNS4xNTEgMy41MTYsMC4xNzUgMi4yMTIsMC4xODUgMS40NywwLjE1MyAwLDAiPjwvcGF0aD48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNzMuNzI2MSw2NzcuNDI5KSIgaWQ9Imc4OCI+PHBhdGggaWQ9InBhdGg5MCIgc3R5bGU9ImZpbGw6IzM1NTYxMDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIgZD0ibSAwLDAgYyAtMC40MDcsLTAuODI2IC0wLjkxMiwtMS41MjkgLTEuNDY5LC0yLjA5OSAtMC41NTgsLTAuNTcgLTEuMTQ5LC0wLjk5MSAtMS43NDgsLTEuMjczIC0wLjYsLTAuMjgyIC0xLjE5NCwtMC40MiAtMS43OCwtMC40MzkgLTAuNTg1LC0wLjAxOCAtMS4xNDcsMC4wODYgLTEuNjk1LDAuMjg4IC0xLjgyNiwwLjY3MSAtMy4xNzMsMi4wMjcgLTQuNTc1LDQuMjMzIC0xLjM5LDIuMTg2IC0yLjU2OCw0Ljc5OCAtMi43NjgsNi43MzkgLTAuMTk4LDEuOTI4IDAuNjc1LDMuMDc5IDIuMjIyLDQuNTczIDEuNTc1LDEuNTE5IDMuMjU0LDIuODY5IDQuOTE0LDMuMTA4IDAuOTUzLDAuMTM3IDEuODA0LC0wLjIwOCAyLjcyNSwtMS4wMDEgMC45MjEsLTAuNzkyIDEuODMyLC0xLjkyNiAyLjgxOSwtMy4yNjIgLTAuNzA4LC0wLjc1MyAtMS4wMzYsLTEuMDk0IC0xLjY4NSwtMS43MzMgLTAuNjUzLDAuODI5IC0xLjMwNiwxLjQ3MyAtMS45ODMsMS45MjUgLTAuNjc2LDAuNDUzIC0xLjMwNywwLjY2NSAtMS45NDksMC42NDYgLTEuMTM1LC0wLjAzMyAtMi4xMjgsLTAuNTk5IC0yLjk1OSwtMS40NDggLTAuODQ4LC0wLjg2NSAtMS4yNjksLTEuNzM2IC0xLjExMSwtMy4wMjEgMC4xNTgsLTEuMjk5IDAuODcyLC0yLjc1IDEuODU4LC00LjMwNCAwLjk4OSwtMS41NTkgMS45NzIsLTIuNTUzIDMuMTk4LC0yLjg4NyAxLjQsLTAuMzgyIDIuNjk2LDAuMjgzIDMuNTQ3LDEuODgzIC0wLjAzMywxLjE1MiAtMC4wOSwxLjcwOCAtMC4yMTMsMi43IEMgLTQuMjMzLDQuODQ1IC00Ljk2NCw0Ljk4NCAtNi41MjMsNS4yNDYgLTYuNjY3LDYuNTE0IC02Ljc2NSw3LjAzNCAtNi45MzYsOC4wNjkgLTQuNDg2LDcuODM1IC0zLjQyNyw3LjcwNSAtMC42OTksNy41OSAtMC4xNzYsNS4xNzQgMC4yNDcsMy44NyAwLjEsMC40MDcgMC4wNjIsMC4yNDMgMC4wNDIsMC4xNjIgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzkxLjI4OTIsNjc4LjU2MjkpIiBpZD0iZzkyIj48cGF0aCBpZD0icGF0aDk0IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0xLjg5MywtMi42NjMgLTQuMTgyLC00LjU1NyAtNi44MzMsLTUuNDMzIC0yLjY1MiwtMC44NzcgLTQuOTI2LC0wLjI2OCAtNi4zMDIsMi4wODYgLTEuMzY0LDIuMzMzIC0yLjI3OSw1LjUzIC0yLjc5NSw4LjE1NSAtMC41MTMsMi42MDcgLTAuMzQyLDQuNTIxIDEuMTY4LDYuNjM5IDEuNTM2LDIuMTU2IDQuMTAxLDMuNjUyIDYuMjgzLDMuNjY4IDIuMTY4LDAuMDE1IDMuNjI4LC0xLjY0MSA1Ljc1NiwtMy40NjkgLTAuMzI0LC0wLjkxNiAtMC40NjYsLTEuMzQgLTAuODEsLTIuMjA2IC0xLjYxOSwxLjA1MiAtMi45NTksMS43NTUgLTQuNDM4LDEuNjcxIC0xLjUwOCwtMC4wODcgLTIuOTg0LC0wLjgzMyAtMy45MzksLTIuMDUzIC0wLjk3NCwtMS4yNDQgLTEuMjM3LC0yLjU2OSAtMC44ODMsLTQuMjUyIDAuMzU4LC0xLjY5OCAxLjIwMiwtMy4zNjMgMi41MDIsLTQuODY4IDEuMzAzLC0xLjUxIDIuOTY2LC0yIDQuNjksLTEuNTM2IDEuNjksMC40NTQgMy4zMjIsMi4wMSA0LjQxOCw0LjAzNiBDIC0wLjUyMywxLjg1MiAtMC4yNTEsMS40OTEgMC4xODQsMC45MjIgMC4xMjgsMC41NDggMC4wOTEsMC4zNjMgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzkyLjQ1ODUsNjc3LjM3OTgpIiBpZD0iZzk2Ij48cGF0aCBpZD0icGF0aDk4IiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIDIuMDEyLDYuOTk1IC0wLjYwOSw5LjMyOSAtMi44ODUsMTUuODM2IDAuODUxLDAuMDQxIDEuMjgzLDAuMDY3IDIuMjQ2LDAuMTQzIEMgMS4xODQsMTEuNDIgMy4wMDQsOS4wNjQgMy42NTcsNC4yMiA1LjkyNCw1LjA0MiA3LjE1OCw1LjQwNSAxMC4xODcsNS40NDkgOS44MTcsNC4xOTEgOS40NCwzLjU4IDguNDc4LDIuNTMzIDQuMTk4LDIuNTQ5IDIuOTY3LDEuNjg2IDAsMCI+PC9wYXRoPjwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQxNC4yMjg1LDY3Ny41NTA3KSIgaWQ9ImcxMDAiPjxwYXRoIGlkPSJwYXRoMTAyIiBzdHlsZT0iZmlsbDojMzU1NjEwO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIiBkPSJtIDAsMCBjIC0xLjk2OSwtMS4xNTIgLTMuODk2LC0xLjA3IC01LjI4MiwtMC4yOTEgLTEuMzc1LDAuNzc1IC0yLjAxMiwxLjk3NiAtMi41NSwzLjYyNSAtMC41NCwxLjY1NiAtMS4wMTUsMy41NTkgLTEuNTIxLDUuMDE1IC0xLjEyOSwzLjI1NiAtMy44MTMsMy4xMzQgLTQuNzQyLDguMzc0IDEuMTM2LDAuMSAxLjYzMSwwLjEzNSAyLjU3MiwwLjE4MSAwLjc1MywtMy42NTMgMy40OTIsLTUuODM0IDUuMTg2LC04Ljk2NCAwLjMxMiwtMC44NTcgMC43MjEsLTEuODAxIDEuMjM3LC0yLjgzNSAwLjUxNSwtMS4wMyAxLjA2LC0xLjczOCAxLjg1OSwtMi4wOTcgMC43OTksLTAuMzU4IDEuNjgzLC0wLjI1OCAyLjM3OCwwLjQxMyAwLjcwNCwwLjY3OCAwLjk0LDEuNTc3IDAuNjAzLDIuNTkgLTEuOTQ1LDMuOTUzIC00LjE1LDYuNjYzIC01LjgwMywxMC44NDYgMC45NDksLTAuMDU4IDEuNDUsLTAuMDk1IDIuNTk5LC0wLjE4NSBDIC0xLjc4NCwxMi4yOTggMC41MDUsOS4zNjYgMi40NjcsNS4yMTIgMy4wNzIsMy4zMDYgMS45ODQsMS4xNjEgMCwwIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDMwLjMzOTYsNjgyLjM5MDEpIiBpZD0iZzEwNCI+PHBhdGggaWQ9InBhdGgxMDYiIHN0eWxlPSJmaWxsOiMzNTU2MTA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiIGQ9Im0gMCwwIGMgLTAuNjM1LDAuMjYzIC0xLjM1NSwwLjM0NCAtMi4wNzksMC4yNjggLTIuMDU0LC0wLjIxNSAtMy4xNTMsLTAuMjggLTUuMjY5LC0wLjI0MyAwLjYzOSwtMS41NDMgMC44MjQsLTIuNDU3IDAuMjMyLC00LjQ4MyAyLjEzMiwwLjAxNSAzLjIzMywwLjEyOSA1LjMsMC40ODcgMC43MjgsMC4xMjcgMS40MzYsMC40ODUgMi4wNSwxLjA0OCAwLjYxNCwwLjU2MyAwLjkxOSwxLjE1IDAuODYzLDEuNzE5IEMgMS4wNDQsLTAuNjY2IDAuNjU0LC0wLjI3MSAwLDAgbSAtNS4yNDksNi4zMzEgYyAtMC43NjksMC4zODIgLTEuNDc5LDAuNjA1IC0yLjE1MSwwLjYwNiAtMS43ODgsMC4wMDMgLTIuNzQsMC4wMSAtNC41NjEsMC4wOTIgMS4wNDQsLTEuODYxIDEuNzE5LC0yLjU4MSAyLjgxMSwtNC4wNDkgMS44OTIsLTAuMDY0IDIuODc1LC0wLjA0MiA0LjcyOSwwLjA0OSAwLjY5OCwwLjAzNCAxLjE2MiwwLjI0OCAxLjM4NSwwLjU5NCAwLjIyLDAuMzQyIDAuMDk1LDAuNzY4IC0wLjM3NCwxLjMxNyAtMC40NzEsMC41NSAtMS4wODYsMS4wMTYgLTEuODM5LDEuMzkxIE0gMS4xNzMsLTQuOTMgYyAtMS44NjIsLTEuNDE2IC0zLjc3MSwtMi4zNjQgLTUuMzQ5LC0yLjcyNiAtMy4zNzksLTAuNzc1IC01LjM4NCwtMC45NzYgLTguNzcsLTAuNDM5IDQuNzIzLDguMzQ4IC0xLjA2MSwxMS44NDcgLTMuODU3LDE5LjcgMi44NCwtMC4yNiA0LjY0LC0wLjI2NSA3LjY2MiwtMC4zNzUgMS41MDIsLTAuMDU0IDIuODYzLC0wLjkxIDQuMzU1LC0yLjE2OCAxLjYyMywtMS4zNyAzLjA0MywtMi43MDEgNC4yNzEsLTMuOTY0IEMgMC43MjYsMy44MjMgMS4xNzcsMi45NyAwLjYwNSwyLjE4OCAyLjQ3NiwxLjc1MiAzLjkyNywxLjA3NiA0LjEwOSwtMC40MjggNC4yNzQsLTEuNzggMy4wNzQsLTMuNDg1IDEuMTczLC00LjkzIj48L3BhdGg+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L3N2Zz4=" alt="Thunderbird Running Club"></a>
     <nav>
       <a href="#about">About</a>
-      <a href="#stages">Stages</a>
+      <div class="navdrop">
+        <a href="#stages">Stages<span class="ddarrow">&#9662;</span></a>
+        <div class="navmenu">
+          <a class="done" href="vol1/"><span class="mn">01</span>중산리 → 여원재<span class="mc">완주</span></a>
+          <a class="done" href="vol2/"><span class="mn">02</span>여원재 → 무룡고개<span class="mc">완주</span></a>
+          <a class="next" href="vol3/"><span class="mn">03</span>무룡고개 → 빼재<span class="mc">예정</span></a>
+        </div>
+      </div>
       <a href="#journal">Journal</a>
       <a href="#film">Film</a>
     </nav>
@@ -164,31 +258,89 @@
 <section id="stages">
   <div class="wrap">
     <div class="cap">02 — Stages</div>
-    <p class="secnote">각 회차를 누르면 운행 기록이 열립니다.</p>
-    <div class="stagelist">
-      <a class="stage" href="vol1/">
-        <span class="s-no">01</span><span class="s-route">중산리 → 여원재</span>
-        <span class="s-dist">57.0 KM</span><span class="s-st done">완주 2026.05</span><span class="s-ar">&#8599;</span>
-      </a>
-      <a class="stage" href="vol2/">
-        <span class="s-no">02</span><span class="s-route">여원재 → 무룡고개</span>
-        <span class="s-dist">43.7 KM</span><span class="s-st done">완주 2026.06</span><span class="s-ar">&#8599;</span>
-      </a>
-      <a class="stage" href="vol3/">
-        <span class="s-no">03</span><span class="s-route">무룡고개 → 빼재</span>
-        <span class="s-dist">44.2 KM</span><span class="s-st">예정 07.25</span><span class="s-ar">&#8599;</span>
-      </a>
-      <div class="stage">
-        <span class="s-no">04</span><span class="s-route">빼재 → 우두령</span>
-        <span class="s-dist">39.2 KM</span><span class="s-st">예정 08.08</span>
+    <p class="secnote">지리산에서 설악산까지, 백두대간 700km.</p>
+    <div class="stagegrid">
+    <figure class="kmap">
+    <svg class="ktrail" viewBox="0 0 420.0 619.1" role="img" aria-label="남한 백두대간 지도 — 지리산에서 설악산까지, 완주 구간 강조">
+      <path class="k-land" d="M84.2 129.9L87.5 127.3L87.7 123.7L87.7 111.6L97.3 103.2L110.8 86.0L117.5 76.6L125.1 67.8L133.8 61.9L142.5 59.2L156.0 58.0L182.0 59.1L187.1 58.1L205.1 57.2L209.4 58.7L222.5 59.7L237.1 58.6L244.4 56.1L251.2 51.7L257.1 43.9L263.2 29.5L269.8 18.1L273.6 16.0L300.2 76.5L325.6 115.7L347.3 144.0L378.1 198.5L387.2 227.7L388.0 245.8L393.2 270.6L388.8 284.9L390.1 307.3L388.1 318.8L384.4 327.3L384.2 343.7L385.5 352.4L385.6 364.0L388.0 368.5L391.5 370.1L397.1 365.9L404.0 364.2L402.8 378.1L394.5 413.3L387.3 439.0L377.5 461.3L365.0 481.7L350.0 489.7L339.5 492.6L319.4 493.6L302.8 490.2L288.4 492.7L282.7 496.9L278.4 504.2L281.5 515.5L281.1 523.9L275.0 523.2L262.9 518.4L249.4 517.7L243.1 515.3L236.8 503.4L230.3 503.8L219.0 510.9L201.8 512.5L195.7 516.3L193.6 521.3L196.1 527.5L204.8 535.8L201.9 544.1L192.8 548.3L185.5 538.0L181.0 528.0L175.9 527.4L168.0 530.3L166.4 541.1L170.1 548.5L176.1 557.1L167.7 566.9L165.4 573.9L159.3 579.0L142.9 567.8L145.2 559.8L152.4 552.1L153.2 544.2L150.9 539.5L127.4 559.5L112.8 582.3L105.1 580.6L101.9 574.8L97.3 572.4L81.7 587.1L78.8 598.7L73.0 599.1L70.5 594.2L70.3 583.7L67.6 574.8L51.4 561.9L44.0 550.6L47.9 544.2L61.5 547.7L72.3 547.2L70.1 541.9L66.6 539.3L73.8 536.3L79.8 530.1L74.8 528.4L67.3 532.0L61.0 530.2L58.5 515.4L50.8 500.2L46.9 485.5L54.4 477.0L58.3 463.8L65.3 444.7L68.8 438.5L78.5 434.0L82.0 429.1L76.7 426.5L68.1 424.3L68.3 418.8L74.2 415.8L80.6 409.7L93.3 402.3L97.1 388.3L93.5 384.8L85.6 381.5L87.4 374.5L90.6 369.1L89.4 365.9L80.2 356.8L74.0 348.5L75.8 339.1L74.4 324.8L75.2 312.9L74.8 306.4L70.3 291.8L68.3 277.1L62.3 279.3L57.5 282.9L40.3 277.7L34.9 277.4L32.7 266.6L38.8 253.2L53.4 241.3L61.8 239.9L68.2 234.7L78.1 233.0L89.9 241.1L100.6 242.7L106.5 256.5L110.1 259.4L110.9 254.4L119.4 248.4L121.5 243.9L119.6 241.4L109.7 239.0L100.9 221.8L99.6 214.3L96.4 209.5L101.2 195.8L90.9 180.1L86.0 175.2L86.7 161.1L81.3 152.1L78.3 147.2L76.5 138.7L78.1 134.9L82.7 133.5L84.2 129.9Z M240.0 532.6L238.8 545.8L231.1 546.5L226.5 538.0L221.6 542.1L219.1 542.2L215.2 531.6L214.6 523.3L223.6 517.0L229.1 520.8L237.0 522.8L240.0 532.6Z M40.6 591.5L33.7 593.6L29.7 588.9L27.0 587.7L28.6 581.6L39.9 569.6L42.1 565.4L52.6 567.9L56.5 574.3L51.7 584.0L40.6 591.5Z M71.8 136.0L71.3 153.9L65.3 153.1L61.3 151.3L59.5 147.8L55.4 131.2L60.0 124.4L68.9 129.8L71.8 136.0Z M33.9 542.7L32.5 546.0L27.7 545.0L22.9 535.7L20.8 528.3L16.0 524.3L23.7 517.9L33.5 529.4L33.9 542.7Z M313.5 533.6L303.2 542.0L289.4 530.8L286.1 524.6L296.6 515.5L305.5 505.2L311.4 504.5L313.5 533.6Z"/>
+      <path class="k-ridge" d="M205.5 465.3L205.0 464.3L204.6 463.4L204.5 462.4L204.0 461.9L203.6 461.2L203.1 460.8L202.1 461.2L201.7 461.7L201.0 462.4L200.5 463.3L199.6 463.3L198.8 462.9L197.8 462.8L196.8 462.8L195.9 462.7L195.5 461.8L194.5 462.2L193.5 462.3L192.6 462.1L191.7 461.4L190.7 461.5L190.3 462.2L189.9 463.2L189.0 463.8L188.1 464.3L187.2 464.4L186.2 464.4L185.4 465.0L184.6 465.6L183.7 466.0L182.7 466.3L181.8 466.2L181.2 466.6L180.7 466.2L180.0 465.3L179.6 464.5L179.9 463.4L180.1 462.4L180.3 461.6L179.9 460.6L179.9 459.6L180.0 458.7L180.5 457.8L180.8 457.0L181.1 456.0L180.7 455.1L180.0 454.4L179.1 454.3L179.1 453.2L178.9 452.1L178.1 451.5L178.2 450.6L178.5 449.7L178.3 448.8L178.2 447.9L178.1 447.0L178.5 446.1L178.6 445.8L178.6 445.8L178.0 445.5L177.4 445.3L177.5 444.7L177.4 444.0L178.0 443.7L178.1 442.9L178.1 442.2L178.8 442.1L179.2 441.7L179.8 441.5L180.5 441.6L181.0 442.1L181.7 442.4L182.5 442.7L183.7 442.8L184.8 442.6L185.1 441.8L185.1 441.0L185.3 440.3L185.5 439.6L186.1 439.3L186.7 438.9L187.1 438.3L187.2 437.6L187.1 436.8L186.3 436.2L186.1 436.0L185.8 435.0L186.3 433.5L186.7 432.4L187.3 431.9L187.7 431.2L187.9 430.4L188.1 429.7L188.6 429.1L189.0 428.5L189.6 428.0L190.0 427.5L190.5 427.0L190.2 426.3L190.3 425.5L190.0 425.1L190.0 425.0L190.6 425.3L190.7 424.6L190.9 423.9L191.4 423.5L192.0 423.1L192.5 422.6L193.1 422.5L191.9 420.8L191.2 419.4L191.1 419.3L191.1 419.2L191.3 419.4L191.5 419.1L191.5 418.9L191.7 418.7L191.8 418.4L191.8 418.2L192.0 418.0L192.2 417.8L192.4 417.6L192.5 417.4L192.5 417.1L192.4 416.8L192.4 416.6L192.6 416.4L192.8 416.2L193.0 416.1L193.2 416.0L193.4 415.8L193.6 415.6L193.7 415.4L193.7 415.1L193.6 414.9L193.6 414.6L193.6 414.3L193.7 414.0L193.8 413.8L193.7 413.5L193.8 413.3L193.9 413.1L193.9 412.8L193.9 412.6L194.1 412.3L194.2 412.1L194.2 411.8L194.4 411.7L194.6 411.5L194.7 411.3L194.8 411.1L195.0 410.9L195.3 410.8L195.5 410.7L195.7 410.6L195.8 410.4L195.9 410.2L195.9 409.9L195.9 409.7L195.8 409.4L195.9 409.1L195.9 409.0L196.1 408.6L196.2 408.1L196.1 407.8L196.1 407.6L196.1 407.3L196.0 407.1L196.0 406.8L195.9 406.6L195.9 406.4L196.0 406.1L196.2 405.9L196.2 405.7L196.2 405.4L196.1 405.1L196.0 404.9L196.1 404.6L196.1 404.3L196.1 404.1L196.1 403.8L196.0 403.6L196.1 403.3L196.2 403.1L196.2 402.9L196.3 402.6L196.4 402.4L196.5 402.2L196.7 402.1L196.9 401.9L197.1 402.0L197.4 402.0L197.6 402.1L197.8 402.3L197.9 402.5L198.0 402.3L198.0 402.0L198.1 401.8L198.3 401.6L198.5 401.4L198.5 401.1L198.7 401.0L198.9 400.8L199.1 400.6L199.3 400.5L199.5 400.3L199.6 400.1L199.8 399.9L200.0 399.8L200.1 399.6L200.4 399.5L200.6 399.4L200.8 399.2L201.0 399.2L201.2 399.3L201.4 399.1L201.6 398.9L201.8 398.8L202.0 398.7L202.2 398.6L202.3 398.4L202.3 398.2L202.4 397.9L202.5 397.7L202.7 397.6L202.8 397.4L202.8 397.1L202.8 396.9L202.8 396.6L202.9 396.4L203.1 396.3L203.3 396.3L203.5 396.2L203.6 396.0L203.7 395.8L203.7 395.6L203.7 395.3L203.8 395.1L204.0 394.9L204.1 394.7L204.3 394.6L204.5 394.4L204.5 394.2L204.5 394.0L204.4 393.8L204.4 393.5L204.4 393.3L204.5 393.1L204.7 392.9L204.8 392.7L204.9 392.5L205.0 392.3L205.1 392.2L205.3 392.3L205.5 392.3L205.7 392.4L205.9 392.6L206.0 392.8L206.2 392.9L206.4 393.1L206.6 393.1L206.9 393.0L207.0 392.9L207.3 392.8L207.5 392.9L207.7 392.9L207.9 392.8L208.1 392.7L208.3 392.5L208.5 392.3L208.6 392.1L208.7 391.9L208.8 391.7L208.9 391.5L209.1 391.4L209.3 391.4L209.5 391.3L209.7 391.1L209.9 391.1L210.1 391.1L210.3 391.0L210.6 390.9L210.7 390.8L211.0 390.8L211.1 390.6L211.3 390.5L211.5 390.3L211.7 390.5L211.9 390.6L212.0 390.8L212.2 390.9L212.5 390.9L212.5 390.7L212.5 390.5L212.7 390.3L212.9 390.2L213.1 390.1L213.2 390.0L213.2 389.7L213.3 389.5L213.4 389.3L213.5 389.1L213.7 389.0L213.8 388.8L214.0 388.9L214.1 389.0L217.8 384.3L221.1 358.8L230.0 355.2L233.7 352.1L232.9 342.3L228.5 322.3L231.0 311.1L219.1 297.7L224.1 281.7L236.2 274.7L242.8 269.3L240.5 264.1L247.0 262.4L257.9 258.3L276.4 246.5L280.7 243.8L285.6 241.4L298.1 233.0L312.3 231.6L332.5 222.7L333.0 214.0L339.5 197.8L340.6 196.4L342.7 189.7L343.8 176.1L341.7 169.4L334.0 161.3L328.6 154.5L314.5 143.7L298.1 131.5L293.8 128.8L280.7 111.2L275.3 99.0L279.6 93.6L274.2 85.5L283.5 84.2"/>
+      <path class="k-done-halo" d="M205.5 465.3L205.0 464.3L204.6 463.4L204.5 462.4L204.0 461.9L203.6 461.2L203.1 460.8L202.1 461.2L201.7 461.7L201.0 462.4L200.5 463.3L199.6 463.3L198.8 462.9L197.8 462.8L196.8 462.8L195.9 462.7L195.5 461.8L194.5 462.2L193.5 462.3L192.6 462.1L191.7 461.4L190.7 461.5L190.3 462.2L189.9 463.2L189.0 463.8L188.1 464.3L187.2 464.4L186.2 464.4L185.4 465.0L184.6 465.6L183.7 466.0L182.7 466.3L181.8 466.2L181.2 466.6L180.7 466.2L180.0 465.3L179.6 464.5L179.9 463.4L180.1 462.4L180.3 461.6L179.9 460.6L179.9 459.6L180.0 458.7L180.5 457.8L180.8 457.0L181.1 456.0L180.7 455.1L180.0 454.4L179.1 454.3L179.1 453.2L178.9 452.1L178.1 451.5L178.2 450.6L178.5 449.7L178.3 448.8L178.2 447.9L178.1 447.0L178.5 446.1L178.6 445.8L178.6 445.8L178.0 445.5L177.4 445.3L177.5 444.7L177.4 444.0L178.0 443.7L178.1 442.9L178.1 442.2L178.8 442.1L179.2 441.7L179.8 441.5L180.5 441.6L181.0 442.1L181.7 442.4L182.5 442.7L183.7 442.8L184.8 442.6L185.1 441.8L185.1 441.0L185.3 440.3L185.5 439.6L186.1 439.3L186.7 438.9L187.1 438.3L187.2 437.6L187.1 436.8L186.3 436.2L186.1 436.0L185.8 435.0L186.3 433.5L186.7 432.4L187.3 431.9L187.7 431.2L187.9 430.4L188.1 429.7L188.6 429.1L189.0 428.5L189.6 428.0L190.0 427.5L190.5 427.0L190.2 426.3L190.3 425.5L190.0 425.1L190.0 425.0L190.6 425.3L190.7 424.6L190.9 423.9L191.4 423.5L192.0 423.1L192.5 422.6L193.1 422.5L191.9 420.8L191.2 419.4L191.1 419.3"/>
+      <path class="k-done" d="M205.5 465.3L205.0 464.3L204.6 463.4L204.5 462.4L204.0 461.9L203.6 461.2L203.1 460.8L202.1 461.2L201.7 461.7L201.0 462.4L200.5 463.3L199.6 463.3L198.8 462.9L197.8 462.8L196.8 462.8L195.9 462.7L195.5 461.8L194.5 462.2L193.5 462.3L192.6 462.1L191.7 461.4L190.7 461.5L190.3 462.2L189.9 463.2L189.0 463.8L188.1 464.3L187.2 464.4L186.2 464.4L185.4 465.0L184.6 465.6L183.7 466.0L182.7 466.3L181.8 466.2L181.2 466.6L180.7 466.2L180.0 465.3L179.6 464.5L179.9 463.4L180.1 462.4L180.3 461.6L179.9 460.6L179.9 459.6L180.0 458.7L180.5 457.8L180.8 457.0L181.1 456.0L180.7 455.1L180.0 454.4L179.1 454.3L179.1 453.2L178.9 452.1L178.1 451.5L178.2 450.6L178.5 449.7L178.3 448.8L178.2 447.9L178.1 447.0L178.5 446.1L178.6 445.8L178.6 445.8L178.0 445.5L177.4 445.3L177.5 444.7L177.4 444.0L178.0 443.7L178.1 442.9L178.1 442.2L178.8 442.1L179.2 441.7L179.8 441.5L180.5 441.6L181.0 442.1L181.7 442.4L182.5 442.7L183.7 442.8L184.8 442.6L185.1 441.8L185.1 441.0L185.3 440.3L185.5 439.6L186.1 439.3L186.7 438.9L187.1 438.3L187.2 437.6L187.1 436.8L186.3 436.2L186.1 436.0L185.8 435.0L186.3 433.5L186.7 432.4L187.3 431.9L187.7 431.2L187.9 430.4L188.1 429.7L188.6 429.1L189.0 428.5L189.6 428.0L190.0 427.5L190.5 427.0L190.2 426.3L190.3 425.5L190.0 425.1L190.0 425.0L190.6 425.3L190.7 424.6L190.9 423.9L191.4 423.5L192.0 423.1L192.5 422.6L193.1 422.5L191.9 420.8L191.2 419.4L191.1 419.3"/>
+      <circle class="k-bnd" cx="178.6" cy="445.8" r="2.7"/>
+      <text class="k-bl" x="170.6" y="449.3" text-anchor="end">여원재</text>
+      <circle class="k-bnd" cx="214.1" cy="389.0" r="2.7"/>
+      <text class="k-bl" x="222.1" y="392.5">빼재</text>
+      <circle class="k-bnd" cx="230.0" cy="355.2" r="2.7"/>
+      <text class="k-bl" x="238.0" y="359.2">우두령</text>
+      <circle class="k-bnd" cx="231.0" cy="311.1" r="2.7"/>
+      <text class="k-bl" x="239.0" y="314.6">화령</text>
+      <circle class="k-bnd" cx="224.1" cy="281.7" r="2.7"/>
+      <text class="k-bl" x="232.1" y="287.7">용추계곡</text>
+      <circle class="k-bnd" cx="247.0" cy="262.4" r="2.7"/>
+      <text class="k-bl" x="255.0" y="269.4">하늘재</text>
+      <circle class="k-bnd" cx="280.7" cy="243.8" r="2.7"/>
+      <text class="k-bl" x="288.7" y="248.8">죽령</text>
+      <circle class="k-bnd" cx="312.3" cy="231.6" r="2.7"/>
+      <text class="k-bl" x="320.3" y="237.6">도래기재</text>
+      <circle class="k-bnd" cx="340.6" cy="196.4" r="2.7"/>
+      <text class="k-bl" x="348.6" y="199.9">피재</text>
+      <circle class="k-bnd" cx="341.7" cy="169.4" r="2.7"/>
+      <text class="k-bl" x="333.7" y="172.9" text-anchor="end">백복령</text>
+      <circle class="k-bnd" cx="314.5" cy="143.7" r="2.7"/>
+      <text class="k-bl" x="322.5" y="148.7">대관령</text>
+      <circle class="k-bnd" cx="275.3" cy="99.0" r="2.7"/>
+      <text class="k-bl" x="267.3" y="103.0" text-anchor="end">조침령</text>
+      <circle class="k-bnd" cx="274.2" cy="85.5" r="2.7"/>
+      <text class="k-bl" x="266.2" y="90.5" text-anchor="end">한계령</text>
+      <circle class="k-dot-start" cx="203.5" cy="460.7" r="4.6"/>
+      <circle class="k-dot-now" cx="191.1" cy="419.3" r="4.6"/>
+      <circle class="k-dot-goal" cx="283.5" cy="84.2" r="4.6"/>
+      <text class="k-lb k-lb-done" x="212.5" y="464.7">지리산</text>
+      <text class="k-lb k-lb-now" x="182.1" y="422.3" text-anchor="end">현재</text>
+      <text class="k-lb k-lb-goal" x="283.5" y="71.5" text-anchor="middle">설악산</text>
+    </svg>
+    <figcaption class="klegend">
+      <span><i class="ksw"></i>완주 100.7 KM</span>
+      <span><i class="ksw dash"></i>남은 능선</span>
+      <span><i class="ksw ring"></i>설악산 · 목표</span>
+      <span><i class="ksw bdot"></i>회차 분기점</span>
+    </figcaption>
+    </figure>
+    <div>
+    <div class="timeline">
+      <div class="tl done link">
+        <a class="tl-main" href="vol1/" aria-label="VOL.1 중산리 → 여원재 운행 기록 열기"></a>
+        <span class="dot"></span>
+        <div class="tl-head"><span class="tl-no">01</span><span class="tl-route">중산리 → 여원재</span><span class="tl-st done">완주 2026.05</span></div>
+        <div class="tl-foot"><span class="tl-dist">57.0 KM</span><span class="tl-acts"><span class="tl-go">운행 기록<span class="tl-arr">→</span></span></span></div>
       </div>
-      <div class="stage rest">
-        <span class="s-no">05—14</span><span class="s-route">우두령 → 설악산</span>
-        <span class="s-dist"></span><span class="s-st">준비 중</span>
+      <div class="tl done link">
+        <a class="tl-main" href="vol2/" aria-label="VOL.2 여원재 → 무룡고개 운행 기록 열기"></a>
+        <span class="dot"></span>
+        <div class="tl-head"><span class="tl-no">02</span><span class="tl-route">여원재 → 무룡고개</span><span class="tl-st done">완주 2026.06</span></div>
+        <div class="tl-foot"><span class="tl-dist">43.7 KM</span><span class="tl-acts"><span class="tl-go">운행 기록<span class="tl-arr">→</span></span></span></div>
+      </div>
+      <div class="tl next link">
+        <a class="tl-main" href="vol3/" aria-label="VOL.3 무룡고개 → 빼재 운행 계획 열기"></a>
+        <span class="dot"></span>
+        <div class="tl-head"><span class="tl-no">03</span><span class="tl-route">무룡고개 → 빼재</span><span class="tl-st next">예정 07.25</span></div>
+        <div class="tl-foot"><span class="tl-dist">44.2 KM</span><span class="tl-acts"><span class="tl-go">운행 계획<span class="tl-arr">→</span></span></span></div>
+      </div>
+      <div class="tl wait">
+        <span class="dot"></span>
+        <div class="tl-head"><span class="tl-no">04</span><span class="tl-route">빼재 → 우두령</span><span class="tl-st">예정 08.08</span></div>
+        <div class="tl-foot"><span class="tl-dist">39.2 KM</span></div>
+      </div>
+      <div class="tl wait">
+        <span class="dot"></span>
+        <div class="tl-head"><span class="tl-no">05—14</span><span class="tl-route">우두령 → 설악산</span><span class="tl-st">준비 중</span></div>
+        <div class="tl-foot"><span class="tl-dist">약 600 KM 남음</span></div>
       </div>
     </div>
     <div class="prog"><i></i></div>
     <div class="prog-cap"><span>100.7 / 700 KM</span><span>2 / 14 STAGES</span></div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -258,5 +410,13 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var hint=document.querySelector('.hint');
+  if(!hint)return;
+  function upd(){hint.classList.toggle('hide',(window.scrollY||document.documentElement.scrollTop)>30);}
+  addEventListener('scroll',upd,{passive:true});upd();
+})();
+</script>
 </body>
 </html>
