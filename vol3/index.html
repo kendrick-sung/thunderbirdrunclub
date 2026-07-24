@@ -230,6 +230,15 @@ section{position:relative;z-index:2;}
 .emerg{margin:26px 0 0;border-top:1px solid var(--hair);padding-top:18px;font-family:var(--font-mono);font-size:12.5px;color:var(--mute);letter-spacing:.02em;line-height:1.9;}
 .emerg .eh{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);display:block;margin-bottom:6px;}
 .emerg b{color:var(--ink);}
+
+/* LIVE badge — 3회차 운행 시간대(2026-07-25 03:00~21:00 KST)만 표시, JS 제어 */
+.live-badge{display:none;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.12em;color:#fff;background:#e0362f;border-radius:20px;padding:4px 11px;line-height:1;box-shadow:0 1px 6px rgba(224,54,47,.35);animation:liveblink 1.1s ease-in-out infinite;}
+.live-badge.on{display:inline-flex;}
+.hero .live-badge.on{display:flex;width:-moz-fit-content;width:fit-content;margin-bottom:14px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:livepulse 1.1s ease-in-out infinite;}
+@keyframes liveblink{0%,100%{opacity:1;}50%{opacity:.5;}}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
+@media(prefers-reduced-motion:reduce){.live-badge{animation:none;}.live-dot{animation:none;}}
 </style>
 </head>
 <body>
@@ -244,6 +253,7 @@ section{position:relative;z-index:2;}
 
 <div class="hero">
   <div class="wrap">
+    <span class="live-badge" hidden><span class="live-dot"></span>LIVE</span>
     <div class="kicker">VOL.03 · 2026.07.25 · From Jiri To Seorak</div>
     <h1>무룡고개 → 빼재</h1>
     <p class="lede">남덕유 능선을 넘는 3회차 · 삿갓재·백암봉 두 분기점에서 빼재 완주(A)와 곤도라 단축(B)를 결정</p>
@@ -575,5 +585,10 @@ window.RouteData = {
 
 </script>
 
+<script>
+(function(){var S=Date.UTC(2026,6,24,18,0,0),E=Date.UTC(2026,6,25,12,0,0);
+function u(){var live=Date.now()>=S&&Date.now()<E,l=document.getElementsByClassName('live-badge');for(var i=0;i<l.length;i++){l[i].classList.toggle('on',live);l[i].hidden=!live;}}
+u();setInterval(u,30000);})();
+</script>
 </body>
 </html>

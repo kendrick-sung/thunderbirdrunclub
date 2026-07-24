@@ -187,6 +187,15 @@ a.srow:hover .go .ar{transform:translateX(3px);}
 .close .meta{margin:36px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#6f6f61;text-transform:uppercase;}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;animation:none!important;}}
+
+/* LIVE badge — 3회차 운행 시간대(2026-07-25 03:00~21:00 KST)만 표시, JS 제어 */
+.live-badge{display:none;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.12em;color:#fff;background:#e0362f;border-radius:20px;padding:4px 11px;line-height:1;box-shadow:0 1px 6px rgba(224,54,47,.35);animation:liveblink 1.1s ease-in-out infinite;}
+.live-badge.on{display:inline-flex;}
+.hero .live-badge.on{display:flex;width:-moz-fit-content;width:fit-content;margin-bottom:14px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:livepulse 1.1s ease-in-out infinite;}
+@keyframes liveblink{0%,100%{opacity:1;}50%{opacity:.5;}}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
+@media(prefers-reduced-motion:reduce){.live-badge{animation:none;}.live-dot{animation:none;}}
 </style>
 </head>
 <body>
@@ -292,7 +301,7 @@ a.srow:hover .go .ar{transform:translateX(3px);}
       </a>
       <a class="srow" href="vol3/">
         <div class="s-main"><div class="s-head"><span class="s-no">03</span><span class="s-rt">무룡고개 → 빼재<span class="sub">남덕유산 1,523m · 플랜 A/B</span></span></div><div class="s-km">44.2 KM</div></div>
-        <div class="s-side"><span class="s-st next">예정 07.25</span><span class="go">운행 계획 <span class="ar">→</span></span></div>
+        <div class="s-side"><span class="live-badge" hidden><span class="live-dot"></span>LIVE</span><span class="s-st next">예정 07.25</span><span class="go">운행 계획 <span class="ar">→</span></span></div>
       </a>
       <div class="srow">
         <div class="s-main"><div class="s-head"><span class="s-no">04</span><span class="s-rt">빼재 → 우두령<span class="sub">대덕산 · 삼도봉</span></span></div><div class="s-km">39.2 KM</div></div>
@@ -376,5 +385,10 @@ function u(){h.classList.toggle('hide',(window.scrollY||document.documentElement
 addEventListener('scroll',u,{passive:true});u();})();
 </script>
 
+<script>
+(function(){var S=Date.UTC(2026,6,24,18,0,0),E=Date.UTC(2026,6,25,12,0,0);
+function u(){var live=Date.now()>=S&&Date.now()<E,l=document.getElementsByClassName('live-badge');for(var i=0;i<l.length;i++){l[i].classList.toggle('on',live);l[i].hidden=!live;}}
+u();setInterval(u,30000);})();
+</script>
 </body>
 </html>
