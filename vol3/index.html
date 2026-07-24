@@ -135,6 +135,7 @@ section{position:relative;z-index:2;}
 .srow .w{flex-shrink:0;width:110px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:var(--deep);}
 .srow .w small{color:var(--label);font-weight:400;}
 .srow .d{font-size:14.5px;color:var(--ink-2);line-height:1.55;}
+.srow .d small{color:var(--label);font-size:12.5px;}
 .sgrid{margin:26px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;}
 @media(max-width:640px){.sgrid{grid-template-columns:1fr;}}
 .warnbox{margin:26px 0 0;border:1px solid color-mix(in srgb,var(--deep) 34%,var(--hair));border-radius:4px;background:var(--paper);padding:20px 22px;}
@@ -219,6 +220,16 @@ section{position:relative;z-index:2;}
 .tt-sub{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);margin:20px 0 4px;padding-top:12px;border-top:1px solid var(--hair);}
 .trow .tm small{display:block;font-size:10.5px;color:var(--label);margin-top:2px;font-weight:400;}
 .warnbox+.warnbox{margin-top:16px;}
+.gear{margin:30px 0 0;}
+.gear .gh{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);margin:0 0 12px;}
+.gearlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 34px;}
+@media(max-width:560px){.gearlist{grid-template-columns:1fr;}}
+.gearlist div{display:flex;gap:11px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--hair-2);font-size:14.5px;}
+.gearlist .gm{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--sprout);flex-shrink:0;}
+.gearlist small{color:var(--label);font-size:12.5px;}
+.emerg{margin:26px 0 0;border-top:1px solid var(--hair);padding-top:18px;font-family:var(--font-mono);font-size:12.5px;color:var(--mute);letter-spacing:.02em;line-height:1.9;}
+.emerg .eh{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);display:block;margin-bottom:6px;}
+.emerg b{color:var(--ink);}
 </style>
 </head>
 <body>
@@ -266,7 +277,7 @@ section{position:relative;z-index:2;}
       </div>
       <div class="dl" role="table" aria-label="핵심 제원">
         <div><span class="k">날짜</span><span class="v">2026.07.25</span></div>
-        <div><span class="k">집결</span><span class="v">양재역 07.24 23:00</span></div>
+        <div><span class="k">집결</span><span class="v">CU 양재역점 07.24 23:00</span></div>
         <div><span class="k">출발 · 피니시</span><span class="v">03:00 → 21:00</span></div>
         <div><span class="k">거리 · 플랜 A</span><span class="v">44.2 KM</span></div>
         <div><span class="k">상승 · 하강</span><span class="v">▲3,400 · ▼3,390</span></div>
@@ -355,12 +366,12 @@ section{position:relative;z-index:2;}
 <section class="blk blk-last">
   <div class="wrap">
     <div class="lbl">Supply · 보급</div>
-    <h2>공통 구매는 김밥과 대피소 중식뿐</h2>
-    <p class="note">그 외 쉐이크·석식·행동식·물은 전원 개인 준비. 삿갓재 이후 약 7시간 40분 무보급 구간이 기다린다.</p>
+    <h2>공통 보급은 김밥 · 쉐이크 · 대피소 중식뿐</h2>
+    <p class="note">그 외 석식·행동식·물은 전원 개인 준비. 삿갓재 이후 20km · ▲1,200m 무보급 구간이 기다린다.</p>
     <div class="sgrid">
       <div>
-        <div class="srow"><span class="w">~02:00</span><span class="d">버스/휴게소 김밥 (출발 전) · 공통 구매</span></div>
-        <div class="srow"><span class="w">06:00</span><span class="d">깃대봉 조식 · 요헤미티 쉐이크 + 물 · 개인 준비</span></div>
+        <div class="srow"><span class="w">~02:00</span><span class="d">CU 양재역점 김밥/햄버거 (출발 전) · 공통 <small>구매 전성현</small></span></div>
+        <div class="srow"><span class="w">06:00</span><span class="d">깃대봉 조식 · 요헤미티 쉐이크 (공통 불출) + 물 <small>불출 김형돈</small></span></div>
         <div class="srow"><span class="w">12:40</span><span class="d">삿갓재 중식 · 햇반+참치+고추장+스틱형 김자반 · 공통 구매</span></div>
         <div class="srow"><span class="w">18:00</span><span class="d">귀봉~지봉 석식 · 개인 준비 간편식</span></div>
       </div>
@@ -372,11 +383,28 @@ section{position:relative;z-index:2;}
     </div>
     <div class="warnbox">
       <h4>개인 준비 보급 — 필수</h4>
-      <p>① 요헤미티 쉐이크 1개 ② 저녁 간편식 ③ 행동식 ④ 총 물 2L 이상 팩. 공통 구매는 출발 전 김밥과 대피소 중식(햇반/참치/고추장/스틱형 김자반 2개) 외에 없다.</p>
+      <p>① 중간중간 먹을 행동식 ② 저녁에 먹을 간편식 ③ 필요 시 대피소 개인 구매(에너지바·양갱·햇반) ④ 총 물 2L 이상 수용 팩. 공통 보급은 출발 전 김밥 · 요헤미티 쉐이크 · 대피소 중식(햇반/참치/고추장/스틱형 김자반 2개) 외에 없다.</p>
     </div>
     <div class="warnbox">
-      <h4>삿갓재 이후 무보급 7시간 40분</h4>
-      <p>삿갓재(13:10 출발)부터 빼재(20:50)까지 추가 보급처가 없다. 획득고도 1,180m — 개인 고형 행동식 3–4회분 필수. 향적봉 샘터 음용 부적합 · 동엽령 샘터 배제, 삿갓샘에서 완충.</p>
+      <h4>삿갓재 이후 무보급 20km · ▲1,200m (약 7시간 40분)</h4>
+      <p>삿갓재(13:10 출발)부터 빼재(20:50)까지 추가 보급처가 없다. 개인 고형 행동식·간편식 충분히 — 3–4회분 필수. 향적봉 샘터 음용 부적합 · 동엽령 샘터 배제, 삿갓샘에서 완충.</p>
+    </div>
+    <div class="gear">
+      <div class="gh">필수 장비</div>
+      <div class="gearlist">
+        <div><span class="gm">01</span><span>팀 조끼</span></div>
+        <div><span class="gm">02</span><span>헤드랜턴 2개 <small>주 · 보조</small></span></div>
+        <div><span class="gm">03</span><span>전해질 보충제</span></div>
+        <div><span class="gm">04</span><span>선글라스 · 햇빛 가릴 것</span></div>
+        <div><span class="gm">05</span><span>스포크 1개 <small>대피소 중식용</small></span></div>
+        <div><span class="gm">06</span><span>타이레놀 <small>고열 방지</small></span></div>
+        <div><span class="gm">07</span><span>뿌리는 파스 <small>박재수 챙김</small></span></div>
+        <div><span class="gm">08</span><span>개인 보급품 <small>물 · 음식</small></span></div>
+      </div>
+      <div class="emerg">
+        <span class="eh">비상 택시</span>
+        무주구천동택시 <b>063-322-3105</b><br>무주덕유산콜택시 <b>010-6476-3307</b>
+      </div>
     </div>
   </div>
 </section>
