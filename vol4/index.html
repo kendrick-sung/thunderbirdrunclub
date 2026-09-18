@@ -247,7 +247,7 @@ section{position:relative;z-index:2;}
 .kitlist{margin:12px 0 0;padding:0;list-style:none;}
 .kititem{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--hair);font-size:15px;line-height:1.45;cursor:pointer;}
 .kititem input{position:absolute;opacity:0;pointer-events:none;}
-.kitbox{width:19px;height:19px;flex:0 0 19px;margin-top:1px;border:1.5px solid var(--khaki);border-radius:3px;background:var(--cream);position:relative;transition:background .14s,border-color .14s;}
+.kitbox{width:19px;height:19px;flex:0 0 19px;margin-top:1px;border:2px solid var(--ink);border-radius:3px;background:var(--cream);position:relative;transition:background .14s,border-color .14s;}
 .kititem input:checked + .kitbox{background:var(--deep);border-color:var(--deep);}
 .kititem input:checked + .kitbox::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
 .kititem input:focus-visible + .kitbox{outline:2px solid var(--sprout);outline-offset:3px;}
@@ -447,21 +447,21 @@ section{position:relative;z-index:2;}
           <li><label class="kititem sub"><input id="kit-electrolyte" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">전해질캡슐 + 요헤미티 타블렛</span></label></li>
           <li><label class="kititem sub"><input id="kit-medicine" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">타이레놀 / 탁센</span></label></li>
           <li><label class="kititem sub"><input id="kit-gel" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">에너지젤 / 카페인젤</span></label></li>
-          <li><label class="kititem"><input id="kit-flask" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">소프트 플라스크 500ml 2개, 1L 1개</span></label></li>
-          <li><label class="kititem"><input id="kit-zipbag" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">지퍼백 여분 <small>(쓰레기용)</small></span></label></li>
+          <li><label class="kititem"><input id="kit-flask" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">소프트 플라스크 500ml 2개, 1L 1개</span></label></li>
+          <li><label class="kititem"><input id="kit-zipbag" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">지퍼백 여분 <small>(쓰레기용)</small></span></label></li>
         </ul>
       </div>
       <div class="kitgroup wide">
         <h3>베스트 구성 · 후면</h3>
         <ul class="kitlist gearlist">
-          <li><label class="kititem"><input id="kit-jacket" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">바람막이 / 방수자켓</span></label></li>
-          <li><label class="kititem"><input id="kit-meal" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">개인 준비 보급 <small>(간편식사)</small></span></label></li>
-          <li><label class="kititem"><input id="kit-firstaid" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">응급약</span></label></li>
-          <li><label class="kititem"><input id="kit-battery" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">보조배터리 / 케이블</span></label></li>
-          <li><label class="kititem"><input id="kit-late-gel" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">후반부 에너지젤</span></label></li>
-          <li><label class="kititem"><input id="kit-spare-headlamp" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">여분 헤드랜턴</span></label></li>
-          <li><label class="kititem"><input id="kit-tissues" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">휴대용 티슈 + 물티슈</span></label></li>
-          <li><label class="kititem"><input id="kit-money" type="checkbox" data-kit-check checked><span class="kitbox"></span><span class="kittext">신용카드 / 현금</span></label></li>
+          <li><label class="kititem"><input id="kit-jacket" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">바람막이 / 방수자켓</span></label></li>
+          <li><label class="kititem"><input id="kit-meal" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">개인 준비 보급 <small>(간편식사)</small></span></label></li>
+          <li><label class="kititem"><input id="kit-firstaid" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">응급약</span></label></li>
+          <li><label class="kititem"><input id="kit-battery" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">보조배터리 / 케이블</span></label></li>
+          <li><label class="kititem"><input id="kit-late-gel" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">후반부 에너지젤</span></label></li>
+          <li><label class="kititem"><input id="kit-spare-headlamp" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">여분 헤드랜턴</span></label></li>
+          <li><label class="kititem"><input id="kit-tissues" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">휴대용 티슈 + 물티슈</span></label></li>
+          <li><label class="kititem"><input id="kit-money" type="checkbox" data-kit-check><span class="kitbox"></span><span class="kittext">신용카드 / 현금</span></label></li>
         </ul>
       </div>
     </div>
