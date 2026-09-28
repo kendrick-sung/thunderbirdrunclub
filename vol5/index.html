@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<title>백두대간 5구간 우두령 → 큰재 백패킹 운행 계획 — FJTS Vol.5</title>
+<meta name="description" content="2026년 10월 17–18일, 백두대간 5구간 우두령에서 추풍령을 거쳐 큰재까지 진행하는 1박 2일 백패킹 운행 계획.">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --cream:#F6F4EC; --paper:#EFEBDF; --paper-2:#ECE7D9;
+  --ink:#1E1E18; --ink-2:#2A281F;
+  --mute:#5F5A48; --label:#6F6748;
+  --hair:#D8D2C2; --hair-2:#E4DFD1;
+  --sprout:#A1D06C; --forest:#5A8C21; --deep:#355610;
+  --night:#20231C; --night-ink:#EDEBDF;
+  --focus:#355610;
+  --font-body:'Pretendard',system-ui,sans-serif;
+  --font-mono:'Space Mono',monospace;
+  --lh-tight:1.06; --z-nav:300;
+  --dur:220ms; --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;overflow-x:clip;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink-2);font-family:var(--font-body);
+  font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.25;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+@media(max-width:720px){.wrap{padding:0 20px;}body{font-size:17px;}}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:2px;}
+h1,h2,h3,h4{font-style:normal;font-weight:800;line-height:var(--lh-tight);letter-spacing:-.02em;margin:0;overflow-wrap:anywhere;min-width:0;}
+
+.rev{position:relative;z-index:2;background:var(--night);color:var(--night-ink);font-family:var(--font-mono);
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:9px 20px;}
+.rev b{color:var(--sprout);}
+
+.mast{position:sticky;top:0;z-index:var(--z-nav);background:color-mix(in srgb,var(--cream) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
+.mark{font-family:var(--font-mono);font-weight:700;font-size:15px;letter-spacing:.12em;display:inline-flex;align-items:center;gap:9px;line-height:1;}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--sprout);}
+.mast a.back{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--mute);text-decoration:none;display:inline-flex;align-items:center;gap:6px;line-height:1;}
+.mast a.back:hover{color:var(--ink);}
+
+/* hero */
+.hero{position:relative;z-index:2;padding:70px 0 74px;}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--forest);}
+.hero h1{font-size:clamp(38px,6.4vw,72px);margin:20px 0 0;}
+.hero h1 .g{color:var(--forest);}
+.hero .lede{margin:24px 0 0;font-size:clamp(17px,2vw,20px);color:var(--ink-2);}
+.hero .lede b{font-weight:700;color:var(--deep);}
+
+/* comparison box (completed) */
+.cmpbox{margin:34px 0 0;border:2px solid var(--forest);border-radius:6px;overflow:hidden;
+  background:color-mix(in srgb,var(--sprout) 8%,var(--cream));}
+.cmp-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:14px 20px;background:color-mix(in srgb,var(--sprout) 16%,transparent);border-bottom:1px solid color-mix(in srgb,var(--forest) 30%,transparent);}
+.cmp-badge{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);}
+.cmp-src{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;color:var(--forest);text-decoration:none;border-bottom:1px solid var(--sprout);}
+.cmp-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));}
+.cmp-col{padding:18px 20px;border-right:1px solid var(--hair);}
+.cmp-col:last-child{border-right:0;}
+.cmp-k{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);}
+.cmp-plan,.cmp-real{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:var(--font-mono);margin-top:9px;white-space:nowrap;}
+.cmp-plan .t,.cmp-real .t{flex-shrink:0;}
+.cmp-plan .v,.cmp-real .v{white-space:nowrap;}
+.cmp-plan{color:var(--mute);}
+.cmp-plan .t,.cmp-real .t{font-size:10px;letter-spacing:.1em;text-transform:uppercase;}
+.cmp-plan .v{font-size:15px;}
+.cmp-real .v{font-size:20px;font-weight:700;color:var(--deep);}
+@media(max-width:560px){.cmp-cols{grid-template-columns:1fr;}.cmp-col{border-right:0;border-bottom:1px solid var(--hair);}.cmp-col:last-child{border-bottom:0;}}
+
+/* ridge hero graphic */
+.ridge{margin:40px 0 0;}
+.ridge svg{display:block;width:100%;height:auto;}
+.ridge .rp{font-family:var(--font-mono);font-size:12px;font-weight:700;fill:var(--ink);}
+.ridge .rk{font-family:var(--font-mono);font-size:11px;fill:var(--label);}
+.ridge figcaption{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;color:var(--label);margin:10px 2px 0;text-transform:uppercase;}
+
+section{position:relative;z-index:2;}
+.blk{padding:74px 0;border-top:1px solid var(--hair);}
+.blk-last{padding-bottom:34px;}
+.lbl{font-family:var(--font-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--forest);}
+.blk h2{font-size:clamp(26px,3.4vw,38px);margin:14px 0 0;}
+.note{color:var(--mute);font-size:15.5px;margin:14px 0 0;}
+
+/* briefing */
+.brief{margin:30px 0 0;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:44px;}
+@media(max-width:720px){.brief{grid-template-columns:1fr;gap:28px;}}
+.brief .p1{font-size:20px;font-weight:500;color:var(--ink-2);margin:0 0 16px;}
+.brief p{margin:0 0 16px;}
+.dl{border-top:2px solid var(--ink);font-family:var(--font-mono);}
+.dl div{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--hair);font-size:13.5px;}
+.dl .k{color:var(--label);letter-spacing:.06em;text-transform:uppercase;font-size:11.5px;padding-top:2px;}
+.dl .v{color:var(--ink);font-weight:700;text-align:right;}
+.crew{margin:26px 0 0;}
+.crew .ct{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--label);}
+.crew .cl{margin-top:9px;line-height:2;}
+.crew b{font-weight:700;}
+.crew .ld{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--forest);border:1px solid var(--sprout);border-radius:3px;padding:1px 5px;vertical-align:1px;}
+.crew .sep{color:var(--hair);}
+
+/* route map + elevation profile (self-contained SVG) */
+.mapfig,.proffig{margin:26px 0 0;}
+.mapfig svg,.proffig svg{display:block;width:100%;height:auto;}
+.mapfig{max-width:760px;}
+.m-route-bg{fill:none;stroke:var(--sprout);stroke-width:8;stroke-opacity:.28;stroke-linejoin:round;stroke-linecap:round;}
+.m-route{fill:none;stroke:var(--forest);stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round;}
+.m-lb{font-family:var(--font-mono);font-size:13px;fill:var(--mute);}
+.m-lb.m-big{font-size:14px;font-weight:700;fill:var(--ink);}
+.m-lb.m-sm{font-size:12px;}
+.mlegend{margin:14px 0 0;display:flex;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11.5px;color:var(--mute);}
+.mlegend span{display:inline-flex;align-items:center;gap:7px;}
+.mlegend i{width:15px;height:3px;background:var(--forest);border-radius:2px;}
+.mlegend i.dot{width:9px;height:9px;border-radius:50%;background:var(--sprout);border:1.4px solid var(--deep);}
+.pf-line{fill:none;stroke:var(--forest);stroke-width:1.8;stroke-linejoin:round;}
+.pf-rp{font-family:var(--font-mono);font-size:12px;font-weight:700;fill:var(--ink);}
+.pf-rk{font-family:var(--font-mono);font-size:11px;fill:var(--label);}
+
+/* supply */
+.srow{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--hair);}
+.srow .w{flex-shrink:0;width:110px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:var(--deep);}
+.srow .w small{color:var(--label);font-weight:400;}
+.srow .d{font-size:14.5px;color:var(--ink-2);line-height:1.55;}
+.srow .d small{color:var(--label);font-size:12.5px;}
+.sgrid{margin:26px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;}
+@media(max-width:640px){.sgrid{grid-template-columns:1fr;}}
+.warnbox{margin:26px 0 0;border:1px solid color-mix(in srgb,var(--deep) 34%,var(--hair));border-radius:4px;background:var(--paper);padding:20px 22px;}
+.warnbox h4{font-size:15.5px;}
+.warnbox p{margin:9px 0 0;font-size:14px;color:var(--ink-2);line-height:1.6;}
+
+/* the day timetable */
+.tt-wrap{margin:26px 0 0;font-family:var(--font-mono);}
+.tt-legend{font-size:12px;color:var(--mute);margin:0 0 14px;}
+.tt-legend .real{color:var(--forest);font-weight:700;}
+.trow{display:grid;grid-template-columns:96px 1fr auto;gap:16px;padding:14px 0;border-bottom:1px solid var(--hair);align-items:baseline;}
+.trow .tm{font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.trow .tm b{font-weight:700;}
+.trow .tm .real{display:block;color:var(--forest);font-weight:700;margin-top:2px;}
+.trow .nm{font-family:var(--font-body);font-size:15px;}
+.trow .nm b{font-weight:700;}
+.trow .nm .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);border:1px solid var(--sprout);border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:2px;}
+.trow .nm .tag.w{color:#8a3a1a;border-color:#d69a6a;}
+.trow .nm .dsc{display:block;font-family:var(--font-body);font-size:12.5px;color:var(--mute);margin-top:3px;}
+.trow .sd{font-size:12px;color:var(--label);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.trow .sd b{color:var(--ink);font-weight:700;}
+.trow .sd small{display:block;font-size:11px;color:var(--forest);margin-top:3px;}
+.trow.key{background:color-mix(in srgb,var(--sprout) 10%,transparent);margin:0 -14px;padding-left:14px;padding-right:14px;border-radius:3px;}
+.tt-foot{margin:20px 0 0;font-family:var(--font-mono);font-size:13px;color:var(--deep);font-weight:700;}
+
+/* notes */
+.notes{margin:28px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 40px;}
+@media(max-width:720px){.notes{grid-template-columns:1fr;}}
+.ntheme{padding:18px 0;border-top:1px solid var(--hair);}
+.ntheme h4{font-size:16px;}
+.ntheme ul{margin:12px 0 0;padding:0;list-style:none;}
+.ntheme li{font-size:14.5px;color:var(--ink-2);line-height:1.6;margin:0 0 12px;padding-left:14px;position:relative;}
+.ntheme li::before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--sprout);}
+.ntheme li .by{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--label);margin-top:4px;}
+
+/* close */
+.close{background:var(--night);color:var(--night-ink);position:relative;z-index:2;margin-top:0;padding:40px 0;}
+.close .lbl{color:var(--sprout);}
+.close h2{color:#fff;font-size:clamp(22px,3vw,32px);margin-top:14px;}
+.close p{color:#B9B7A6;margin:16px 0 0;font-size:16px;}
+.close .pn{margin:0;display:flex;justify-content:space-between;gap:20px;font-family:var(--font-mono);font-size:13px;flex-wrap:wrap;}
+.close .pn a{color:var(--sprout);text-decoration:none;}
+.close .pn span{color:#7d7d6e;}
+.close .meta{margin:28px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#6f6f61;text-transform:uppercase;}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;animation:none!important;}}
+
+/* operating canvas map + profile (ported from운영본) */
+.cvbox{position:relative;width:100%;height:clamp(360px,50vh,480px);border:1px solid var(--hair);overflow:hidden;background:#EDE8DA;margin-top:26px;}
+.cvbox canvas{display:block;width:100%;height:100%;}
+.cvtag{position:absolute;left:12px;bottom:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--mute);background:rgba(246,244,236,.9);padding:4px 8px;}
+.legend{display:flex;flex-wrap:wrap;gap:7px 20px;margin-top:13px;font-family:var(--font-mono);font-size:12px;color:var(--mute);letter-spacing:.04em;}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px;}
+.profbox{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--hair);background:#F3F0E7;margin-top:20px;}
+.profbox canvas{display:block;height:300px;touch-action:pan-x pan-y;}
+.secnote{margin:14px 0 0;font-family:var(--font-mono);font-size:13px;color:var(--label);letter-spacing:.06em;}
+
+/* plan box (upcoming) + fork + tt-sub */
+.planbox{margin:34px 0 0;border:1px solid var(--hair);border-radius:6px;overflow:hidden;background:var(--paper);}
+.planbox .cmp-hd{background:transparent;border-bottom:1px solid var(--hair);}
+.planbox .cmp-badge{color:var(--ink);}
+.pln-note{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--label);text-transform:uppercase;}
+.plan-v{font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--deep);margin-top:12px;}
+.plan-sub{font-family:var(--font-mono);font-size:11px;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-top:5px;}
+.fork{margin:30px 0 0;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px;align-items:start;}
+@media(max-width:720px){.fork{grid-template-columns:1fr;}}
+.track{padding:24px;border:1px solid var(--hair);border-radius:4px;background:var(--paper);}
+.track.b{border:2px solid var(--forest);background:color-mix(in srgb,var(--sprout) 12%,var(--cream));}
+.track .th{display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+.track .tn{font-size:21px;font-weight:800;}
+.track .tt2{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--label);}
+.track.b .tt2{color:var(--deep);}
+.track p{margin:13px 0 0;font-size:15px;color:var(--ink-2);}
+.track .st{margin:18px 0 0;display:flex;gap:22px;font-family:var(--font-mono);border-top:1px solid var(--hair);padding-top:15px;}
+.track .st b{display:block;font-size:18px;font-weight:700;color:var(--ink);}
+.track .st i{font-style:normal;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--label);margin-top:2px;display:block;}
+.decide{margin:24px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+@media(max-width:560px){.decide{grid-template-columns:1fr;}}
+.decide div{border-left:2px solid var(--sprout);padding:2px 0 2px 14px;}
+.decide .dt{font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:var(--deep);}
+.decide p{margin:5px 0 0;font-size:13.5px;color:var(--mute);}
+.tt-sub{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);margin:20px 0 4px;padding-top:12px;border-top:1px solid var(--hair);}
+.trow .tm small{display:block;font-size:10.5px;color:var(--label);margin-top:2px;font-weight:400;}
+.warnbox+.warnbox{margin-top:16px;}
+.gear{margin:30px 0 0;}
+.gear .gh{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);margin:0 0 12px;}
+.gearlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 34px;}
+@media(max-width:560px){.gearlist{grid-template-columns:1fr;}}
+.gearlist div{display:flex;gap:11px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--hair-2);font-size:14.5px;}
+.gearlist .gm{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--sprout);flex-shrink:0;}
+.gearlist small{color:var(--label);font-size:12.5px;}
+.emerg{margin:26px 0 0;border-top:1px solid var(--hair);padding-top:18px;font-family:var(--font-mono);font-size:12.5px;color:var(--mute);letter-spacing:.02em;line-height:1.9;}
+.emerg .eh{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);display:block;margin-bottom:6px;}
+.emerg b{color:var(--ink);}
+
+/* personal kit checklist */
+.kitnote{margin:14px 0 0;font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--label);}
+.kitgrid{margin:28px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 40px;}
+.kitgroup{border-top:2px solid var(--ink);padding-top:14px;}
+.kitgroup.wide{grid-column:1 / -1;}
+.kitgroup h3{margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--deep);}
+.kitlist{margin:12px 0 0;padding:0;list-style:none;}
+.kititem{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--hair);font-size:15px;line-height:1.45;cursor:pointer;}
+.kititem input{position:absolute;opacity:0;pointer-events:none;}
+.kitbox{width:19px;height:19px;flex:0 0 19px;margin-top:1px;border:2px solid var(--ink);border-radius:3px;background:var(--cream);position:relative;transition:background .14s,border-color .14s;}
+.kititem input:checked + .kitbox{background:var(--deep);border-color:var(--deep);}
+.kititem input:checked + .kitbox::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+.kititem input:focus-visible + .kitbox{outline:2px solid var(--sprout);outline-offset:3px;}
+.kititem input:checked ~ .kittext{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--sprout);}
+.kititem.sub{padding-left:14px;font-size:14px;color:var(--ink-2);}
+@media(max-width:640px){.kitgrid{grid-template-columns:1fr;gap:28px;}.kitgroup.wide{grid-column:auto;}}
+
+/* LIVE badge — 3회차 운행 시간대(2026-07-25 03:00~21:00 KST)만 표시, JS 제어 */
+.live-badge{display:none;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.12em;color:#fff;background:#e0362f;border-radius:20px;padding:4px 11px;line-height:1;box-shadow:0 1px 6px rgba(224,54,47,.35);animation:liveblink 1.1s ease-in-out infinite;}
+.live-badge.on{display:inline-flex;}
+.hero .live-badge.on{display:flex;width:-moz-fit-content;width:fit-content;margin-bottom:14px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:livepulse 1.1s ease-in-out infinite;}
+@keyframes liveblink{0%,100%{opacity:1;}50%{opacity:.5;}}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
+@media(prefers-reduced-motion:reduce){.live-badge{animation:none;}.live-dot{animation:none;}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap"><span class="mark"><i aria-hidden="true"></i>FJTS · VOL.5</span><a class="back" href="../">← 전체 회차</a></div></header>
+<div class="hero"><div class="wrap">
+  <div class="kicker">VOL.05 · 2026.10.17–18 · From Jiri To Seorak</div>
+  <h1>우두령 → 큰재</h1>
+  <p class="lede">황악산과 추풍령을 넘어 큰재까지 · <b>1박 2일 전원 백패킹</b> 운행 예정</p>
+  <div class="planbox"><div class="cmp-hd"><span class="cmp-badge">계획 · PLAN</span><span class="pln-note">2026.10.17–18 · 박지 확정 전</span></div>
+    <div class="cmp-cols">
+      <div class="cmp-col"><div class="cmp-k">거리</div><div class="plan-v">42.9 KM</div><div class="plan-sub">연결 구간 포함 GPX</div></div>
+      <div class="cmp-col"><div class="cmp-k">시간</div><div class="plan-v">2 DAYS</div><div class="plan-sub">운행 약 17~19.5시간</div></div>
+      <div class="cmp-col"><div class="cmp-k">누적 상승</div><div class="plan-v">▲3,752 M</div><div class="plan-sub">원본 무필터</div></div>
+    </div>
+  </div>
+</div></div>
+
+<section class="blk"><div class="wrap"><div class="lbl">Briefing</div><h2>차를 큰재에 두고, 우두령부터 이틀간 북진한다</h2>
+  <div class="brief"><div>
+    <p class="p1">서울에서 자차로 큰재까지 이동해 차량을 두고, 택시 두 대로 우두령에 접근한다. 8명이 모든 야영 장비를 메고 이동하며, 첫날 컨디션과 박지 여건에 따라 <b>추풍령 또는 작점고개</b>에서 운행을 멈춘다.</p>
+    <p>새 GPX로 다시 계산한 전체 거리는 42.9km다. 추풍령에서 끊으면 23.8km + 19.1km, 작점고개까지 진행하면 32.9km + 10.0km가 된다. 박지 사용 가능 여부와 택시 배차는 출발 전 확정해야 한다.</p>
+    <div class="crew"><div class="ct">Crew · 8명</div><div class="cl"><b>김주현</b> <span class="ld">LEAD</span> <span class="sep">·</span> 김대면 <span class="sep">·</span> 김재면 <span class="sep">·</span> 김형돈 <span class="sep">·</span> 목승훈 <span class="sep">·</span> 정의민 <span class="sep">·</span> 최강호 <span class="sep">·</span> <b>성기연</b> <span class="ld">SUB LEAD</span></div></div>
+  </div><div class="dl" role="table" aria-label="핵심 제원">
+    <div><span class="k">날짜</span><span class="v">2026.10.17–18 · 1박 2일</span></div><div><span class="k">서울 출발</span><span class="v">10.17 · 04:00</span></div><div><span class="k">트레일 출발</span><span class="v">우두령 · 10.17 08:00</span></div><div><span class="k">피니시</span><span class="v">큰재 · 10.18 13:00</span></div><div><span class="k">거리</span><span class="v">42.9 KM</span></div><div><span class="k">상승 · 하강</span><span class="v">▲3,752 · ▼4,124 M</span></div><div><span class="k">최고점</span><span class="v">황악산 약 1,111 M</span></div><div><span class="k">이동</span><span class="v">자차 + 택시 2대</span></div>
+  </div></div>
+  <div class="fork">
+    <div class="track b"><div class="th"><span class="tn">PLAN A · 작점고개</span><span class="tt2">권장 목표</span></div><p>DAY 1에 추풍령에서 매식·완전 보급 후 작점고개까지 진행. 둘째 날 거리가 짧아 차량 회수와 서울 복귀에 여유가 생긴다.</p><div class="st"><span><b>32.9</b><i>DAY 1 KM</i></span><span><b>10.0</b><i>DAY 2 KM</i></span></div></div>
+    <div class="track"><div class="th"><span class="tn">PLAN B · 추풍령</span><span class="tt2">단축</span></div><p>대열 지연·기상 악화·박지 문제 시 추풍령에서 종료. 둘째 날 19.1km를 진행해야 하므로 06:00 출발을 지킨다.</p><div class="st"><span><b>23.8</b><i>DAY 1 KM</i></span><span><b>19.1</b><i>DAY 2 KM</i></span></div></div>
+  </div>
+</div></section>
+
+<section class="blk"><div class="wrap"><div class="lbl">Route · 경로</div><h2>황악산에서 추풍령을 지나 큰재로</h2><p class="note">새로 정리한 단일 GPX를 기준으로 우두령→추풍령→큰재 전 구간을 표시했다. 거리와 누적고도는 이 트랙의 원본 포인트를 그대로 계산했다.</p><div class="cvbox"><canvas id="map-canvas"></canvas><div class="cvtag">N ↑ · 42.9 KM</div></div><div class="legend"><span><i style="background:#A1D06C;"></i>START · FINISH</span><span><i style="background:#4ECDC4;"></i>고개 · 보급 · 박지 후보</span><span><i style="background:#FF6B6B;"></i>주요 봉우리</span><span><i style="background:#355610;border-radius:0;height:2px;width:14px;vertical-align:2px;"></i>운행 경로</span></div></div></section>
+
+<section class="blk"><div class="wrap"><div class="lbl">Profile · 고도</div><p class="secnote">GPX 원본 무필터 · 누적상승 ▲3,752m · 누적하강 ▼4,124m · 최고점 황악산 약 1,111m</p><div class="profbox"><canvas id="prof-canvas"></canvas></div><p class="secnote" style="letter-spacing:.02em;">좁은 화면에선 좌우로 밀어 보세요 — 커서를 올리면 위치별 고도를 읽습니다.</p></div></section>
+
+<section class="blk"><div class="wrap"><div class="lbl">The Day · 일정</div><h2>DAY 1은 박지에 따라 두 갈래</h2><p class="note">아래 시각은 백패킹 하중과 휴식을 포함한 운행 계획이다. 출발 전 날씨와 박지 확인 결과에 따라 최종 조정한다.</p>
+  <div class="tt-sub">DAY 1 · 서울 → 우두령 → 추풍령 / 작점고개</div><div class="tt-wrap">
+    <div class="trow key"><span class="tm"><b>04:00</b><small>차량 이동</small></span><span class="nm"><b>서울 출발</b><span class="tag">DRIVE</span><span class="dsc">자차로 큰재 이동 · 약 2시간 40분</span></span><span class="sd"><b>—</b><small>이동</small></span></div>
+    <div class="trow key"><span class="tm"><b>07:00</b><small>차량 주차</small></span><span class="nm"><b>큰재</b><span class="tag">TRANSFER</span><span class="dsc">차량 주차 후 택시 2대로 우두령 이동 · 약 1시간</span></span><span class="sd"><b>—</b><small>이동</small></span></div>
+    <div class="trow key"><span class="tm"><b>08:00</b><small>+0:00</small></span><span class="nm"><b>우두령</b><span class="tag">START</span><span class="dsc">전원 백패킹 출발</span></span><span class="sd"><b>0.0</b> KM<small>▲0</small></span></div>
+    <div class="trow"><span class="tm"><b>10:40</b><small>+2:40</small></span><span class="nm"><b>황악산</b><span class="tag">최고점</span><span class="dsc">초반 주상승 · 대열과 하중 점검</span></span><span class="sd"><b>7.1</b> KM<small>▲884</small></span></div>
+    <div class="trow"><span class="tm"><b>12:30</b><small>+4:30</small></span><span class="nm"><b>괘방령</b><span class="tag">ROAD</span><span class="dsc">휴식 · 차량 접근 가능 지점</span></span><span class="sd"><b>12.2</b> KM<small>▲1,095</small></span></div>
+    <div class="trow"><span class="tm"><b>14:45</b><small>+6:45</small></span><span class="nm"><b>가성산</b><span class="dsc">눌의산으로 이어지는 능선</span></span><span class="sd"><b>17.2</b> KM<small>▲1,759</small></span></div>
+    <div class="trow"><span class="tm"><b>16:15</b><small>+8:15</small></span><span class="nm"><b>눌의산</b><span class="dsc">추풍령 전 마지막 봉우리</span></span><span class="sd"><b>20.1</b> KM<small>▲2,098</small></span></div>
+    <div class="trow key"><span class="tm"><b>18:00</b><small>+10:00</small></span><span class="nm"><b>추풍령</b><span class="tag">PLAN B</span><span class="dsc">매식·완전 보급 · 상황 나쁘면 여기서 종료</span></span><span class="sd"><b>23.8</b> KM<small>▲2,203</small></span></div>
+    <div class="trow key"><span class="tm"><b>20:30</b><small>+12:30</small></span><span class="nm"><b>작점고개</b><span class="tag">PLAN A</span><span class="dsc">추풍령에서 보급 후 진행 · 박지 사용 가능 여부 사전 확인</span></span><span class="sd"><b>32.9</b> KM<small>▲2,906</small></span></div>
+  </div>
+  <div class="tt-sub">DAY 2 · PLAN A 작점고개 → 큰재</div><div class="tt-wrap">
+    <div class="trow key"><span class="tm"><b>06:00</b><small>출발</small></span><span class="nm"><b>작점고개</b><span class="tag">START</span><span class="dsc">권장안 기준 · 큰재까지 약 10.0km</span></span><span class="sd"><b>32.9</b> KM<small>▲2,906</small></span></div>
+    <div class="trow"><span class="tm"><b>08:30</b><small>+2:30</small></span><span class="nm"><b>용문산</b><span class="dsc">작점고개 출발 기준 약 4.6km</span></span><span class="sd"><b>37.5</b> KM<small>▲3,406</small></span></div>
+    <div class="trow"><span class="tm"><b>10:00</b><small>+4:00</small></span><span class="nm"><b>국수봉</b><span class="tag">마지막 고점</span><span class="dsc">큰재 전 마지막 큰 오름</span></span><span class="sd"><b>39.9</b> KM<small>▲3,693</small></span></div>
+    <div class="trow key"><span class="tm"><b>13:00</b><small>예상</small></span><span class="nm"><b>큰재</b><span class="tag">FINISH</span><span class="dsc">차량 회수 후 서울 이동</span></span><span class="sd"><b>42.9</b> KM<small>▲3,752</small></span></div>
+  </div>
+  <div class="tt-sub">DAY 2 · PLAN B 추풍령 → 큰재</div><div class="tt-wrap">
+    <div class="trow key"><span class="tm"><b>06:00</b><small>출발</small></span><span class="nm"><b>추풍령</b><span class="tag">START</span><span class="dsc">단축안 기준 · 큰재까지 약 19.1km</span></span><span class="sd"><b>23.8</b> KM<small>▲2,203</small></span></div>
+    <div class="trow"><span class="tm"><b>08:00</b><small>+2:00</small></span><span class="nm"><b>들기산</b><span class="dsc">초반 오름 · 대열과 야영 하중 점검</span></span><span class="sd"><b>26.0</b> KM<small>▲2,540</small></span></div>
+    <div class="trow"><span class="tm"><b>10:00</b><small>+4:00</small></span><span class="nm"><b>작점고개</b><span class="dsc">휴식 · PLAN A 박지 후보 통과</span></span><span class="sd"><b>32.9</b> KM<small>▲2,906</small></span></div>
+    <div class="trow"><span class="tm"><b>11:30</b><small>+5:30</small></span><span class="nm"><b>용문산</b><span class="dsc">큰재까지 약 5.4km</span></span><span class="sd"><b>37.5</b> KM<small>▲3,406</small></span></div>
+    <div class="trow"><span class="tm"><b>12:20</b><small>+6:20</small></span><span class="nm"><b>국수봉</b><span class="tag">마지막 고점</span><span class="dsc">큰재 전 마지막 주요 오름</span></span><span class="sd"><b>39.9</b> KM<small>▲3,693</small></span></div>
+    <div class="trow key"><span class="tm"><b>13:00</b><small>예상</small></span><span class="nm"><b>큰재</b><span class="tag">FINISH</span><span class="dsc">차량 회수 후 서울 이동</span></span><span class="sd"><b>42.9</b> KM<small>▲3,752</small></span></div>
+  </div><div class="tt-foot">작점고개는 추풍령보다 약 9.1km 뒤다. DAY 1 추풍령 18:00 / 작점고개 20:30으로 분리하고, 어느 안을 선택해도 DAY 2 큰재 13:00 도착을 목표로 한다.</div>
+</div></section>
+
+<section class="blk"><div class="wrap"><div class="lbl">Supply · 보급</div><h2>추풍령에서 먹고, 야영수까지 채운다</h2><p class="note">첫날 작점고개까지 갈 경우 추풍령이 핵심 보급점이다. 이후 박지와 둘째 날 능선의 수원은 확정 전이므로 자립 기준으로 준비한다.</p><div class="sgrid"><div>
+  <div class="srow"><span class="w">우두령</span><span class="d">출발 수량 2~2.5L · DAY 1 행동식</span></div><div class="srow"><span class="w">괘방령</span><span class="d">비상 차량 접근 후보 <small>상시 매식·급수 가능 여부는 별도 확인</small></span></div><div class="srow"><span class="w">추풍령</span><span class="d">★ 매식 · 물 완충 · DAY 2 식량 · 야영 취사수 확보</span></div>
+  </div><div><div class="srow"><span class="w">작점고개</span><span class="d">PLAN A 박지 후보 <small>현장 수원 미확정 · 추풍령에서 전량 운반</small></span></div><div class="srow"><span class="w">큰재</span><span class="d">피니시 · 주차 차량 회수</span></div><div class="srow"><span class="w">비상분</span><span class="d">개인 1식 + 전해질 + 정수 수단 + 비상 보온식</span></div></div></div>
+  <div class="warnbox"><h4>박지는 아직 확정이 아니다</h4><p>추풍령·작점고개의 실제 취침 가능 장소, 토지·시설 이용 허가, 화기 사용 가능 여부를 출발 전에 확인한다. 확인 전에는 ‘박지 후보’로만 취급한다.</p></div>
+  <div class="warnbox"><h4>택시 2대가 확보되지 않으면 이동 계획부터 바꾼다</h4><p>8명과 백팩을 실을 수 있는 개인택시 2대를 우선 수배한다. 배차가 안 되면 콜밴 또는 올버스를 사전 예약하고, 당일 현장 호출에 의존하지 않는다.</p></div>
+  <div class="gear">
+    <div class="gh">Personal Kit · 개인 준비 기준</div>
+    <div class="gearlist">
+      <div><span class="gm">수분</span><span>출발 시 물 2~2.5L</span></div>
+      <div><span class="gm">식량</span><span>DAY 1 행동식 · DAY 2 식량 · 비상식 1회분</span></div>
+      <div><span class="gm">보급</span><span>전해질 · 간편식 · 고열량 행동식</span></div>
+      <div><span class="gm">정수</span><span>필터 또는 정제약</span></div>
+      <div><span class="gm">야영</span><span>텐트 또는 쉘터 · 침낭 · 매트</span></div>
+      <div><span class="gm">보온</span><span>다운 또는 보온재킷 · 방풍·방수 재킷</span></div>
+      <div><span class="gm">조명</span><span>헤드랜턴 · 여분 배터리</span></div>
+      <div><span class="gm">기타</span><span>보조배터리 · 현금/카드 · 개인 상비약</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="blk"><div class="wrap"><div class="lbl">The Story · 미디어</div><h2>백패킹의 이틀을 기록한다</h2><p class="note">촬영 장비와 담당은 일정 확정 후 배정. 이동 장면보다 대열 유지와 야영지 안전을 우선한다.</p><div class="sgrid"><div><div class="srow"><span class="w">DAY 1</span><span class="d">차량 회수 동선 · 황악산 능선 · 추풍령 보급 · 박지 구축</span></div></div><div><div class="srow"><span class="w">DAY 2</span><span class="d">새벽 철수 · 용문산·국수봉 · 큰재 피니시</span></div></div></div></div></section>
+
+<section class="blk blk-last"><div class="wrap"><div class="lbl">Notes · 확정 전 체크</div><h2>교통·박지·날씨를 확인하면 실행안으로 바뀐다</h2><div class="notes"><div class="ntheme"><h4>교통</h4><ul><li>큰재 장시간 주차 가능 여부와 8명·백팩을 운송할 택시 2대 동시 배차를 확인한다.</li><li>배차가 어렵다면 콜밴 또는 올버스를 미리 예약한다.</li></ul></div><div class="ntheme"><h4>박지</h4><ul><li>추풍령·작점고개의 실제 취침 가능 장소와 화장실·수원·시설 이용 조건을 확인한다.</li><li>토지·시설 이용 허가와 취사·화기 사용 가능 여부를 확인한다.</li></ul></div><div class="ntheme"><h4>시간</h4><ul><li>작점고개안은 DAY 1이 약 33km이므로 18:00 종료가 아니라 일몰 이후 도착 가능성을 전제로 한다.</li><li>PLAN B 선택 시 DAY 2 추풍령 06:00 출발을 지킨다.</li></ul></div><div class="ntheme"><h4>날씨</h4><ul><li>10월 17–18일 능선 최저기온·강수·풍속을 확인해 침낭과 보온 장비 기준을 확정한다.</li></ul></div></div></div></section>
+
+<footer class="close"><div class="wrap"><div class="pn"><a href="../vol4/">← VOL.4 빼재 → 우두령</a><span>VOL.6 큰재 → NEXT — 준비 중</span></div><div class="meta">Thunderbird Running Club · FJTS VOL.5 · 2026.10.17–18 · 우두령 → 큰재 · 42.9KM ▲3,752M · 1박 2일</div></div></footer>
+<script>
+window.RouteData = {"TRACK":[[36.06774,127.95497],[36.06792,127.95528],[36.06791,127.95558],[36.06782,127.95598],[36.06784,127.9564],[36.06798,127.9567],[36.06785,127.95702],[36.06784,127.95731],[36.06777,127.95768],[36.06783,127.95802],[36.0679,127.95841],[36.06808,127.95874],[36.06808,127.9591],[36.06823,127.95937],[36.06829,127.95978],[36.06834,127.96013],[36.06854,127.9604],[36.06858,127.96064],[36.06859,127.96093],[36.06878,127.9612],[36.06909,127.96119],[36.0694,127.96117],[36.06967,127.96127],[36.06999,127.96148],[36.07027,127.96144],[36.07055,127.96114],[36.07083,127.96107],[36.07111,127.96117],[36.07143,127.9612],[36.07177,127.96128],[36.07208,127.96141],[36.07241,127.96143],[36.07275,127.96151],[36.07304,127.96155],[36.07331,127.96152],[36.07362,127.9615],[36.07389,127.96143],[36.07415,127.96134],[36.0745,127.96136],[36.07481,127.96133],[36.07506,127.9616],[36.07536,127.96158],[36.07563,127.96179],[36.07589,127.96202],[36.0762,127.96207],[36.07653,127.96194],[36.07687,127.96203],[36.07719,127.96214],[36.07752,127.96211],[36.07779,127.96194],[36.07797,127.96163],[36.07815,127.96137],[36.07839,127.96114],[36.07859,127.96095],[36.0789,127.96089],[36.0792,127.96098],[36.07949,127.96082],[36.07981,127.96091],[36.08015,127.96109],[36.08047,127.96121],[36.08084,127.96114],[36.08117,127.96122],[36.08149,127.96129],[36.0818,127.9613],[36.08209,127.96136],[36.08236,127.96152],[36.08265,127.96158],[36.0829,127.96154],[36.08305,127.96124],[36.08323,127.96092],[36.08349,127.96087],[36.08382,127.96091],[36.08418,127.96086],[36.08444,127.96069],[36.08471,127.96062],[36.08497,127.96049],[36.08529,127.9604],[36.08565,127.96033],[36.08593,127.96019],[36.08614,127.95987],[36.08634,127.95953],[36.0866,127.95929],[36.08683,127.9591],[36.08712,127.95894],[36.08741,127.95884],[36.08768,127.95873],[36.08795,127.95859],[36.08825,127.95854],[36.0886,127.95853],[36.08892,127.95856],[36.0892,127.95847],[36.08952,127.95831],[36.08982,127.95824],[36.09008,127.9581],[36.09034,127.95805],[36.0906,127.95785],[36.09089,127.95766],[36.0912,127.9576],[36.09155,127.95763],[36.09182,127.95777],[36.09211,127.95792],[36.09247,127.95792],[36.09276,127.95794],[36.09306,127.95802],[36.09335,127.95802],[36.09362,127.95795],[36.09395,127.95789],[36.09432,127.95776],[36.09464,127.95778],[36.09496,127.95782],[36.09507,127.95808],[36.09517,127.95846],[36.09521,127.95888],[36.0953,127.95924],[36.09528,127.95966],[36.09539,127.96002],[36.09551,127.96035],[36.09558,127.96075],[36.09578,127.96102],[36.09595,127.96136],[36.09604,127.96178],[36.0962,127.9621],[36.09647,127.96231],[36.09676,127.96256],[36.09697,127.96291],[36.09725,127.96304],[36.09754,127.9631],[36.09782,127.9632],[36.09813,127.96324],[36.09843,127.96321],[36.09877,127.96308],[36.09908,127.96303],[36.09933,127.96292],[36.09948,127.96268],[36.09974,127.96293],[36.09985,127.96323],[36.09998,127.96352],[36.10018,127.96375],[36.1004,127.96396],[36.10064,127.96416],[36.10089,127.96435],[36.10114,127.9646],[36.10141,127.96483],[36.10167,127.96513],[36.10199,127.96533],[36.10227,127.96556],[36.10255,127.96567],[36.10288,127.96577],[36.1032,127.96604],[36.1034,127.96626],[36.10359,127.96651],[36.10389,127.96662],[36.10415,127.96674],[36.10443,127.96683],[36.1047,127.96688],[36.105,127.96697],[36.10529,127.96712],[36.1056,127.96705],[36.10596,127.9672],[36.10625,127.96738],[36.10647,127.96769],[36.10664,127.96799],[36.10691,127.96808],[36.10714,127.96825],[36.10741,127.96844],[36.10767,127.9683],[36.10794,127.96808],[36.10822,127.96787],[36.10852,127.96774],[36.10877,127.96753],[36.10905,127.96742],[36.10932,127.96732],[36.10962,127.96721],[36.10995,127.96712],[36.11026,127.96707],[36.11047,127.96724],[36.11075,127.96738],[36.11105,127.96741],[36.11135,127.96735],[36.11171,127.96724],[36.11201,127.96712],[36.11234,127.967],[36.11258,127.96678],[36.11292,127.96674],[36.11323,127.9668],[36.11351,127.96698],[36.11385,127.96703],[36.1142,127.9671],[36.11452,127.96718],[36.11483,127.96726],[36.11515,127.96717],[36.11546,127.96717],[36.11577,127.96707],[36.11607,127.96714],[36.11631,127.96724],[36.11663,127.96716],[36.11689,127.96701],[36.11713,127.96682],[36.11743,127.96686],[36.11775,127.96689],[36.11805,127.96687],[36.11834,127.96693],[36.11858,127.96715],[36.11874,127.96745],[36.11893,127.9678],[36.11907,127.96809],[36.11935,127.96837],[36.11944,127.96871],[36.11963,127.969],[36.11973,127.9694],[36.11992,127.96967],[36.12016,127.96989],[36.12035,127.9702],[36.12038,127.97057],[36.12043,127.9709],[36.12048,127.97127],[36.12044,127.97169],[36.12049,127.97208],[36.12057,127.97242],[36.12058,127.97272],[36.12058,127.97304],[36.12055,127.9734],[36.12052,127.97379],[36.12062,127.97413],[36.12088,127.97443],[36.12099,127.97478],[36.12103,127.97513],[36.12117,127.97549],[36.12136,127.97577],[36.12149,127.9761],[36.1217,127.97633],[36.1218,127.97672],[36.12198,127.9771],[36.12209,127.97748],[36.12228,127.97764],[36.12259,127.97785],[36.12278,127.97811],[36.1231,127.97826],[36.12341,127.97842],[36.12371,127.97858],[36.12393,127.97884],[36.12415,127.97916],[36.12438,127.97939],[36.12461,127.9797],[36.12463,127.98002],[36.12458,127.98032],[36.12466,127.98066],[36.12477,127.98097],[36.12474,127.98132],[36.1248,127.98168],[36.12491,127.98203],[36.12502,127.9824],[36.12515,127.9827],[36.12544,127.98283],[36.12569,127.98309],[36.12595,127.98335],[36.12621,127.98354],[36.12647,127.98376],[36.12673,127.98408],[36.12685,127.9844],[36.12701,127.98473],[36.12719,127.98501],[36.12724,127.98537],[36.12741,127.98563],[36.12763,127.98595],[36.12787,127.98615],[36.12813,127.98642],[36.12837,127.98672],[36.12863,127.987],[36.12885,127.98716],[36.12914,127.98717],[36.12943,127.98732],[36.1296,127.98763],[36.1299,127.9877],[36.13022,127.98787],[36.13053,127.98782],[36.13083,127.98757],[36.13115,127.98753],[36.13144,127.98775],[36.1317,127.98801],[36.13202,127.98813],[36.1323,127.9882],[36.13242,127.98848],[36.13266,127.98878],[36.13294,127.98869],[36.13323,127.98853],[36.13358,127.98853],[36.1339,127.98857],[36.13412,127.98837],[36.13441,127.98824],[36.13472,127.98823],[36.13505,127.98813],[36.13538,127.98801],[36.13569,127.98804],[36.13597,127.98793],[36.13631,127.98772],[36.13663,127.98759],[36.13686,127.98739],[36.13719,127.9874],[36.13754,127.98742],[36.13783,127.98743],[36.13812,127.98762],[36.13838,127.98786],[36.13866,127.98785],[36.13898,127.98781],[36.13927,127.98762],[36.13957,127.98746],[36.13986,127.9874],[36.14019,127.98732],[36.14046,127.98727],[36.1408,127.98732],[36.14108,127.9875],[36.14137,127.98771],[36.14161,127.98787],[36.14196,127.98795],[36.14233,127.98793],[36.14267,127.98808],[36.14294,127.98833],[36.14315,127.98851],[36.14342,127.98868],[36.1437,127.98887],[36.14398,127.98909],[36.14407,127.98866],[36.14431,127.98844],[36.14462,127.98839],[36.14487,127.98827],[36.14515,127.98806],[36.14544,127.98792],[36.14573,127.98794],[36.146,127.98779],[36.14634,127.98775],[36.14665,127.98764],[36.14696,127.98763],[36.14724,127.9875],[36.14755,127.98755],[36.14783,127.98777],[36.14806,127.98811],[36.14832,127.98837],[36.14854,127.98864],[36.1487,127.989],[36.14889,127.98929],[36.14901,127.98959],[36.14928,127.98985],[36.14956,127.9901],[36.14981,127.99037],[36.15006,127.99069],[36.1504,127.99095],[36.15077,127.99108],[36.15115,127.99091],[36.15138,127.99071],[36.15168,127.99081],[36.15151,127.99117],[36.15125,127.9914],[36.15096,127.99167],[36.15085,127.99163],[36.15118,127.99149],[36.15147,127.9912],[36.15167,127.9908],[36.15169,127.99087],[36.15146,127.99123],[36.15162,127.99153],[36.15171,127.99195],[36.15191,127.9923],[36.15196,127.99261],[36.15186,127.99299],[36.15192,127.9934],[36.15219,127.99361],[36.15253,127.9936],[36.15277,127.99366],[36.15285,127.99398],[36.15294,127.99444],[36.15289,127.99485],[36.15288,127.99519],[36.1531,127.99539],[36.15332,127.99556],[36.15361,127.99575],[36.15378,127.99603],[36.15396,127.99632],[36.15425,127.99638],[36.15457,127.99648],[36.15484,127.9966],[36.15504,127.99686],[36.15529,127.99704],[36.15558,127.99688],[36.15582,127.99671],[36.15605,127.99644],[36.1563,127.99617],[36.15648,127.99593],[36.15678,127.99574],[36.15709,127.99567],[36.15734,127.99549],[36.15749,127.99516],[36.15767,127.9948],[36.15794,127.99454],[36.15792,127.99417],[36.15784,127.99379],[36.15787,127.99341],[36.15803,127.99315],[36.15824,127.99297],[36.15844,127.99264],[36.15865,127.99237],[36.15857,127.99197],[36.1587,127.9916],[36.15876,127.99129],[36.15888,127.99096],[36.15905,127.9906],[36.15931,127.99045],[36.15953,127.99043],[36.15988,127.9905],[36.16019,127.99046],[36.16057,127.99041],[36.16093,127.99046],[36.16123,127.99039],[36.16158,127.99023],[36.16189,127.99014],[36.16218,127.99014],[36.16247,127.99022],[36.16272,127.99004],[36.16301,127.99004],[36.16332,127.99004],[36.16348,127.98974],[36.16378,127.98954],[36.16405,127.98971],[36.1644,127.98972],[36.16471,127.98976],[36.16504,127.98964],[36.16532,127.98981],[36.16562,127.98997],[36.16587,127.99011],[36.16601,127.98985],[36.16606,127.98943],[36.16624,127.98902],[36.16645,127.98869],[36.16658,127.98835],[36.16666,127.98803],[36.16685,127.98772],[36.1668,127.98734],[36.16702,127.98707],[36.16728,127.98685],[36.16748,127.98658],[36.16776,127.98665],[36.16806,127.98651],[36.16831,127.98629],[36.16836,127.98594],[36.16858,127.98572],[36.16879,127.98547],[36.16899,127.98513],[36.1691,127.98481],[36.16932,127.98465],[36.16956,127.98441],[36.16971,127.98414],[36.16986,127.98386],[36.17006,127.98358],[36.17037,127.98361],[36.17062,127.98354],[36.17083,127.98335],[36.17112,127.98327],[36.17146,127.98321],[36.17178,127.98317],[36.17207,127.98319],[36.17235,127.98311],[36.17265,127.98313],[36.17295,127.98326],[36.17323,127.98338],[36.17349,127.98354],[36.17383,127.98361],[36.17415,127.98368],[36.17443,127.98359],[36.17466,127.98342],[36.1749,127.98352],[36.17516,127.9838],[36.17545,127.98399],[36.17574,127.98413],[36.17601,127.98434],[36.17635,127.98441],[36.17664,127.98446],[36.17688,127.98468],[36.17713,127.98476],[36.17735,127.98461],[36.17759,127.98452],[36.17788,127.98444],[36.17803,127.98418],[36.17823,127.98393],[36.17834,127.98354],[36.17835,127.98315],[36.17833,127.98277],[36.17862,127.98266],[36.17881,127.98228],[36.17894,127.9819],[36.17902,127.98155],[36.17928,127.98138],[36.17959,127.98142],[36.17988,127.98123],[36.18013,127.98095],[36.18041,127.98099],[36.18074,127.9809],[36.18099,127.98062],[36.18126,127.98051],[36.18154,127.98053],[36.18186,127.98042],[36.18211,127.98027],[36.1824,127.9804],[36.18269,127.98026],[36.18281,127.97992],[36.18296,127.97957],[36.18322,127.97938],[36.18348,127.97919],[36.18374,127.97898],[36.18409,127.97888],[36.18431,127.97863],[36.18454,127.97836],[36.18476,127.97809],[36.18495,127.97783],[36.18513,127.97755],[36.1854,127.97737],[36.18562,127.97713],[36.18589,127.97704],[36.18617,127.97685],[36.18645,127.97654],[36.18666,127.97633],[36.187,127.97639],[36.18724,127.97614],[36.18747,127.97591],[36.18781,127.97575],[36.18814,127.9757],[36.18842,127.97575],[36.18865,127.97588],[36.18898,127.97578],[36.18929,127.97581],[36.18956,127.97591],[36.18983,127.97603],[36.19013,127.97605],[36.19044,127.97604],[36.19071,127.97616],[36.19105,127.97617],[36.19138,127.97617],[36.19167,127.97618],[36.19191,127.97606],[36.19219,127.97606],[36.19247,127.97598],[36.19252,127.97635],[36.1926,127.97674],[36.19268,127.97711],[36.19272,127.97744],[36.19294,127.97782],[36.19321,127.9781],[36.1934,127.97835],[36.1936,127.97865],[36.19376,127.97898],[36.194,127.97918],[36.19421,127.97946],[36.19452,127.97968],[36.19466,127.97999],[36.19491,127.98019],[36.19498,127.98056],[36.19519,127.9808],[36.1955,127.98095],[36.19577,127.98112],[36.19585,127.98145],[36.19602,127.98171],[36.19623,127.98145],[36.19648,127.98122],[36.19668,127.9809],[36.1969,127.98061],[36.19722,127.98047],[36.19748,127.98037],[36.19784,127.98026],[36.19815,127.98044],[36.19833,127.98075],[36.19828,127.98112],[36.19837,127.98147],[36.19844,127.98184],[36.19849,127.98219],[36.19867,127.98248],[36.19875,127.9828],[36.19888,127.98313],[36.19904,127.98347],[36.1992,127.98381],[36.19941,127.98409],[36.1995,127.9845],[36.19964,127.98481],[36.19984,127.98513],[36.2001,127.98544],[36.20029,127.98577],[36.20049,127.98609],[36.20038,127.98647],[36.20037,127.98688],[36.20031,127.98724],[36.20033,127.98769],[36.20022,127.98806],[36.2002,127.98844],[36.19998,127.98871],[36.19981,127.98901],[36.19963,127.98936],[36.19963,127.98974],[36.1997,127.99013],[36.19972,127.99052],[36.19982,127.99085],[36.19981,127.99125],[36.19991,127.99162],[36.19992,127.99197],[36.19998,127.99236],[36.20012,127.99266],[36.20028,127.99295],[36.20047,127.99319],[36.20077,127.99327],[36.20107,127.99316],[36.20139,127.99308],[36.20168,127.99317],[36.20198,127.99336],[36.20218,127.99364],[36.20241,127.9939],[36.20256,127.99429],[36.20285,127.99455],[36.20314,127.99464],[36.20348,127.99462],[36.20375,127.9948],[36.20405,127.99486],[36.20439,127.99499],[36.20464,127.99523],[36.20488,127.99554],[36.20514,127.99577],[36.20541,127.99599],[36.20552,127.99641],[36.20564,127.99683],[36.2059,127.99701],[36.20609,127.9973],[36.20621,127.99767],[36.20625,127.99806],[36.20652,127.99824],[36.20662,127.99862],[36.20639,127.99879],[36.20635,127.99915],[36.20624,127.99947],[36.20609,127.99986],[36.20608,128.00027],[36.20609,128.00064],[36.20608,128.00107],[36.20626,128.00134],[36.20653,128.00142],[36.20686,128.00142],[36.20718,128.00148],[36.2075,128.0014],[36.20781,128.0013],[36.20814,128.00116],[36.2084,128.00095],[36.20872,128.00099],[36.20905,128.00078],[36.20931,128.00056],[36.21003,128.00193],[36.20875,128.00262],[36.20832,128.00286],[36.20734,128.00449],[36.20721,128.00484],[36.20719,128.00518],[36.20705,128.0055],[36.20707,128.00588],[36.20701,128.0062],[36.20721,128.00638],[36.2075,128.00653],[36.2077,128.00693],[36.20787,128.00724],[36.2081,128.00754],[36.20821,128.00787],[36.2084,128.00819],[36.20861,128.00843],[36.20885,128.00866],[36.20902,128.00897],[36.20916,128.00928],[36.20932,128.00958],[36.20925,128.00991],[36.20925,128.01026],[36.20923,128.0106],[36.20907,128.01096],[36.20896,128.01135],[36.20899,128.01175],[36.20891,128.0121],[36.20895,128.01249],[36.20911,128.01282],[36.20928,128.0132],[36.20922,128.01353],[36.20891,128.01372],[36.20873,128.01408],[36.20866,128.01446],[36.20859,128.01477],[36.20848,128.01514],[36.20845,128.0155],[36.20858,128.01582],[36.20881,128.01609],[36.20872,128.0165],[36.20867,128.01685],[36.20864,128.01723],[36.20841,128.01746],[36.20817,128.0178],[36.20825,128.01823],[36.20816,128.01862],[36.20804,128.01896],[36.20808,128.01933],[36.208,128.01967],[36.20792,128.02002],[36.2078,128.02037],[36.20767,128.02071],[36.20754,128.02102],[36.20746,128.02139],[36.2073,128.02169],[36.20718,128.02204],[36.20698,128.02231],[36.20679,128.02266],[36.20669,128.02304],[36.20658,128.02339],[36.20652,128.02372],[36.20655,128.02409],[36.2064,128.02441],[36.20614,128.02461],[36.20612,128.02495],[36.20604,128.02529],[36.20596,128.02572],[36.20578,128.02598],[36.20555,128.02625],[36.20537,128.02666],[36.20516,128.02688],[36.20488,128.027],[36.2047,128.02738],[36.20443,128.02744],[36.20413,128.02748],[36.20382,128.02764],[36.20354,128.02778],[36.20325,128.02795],[36.2029,128.02802],[36.20264,128.028],[36.20246,128.02828],[36.20241,128.0287],[36.20239,128.0291],[36.20236,128.02961],[36.20224,128.02998],[36.20211,128.0303],[36.20198,128.03066],[36.20185,128.03099],[36.20153,128.03113],[36.20126,128.03141],[36.2011,128.0317],[36.20085,128.03185],[36.20053,128.03173],[36.20034,128.0319],[36.20023,128.03224],[36.20028,128.03257],[36.20026,128.03295],[36.2002,128.03334],[36.19999,128.03365],[36.19968,128.03383],[36.19944,128.03412],[36.19922,128.03431],[36.19892,128.03445],[36.19858,128.03456],[36.19837,128.03481],[36.19818,128.03511],[36.19791,128.03542],[36.19774,128.03571],[36.19776,128.03609],[36.19749,128.03634],[36.19719,128.03646],[36.19685,128.03638],[36.19654,128.0365],[36.19626,128.03664],[36.19606,128.03696],[36.19587,128.0372],[36.19561,128.03745],[36.19531,128.03753],[36.1951,128.03781],[36.19486,128.03802],[36.19454,128.03816],[36.19427,128.03831],[36.19447,128.03855],[36.19468,128.03881],[36.19483,128.03918],[36.19463,128.03952],[36.1946,128.03991],[36.1947,128.04029],[36.19488,128.04063],[36.19513,128.04095],[36.1954,128.04113],[36.19565,128.04134],[36.19593,128.04152],[36.19625,128.04174],[36.19649,128.04202],[36.19662,128.04237],[36.19631,128.0426],[36.19611,128.04283],[36.19612,128.04327],[36.19612,128.04369],[36.19613,128.04406],[36.19618,128.04444],[36.19631,128.04482],[36.19644,128.04516],[36.19669,128.04536],[36.1969,128.04569],[36.19698,128.04607],[36.19716,128.04637],[36.19746,128.04659],[36.19777,128.0468],[36.19806,128.04704],[36.19837,128.0471],[36.1986,128.04745],[36.19879,128.04769],[36.19898,128.04797],[36.19911,128.0483],[36.19914,128.04874],[36.19901,128.04914],[36.19912,128.04948],[36.19931,128.04985],[36.1995,128.05016],[36.19974,128.05041],[36.19994,128.05074],[36.20014,128.05103],[36.20034,128.05136],[36.20052,128.05164],[36.20073,128.05193],[36.20094,128.05229],[36.20105,128.05266],[36.20092,128.05293],[36.20074,128.05325],[36.20077,128.05372],[36.20079,128.05415],[36.20074,128.05457],[36.20099,128.05473],[36.20121,128.05498],[36.20129,128.0553],[36.20125,128.05573],[36.20121,128.05614],[36.20134,128.05645],[36.20118,128.05673],[36.20101,128.05699],[36.20113,128.05726],[36.20123,128.05759],[36.20136,128.05788],[36.20158,128.05779],[36.20183,128.05765],[36.20213,128.05754],[36.20243,128.0575],[36.20256,128.05717],[36.2027,128.05682],[36.20284,128.05651],[36.20273,128.05616],[36.20284,128.05586],[36.20295,128.05565],[36.20334,128.0558],[36.20363,128.05588],[36.20395,128.05578],[36.20387,128.05547],[36.20349,128.05533],[36.20335,128.05492],[36.20343,128.05447],[36.20358,128.05407],[36.20383,128.05376],[36.20413,128.05355],[36.20423,128.05318],[36.20418,128.05285],[36.20444,128.05263],[36.20472,128.05239],[36.20491,128.05204],[36.20512,128.05173],[36.20537,128.05145],[36.2056,128.05115],[36.20585,128.05086],[36.20607,128.05061],[36.2064,128.05049],[36.2067,128.05038],[36.20705,128.05035],[36.20737,128.05035],[36.2077,128.05051],[36.20799,128.05035],[36.20825,128.05024],[36.20852,128.04997],[36.20874,128.0497],[36.20898,128.04991],[36.20923,128.04977],[36.20959,128.04977],[36.2099,128.04963],[36.21019,128.04949],[36.21052,128.0494],[36.21083,128.04934],[36.21115,128.04942],[36.21144,128.04968],[36.21173,128.04975],[36.21205,128.04981],[36.21236,128.04983],[36.21266,128.04975],[36.21291,128.05003],[36.21319,128.05009],[36.21344,128.04976],[36.21358,128.04991],[36.21365,128.05024],[36.21377,128.04998],[36.21411,128.05002],[36.21444,128.05013],[36.21478,128.05005],[36.2151,128.05007],[36.21538,128.05024],[36.21566,128.05018],[36.2159,128.05005],[36.21614,128.04982],[36.21629,128.04956],[36.21653,128.04935],[36.21654,128.04896],[36.21642,128.04856],[36.21629,128.04819],[36.21623,128.04784],[36.21619,128.04742],[36.21623,128.04706],[36.2163,128.04666],[36.21646,128.04626],[36.21663,128.04598],[36.21664,128.04564],[36.2166,128.04524],[36.21676,128.04488],[36.21696,128.04458],[36.21696,128.04423],[36.21695,128.04391],[36.21702,128.04355],[36.21709,128.04318],[36.21721,128.04287],[36.21727,128.04252],[36.2174,128.04223],[36.21757,128.04218],[36.21801,128.04199],[36.2183,128.04202],[36.21852,128.04222],[36.21877,128.04191],[36.21908,128.04172],[36.21937,128.0415],[36.21953,128.04119],[36.2198,128.04104],[36.22003,128.04078],[36.2203,128.04055],[36.2206,128.04043],[36.22089,128.04018],[36.22108,128.03987],[36.22125,128.03954],[36.22152,128.03936],[36.2218,128.03913],[36.22213,128.03905],[36.22242,128.0389],[36.22267,128.03903],[36.22298,128.03915],[36.22319,128.03938],[36.22342,128.03971],[36.22367,128.04001],[36.224,128.03992],[36.22429,128.04008],[36.2245,128.04031],[36.22486,128.04035],[36.22518,128.04022],[36.22546,128.0401],[36.2256,128.0398],[36.22587,128.03957],[36.22622,128.03963],[36.22651,128.03949],[36.22687,128.03944],[36.22717,128.03953],[36.22751,128.03958],[36.22781,128.03963],[36.22808,128.03964],[36.22837,128.03953],[36.22867,128.03939],[36.22893,128.03939],[36.22921,128.03914],[36.22944,128.0389],[36.22957,128.03849],[36.2298,128.03825],[36.22988,128.03783],[36.22994,128.03747],[36.23002,128.03704],[36.2303,128.0368],[36.23058,128.03666],[36.23087,128.03668],[36.23114,128.03669],[36.23143,128.03667],[36.23165,128.03638],[36.23179,128.03607],[36.23203,128.03579],[36.23227,128.03562],[36.23254,128.03548],[36.23284,128.03534],[36.23298,128.03487],[36.23307,128.03452],[36.23308,128.03413],[36.2332,128.03378],[36.23342,128.03344],[36.23365,128.03315],[36.23389,128.03296],[36.23418,128.03295],[36.23446,128.03286],[36.23472,128.03301],[36.23493,128.0328],[36.23522,128.03281],[36.23544,128.03272],[36.23566,128.03239],[36.23591,128.03218],[36.23617,128.03201],[36.2363,128.03168],[36.23647,128.03137],[36.23676,128.0314],[36.23707,128.03133],[36.23734,128.03112],[36.2376,128.03096],[36.23788,128.03084],[36.23817,128.03093],[36.23846,128.03091],[36.23876,128.03071],[36.23907,128.03058],[36.23936,128.03051],[36.23961,128.03061],[36.23986,128.03034],[36.24008,128.03008],[36.24037,128.02998],[36.2406,128.03033],[36.24074,128.03069],[36.24096,128.0309],[36.24104,128.03129],[36.24129,128.03158],[36.24147,128.03194],[36.24161,128.0323],[36.24166,128.03268],[36.2416,128.03309],[36.24182,128.03335],[36.24202,128.03358],[36.24226,128.03378],[36.24251,128.03403],[36.24267,128.03433],[36.24294,128.03453],[36.24323,128.03477],[36.24334,128.03509],[36.24358,128.03546],[36.24396,128.03532],[36.24427,128.03529],[36.24459,128.03548],[36.24486,128.03537],[36.24517,128.03529],[36.24548,128.03531],[36.24582,128.0353],[36.24607,128.03529],[36.24626,128.03557],[36.24645,128.0359],[36.24665,128.03613],[36.2468,128.0364],[36.24694,128.03664],[36.24713,128.03688],[36.24734,128.03717],[36.24757,128.03742],[36.24786,128.03762],[36.24811,128.03783],[36.24836,128.03796],[36.24867,128.03815],[36.24893,128.03832],[36.24924,128.03829],[36.24948,128.03859],[36.24975,128.03883],[36.25008,128.03894],[36.25039,128.03905],[36.25067,128.03924],[36.25099,128.03931],[36.25124,128.03948],[36.2514,128.03974],[36.25168,128.03994],[36.25188,128.04017],[36.25192,128.04053],[36.25181,128.04088],[36.25174,128.04122],[36.2518,128.04157],[36.25184,128.04194],[36.25196,128.04224],[36.25196,128.04256],[36.25194,128.04289],[36.25213,128.04316],[36.25207,128.04343],[36.25215,128.04376],[36.25235,128.04396],[36.25263,128.04415],[36.25278,128.04451],[36.25307,128.04462],[36.25332,128.04476],[36.25357,128.04492],[36.25376,128.04523],[36.25399,128.04548],[36.25425,128.04558],[36.25455,128.04572],[36.25478,128.0459],[36.25504,128.04611],[36.25535,128.04617],[36.25565,128.04617],[36.25591,128.04625],[36.2561,128.04649],[36.25633,128.04646],[36.2566,128.04649],[36.25683,128.04667],[36.25704,128.04692],[36.25712,128.04727],[36.25723,128.04763],[36.25729,128.04796],[36.25733,128.04829],[36.25742,128.04786],[36.25768,128.04765],[36.2579,128.04745],[36.25818,128.0473],[36.25843,128.04703],[36.25877,128.0469],[36.25901,128.04669],[36.25929,128.04653],[36.25956,128.04631],[36.25987,128.04623],[36.26006,128.04589],[36.26031,128.04579],[36.26055,128.04551],[36.26075,128.04528],[36.26103,128.04527],[36.26134,128.04528],[36.26163,128.04515],[36.26191,128.04528],[36.26221,128.04538],[36.26247,128.04556],[36.26277,128.04563],[36.26301,128.04542],[36.26328,128.04518],[36.26355,128.04498],[36.26379,128.04479],[36.26407,128.04494],[36.26434,128.04509],[36.26457,128.04528],[36.26478,128.04552],[36.26505,128.04566],[36.26533,128.04583],[36.26562,128.04587],[36.26591,128.04571],[36.26603,128.04539],[36.26623,128.04514],[36.26644,128.04485],[36.26662,128.04452],[36.26688,128.04431],[36.26712,128.04414],[36.26742,128.04418],[36.26775,128.04418],[36.26806,128.04421],[36.26834,128.04412],[36.26864,128.04414],[36.26891,128.04398],[36.26915,128.0438],[36.2694,128.04358],[36.26962,128.04349],[36.26982,128.04324],[36.27014,128.04313],[36.2704,128.04294],[36.27061,128.04261],[36.27085,128.04238],[36.27119,128.04237],[36.27144,128.04252],[36.27164,128.04277],[36.27191,128.04302],[36.27213,128.04329],[36.27239,128.04356],[36.27258,128.04328],[36.27286,128.04314],[36.27314,128.04326],[36.27336,128.04343],[36.27359,128.04344],[36.27383,128.04315],[36.27421,128.04304],[36.27452,128.04307],[36.2748,128.04319],[36.275,128.04347],[36.27524,128.04379],[36.27546,128.04403],[36.2758,128.04404],[36.27609,128.04414],[36.27637,128.04407],[36.27663,128.04392],[36.27689,128.04402],[36.27707,128.04433],[36.27737,128.04424],[36.27767,128.04415],[36.27796,128.04432],[36.27827,128.04418],[36.27863,128.04416],[36.2789,128.04395],[36.27918,128.04382],[36.27928,128.04347],[36.27917,128.04326],[36.27944,128.0432],[36.27963,128.0433]],"CPS":[{"name":"우두령","lat":36.067741,"lon":127.954971,"ele":727,"color":"#A1D06C","labelPos":"above"},{"name":"황악산","lat":36.118046,"lon":127.966866,"ele":1106,"color":"#FF6B6B","labelPos":"above"},{"name":"괘방령","lat":36.149467,"lon":127.990036,"ele":304,"color":"#4ECDC4","labelPos":"below"},{"name":"가성산","lat":36.178272,"lon":127.983833,"ele":632,"color":"#999999","labelPos":"above"},{"name":"눌의산","lat":36.197304,"lon":127.9804,"ele":689,"color":"#999999","labelPos":"above"},{"name":"추풍령","lat":36.207241,"lon":128.00473,"ele":251,"color":"#4ECDC4","labelPos":"below"},{"name":"들기산","lat":36.206028,"lon":128.025432,"ele":527,"color":"#999999","labelPos":"above"},{"name":"작점고개","lat":36.216422,"lon":128.048563,"ele":392,"color":"#4ECDC4","labelPos":"below"},{"name":"용문산","lat":36.243579,"lon":128.035465,"ele":737,"color":"#999999","labelPos":"above"},{"name":"국수봉","lat":36.257501,"lon":128.047766,"ele":820,"color":"#FF6B6B","labelPos":"above"},{"name":"큰재","lat":36.279251,"lon":128.043146,"ele":357,"color":"#A1D06C","labelPos":"above"}],"SAMPLES":[[0.0,727.0],[0.06,743.0],[0.109,739.0],[0.158,734.0],[0.203,747.0],[0.254,762.0],[0.302,775.0],[0.351,781.0],[0.411,804.0],[0.451,815.0],[0.51,825.0],[0.554,835.0],[0.61,854.0],[0.657,870.0],[0.704,876.0],[0.763,888.0],[0.804,891.0],[0.868,885.0],[0.904,886.0],[0.96,897.0],[1.011,901.0],[1.05,900.0],[1.114,900.0],[1.161,907.0],[1.203,908.0],[1.261,899.0],[1.301,890.0],[1.355,892.0],[1.401,901.0],[1.45,902.0],[1.512,911.0],[1.557,908.0],[1.611,901.0],[1.65,901.0],[1.711,911.0],[1.758,920.0],[1.804,931.0],[1.859,960.0],[1.906,966.0],[1.952,971.0],[2.01,957.0],[2.053,959.0],[2.103,963.0],[2.154,960.0],[2.208,965.0],[2.254,968.0],[2.309,978.0],[2.357,982.0],[2.41,983.0],[2.457,979.0],[2.501,968.0],[2.551,967.0],[2.609,959.0],[2.661,940.0],[2.712,934.0],[2.75,928.0],[2.812,914.0],[2.851,914.0],[2.909,918.0],[2.955,926.0],[3.01,939.0],[3.057,937.0],[3.103,942.0],[3.155,940.0],[3.21,943.0],[3.26,952.0],[3.304,965.0],[3.352,982.0],[3.41,1001.0],[3.458,996.0],[3.508,994.0],[3.553,1004.0],[3.604,1005.0],[3.651,1013.0],[3.705,1020.0],[3.753,1019.0],[3.808,1023.0],[3.856,1032.0],[3.905,1030.0],[3.951,1015.0],[4.001,1008.0],[4.062,1000.0],[4.108,988.0],[4.159,985.0],[4.202,987.0],[4.253,983.0],[4.3,977.0],[4.36,963.0],[4.414,958.0],[4.451,954.0],[4.508,964.0],[4.552,957.0],[4.612,952.0],[4.66,941.0],[4.705,931.0],[4.76,917.0],[4.805,906.0],[4.856,883.0],[4.909,860.0],[4.953,847.0],[5.013,830.0],[5.052,826.0],[5.103,824.0],[5.155,831.0],[5.201,835.0],[5.256,833.0],[5.31,842.0],[5.352,850.0],[5.406,870.0],[5.461,884.0],[5.507,894.0],[5.553,913.0],[5.61,924.0],[5.657,932.0],[5.703,958.0],[5.751,977.0],[5.808,1003.0],[5.855,1003.0],[5.906,998.0],[5.952,1003.0],[6.009,1000.0],[6.053,999.0],[6.111,1003.0],[6.159,1023.0],[6.21,1026.0],[6.256,1036.0],[6.303,1043.0],[6.356,1033.0],[6.403,1023.0],[6.453,1029.0],[6.502,1020.0],[6.55,1013.0],[6.601,1014.0],[6.653,1019.0],[6.702,1022.0],[6.76,1025.0],[6.808,1037.0],[6.857,1054.0],[6.914,1062.0],[6.958,1069.0],[7.004,1081.0],[7.05,1097.0],[7.107,1103.0],[7.154,1092.0],[7.21,1081.0],[7.257,1082.0],[7.307,1073.0],[7.351,1070.0],[7.404,1059.0],[7.459,1041.0],[7.505,1023.0],[7.552,1014.0],[7.61,998.0],[7.659,993.0],[7.706,978.0],[7.76,956.0],[7.803,937.0],[7.863,918.0],[7.911,904.0],[7.961,894.0],[8.004,877.0],[8.053,864.0],[8.108,852.0],[8.155,837.0],[8.209,824.0],[8.258,817.0],[8.312,798.0],[8.358,786.0],[8.407,778.0],[8.457,769.0],[8.504,759.0],[8.555,759.0],[8.601,753.0],[8.659,741.0],[8.705,719.0],[8.76,700.0],[8.804,693.0],[8.861,685.0],[8.909,677.0],[8.953,664.0],[9.001,645.0],[9.051,630.0],[9.108,626.0],[9.15,622.0],[9.207,607.0],[9.262,592.0],[9.304,595.0],[9.353,615.0],[9.415,627.0],[9.463,643.0],[9.502,645.0],[9.557,623.0],[9.603,603.0],[9.66,596.0],[9.711,597.0],[9.76,594.0],[9.8,589.0],[9.862,594.0],[9.912,589.0],[9.956,590.0],[10.0,596.0],[10.052,583.0],[10.109,569.0],[10.163,563.0],[10.205,558.0],[10.25,571.0],[10.3,561.0],[10.352,547.0],[10.4,558.0],[10.454,558.0],[10.504,569.0],[10.562,568.0],[10.611,562.0],[10.658,565.0],[10.708,565.0],[10.754,567.0],[10.801,558.0],[10.85,561.0],[10.907,573.0],[10.957,579.0],[11.004,590.0],[11.051,593.0],[11.11,588.0],[11.161,584.0],[11.202,576.0],[11.256,578.0],[11.301,558.0],[11.356,533.0],[11.408,510.0],[11.46,482.0],[11.508,455.0],[11.552,431.0],[11.6,412.0],[11.656,393.0],[11.705,379.0],[11.753,369.0],[11.804,360.0],[11.861,350.0],[11.908,346.0],[11.961,342.0],[12.012,335.0],[12.059,324.0],[12.105,311.0],[12.152,302.0],[12.202,304.0],[12.251,300.0],[12.307,296.0],[12.352,299.0],[12.41,293.0],[12.451,290.0],[12.509,276.0],[12.558,275.0],[12.613,273.0],[12.657,270.0],[12.713,272.0],[12.759,273.0],[12.802,275.0],[12.854,273.0],[12.902,293.0],[12.954,298.0],[13.011,301.0],[13.064,300.0],[13.104,302.0],[13.152,310.0],[13.206,308.0],[13.259,315.0],[13.306,331.0],[13.363,350.0],[13.408,360.0],[13.453,367.0],[13.51,366.0],[13.559,359.0],[13.602,369.0],[13.659,388.0],[13.705,387.0],[13.75,385.0],[13.801,372.0],[13.856,359.0],[13.905,359.0],[13.951,347.0],[14.01,337.0],[14.058,332.0],[14.11,317.0],[14.156,318.0],[14.2,316.0],[14.253,308.0],[14.31,321.0],[14.358,327.0],[14.403,332.0],[14.455,346.0],[14.51,375.0],[14.558,384.0],[14.605,394.0],[14.659,395.0],[14.7,386.0],[14.76,383.0],[14.801,371.0],[14.859,358.0],[14.905,358.0],[14.951,363.0],[15.01,366.0],[15.059,365.0],[15.109,366.0],[15.159,373.0],[15.207,370.0],[15.255,377.0],[15.302,387.0],[15.36,390.0],[15.412,396.0],[15.451,403.0],[15.51,420.0],[15.553,435.0],[15.6,449.0],[15.659,454.0],[15.706,463.0],[15.763,474.0],[15.809,481.0],[15.855,501.0],[15.909,512.0],[15.958,514.0],[16.01,514.0],[16.056,522.0],[16.11,536.0],[16.155,551.0],[16.209,568.0],[16.252,580.0],[16.314,580.0],[16.35,587.0],[16.406,600.0],[16.451,605.0],[16.506,627.0],[16.554,650.0],[16.606,663.0],[16.651,676.0],[16.703,689.0],[16.756,693.0],[16.806,690.0],[16.857,691.0],[16.906,687.0],[16.955,693.0],[17.009,699.0],[17.053,681.0],[17.108,661.0],[17.16,642.0],[17.211,629.0],[17.258,619.0],[17.302,625.0],[17.357,601.0],[17.408,561.0],[17.454,548.0],[17.503,528.0],[17.55,523.0],[17.611,520.0],[17.651,515.0],[17.711,505.0],[17.753,505.0],[17.802,513.0],[17.86,542.0],[17.908,567.0],[17.954,571.0],[18.003,584.0],[18.061,583.0],[18.109,589.0],[18.161,586.0],[18.209,582.0],[18.257,563.0],[18.309,544.0],[18.354,536.0],[18.409,540.0],[18.458,547.0],[18.509,549.0],[18.559,545.0],[18.604,544.0],[18.655,543.0],[18.706,547.0],[18.756,552.0],[18.805,554.0],[18.851,561.0],[18.906,573.0],[18.953,577.0],[19.007,586.0],[19.057,596.0],[19.103,613.0],[19.156,635.0],[19.202,648.0],[19.259,655.0],[19.307,647.0],[19.363,637.0],[19.402,634.0],[19.462,640.0],[19.51,642.0],[19.555,637.0],[19.613,628.0],[19.652,638.0],[19.706,659.0],[19.751,677.0],[19.811,693.0],[19.855,701.0],[19.908,715.0],[19.954,693.0],[20.001,690.0],[20.052,685.0],[20.102,689.0],[20.151,693.0],[20.202,673.0],[20.255,641.0],[20.309,623.0],[20.354,605.0],[20.41,580.0],[20.454,556.0],[20.503,536.0],[20.551,510.0],[20.601,495.0],[20.658,475.0],[20.711,461.0],[20.759,461.0],[20.802,461.0],[20.862,452.0],[20.906,442.0],[20.959,435.0],[21.007,432.0],[21.052,412.0],[21.112,385.0],[21.159,374.0],[21.209,366.0],[21.255,360.0],[21.3,355.0],[21.359,339.0],[21.403,325.0],[21.459,320.0],[21.501,314.0],[21.56,303.0],[21.609,292.0],[21.655,286.0],[21.706,274.0],[21.751,267.0],[21.805,261.0],[21.855,252.0],[21.906,248.0],[21.951,246.0],[22.012,239.0],[22.052,236.0],[22.103,232.0],[22.152,231.0],[22.204,227.0],[22.256,228.0],[22.301,229.0],[22.35,227.0],[22.411,231.0],[22.458,230.0],[22.504,218.0],[22.558,208.0],[22.608,204.0],[22.657,198.0],[22.712,197.0],[22.758,199.0],[22.804,202.0],[22.854,200.0],[22.903,198.0],[22.952,199.0],[23.002,198.0],[23.054,196.0],[23.11,190.0],[23.152,217.4],[23.301,217.2],[23.352,218.2],[23.453,218.0],[23.506,219.9],[23.552,221.2],[23.56,221.0],[23.581,222.0],[23.673,225.0],[23.766,228.4],[23.773,263.3],[23.785,255.7],[23.797,250.9],[23.808,252.4],[23.851,254.2],[23.907,270.7],[23.95,283.3],[24.003,300.9],[24.056,304.9],[24.102,312.0],[24.16,321.6],[24.207,334.9],[24.251,351.2],[24.308,371.7],[24.35,386.2],[24.404,396.8],[24.46,385.5],[24.51,375.3],[24.558,368.8],[24.605,364.6],[24.654,358.3],[24.701,357.9],[24.76,363.8],[24.809,367.5],[24.858,375.1],[24.902,377.5],[24.951,379.1],[25.007,382.7],[25.059,381.2],[25.105,378.3],[25.163,379.3],[25.214,380.7],[25.255,381.3],[25.306,382.1],[25.353,390.8],[25.41,404.7],[25.456,409.1],[25.504,408.4],[25.552,404.4],[25.607,404.9],[25.652,408.0],[25.712,421.4],[25.76,436.1],[25.803,458.3],[25.859,480.3],[25.904,500.3],[25.95,518.6],[26.009,529.3],[26.057,530.4],[26.108,523.7],[26.157,519.4],[26.205,514.9],[26.255,509.7],[26.31,507.7],[26.359,506.4],[26.411,502.5],[26.461,500.7],[26.509,502.4],[26.556,503.7],[26.607,499.6],[26.653,497.4],[26.701,496.0],[26.759,496.3],[26.809,497.9],[26.861,497.8],[26.907,502.8],[26.957,507.3],[27.003,507.1],[27.058,494.9],[27.106,482.4],[27.154,475.3],[27.2,466.3],[27.253,455.7],[27.312,445.5],[27.353,441.6],[27.402,440.2],[27.464,446.9],[27.511,449.2],[27.555,458.9],[27.608,464.1],[27.659,468.8],[27.707,474.5],[27.756,481.5],[27.8,491.4],[27.86,505.7],[27.907,517.1],[27.952,527.5],[28.001,534.7],[28.059,533.7],[28.109,523.9],[28.155,521.4],[28.21,506.1],[28.257,495.0],[28.312,494.2],[28.359,492.4],[28.408,491.3],[28.458,492.0],[28.505,493.2],[28.561,496.2],[28.605,491.4],[28.655,483.4],[28.703,474.6],[28.751,461.8],[28.81,451.0],[28.856,447.7],[28.905,445.4],[28.951,445.5],[29.001,441.9],[29.054,438.5],[29.105,436.2],[29.156,432.8],[29.207,430.0],[29.252,427.9],[29.304,428.7],[29.354,430.3],[29.403,435.4],[29.45,444.0],[29.513,451.8],[29.561,458.8],[29.611,466.3],[29.655,470.9],[29.707,474.7],[29.755,479.9],[29.8,487.1],[29.856,490.3],[29.907,498.5],[29.955,513.7],[30.001,531.6],[30.062,543.2],[30.108,545.2],[30.154,552.8],[30.207,572.1],[30.252,591.4],[30.307,618.1],[30.354,625.4],[30.408,622.7],[30.455,620.3],[30.511,605.2],[30.558,592.1],[30.602,569.4],[30.658,543.0],[30.704,526.2],[30.754,522.2],[30.802,518.6],[30.862,511.5],[30.902,509.2],[30.959,500.1],[31.01,490.4],[31.051,484.2],[31.109,472.4],[31.158,462.8],[31.209,456.7],[31.262,448.8],[31.309,441.4],[31.359,435.5],[31.408,431.9],[31.458,429.2],[31.503,426.8],[31.557,422.3],[31.604,418.6],[31.654,414.2],[31.702,411.9],[31.759,408.8],[31.805,406.1],[31.852,406.9],[31.904,409.3],[31.952,413.7],[32.002,414.3],[32.052,415.2],[32.102,409.8],[32.161,404.1],[32.21,401.3],[32.257,397.3],[32.308,392.1],[32.361,381.2],[32.409,370.5],[32.464,365.2],[32.503,368.5],[32.555,371.1],[32.602,374.6],[32.652,376.5],[32.711,383.5],[32.757,387.0],[32.803,386.9],[32.864,389.9],[32.903,392.0],[32.951,397.0],[33.01,402.8],[33.05,403.8],[33.115,402.2],[33.151,406.0],[33.206,412.6],[33.256,416.7],[33.305,426.1],[33.358,441.1],[33.404,453.5],[33.45,462.5],[33.504,479.6],[33.556,495.6],[33.61,497.9],[33.654,496.1],[33.702,495.8],[33.754,497.4],[33.806,496.0],[33.854,492.7],[33.911,487.7],[33.951,484.2],[34.014,481.7],[34.061,476.8],[34.109,481.4],[34.157,483.0],[34.207,479.7],[34.253,475.5],[34.302,466.3],[34.36,451.9],[34.4,443.9],[34.455,428.7],[34.501,419.5],[34.564,407.4],[34.603,399.8],[34.659,397.2],[34.706,404.8],[34.757,412.0],[34.81,416.8],[34.858,420.3],[34.908,424.6],[34.953,435.0],[35.013,447.2],[35.058,456.0],[35.107,463.9],[35.155,465.6],[35.204,465.6],[35.259,462.4],[35.306,459.3],[35.363,459.0],[35.408,459.6],[35.452,467.1],[35.507,485.1],[35.555,496.1],[35.603,508.4],[35.655,516.8],[35.714,523.7],[35.759,527.1],[35.808,530.2],[35.852,533.5],[35.904,539.7],[35.953,545.5],[36.006,547.4],[36.06,553.8],[36.104,559.6],[36.163,573.7],[36.201,578.5],[36.258,583.1],[36.304,592.0],[36.351,603.5],[36.407,612.7],[36.455,620.9],[36.509,630.2],[36.555,645.7],[36.603,655.9],[36.654,662.4],[36.709,676.0],[36.753,693.6],[36.801,705.9],[36.863,712.5],[36.901,714.6],[36.962,716.1],[37.01,709.8],[37.052,703.5],[37.103,694.3],[37.163,689.9],[37.209,686.6],[37.255,686.8],[37.302,692.2],[37.357,706.5],[37.409,720.2],[37.453,731.0],[37.529,729.0],[37.554,721.9],[37.605,707.6],[37.651,697.8],[37.711,679.9],[37.76,673.8],[37.804,675.3],[37.851,676.4],[37.909,669.5],[37.957,663.6],[38.01,669.8],[38.056,678.7],[38.106,684.1],[38.152,686.8],[38.211,687.8],[38.259,690.1],[38.312,694.1],[38.36,697.0],[38.408,697.2],[38.457,697.8],[38.507,708.6],[38.555,713.0],[38.602,707.4],[38.65,689.7],[38.708,667.4],[38.755,652.1],[38.804,640.8],[38.862,651.2],[38.904,668.9],[38.957,698.4],[39.008,718.6],[39.054,735.1],[39.102,743.3],[39.15,750.7],[39.205,752.3],[39.25,742.6],[39.307,732.4],[39.353,726.2],[39.41,718.4],[39.456,717.4],[39.504,727.0],[39.556,747.7],[39.602,764.9],[39.657,777.5],[39.702,795.1],[39.758,808.5],[39.801,821.4],[39.862,831.6],[39.91,815.4],[39.952,793.7],[40.01,763.7],[40.063,746.9],[40.107,724.2],[40.154,696.1],[40.204,685.9],[40.254,679.2],[40.301,666.5],[40.355,667.1],[40.411,678.4],[40.456,686.0],[40.502,691.4],[40.557,697.7],[40.603,697.3],[40.652,690.0],[40.709,689.7],[40.757,700.1],[40.801,694.4],[40.854,690.3],[40.912,683.2],[40.956,676.7],[41.006,669.5],[41.061,652.0],[41.109,639.6],[41.156,633.1],[41.201,621.6],[41.259,600.0],[41.308,587.1],[41.354,575.6],[41.401,559.1],[41.455,541.1],[41.511,514.3],[41.557,502.0],[41.604,492.1],[41.652,485.8],[41.712,489.5],[41.759,489.5],[41.807,488.2],[41.856,485.2],[41.904,477.5],[41.96,464.1],[42.008,450.9],[42.053,440.1],[42.102,423.6],[42.158,413.9],[42.205,405.6],[42.262,388.2],[42.302,382.4],[42.36,379.3],[42.407,379.3],[42.452,378.4],[42.508,373.9],[42.556,375.1],[42.605,377.9],[42.652,377.6],[42.704,376.3],[42.755,373.2],[42.812,364.7],[42.856,359.5],[42.911,356.5],[42.945,355.1]],"WPTS":[{"name":"우두령","km":0.0,"ele":727,"color":"#A1D06C"},{"name":"황악산","km":7.1,"ele":1106,"color":"#FF6B6B"},{"name":"괘방령","km":12.2,"ele":304,"color":"#4ECDC4"},{"name":"가성산","km":17.2,"ele":632,"color":"#999999"},{"name":"눌의산","km":20.1,"ele":689,"color":"#999999"},{"name":"추풍령","km":23.8,"ele":251,"color":"#4ECDC4"},{"name":"들기산","km":26.0,"ele":527,"color":"#999999"},{"name":"작점고개","km":32.9,"ele":392,"color":"#4ECDC4"},{"name":"용문산","km":37.5,"ele":737,"color":"#999999"},{"name":"국수봉","km":39.9,"ele":820,"color":"#FF6B6B"},{"name":"큰재","km":42.9,"ele":357,"color":"#A1D06C"}]};
+</script>
+<script>
+
+
+(function(){
+  const MAP_BIG=new Set(['우두령','큰재']),MAP_CP=new Set(['괘방령','추풍령','작점고개']),MAP_PEAK=new Set(['황악산','가성산','눌의산','용문산','국수봉']);
+  const PROF_KEY=new Set(['우두령','황악산','괘방령','가성산','눌의산','추풍령','작점고개','용문산','국수봉','큰재']);const EMIN=150,EMAX=1200;
+  let D=null,pts=null,bnd=null,field=null,fieldKey='';
+  const $=id=>document.getElementById(id);
+  const rr=(c,x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();};
+  function prep(){const T=D.TRACK,S=D.SAMPLES,toR=Math.PI/180,R=6371000,cum=[0];
+    for(let i=1;i<T.length;i++){const a=Math.sin((T[i][0]-T[i-1][0])*toR/2)**2+Math.cos(T[i-1][0]*toR)*Math.cos(T[i][0]*toR)*Math.sin((T[i][1]-T[i-1][1])*toR/2)**2;
+      cum.push(cum[i-1]+R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));}
+    const total=cum[cum.length-1],kmMax=S[S.length-1][0];
+    pts=T.map((p,i)=>({lat:p[0],lon:p[1],ele:interp(cum[i]/total*kmMax)}));
+    bnd={minLat:Math.min(...T.map(p=>p[0])),maxLat:Math.max(...T.map(p=>p[0])),minLon:Math.min(...T.map(p=>p[1])),maxLon:Math.max(...T.map(p=>p[1]))};}
+  function interp(km){const S=D.SAMPLES;if(km<=S[0][0])return S[0][1];
+    for(let i=1;i<S.length;i++){if(S[i][0]>=km){const t=(km-S[i-1][0])/(S[i][0]-S[i-1][0]||1);return S[i-1][1]+t*(S[i][1]-S[i-1][1]);}}
+    return S[S.length-1][1];}
+  function renderMap(){const cv=$('map-canvas');if(!cv||!D)return;
+    const wrap=cv.parentElement,cssW=wrap.clientWidth,cssH=wrap.clientHeight||440,dpr=Math.min(devicePixelRatio||1,2);
+    cv.width=cssW*dpr;cv.height=cssH*dpr;cv.style.width=cssW+'px';cv.style.height=cssH+'px';
+    const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
+    const pal={bg:'#EDE8DA',minor:'rgba(120,110,84,.30)',major:'rgba(90,140,33,.42)',route:'#355610',halo:'rgba(246,244,236,.95)',tick:'rgba(60,50,30,.4)',labBg:'rgba(246,244,236,.92)',labBd:'#D8D2C2',lab:'#1E1E18'};
+    ctx.fillStyle=pal.bg;ctx.fillRect(0,0,cssW,cssH);
+    const padX=44,padY=42,{minLat,maxLat,minLon,maxLon}=bnd,latC=Math.cos((minLat+maxLat)/2*Math.PI/180);
+    const spanLon=(maxLon-minLon)*latC,spanLat=(maxLat-minLat),sc=Math.min((cssW-padX*2)/spanLon,(cssH-padY*2)/spanLat);
+    const ox=(cssW-spanLon*sc)/2,oy=(cssH-spanLat*sc)/2,proj=(la,lo)=>({x:ox+(lo-minLon)*latC*sc,y:oy+(maxLat-la)*sc});
+    const key=cssW+'x'+cssH;if(!field||fieldKey!==key){field=buildField(cssW,cssH,proj);fieldKey=key;}
+    contours(ctx,field,cssW,cssH,pal,64,4);
+    ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.beginPath();D.TRACK.forEach((p,i)=>{const q=proj(p[0],p[1]);i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});
+    ctx.strokeStyle=pal.halo;ctx.lineWidth=6.8;ctx.stroke();ctx.strokeStyle=pal.route;ctx.lineWidth=3;ctx.stroke();
+    D.CPS.forEach(c=>{const q=proj(c.lat,c.lon);let r,fill,ring=pal.bg,lab=null;
+      if(MAP_BIG.has(c.name)){r=8;fill='#A1D06C';lab=c.name;}
+      else if(MAP_CP.has(c.name)){r=6;fill=c.color||'#4ECDC4';lab=c.name;}
+      else if(MAP_PEAK.has(c.name)){r=5.5;fill='#1E1E18';lab=c.name;}
+      else{r=2.6;fill=pal.tick;ring=null;}
+      if(ring){ctx.beginPath();ctx.arc(q.x,q.y,r+2.6,0,7);ctx.fillStyle=ring;ctx.fill();}
+      ctx.beginPath();ctx.arc(q.x,q.y,r,0,7);ctx.fillStyle=fill;ctx.fill();
+      if(lab){ctx.font='700 11px Pretendard,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+        const tw=ctx.measureText(lab).width+12,bx=Math.max(2,Math.min(q.x-tw/2,cssW-tw-2)),by=c.labelPos==='below'?q.y+r+4:q.y-r-21;
+        ctx.fillStyle=pal.labBg;ctx.strokeStyle=pal.labBd;ctx.lineWidth=1;rr(ctx,bx,by,tw,17,3);ctx.fill();ctx.stroke();
+        ctx.fillStyle=pal.lab;ctx.fillText(lab,bx+tw/2,by+9);}
+    });}
+  function buildField(cssW,cssH,proj){const gx=Math.max(70,Math.round(cssW/7)),gy=Math.max(46,Math.round(cssH/7));
+    const P=pts.map(p=>{const q=proj(p.lat,p.lon);return{x:q.x,y:q.y,e:p.ele};});
+    const f=new Float32Array(gx*gy);let mn=1e9,mx=-1e9;
+    for(let j=0;j<gy;j++)for(let i=0;i<gx;i++){const x=(i+0.5)/gx*cssW,y=(j+0.5)/gy*cssH;let num=0,den=0;
+      for(let k=0;k<P.length;k++){const dx=x-P[k].x,dy=y-P[k].y,w=1/(dx*dx+dy*dy+95);num+=w*P[k].e;den+=w;}
+      const e=num/den;f[j*gx+i]=e;if(e<mn)mn=e;if(e>mx)mx=e;}
+    return{f,gx,gy,mn,mx};}
+  function contours(ctx,F,cssW,cssH,pal,step,me){const{f,gx,gy,mn,mx}=F,start=Math.ceil(mn/step)*step;
+    for(let thr=start;thr<mx;thr+=step){const major=Math.round(thr/step)%me===0;ctx.beginPath();
+      for(let j=0;j<gy-1;j++)for(let i=0;i<gx-1;i++){
+        const x0=(i+0.5)/gx*cssW,x1=(i+1.5)/gx*cssW,y0=(j+0.5)/gy*cssH,y1=(j+1.5)/gy*cssH;
+        const a=f[j*gx+i],b=f[j*gx+i+1],c=f[(j+1)*gx+i+1],d=f[(j+1)*gx+i];
+        let idx=0;if(a>thr)idx|=8;if(b>thr)idx|=4;if(c>thr)idx|=2;if(d>thr)idx|=1;if(idx===0||idx===15)continue;
+        const T=()=>[x0+(thr-a)/(b-a)*(x1-x0),y0],R=()=>[x1,y0+(thr-b)/(c-b)*(y1-y0)],B=()=>[x0+(thr-d)/(c-d)*(x1-x0),y1],L=()=>[x0,y0+(thr-a)/(d-a)*(y1-y0)];
+        const s=(p,q)=>{ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);};
+        switch(idx){case 1:case 14:s(L(),B());break;case 2:case 13:s(B(),R());break;case 3:case 12:s(L(),R());break;case 4:case 11:s(T(),R());break;case 6:case 9:s(T(),B());break;case 7:case 8:s(T(),L());break;case 5:s(T(),L());s(B(),R());break;case 10:s(T(),R());s(L(),B());break;}
+      }
+      ctx.strokeStyle=major?pal.major:pal.minor;ctx.lineWidth=major?1.2:0.65;ctx.stroke();}}
+  function renderProfile(hx){const cv=$('prof-canvas');if(!cv||!D)return;
+    const wrap=cv.parentElement,cssW=Math.max(wrap.clientWidth,760),cssH=300,dpr=Math.min(devicePixelRatio||1,2);
+    cv.width=cssW*dpr;cv.height=cssH*dpr;cv.style.width=cssW+'px';cv.style.height=cssH+'px';
+    const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#F3F0E7';ctx.fillRect(0,0,cssW,cssH);
+    const S=D.SAMPLES,W=D.WPTS,kmMax=S[S.length-1][0];
+    const padL=48,padR=18,padT=42,padB=30;
+    const X=km=>padL+km/kmMax*(cssW-padL-padR),Y=e=>padT+(1-(e-EMIN)/(EMAX-EMIN))*(cssH-padT-padB);
+    ctx.strokeStyle='rgba(156,147,119,.22)';ctx.lineWidth=1;ctx.font='10px "Space Mono",monospace';ctx.fillStyle='#9C9377';ctx.textBaseline='middle';ctx.textAlign='right';
+    for(let e=EMIN;e<=EMAX;e+=200){const y=Y(e);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(cssW-padR,y);ctx.stroke();ctx.fillText(e+'M',padL-7,y);}
+    ctx.textAlign='center';ctx.textBaseline='top';
+    for(let k=0;k<=Math.floor(kmMax);k+=5){ctx.fillText(k+'KM',X(k),cssH-padB+9);}
+    const top=()=>{ctx.beginPath();S.forEach((s,i)=>{const x=X(s[0]),y=Y(s[1]);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});};
+    top();ctx.lineTo(X(kmMax),Y(EMIN));ctx.lineTo(X(0),Y(EMIN));ctx.closePath();
+    const g=ctx.createLinearGradient(0,padT,0,cssH-padB);g.addColorStop(0,'rgba(161,208,108,.5)');g.addColorStop(.6,'rgba(146,178,108,.24)');g.addColorStop(1,'rgba(90,140,33,.07)');
+    ctx.fillStyle=g;ctx.fill();top();ctx.strokeStyle='#355610';ctx.lineWidth=2.4;ctx.lineJoin='round';ctx.stroke();
+    W.forEach((w,i)=>{const x=X(w.km),y=Y(w.ele),k=PROF_KEY.has(w.name);
+      ctx.setLineDash([2,4]);ctx.strokeStyle='rgba(54,46,28,.24)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,Y(EMIN));ctx.lineTo(x,y);ctx.stroke();ctx.setLineDash([]);
+      ctx.beginPath();ctx.arc(x,y,k?5:3,0,7);ctx.fillStyle=k?'#A1D06C':'#1E1E18';ctx.fill();ctx.strokeStyle='#3a3220';ctx.lineWidth=1.3;ctx.stroke();
+      if(k){const ly=(i%2===0)?y-15:y+15;ctx.font='700 11px Pretendard,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+        const tw=ctx.measureText(w.name).width+12,bx=Math.max(padL,Math.min(x-tw/2,cssW-padR-tw));
+        ctx.fillStyle='rgba(246,244,236,.94)';ctx.strokeStyle='#D8D2C2';ctx.lineWidth=1;rr(ctx,bx,ly-9,tw,18,3);ctx.fill();ctx.stroke();
+        ctx.fillStyle='#355610';ctx.fillText(w.name,bx+tw/2,ly);}
+    });
+    if(hx!=null){const km=Math.max(0,Math.min(kmMax,(hx-padL)/(cssW-padL-padR)*kmMax)),ele=interp(km),x=X(km),y=Y(ele);
+      ctx.strokeStyle='rgba(53,86,16,.5)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,padT);ctx.lineTo(x,cssH-padB);ctx.stroke();
+      ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fillStyle='#355610';ctx.fill();ctx.strokeStyle='#F6F4EC';ctx.lineWidth=1.6;ctx.stroke();
+      const txt=km.toFixed(1)+'KM  '+Math.round(ele)+'M';ctx.font='700 11px "Space Mono",monospace';ctx.textAlign='left';ctx.textBaseline='middle';
+      const tw=ctx.measureText(txt).width+16;let bx=x+11;if(bx+tw>cssW-padR)bx=x-11-tw;
+      ctx.fillStyle='#1E1E18';rr(ctx,bx,padT+2,tw,22,4);ctx.fill();ctx.fillStyle='#A1D06C';ctx.fillText(txt,bx+8,padT+13);}
+  }
+  function boot(){D=window.RouteData;if(!D){setTimeout(boot,60);return;}
+    prep();renderMap();renderProfile();
+    let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{field=null;renderMap();renderProfile();},160);});
+    const pc=$('prof-canvas');
+    if(pc){pc.addEventListener('mousemove',e=>{const r=pc.getBoundingClientRect();renderProfile(e.clientX-r.left);});
+      pc.addEventListener('mouseleave',()=>renderProfile());}}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+
+
+</script>
+</body>
+</html>
